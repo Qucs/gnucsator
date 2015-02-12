@@ -23,12 +23,11 @@
 #include "d_dot.h"
 #include "d_coment.h"
 #include "d_subckt.h"
-#include "u_lang.h"
 
 // header hack
 #include "d_logic.h"
 #include "bm.h"
-#include "lang_spice.h"
+#include "u_lang.h"
 #include "algorithm"
 #include "cctype"
 
@@ -51,7 +50,7 @@ class LANG_QUCS_BASE : public LANGUAGE {
 		MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*);
 		MODEL_SUBCKT* parse_module(CS&, MODEL_SUBCKT*);
 		COMPONENT*	parse_instance(CS&, COMPONENT*);
-		std::string	find_type_in_string(CS&);
+		std::string	find_type_in_string(CS&) GCUF_CONST;
 	public: // "local?", called by own commands
 		void parse_module_body(CS&, MODEL_SUBCKT*, CARD_LIST*, const std::string&,
 				EOB, const std::string&);
@@ -338,8 +337,8 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 						trace2("LANG_QUCS_BASE::parse_args", Name, value);
 
 						if (cc){
-							if (Umatch(Name,xx->value_name())){
-								cc->set_value(value);
+							if (Umatch(Name,xx->value_name())){ untested();
+								cc->set_param_by_name(Name,value);
 							}else{
 								cc->set_param_by_name(Name,value);
 							}
@@ -627,7 +626,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 
 /*--------------------------------------------------------------------------*/
-std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd)
+std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 {
 	trace0(("LANG_QUCS_BASE::find_type_in_string " + (std::string) cmd.tail()).c_str() );
 	cmd.umatch(ANTI_COMMENT); 
