@@ -1,5 +1,4 @@
 /*$Id: d_admit.cc,v 1.6 2010-07-15 10:13:57 felix Exp $ -*- C++ -*-
- * vim:ts=8:sw=2:et
  * Copyright (C) 2001 Albert Davis
  * Author: Albert Davis <aldavis@gnu.org>
  *
@@ -31,61 +30,97 @@
  *		_loss0 == 1/R. (mhos)
  */
 //testing=script 2006.07.17
+#include "bm.h"
 #include "e_elemnt.h"
+#include "u_prblst.h"
+
+using std::string;
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
-class DEV_VPROBE : public ELEMENT {
+class DEV_PROBE : public ELEMENT {
 protected:
-  explicit DEV_VPROBE(const DEV_VPROBE& p) :ELEMENT(p) {}
+  explicit DEV_PROBE(const DEV_PROBE& p) :ELEMENT(p), _reg(false) {}
 public:
-  explicit DEV_VPROBE()	:ELEMENT() {}
+  explicit DEV_PROBE()	:ELEMENT(), _reg(false) {}
 protected: // override virtual
-  std::string value_name()const {return "dummy";}
-  std::string dev_type()const	{return "vprobe";}
+  enum probe_t {VOLTAGE, CURRENT};
+  probe_t _type;	/* current or voltage controlled */
+  string value_name()const {return "dummy";}
+  string dev_type()const	{return string((_type==VOLTAGE)?"V":"I")+"probe";}
   uint_t	   max_nodes()const	{return 2;}
   uint_t	   min_nodes()const	{return 2;}
   uint_t	   matrix_nodes()const	{return 2;}
   uint_t	   net_nodes()const	{return 2;}
+  void  set_dev_type(const string& new_type);
   //bool	   has_iv_probe()const  {return true;}
   bool	   use_obsolete_callback_parse()const {return false;}
-  CARD*	   clone()const		{return new DEV_VPROBE(*this);}
+  CARD*	   clone()const		{return new DEV_PROBE(*this);}
+  void     precalc_first();
   void     precalc_last();
   hp_float_t   tr_involts()const	{return tr_outvolts();}
   hp_float_t   tr_involts_limited()const {return tr_outvolts_limited();}
   COMPLEX  ac_involts()const	{untested();return ac_outvolts();}
   virtual void tr_iwant_matrix(){}
   virtual void ac_iwant_matrix(){}
-  std::string port_name(uint_t i)const {
+  string port_name(uint_t i)const {
     assert(i != INVALID_NODE);
     assert(i < 2);
-    static std::string names[] = {"p", "n"};
+    static string names[] = {"p", "n"};
     return names[i];
   }
+  virtual void expand();
 public:
-  std::string iwant_print() const {
-    trace3("DEV_VPROBE::iwant_print() calledthe right function",
+  string iwant_print() const {
+    trace3("DEV_PROBE::iwant_print() calledthe right function",
         long_label(),hp(this), _sim->_mode); 
-
-return "v(" + long_label() + ")"; }
+    return "v(" + long_label() + ")"; }
+private:
+  bool _reg;
 };
 
 /*--------------------------------------------------------------------------*/
-void DEV_VPROBE::precalc_last()
+void DEV_PROBE::set_dev_type(const string& new_type)
+{
+  trace2("DEV_PROBE:probe type", long_label(), new_type);
+  if(new_type=="VProbe"){ untested();
+  }else{ incomplete();
+  }
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::precalc_first()
+{
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::precalc_last()
 {
   ELEMENT::precalc_last();
   set_constant(true);
   set_converged(true);
+
+  string prb = string((_type==VOLTAGE)?"v":"i");
+
+  if(_reg){untested();
+  }else{
+    trace1("adding probe", long_label());
+    CS p(CS::_STRING, prb+"("+long_label()+")");
+    PROBE_LISTS::print[_sim->_mode].add_list(p);
+    _reg = true;
+  }
 }
-
-
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::expand()
+{
+  if(_sim->is_first_expand()){ untested();
+  }else{untested();
+  }
+}
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-DEV_VPROBE p1;
+DEV_PROBE p1;
 DISPATCHER<CARD>::INSTALL
   d1(&device_dispatcher, "VProbe", &p1);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-
-// - FABIAN - hier eine unterklasse vprobe hinzufügen
+// vim:ts=8:sw=2:noet
