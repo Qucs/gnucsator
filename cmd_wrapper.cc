@@ -23,6 +23,7 @@
 #include "u_lang.h"
 #include "c_comand.h"
 #include "l_qucs.h"
+#include "u_prblst.h"
 
 namespace{
 	class TRAN_WRAP : public CMD {
@@ -103,6 +104,8 @@ namespace{
 		x << _start << " " << _stop << " " << _stop << " trace=a";
 		trace1("assembled arglist", x.str());
 		CS wcmd(CS::_STRING, x.str());
+		CS p(CS::_STRING, "v(nodes)");
+		PROBE_LISTS::print[_sim->_mode].add_list(p);
 		c->do_it(wcmd, cl);
 	}
 DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
