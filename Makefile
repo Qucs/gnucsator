@@ -29,10 +29,19 @@ GNUCAP_CXXFLAGS+= -fPIC -shared
 
 # LDLIBS =
 
-INSTALL_FILES = lang_qucs.so
-CLEANFILES = lang_qucs.so
+INSTALL_FILES = \
+	lang_qucs.so \
+	d_probe.so \
+	bm_value.so \
+	bm_wrapper.so \
+	cmd_wrapper.so
 
-all: lang_qucs.so
+CLEANFILES = $(INSTALL_FILES) *.o *~
+
+all: $(INSTALL_FILES)
+
+lang_qucs.so: l_qucs.h
+cmd_wrapper.so: l_qucs.h
 
 %.so : %.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
