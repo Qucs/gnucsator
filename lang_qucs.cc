@@ -40,6 +40,8 @@
 # define GCUF_CONST
 #endif
 
+#define QUCS_ANTI_COMMENT "#>"
+
 using std::stringstream;
 
 /*--------------------------------------------------------------------------*/
@@ -113,7 +115,7 @@ static void skip_pre_stuff(CS& cmd)
 	while (cmd.umatch(CKT_PROMPT)) {untested();
 		/* skip any number of copies of the prompt */
 	}
-	cmd.umatch(ANTI_COMMENT); /* skip mark so spice ignores but gnucap reads */
+	cmd.umatch(QUCS_ANTI_COMMENT); /* skip mark so spice ignores but gnucap reads */
 }
 /*--------------------------------------------------------------------------*/
 /* count_ports: figure out how many ports
@@ -479,14 +481,14 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 	x->set(cmd.fullstring());
 	CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
 
-	cmd.reset();
+	cmd.reset().umatch(QUCS_ANTI_COMMENT);
 	skip_pre_stuff(cmd);
 	unsigned here = cmd.cursor();
 
 	std::string id_string;
-	cmd.reset(1); // skip dot
+	cmd.reset(here); // skip dot
 	if (cmd.scan(":")){
-		cmd.reset(1); // skip dot again
+		cmd.reset(here); // skip dot again
 		id_string = cmd.get_to(":");
 		untested();
 	} else {
@@ -570,7 +572,7 @@ void LANG_QUCS_BASE::parse_module_body(CS& cmd, MODEL_SUBCKT* x, CARD_LIST* Scop
 COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 {
 		assert(x);
-		cmd.reset().umatch(ANTI_COMMENT);
+		cmd.reset().umatch(QUCS_ANTI_COMMENT);
 
 		// cmd.skip1b(":");
 		cmd.reset();
@@ -649,7 +651,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 {
 	trace0(("LANG_QUCS_BASE::find_type_in_string " + (std::string) cmd.tail()).c_str() );
-	cmd.umatch(ANTI_COMMENT); 
+	cmd.umatch(QUCS_ANTI_COMMENT);
 
 	unsigned here = cmd.cursor();
 	std::string id_string;
@@ -663,9 +665,9 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 			untested();
 			return "";
 		case '.':
-			cmd.reset(1); // cut the dot
+			cmd.reset(here+1); // cut the dot
 			if(cmd.scan(":")){
-				cmd.reset(1); // cut the dot again
+				cmd.reset(here+1); // cut the dot again
 				id_string = cmd.get_to(":");
 				trace1("LANG_QUCS_BASE::parse_instance colon", id_string);
 			}else {
@@ -711,7 +713,9 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 
 	timecheck.stop().reset().start();
 
-	cmd.umatch(ANTI_COMMENT);
+	if(cmd.umatch(QUCS_ANTI_COMMENT)){ unreachable();
+	}
+
 	while (cmd.umatch(I_PROMPT)) {itested();
 		/* skip any number of these */
 	}
@@ -719,9 +723,9 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	unsigned here = cmd.cursor();
 	std::string id_string;
 	std::string cmdname;
-	cmd.reset(1);
+	trace1("LANG_QUCS_BASE::cmdproc", cmd.tail());
 	if(cmd.scan(":")){ untested();
-		cmd.reset(1);
+		cmd.reset(here);
 		id_string = cmd.get_to(":");
 		cmd.skip1b(":");
 		cmd >> cmdname;
