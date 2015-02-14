@@ -1,6 +1,6 @@
 /*$Id: bm_value.cc,v 26.137 2010/04/10 02:37:33 al Exp $ -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
- * Author: Albert Davis <aldavis@gnu.org>
+ *           (C) 2015 Felix Salfelder
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
  *
@@ -21,28 +21,59 @@
  *------------------------------------------------------------------
  * behavioral modeling simple value
  * used with tc, etc, and conditionals
+ *
+ * QUCS variation
  */
-//testing=script 2005.10.07
 #include "globals.h"
 #include "bm.h"
+
+#include <map>              // parameter dictionaries
+#include "boost/assign.hpp" // initialization templates
 /*--------------------------------------------------------------------------*/
+namespace{
+/*--------------------------------------------------------------------------*/
+class EVAL_BM_VALUE : public EVAL_BM_ACTION_BASE {
+private:
+  explicit	EVAL_BM_VALUE(const EVAL_BM_VALUE& p):EVAL_BM_ACTION_BASE(p) {}
+  static std::map<string, const char*> _param_dict;
+public:
+  explicit      EVAL_BM_VALUE(int c=0) :EVAL_BM_ACTION_BASE(c) {
+    trace0("EVAL_BM_VALUE(c)");
+  }
+		~EVAL_BM_VALUE()	{ trace0("~EVAL_BM_VALUE");}
+private: // override virtual
+  bool		operator==(const COMMON_COMPONENT&)const;
+  COMMON_COMPONENT* clone()const	{ untested(); return new EVAL_BM_VALUE(*this);}
+  void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const;
+  bool		is_trivial()const;
+
+  void		precalc_first(const CARD_LIST*);
+  void		tr_eval(ELEMENT*)const;
+  std::string	name()const		{return "value";}
+  bool		ac_too()const		{return false;}
+  bool		parse_numlist(CS&);
+//  bool  	parse_params_obsolete_callback(CS&);
+  bool is_constant()const{return true;}
+  void  	set_param_by_name(string Name, string Value);
+  // doesnt make sense. set value through device
+  // void   set_param_by_name(string Name, string Value);
+};
 static EVAL_BM_VALUE p1(CC_STATIC);
-static DISPATCHER<COMMON_COMPONENT>::INSTALL d1(&bm_dispatcher, "value|eval_bm_value", &p1);
+static DISPATCHER<COMMON_COMPONENT>::INSTALL d1(&bm_dispatcher, "qucs_value", &p1);
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_VALUE::operator==(const COMMON_COMPONENT& x)const
-{
+{ untested();
   const EVAL_BM_VALUE* p = dynamic_cast<const EVAL_BM_VALUE*>(&x);
   return  p && EVAL_BM_ACTION_BASE::operator==(x);
 }
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_VALUE::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE* lang)const
-{
-  o << _value;
-  EVAL_BM_ACTION_BASE::print_common_obsolete_callback(o, lang);
+void EVAL_BM_VALUE::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE*)const
+{ untested();
+  o << " INCOMPLETE. do not have spice representation (yet).";
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_VALUE::is_trivial()const
-{
+{ untested();
   return  !(_bandwidth.has_hard_value()
 	    || _delay.has_hard_value()
 	    || _phase.has_hard_value()
@@ -58,9 +89,11 @@ bool EVAL_BM_VALUE::is_trivial()const
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_VALUE::precalc_first(const CARD_LIST* Scope)
-{
+{ untested();
+  trace2("QUCS_VALUE, precalc_first", modelname(), _value);
   if (modelname() != "") {
-    _value = modelname();
+    // no. we use set_param stuff.
+  //  _value = modelname();
   }else{
   }
   EVAL_BM_ACTION_BASE::precalc_first(Scope);
@@ -72,7 +105,7 @@ void EVAL_BM_VALUE::tr_eval(ELEMENT* d)const
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_VALUE::parse_numlist(CS& cmd)
-{
+{ untested();
   unsigned here = cmd.cursor();
   PARAMETER<double> new_value(NOT_VALID);
   cmd >> new_value;
@@ -84,13 +117,25 @@ bool EVAL_BM_VALUE::parse_numlist(CS& cmd)
   }
 }
 /*--------------------------------------------------------------------------*/
-bool EVAL_BM_VALUE::parse_params_obsolete_callback(CS& cmd)
-{
-  return ONE_OF
-    || Get(cmd, "=", &_value)
-    || EVAL_BM_ACTION_BASE::parse_params_obsolete_callback(cmd)
-    ;
+// from EVAL_BM_ACTION_BASE
+// changed to qucs names.
+map<string, const char*> EVAL_BM_VALUE::_param_dict =
+  boost::assign::map_list_of
+  ("Tc1", "tc1")
+  ("Tc2", "tc2")
+  ("ic", "ic");
+/*--------------------------------------------------------------------------*/
+void EVAL_BM_VALUE::set_param_by_name(string Name, string Value)
+{ untested();
+  const char* n = _param_dict[Name];
+  if(n) {
+    Name = n;
+  }else{
+  }
+  trace2("value wrapper", Name, Value);
+  EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+}
 // vim:ts=8:sw=2:noet:
