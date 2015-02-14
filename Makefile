@@ -37,6 +37,7 @@ INSTALL_FILES = \
 	lang_qucs.so \
 	d_probe.so \
 	bm_value.so \
+	bm_trivial.so \
 	bm_wrapper.so \
 	cmd_wrapper.so
 
