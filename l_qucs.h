@@ -25,6 +25,7 @@
 #define L_QUCS_H__
 
 #include "ap.h"
+#include "io_error.h"
 #include "io_trace.h"
 
 template <class T>
@@ -38,9 +39,29 @@ inline bool QucsGet(CS& cmd, const std::string& key, T* val)
     CS temp (CS::_STRING, newvalue);
     temp >> *val;
     return true;
-  }else{
+  }else{ untested();
     return false;
   }
+}
+
+template <class T>
+inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
+{ untested();
+  bool ret = false;
+  if (!cmd.umatch("{=}")){ untested();
+    cmd.check(bDANGER, "need =");
+  }else{ untested();
+    unsigned here = cmd.cursor();
+    std::string s = cmd.ctos(",=;)", "\"'{(", "\"'})");
+    trace2("QucsSet", key, s);
+
+    CS newcmd (CS::_STRING, s);
+    ret = Set(newcmd, key, val, x);
+    if(!ret){untested();
+      cmd.reset(here);
+    }
+  }
+  return ret;
 }
 
 bool QucsGuessParam(std::string& p)
@@ -60,3 +81,4 @@ bool QucsGuessParam(std::string& p)
 }
 
 #endif
+// vim:ts=8:sw=2:noet

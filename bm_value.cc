@@ -123,6 +123,7 @@ map<string, const char*> EVAL_BM_VALUE::_param_dict =
   boost::assign::map_list_of
   ("Tc1", "tc1")
   ("Tc2", "tc2")
+  ("Temp", "temp")
   ("ic", "ic");
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_VALUE::set_param_by_name(string Name, string Value)

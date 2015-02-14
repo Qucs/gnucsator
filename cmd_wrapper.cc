@@ -33,7 +33,13 @@ namespace{
 			double _stop;
 			unsigned _points;
 			method_t _integration;
+			int _order;
 			double _initialstep;
+			double _dtmin;
+			unsigned _itl;
+			double _reltol;
+			double _abstol;
+			double _vntol;
 
 			void options(CS&);
 			void do_it(CS&cmd, CARD_LIST* cl);
@@ -42,6 +48,14 @@ namespace{
 
 	void TRAN_WRAP::options(CS& cmd)
 	{
+		_order = -1;
+		_points = 0;
+		_dtmin = 0.;
+		_itl = 0;
+		_reltol = -1.;
+		_abstol = -1.;
+		_vntol = -1.;
+		double _whatever; // incomplete
 		unsigned here = cmd.cursor();
 		do{
 			trace1("options", cmd.tail());
@@ -56,7 +70,22 @@ namespace{
 						 || cmd.warn(bWARNING, "need Trapezoidal, Euler ... incomplete")
 						)
 					)
+				|| QucsGet(cmd, "Order",      &_order)
 				|| QucsGet(cmd, "InitialStep",&_initialstep)
+				|| QucsGet(cmd, "MinStep",    &_dtmin)
+				|| QucsGet(cmd, "MaxIter",    &_itl)
+				|| QucsGet(cmd, "reltol",     &_reltol)
+				|| QucsGet(cmd, "abstol",     &_abstol)
+				|| QucsGet(cmd, "vntol",      &_vntol)
+				|| QucsGet(cmd, "Temp",       &_whatever)
+				|| QucsGet(cmd, "LTEreltol",  &_whatever)
+				|| QucsGet(cmd, "LTEabstol",  &_whatever)
+				|| QucsGet(cmd, "LTEfactor",  &_whatever)
+				|| QucsGet(cmd, "Solver",     &_whatever)
+				|| QucsGet(cmd, "relaxTSR",   &_whatever)
+				|| QucsGet(cmd, "initialDC",  &_whatever)
+				|| QucsGet(cmd, "MaxStep",    &_whatever)
+				|| QucsGet(cmd, "Type",       &_whatever)
 				;
 		}while (cmd.more() && !cmd.stuck(&here));
 		cmd.check(bWARNING, "what's this (incomplete)?");
