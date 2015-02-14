@@ -106,7 +106,7 @@ ds(&language_dispatcher, lang_qucs.name(), &lang_qucs);
 /*--------------------------------------------------------------------------*/
 DEV_COMMENT p0;
 DISPATCHER<CARD>::INSTALL
-d0(&device_dispatcher, ";|#|*|'|\"|dev_comment", &p0);
+d0(&device_dispatcher, ";|*|'|\"|dev_comment", &p0);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static void skip_pre_stuff(CS& cmd)
@@ -382,6 +382,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 		xx->attach_common(cc);
 
 	}else if (MODEL_CARD* pp = dynamic_cast<MODEL_CARD*>(x)) {
+		USE(pp); // incomplete();
 		// used only for "table"
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
@@ -650,13 +651,13 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 /*--------------------------------------------------------------------------*/
 std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 {
-	trace0(("LANG_QUCS_BASE::find_type_in_string " + (std::string) cmd.tail()).c_str() );
 	cmd.umatch(QUCS_ANTI_COMMENT);
 
 	unsigned here = cmd.cursor();
 	std::string id_string;
 
 	char first_letter = cmd.peek();
+	trace2("LANG_QUCS_BASE::find_type_in_string", first_letter, cmd.tail());
 
 	assert(!OPT::case_insensitive);
 
@@ -781,11 +782,6 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 	}
 }
 /*--------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------*/
-static char fix_case(char c)
-{
-	return ((OPT::case_insensitive) ? (static_cast<char>(tolower(c))) : (c));
-}
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 {
@@ -975,7 +971,7 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 				command("options lang=qucs", Scope);
 			}
 	} p9;
-	DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "qucs", &p9);
+	DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "qucs|#qucs", &p9);
 /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
