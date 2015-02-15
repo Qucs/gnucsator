@@ -1,0 +1,12 @@
+# should work with qucsator -i <file>
+# also runs with gnucap -a lang_qucs.so -i qucs.gc
+
+R:R1 _net0 _net1 R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R2 _net0 gnd R=".01 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+Vdc:V1 _net0 _net1 U="2"
+VProbe:Pr1 _net0 _net1
+R:R3 _net0 gnd R=".01 Ohm"
+
+.TR:mySim Start="0" Stop="1 ms" Points="5" IntegrationMethod="Trapezoidal" Order="2" InitialStep="1 ns" MinStep="1e-16" MaxIter="150" reltol="0.001" abstol="1 pA" vntol="1 uV" Temp="26.85" LTEreltol="1e-3" LTEabstol="1e-6" LTEfactor="1" Solver="CroutLU" relaxTSR="no" initialDC="yes" MaxStep="0" Type="lin"
+
+.TR:mySim2 Start="0" Stop="1 ms" Points="5" IntegrationMethod="Trapezoidal" Order="2" InitialStep="1 ns" MinStep="1e-16" MaxIter="150" reltol="0.001" abstol="1 pA" vntol="1 uV" Temp="26.85" LTEreltol="1e-3" LTEabstol="1e-6" LTEfactor="1" Solver="CroutLU" relaxTSR="no" initialDC="yes" MaxStep="0" Type="lin"

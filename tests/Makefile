@@ -1,7 +1,7 @@
 include ../Make2
 
 QUCSATOR = qucsator
-GNUCAP = gnucap${SUFFIX}
+GNUCSATOR = ../gnucsator.sh
 
 all: gc qucs
 
@@ -20,7 +20,7 @@ gc: $(GC_TESTS:%.gc=%.gc.out)
 qucs: $(COMMON_TESTS:%.gc=%.qucs.out)
 
 %.gc.out: %.gc
-	LD_LIBRARY_PATH=.. $(GNUCAP) -a lang_qucs.so -i qucs.gc < $< > $@
+	LD_LIBRARY_PATH=.. $(GNUCSATOR) -i $< > $@
 
 %.qucs.out: %.gc
 	$(QUCSATOR) -i $< > $@
