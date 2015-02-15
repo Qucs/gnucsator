@@ -58,9 +58,9 @@ class DEV_BM_WRAP : public COMPONENT { //
 // #endif
 			d->set_dev_type(cname());
 			if(d->dev_type() == cname()){
-			}else{
+			}else{ untested();
 				trace2("dev_type problem", d->dev_type(), cname());
-				assert(d->dev_type() == cname());
+				//assert(d->dev_type() == cname());
 			}
 
 			return d;
