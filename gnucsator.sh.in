@@ -1,0 +1,28 @@
+#!/bin/sh
+# this is gnucsator, gnucap in qucsator mode.
+# it loads plugins and switches to qucs language.
+#
+# this sucks.
+# to be replaced by a "qucsator" binary, once the shared library is ready.
+# the .sh extension is intentional.
+
+@NOTICE@
+
+if [ "$1" != -i ]; then
+	echo "usage $0 -i <file>"
+	exit 1
+fi
+
+GNUCAP=gnucap@SUFFIX@
+
+$GNUCAP <<EOF
+load bm_value.so
+load bm_wrapper.so
+load bm_trivial.so
+load cmd_wrapper.so
+load d_probe.so
+*load d_qucs_opamp.so
+load lang_qucs.so
+qucs
+include $2
+EOF

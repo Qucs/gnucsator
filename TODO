@@ -1,4 +1,5 @@
 - wrappers for dc, ac
 - list support for qucs
 - does this work with upstream gnucap?
+- switch to binary executable making use of libgnucap
 - ground node?
