@@ -1,6 +1,8 @@
-/*$Id: d_admit.cc,v 1.6 2010-07-15 10:13:57 felix Exp $ -*- C++ -*-
- * Copyright (C) 2001 Albert Davis
- * Author: Albert Davis <aldavis@gnu.org>
+/*                         -*- C++ -*-
+ * Copyright (C) 2012 Fabian Vallon
+ *               2012-2015 Felix Salfelder
+ * Authors: Fabian Vallon
+ *          Felix Salfelder <felix@salfelder.org>
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
  *
@@ -19,17 +21,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * admittance devices:
- *	self-admittance (old Y device)
- *		y.x = volts, y.f0 = amps, ev  = y.f1 = mhos.
- *		m.x = volts, m.c0 = amps, acg = m.c1 = mhos.
- *	trans-admittance (VCCS, G device)
- *	voltage controlled admittance
- *		y.x  = volts(control), y.f0 = mhos, ev = y.f1 = mhos/volt
- *		m.x  = volts(control), m.c0 = 0,    acg = m.c1 = mhos
- *		_loss0 == 1/R. (mhos)
+ * qucs probes
  */
-//testing=script 2006.07.17
 #include "bm.h"
 #include "e_elemnt.h"
 #include "u_prblst.h"
