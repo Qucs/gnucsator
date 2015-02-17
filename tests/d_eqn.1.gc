@@ -1,0 +1,13 @@
+load lang_qucs.so
+load d_eqn.so
+
+parameter a=3
+parameter b={foo+1}
+
+qucs
+Eqn:Eq1 foo="1+2" bar="foo+a" baz="time*time" more="b+baz+bar"
+
+acs
+print tran foo(Eq1) baz(Eq1) more(Eq1)
+tran 0 1 .5 trace=a
+end
