@@ -23,6 +23,7 @@ load cmd_wrapper.so
 load d_probe.so
 *load d_qucs_opamp.so
 load lang_qucs.so
+load functions.so
 qucs
 include $2
 EOF
