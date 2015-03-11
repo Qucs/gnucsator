@@ -77,7 +77,7 @@ private:
   vector<PARAM_LIST::iterator> _param_order; // in order, for evaluation
   PARAMETER<double>* _time_p;
 
-  int param_count()const {return (0 + COMPONENT::param_count());}
+  int param_count()const {return (unsigned(_param_order.size()) + COMPONENT::param_count());}
   void parm_eval();
 protected:
   void set_param_by_name(string Name, string Value);
@@ -88,7 +88,8 @@ DISPATCHER<CARD>::INSTALL
   d1(&device_dispatcher, "Eqn", &e1);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name){
+static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name)
+{
 #if HAVE_PARAM_PICK
   incomplete();
 #else
@@ -103,29 +104,36 @@ static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name){
   return list.end();
 }
 /*--------------------------------------------------------------------------*/
-EQN::EQN() : COMPONENT() {}
+EQN::EQN() : COMPONENT(), _time_p(NULL) {}
 /*--------------------------------------------------------------------------*/
 EQN::EQN(const EQN& p):
   COMPONENT(p),
-  _params(p._params)
+  _params(p._params),
+  _time_p(NULL)
 {untested();
   //this is a bit of a hack. but i do need params in order...
-  for(auto o : p._param_order){
+  _param_order.resize(p._param_order.size());
+  unsigned cnt = 0;
+  for(auto o : p._param_order){ untested();
     auto i = pick(_params, o->first);
-    _param_order.push_back(i);
+    _param_order[cnt++] = i;
   }
 }
 /*--------------------------------------------------------------------------*/
 void EQN::set_param_by_name(string Name, string Value)
 { untested();
-  PARAMETER<double> p;
-  p = Value;
-  CS cs(CS::_STRING, Name+"={"+Value+"}");
-  trace2("EQN parse", Name, Value);
-  _params.parse(cs);
-  assert(pick(_params,Name) != _params.end()); // incomplete?
-  _param_order.push_back(pick(_params,Name));
-  trace1("EQN parse", _params.size());
+  if(Name=="Export"){
+    incomplete();
+  }else{
+    PARAMETER<double> p;
+    p = Value;
+    CS cs(CS::_STRING, Name+"={"+Value+"}");
+    trace2("EQN parse", Name, Value);
+    _params.parse(cs);
+    assert(pick(_params,Name) != _params.end()); // incomplete?
+    _param_order.push_back(pick(_params,Name));
+    trace1("EQN parse", _params.size());
+  }
 }
 /*--------------------------------------------------------------------------*/
 void EQN::expand()
