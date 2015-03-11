@@ -2,3 +2,7 @@
 - does this work with upstream gnucap?
 - switch to binary executable making use of libgnucap
 - ground node?
+- Eqn: access probes
+- complex, vector, matrix parameters
+- more functions
+- build system (which 1?)
