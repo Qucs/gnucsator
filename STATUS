@@ -1,0 +1,172 @@
+SIMULATION COMMANDS
+
+- tran available as wrapper (stub).
+- ac, dc, fo available
+- sens needs port from -uf
+- harmonic balance not implemented
+
+COMPONENTS (table ripped from [1])
+
+- implementation row
+    B  built in component + wrapper
+   (B) possible (part available)
+    E  have element+bm+wrapper
+   (E) possible (parts available)
+    L  gnucap built-in logic
+   (L) possible (parts available)
+    C  have component
+   (C) candidate for component
+    V  have verilog-A model
+   (V) uses feature not supported by gnucap-adms
+   [V] a verilog-A model could do this
+    ?  no idea
+
+- test row
+    T  have a test
+   (T) have a test, doesn't work
+
+┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
+│    component    │      label      │ implementation │ test │    comment     │
+├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
+│ resistor        │   R             │  E  [V]        │      │                │
+│ capacitor       │   C             │ (E) [V]        │      │                │
+│ inductor        │   L             │ (E) [V]        │      │                │
+│ ground          │                 │                │      │                │
+│ DC block        │                 │                │      │                │
+│ DC feed         │                 │                │      │                │
+│ bias T          │                 │                │      │                │
+│ attenuator      │                 │                │      │                │
+│ isolator        │                 │ (E)            │      │                │
+│ circulator      │                 │                │      │                │
+│ phase shifter   │                 │                │      │                │
+│ ideal coupler   │                 │                │      │                │
+│ time ctrld sw   │                 │                │      │                │
+│ relais          │                 │ (B,sw?)        │      │                │
+│ current probe   │  Iprobe         │  C             │      │                │
+│ voltage probe   │  Vprobe         │  C             │      │                │
+│ ideal transline │                 │                │      │                │
+│ 4-term tline    │                 │                │      │                │
+│ tpair line      │                 │                │      │                │
+│ coaxial line    │                 │                │      │                │
+│ rect waveguide  │                 │                │      │                │
+│ microstrip line │                 │                │      │                │
+│ microstrip open │                 │                │      │                │
+│ mstrip cross    │                 │                │      │                │
+│ mstrip mit bend │                 │                │      │                │
+│ microstrip step │                 │                │      │                │
+│ microstrip tee  │                 │                │      │                │
+│ mstrip corner   │                 │                │      │                │
+│ microstrip gap  │                 │                │      │                │
+│ cpld mstrip line│                 │                │      │                │
+│ microstrip via  │                 │                │      │                │
+│ mstrip rad stub │                 │                │      │                │
+│ coplanar line   │                 │                │      │                │
+│ coplanar open   │                 │                │      │                │
+│ coplanar short  │                 │                │      │                │
+│ coplanar ser gap│                 │                │      │                │
+│ coplanar step   │                 │                │      │                │
+│ bond wire       │                 │                │      │                │
+│ transformer     │                 │                │      │                │
+│ symm trafo      │                 │                │      │                │
+│ vcvs            │                 │ (E) [V]        │      │                │
+│ gyrator         │                 │     [V]        │      │                │
+│ cccs            │                 │ (E) [V]        │      │                │
+│ vcvs            │                 │ (E) [V]        │      │                │
+│ ccvs            │                 │ (E) [V]        │      │                │
+│ DC voltage      │ Vdc             │  E             │      │                │
+│ DC current      │                 │ (E)            │      │                │
+│ AC voltage      │                 │                │      │                │
+│ AC current      │                 │                │      │                │
+│ AC power        │                 │                │      │                │
+│ AM mod vs       │                 │                │      │                │
+│ PM mod vs       │                 │                │      │                │
+│ noise voltage   │                 │ (E) (V)        │      │ tran noise     │
+│ noise current   │                 │ (E) (V)        │      │ tran noise     │
+│ diode           │                 │ (B) [V]        │      │                │
+│ diac            │                 │                │      │                │
+│ thyristor       │                 │                │      │                │
+│ triac           │                 │                │      │                │
+│ junction fet    │                 │ (V)            │      │                │
+│ homo bjt        │                 │                │      │                │
+│ homo bjt w/ sub │                 │                │      │                │
+│ mosfet          │                 │ (B) [V]        │      │                │
+│ deplt mosfet    │                 │  ?             │      │ use mosfet?    │
+│ mosfet w/ bulk  │                 │  ?             │      │ use mosfet?    │
+│ FBH HBT         │                 │ (V)            │      │ ext. temp      │
+│ HICUM v2.1 l2   │                 │ (V)            │      │                │
+│ HICUM v2.22 l2  │                 │ (V)            │      │                │
+│ HICUM v2.23 l2  │                 │ (V)            │      │                │
+│ HICUM v1.12 l0  │                 │ (V)            │      │                │
+│ HICUM v1.2 l0   │                 │ (V)            │      │                │
+│ MESFET          │                 │ (V)            │      │                │
+│ EPFL EKV v2.6   │                 │ (V)            │      │                │
+│ equation device │ Eqn             │  C             │      │ probe access?  │
+│ equation RF dev │                 │  ?             │      │                │
+│ eqn RF 2 port   │                 │  ?             │      │                │
+│ S-parameter data│                 │  ?             │      │                │
+│ SPICE netlist   │                 │                │      │ lang_spice?    │
+│ voltage pulse   │ Vpulse?         │ (E)            │      │ Vrect?         │
+│ current pulse   │ Ipulse?         │ (E)            │      │ Irect?         │
+│ vs exp          │                 │ (E)            │      │                │
+│ cs exp          │                 │ (E)            │      │                │
+│ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
+│ file based cs   │                 │ (E)            │      │ c_wave+bm_wave │
+│ amplifier       │                 │ (E) [V]        │      │                │
+│ opamp           │                 │ (E) [V]        │      │                │
+│ modular opamp   │ mod_amp         │  V             │      │                │
+│ log amplifier   │ log_amp         │  V             │      │                │
+│ potentiometer   │ potentiometer   │ (V)            │      │ noise?         │
+│ photodiode      │ photodiode      │  V             │      │                │
+│ phototransistor │ phototransistor │                │      │                │
+│ mutual inductors│                 │ (E)            │      │                │
+│ three mutual    │                 │                │      │                │
+│ inductors       │                 │                │      │                │
+│ corr noise srcs │                 │                │      │                │
+│ corr noise vs   │                 │                │      │                │
+│ corr noise cs   │                 │                │      │                │
+│ digital source  │                 │ (L)            │      │                │
+│ logical OR      │                 │ (L)            │      │                │
+│ logical NOR     │                 │ (L)            │      │                │
+│ logical NOR     │                 │ (L)            │      │                │
+│ logical NAND    │                 │ (L)            │      │                │
+│ logical XOR     │                 │ (L)            │      │                │
+│ logical XNOR    │                 │ (L)            │      │                │
+│ inverter        │                 │ (L)            │      │                │
+│ buffer          │                 │                │      │                │
+│ D-flipflop      │                 │                │      │                │
+│ RS-flipflop     │                 │                │      │                │
+│ JK-flipflop     │                 │                │      │                │
+│ logic 0         │                 │                │      │                │
+│ logic 1         │                 │                │      │                │
+│ T-ff w/ SR      │                 │                │      │                │
+│ JK-ff w/ SR     │                 │                │      │                │
+│ D-ff w/ SR      │                 │                │      │                │
+│ high prio enc   │                 │                │      │                │
+│ grey2bin        │                 │                │      │                │
+│ bin2grey        │                 │                │      │                │
+│ gated D-latch   │                 │                │      │                │
+│ d/a lvl shift   │                 │                │      │                │
+│ a/d lvl shift   │                 │                │      │                │
+│ 2to1 mux        │                 │                │      │                │
+│ 4to1 mux        │                 │                │      │                │
+│ 8to1 mux        │                 │                │      │                │
+│ 2to4 mux        │                 │                │      │                │
+│ 3to8 mux        │                 │                │      │                │
+│ 4to16 demux     │                 │                │      │                │
+│ 4x2 and/or      │                 │                │      │                │
+│ 4x3 and/or      │                 │                │      │                │
+│ 4x4 and/or      │                 │                │      │                │
+│ 2bit pat gen    │                 │                │      │                │
+│ 3bit pat gen    │                 │                │      │                │
+│ 4bit pat gen    │                 │                │      │                │
+│ 1bit comparator │                 │                │      │                │
+│ 2bit comparator │                 │                │      │                │
+│ 4bit comparator │                 │                │      │                │
+│ 1bit half adder │                 │                │      │                │
+│ 1bit full adder │                 │                │      │                │
+│ 2bit full adder │                 │                │      │                │
+│ VHDL file       │                 │ ??             │      │                │
+│ Verilog-HDL     │                 │ ?              │      │ icarus?        │
+└─────────────────┴─────────────────┴────────────────┴──────┴────────────────┘
+
+[1] http://qucs.sourceforge.net/components.html
