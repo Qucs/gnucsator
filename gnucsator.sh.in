@@ -15,6 +15,7 @@ if [ "$1" != -i ]; then
 fi
 
 GNUCAP=gnucap@SUFFIX@
+GNUCAP_LIBDIR=@GNUCAP_LIBDIR@
 
 # don't even try to parse large data sets
 # write this in C -- it's still stupid.
@@ -28,6 +29,7 @@ postproc()
 	done
 	echo "${probes[*]}" >&2
 	n=0
+	m=0
 	while read line; do
 		[ -z "$line" ] && break;
 		[ "${line:0:4}" = "open" ] && continue;
@@ -57,7 +59,13 @@ postproc()
 	done
 }
 
-($GNUCAP | postproc) <<EOF
+if [ -z "$LD_LIBRARY_PATH" ]; then
+	export LD_LIBRARY_PATH=$GNUCAP_LIBDIR/qucs
+fi
+
+postproc=postproc
+
+($GNUCAP | $postproc) <<EOF
 load bm_value.so
 load bm_wrapper.so
 load bm_trivial.so

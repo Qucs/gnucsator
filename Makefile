@@ -7,6 +7,7 @@ ifneq ($(GNUCAP_CONF),)
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
 	 GNUCAP_LIBDIR   = $(shell $(GNUCAP_CONF) --libdir)
+	 GNUCAP_EXECPREFIX=$(shell $(GNUCAP_CONF) --exec-prefix)
 else
     $(info no gnucap-conf, this might not work)
     CXX = g++
@@ -32,7 +33,7 @@ QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
 
 # LDLIBS =
 
-INSTALL_FILES = \
+QUCS_PLUGINS = \
 	$(QUCS_DEVS_SO) \
 	lang_qucs.so \
 	d_probe.so \
@@ -42,9 +43,9 @@ INSTALL_FILES = \
 	bm_wrapper.so \
 	cmd_wrapper.so
 
-CLEANFILES = $(INSTALL_FILES) *.o *~
+CLEANFILES = $(QUCS_PLUGINS) *.o *~
 
-all: $(INSTALL_FILES) gnucsator.sh
+all: $(QUCS_PLUGINS) gnucsator.sh
 
 lang_qucs.so: l_qucs.h
 cmd_wrapper.so: l_qucs.h
@@ -69,12 +70,13 @@ QUCS_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
 QUCS_LDFLAGS = -L$(QUCS_PREFIX)/lib
 QUCS_LIBS = -lqucs
 
-install : $(INSTALL_FILES)
-	install -d $(GNUCAP_LIBDIR)
-	install $(INSTALL_FILES) $(GNUCAP_LIBDIR)
+install: $(QUCS_PLUGINS) gnucsator.sh
+	install -d $(GNUCAP_LIBDIR)/qucs
+	install $(QUCS_PLUGINS) $(GNUCAP_LIBDIR)/qucs
+	install gnucsator.sh $(GNUCAP_EXECPREFIX)/bin
 
-uninstall : 
-	(cd $(GNUCAP_LIBDIR) ; rm $(INSTALL_FILES))
+uninstall:
+	(cd $(GNUCAP_LIBDIR)/qucs ; rm $(QUCS_PLUGINS))
 
 clean :
 	rm -f $(CLEANFILES)
@@ -88,6 +90,7 @@ endef
 
 gnucsator.sh: gnucsator.sh.in Makefile
 	sed -e 's/@SUFFIX@/$(SUFFIX)/' \
+	    -e 's#@GNUCAP_LIBDIR@#$(GNUCAP_LIBDIR)#' \
 	    -e 's/@NOTICE@/$(NOTICE)/' < $< > $@
 	chmod +x $@
 
