@@ -62,6 +62,7 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
 
 d_eqn.so: CXXFLAGS+=-std=c++11
+cmd_wrapper.so: CXXFLAGS+=-std=c++11
 
 QUCS_INCLUDEDIR = $(QUCS_PREFIX)/include
 QUCS_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
