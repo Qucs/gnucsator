@@ -31,6 +31,8 @@ namespace {
 using std::string;
 /*--------------------------------------------------------------------------*/
 /* wrap spice ELT+BM into plain COMPONENT
+ * for some reason, this does not work with upstream gnucap
+ * ... need to figure out something.
  */
 class DEV_BM_WRAP : public COMPONENT { //
 	public:
@@ -60,7 +62,8 @@ class DEV_BM_WRAP : public COMPONENT { //
 // 			trace2("dev_type test", d->dev_type(), cname());
 // 			assert(d->dev_type() == "TEST");
 // #endif
-			d->set_dev_type(cname());
+			trace2("setting dev type", d->dev_type(), cname());
+//			d->set_dev_type(cname());
 			if(d->dev_type() == cname()){
 			}else{ untested();
 				trace2("dev_type problem", d->dev_type(), cname());
@@ -91,7 +94,7 @@ static unsigned count(const T* what){
  */
 class DEV_SCKT_WRAP : public BASE_SUBCKT{
 	private:
-		const COMPONENT* _wrapdev;
+		const COMPONENT* _wrapproto;
 		const char** _port_name;
 		const char** _param_name;
 		const unsigned _port_number;
@@ -99,17 +102,22 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		const string _type;
 		COMPONENT* _c1;
 		node_t _nodes[2]; // more?
-		PARAMETER<double> _param[3]; // more?
+		PARAMETER<double>* _param;
 		DEV_SCKT_WRAP(const DEV_SCKT_WRAP& p) : BASE_SUBCKT(p),
-		_wrapdev(p._wrapdev),
+		_wrapproto(p._wrapproto),
 		_port_name(p._port_name),
 		_param_name(p._param_name),
 		_port_number(p._port_number),
 		_param_number(p._param_number),
-	  	_type(p._type) {
+		_type(p._type),
+		_c1(NULL) {
 			_n = _nodes;
 			for (uint_t ii = 0; ii < max_nodes() + int_nodes(); ++ii) {
 				_n[ii] = p._n[ii];
+			}
+			_param = new PARAMETER<double>[_param_number];
+			for (uint_t ii = 0; ii < _param_number; ++ii) {
+				_param[ii] = p._param[ii];
 			}
 		}
 	public:
@@ -117,17 +125,21 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		              const char* pn[],
 		              const char* par[],
 		              string type) : BASE_SUBCKT(),
-		_wrapdev(d),
+		_wrapproto(d),
 		_port_name(pn),
 		_param_name(par),
 		_port_number(count(pn)),
 		_param_number(count(par)),
-		_type(type)	{ untested();
+		_type(type),
+		_c1(NULL) {
 			_n = _nodes;
-			assert(_port_number==2);
+			assert(_port_number==2); // for now.
+			_param = new PARAMETER<double>[_param_number];
 		}
 		virtual CARD*	 clone()const{return new DEV_SCKT_WRAP(*this);}
 		uint_t max_nodes()const {return _port_number;}
+		uint_t min_nodes()const {return _port_number;}
+		uint_t tail_size()const {return 0;}
 		uint_t int_nodes()const {return 0;}
 		string value_name()const {return "#";}
 		string dev_type()const {return _type;} // printed name
@@ -138,7 +150,9 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			trace2("DEV_SCKT_WRAP::set_param_by_name", Name, Value);
 			for(unsigned i=0; i<_param_number; ++i){
 				if (Umatch (Name, _param_name[i])) { untested();
+					trace2("DEV_SCKT_WRAP::set_param_by_name", i, Value);
 					_param[i] = Value;
+					untested();
 					return;
 				}
 			}
@@ -161,12 +175,6 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			assert(_c1);
 			return _c1->tr_probe_num(s);
 		}
-		void precalc_last()
-		{untested();
-			COMPONENT::precalc_last();
-			assert(subckt());
-			subckt()->precalc_last();
-		}
 		std::string port_name(uint_t x)const{ untested();
 			assert (x<2);
 			return _port_name[x];
@@ -182,26 +190,38 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 				precalc_first();
 				precalc_last();
 				if (!_c1) {
-					const CARD* p = _wrapdev;
-					_c1 = dynamic_cast<COMPONENT*>(p->clone_instance());
-					_c1->set_dev_type("Vdc");
+					_c1 = dynamic_cast<COMPONENT*>(_wrapproto->clone_instance());
+					// _c1->set_dev_type(_type);
 					assert(_c1);
 					subckt()->push_front(_c1);
 				}else{untested();
 				}
 				{
 					node_t nodes[] = { _n[0], _n[1] }; // more?
-					_c1->set_parameters("anonymous", this, _c1->mutable_common(), 0/*value*/, 0, NULL, 2, nodes);
+					_c1->set_parameters("dev", this, _c1->mutable_common(),
+							0/*value*/, 0, NULL, 2, nodes);
 					for(unsigned i=0; i<_param_number; ++i){ untested();
-						trace1("forwarding params", _param_name[i]);
-						_c1->set_param_by_name(_param_name[i+_param_number+1], _param[i]);
+						if(_param[i].has_hard_value()){
+							trace3("forwarding params", _param_name[i],
+									_param_name[i+_param_number+1], _param[i]);
+							_c1->set_param_by_name(_param_name[i+_param_number+1], _param[i]);
+						}else{ untested();
+						}
 					}
 				}
 			}else{untested();
 			}
 			assert(!is_constant());
+			assert(subckt());
 			subckt()->set_slave();
+			trace3("expanding sckt", subckt()->size(), hp(this), long_label());
 			subckt()->expand();
+		}
+		void precalc_last()
+		{untested();
+			COMPONENT::precalc_last();
+			assert(subckt());
+			subckt()->precalc_last();
 		}
 };
 
@@ -209,9 +229,9 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 const char* pn[3] = {"p","n", NULL};
 /*--------------------------------------------------------------------------*/
 // dispatch(vsource, qucs_trivial_U, Vdc)
-const char* Vdc_param[3] = {"U", NULL,
-                            "dc"};
-DEV_BM_WRAP qucs_Vdc("vsource", "qucs_trivial_U", "uneeded");
+const char* Vdc_param[5] = {"U",  "Temp", NULL,
+                            "dc", "temp"};
+DEV_BM_WRAP qucs_Vdc("vsource", "value", "uneeded");
 DEV_SCKT_WRAP m1(&qucs_Vdc, pn, Vdc_param, "Vdc");
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "Vdc", &m1);
 /*--------------------------------------------------------------------------*/
@@ -231,9 +251,9 @@ DEV_SCKT_WRAP m3(&qucs_Vpulse, pn, Vpulse_param, "Vpulse");
 DISPATCHER<CARD>::INSTALL d3(&device_dispatcher, "Vpulse|Vrectangle", &m3);
 /*--------------------------------------------------------------------------*/
 // dispatch(resistor, bm_value, R)
-const char* Vres_param[] = {"R", "Tc1", "Tc2", "Temp", "ic", NULL,
-                            "r", "tc1", "tc2", "temp", "ic"};
-DEV_BM_WRAP qucs_Res("vsource", "pulse", "uneeded");
+const char* Vres_param[] = {"R", "Tc1", "Tc2", "Temp", "Tnom", "ic", NULL,
+                            "r", "tc1", "tc2", "temp", "tnom", "ic"};
+DEV_BM_WRAP qucs_Res("resistor", "value", "uneeded");
 DEV_SCKT_WRAP m4(&qucs_Res, pn, Vres_param, "R");
 DISPATCHER<CARD>::INSTALL d4(&device_dispatcher, "R", &m4);
 /*--------------------------------------------------------------------------*/
