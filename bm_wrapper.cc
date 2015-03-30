@@ -26,6 +26,9 @@
 #include <globals.h>
 #include <e_compon.h>
 #include <d_subckt.h>
+#ifdef DO_TRACE
+# include <io_misc.h>
+#endif
 /*--------------------------------------------------------------------------*/
 namespace {
 using std::string;
@@ -81,6 +84,7 @@ class DEV_BM_WRAP : public COMPONENT { //
 /*--------------------------------------------------------------------------*/
 template<class T>
 static unsigned count(const T* what){
+	if (!what) return 0;
 	unsigned n = 0;
 	while(what[n]){ untested();
 		++n;
@@ -97,18 +101,26 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		const COMPONENT* _wrapproto;
 		const char** _port_name;
 		const char** _param_name;
+		const char** _assignments;
 		const unsigned _port_number;
 		const unsigned _param_number;
+		const unsigned _assign_number; // number of assignments
+		const unsigned _nocache_number; // don't cache that many params
 		const string _type;
 		COMPONENT* _c1;
 		node_t _nodes[2]; // more?
 		PARAMETER<double>* _param;
+		PARAM_LIST _param_cache; // dictionary with params required for
+		                         // assignments
 		DEV_SCKT_WRAP(const DEV_SCKT_WRAP& p) : BASE_SUBCKT(p),
 		_wrapproto(p._wrapproto),
 		_port_name(p._port_name),
 		_param_name(p._param_name),
+		_assignments(p._assignments),
 		_port_number(p._port_number),
 		_param_number(p._param_number),
+		_assign_number(p._assign_number),
+		_nocache_number(p._nocache_number),
 		_type(p._type),
 		_c1(NULL) {
 			_n = _nodes;
@@ -124,14 +136,20 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		DEV_SCKT_WRAP(COMPONENT* d,
 		              const char* pn[],
 		              const char* par[],
-		              string type) : BASE_SUBCKT(),
+		              string type,
+		              const char* assign[]=NULL,
+		              unsigned parcache=-1) : BASE_SUBCKT(),
 		_wrapproto(d),
 		_port_name(pn),
 		_param_name(par),
+		_assignments(assign),
 		_port_number(count(pn)),
 		_param_number(count(par)),
+		_assign_number(count(assign)),
+		_nocache_number(parcache),
 		_type(type),
 		_c1(NULL) {
+			trace3("wrapper", type, _param_number, _assign_number);
 			_n = _nodes;
 			assert(_port_number==2); // for now.
 			_param = new PARAMETER<double>[_param_number];
@@ -152,7 +170,12 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 				if (Umatch (Name, _param_name[i])) { untested();
 					trace2("DEV_SCKT_WRAP::set_param_by_name", i, Value);
 					_param[i] = Value;
-					untested();
+					if(i>=_nocache_number){untested();
+						CS cs(CS::_STRING, Name+"={"+Value+"}");
+						trace2("caching param", Name, Value);
+						_param_cache.parse(cs);
+					}else{untested();
+					}
 					return;
 				}
 			}
@@ -162,14 +185,17 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			return "";
 		}
 		std::string param_name(int i)const{ itested();
-			return _param_name[BASE_SUBCKT::param_count() - 1 -i];
+			assert(param_count() - 1 - i < int(_param_number));
+			return _param_name[param_count() - 1 -i];
 		}
 		bool param_is_printable(int i)const{ itested();
-			unsigned j = BASE_SUBCKT::param_count() - 1 - i;
+			trace3("is printable", i, BASE_SUBCKT::param_count(), param_count());
+			unsigned j = param_count() - 1 - i;
 			return j < _param_number;
 		}
 		std::string param_value(int i)const{ itested();
-			return _param[BASE_SUBCKT::param_count() - 1 - i];
+			assert(param_count() - 1 - i < int(_param_number));
+			return _param[param_count() - 1 - i];
 		}
 		double tr_probe_num(const string& s)const{ untested();
 			assert(_c1);
@@ -182,7 +208,13 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		void expand(){ untested();
 			if (!subckt()) { untested();
 				assert(scope());
-				new_subckt(scope()->params());
+				if(_assignments){ untested();
+					new_subckt();
+					subckt()->params()->set_try_again(&_param_cache);
+					_param_cache.set_try_again(scope()->params());
+				}else{
+					new_subckt(scope()->params());
+				}
 				assert(subckt()->params());
 			}else{
 			}
@@ -193,6 +225,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 					_c1 = dynamic_cast<COMPONENT*>(_wrapproto->clone_instance());
 					// _c1->set_dev_type(_type);
 					assert(_c1);
+					_c1->set_owner(this);
 					subckt()->push_front(_c1);
 				}else{untested();
 				}
@@ -200,7 +233,8 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 					node_t nodes[] = { _n[0], _n[1] }; // more?
 					_c1->set_parameters("dev", this, _c1->mutable_common(),
 							0/*value*/, 0, NULL, 2, nodes);
-					for(unsigned i=0; i<_param_number; ++i){ untested();
+					for(unsigned i=0; _param_name[i+_param_number+1]; ++i){ itested();
+						assert(i<_param_number);
 						if(_param[i].has_hard_value()){
 							trace3("forwarding params", _param_name[i],
 									_param_name[i+_param_number+1], _param[i]);
@@ -208,12 +242,18 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 						}else{ untested();
 						}
 					}
+					for(unsigned i=0; i<_assign_number; ++i){ untested();
+						trace3("assign params", i, _assignments[i],_assignments[i+_assign_number+1]);
+						_c1->set_param_by_name(_assignments[i],
+						                       _assignments[i+_assign_number+1]);
+					}
+					trace0("done");
 				}
 			}else{untested();
 			}
 			assert(!is_constant());
 			assert(subckt());
-			subckt()->set_slave();
+//			subckt()->set_slave();
 			trace3("expanding sckt", subckt()->size(), hp(this), long_label());
 			subckt()->expand();
 		}
@@ -221,6 +261,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		{untested();
 			COMPONENT::precalc_last();
 			assert(subckt());
+			trace1("wrap:expand", *(subckt()->params()));
 			subckt()->precalc_last();
 		}
 };
@@ -242,13 +283,25 @@ DEV_BM_WRAP qucs_Vsin("vsource", "sin", "uneeded");
 DEV_SCKT_WRAP m2(&qucs_Vsin, pn, Vsin_param, "Vsin");
 DISPATCHER<CARD>::INSTALL d2(&device_dispatcher, "Vsin", &m2);
 /*--------------------------------------------------------------------------*/
-// dispatch(vsource, pulse, Vpulse)
+// Vpulse:V3 _net2 _net3 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1 ns" Tf="1 ns"
+// incomplete.
 const char* Vpulse_param[] =
 {  "U", "TH",   "TL",   "Tr",   "Tf",   "Td", NULL,
    "pv","width","tlow", "rise", "fall", "delay" };
 DEV_BM_WRAP qucs_Vpulse("vsource", "pulse", "uneeded");
 DEV_SCKT_WRAP m3(&qucs_Vpulse, pn, Vpulse_param, "Vpulse");
-DISPATCHER<CARD>::INSTALL d3(&device_dispatcher, "Vpulse|Vrectangle", &m3);
+DISPATCHER<CARD>::INSTALL d3(&device_dispatcher, "Vpulse", &m3);
+/*--------------------------------------------------------------------------*/
+// Vrect:V2 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns"
+const char* Vrect_param[] =
+{  "U",  "Td",    "Tr",   "Tf",   "TH", "TL", NULL,
+   "pv", "delay", "rise", "fall", NULL, NULL   };
+const char* Vrect_assign[] =
+{  "period",        "width",      "iv", NULL,
+   "{TH+TL+Tr+Tf}", "{TH+Tf+Tr}", "0"};
+DEV_BM_WRAP qucs_Vrect("vsource", "pulse", "uneeded");
+DEV_SCKT_WRAP m3b(&qucs_Vpulse, pn, Vrect_param, "Vrect", Vrect_assign, 2);
+DISPATCHER<CARD>::INSTALL d3b(&device_dispatcher, "Vrect", &m3b);
 /*--------------------------------------------------------------------------*/
 // dispatch(resistor, bm_value, R)
 const char* Vres_param[] = {"R", "Tc1", "Tc2", "Temp", "Tnom", "ic", NULL,
