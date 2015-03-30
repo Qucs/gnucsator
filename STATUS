@@ -105,8 +105,10 @@ COMPONENTS (table ripped from [1])
 │ eqn RF 2 port   │                 │  ?             │      │                │
 │ S-parameter data│                 │  ?             │      │                │
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
-│ voltage pulse   │ Vpulse?         │ (E)            │      │ Vrect?         │
-│ current pulse   │ Ipulse?         │ (E)            │      │ Irect?         │
+│ voltage pulse   │ Vpulse?         │ (E)            │      │                │
+│ voltage rect    │ Vrect           │  E             │      │                │
+│ current pulse   │ Ipulse?         │ (E)            │      │                │
+│ current rect    │ Irect ?         │ (E)            │      │                │
 │ vs exp          │                 │ (E)            │      │                │
 │ cs exp          │                 │ (E)            │      │                │
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
