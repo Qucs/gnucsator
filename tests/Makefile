@@ -13,6 +13,7 @@ COMMON_TESTS = \
 	Vrect.1.net
 
 GC_TESTS = \
+	IProbe.1.gc \
 	d_eqn.1.gc \
 	wrap.gc \
 	rect.gc

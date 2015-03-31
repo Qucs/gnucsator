@@ -33,12 +33,13 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class DEV_PROBE : public ELEMENT {
 protected:
-  explicit DEV_PROBE(const DEV_PROBE& p) :ELEMENT(p), _reg(false) {}
+  explicit DEV_PROBE(const DEV_PROBE& p) :ELEMENT(p), _type(p._type), _reg(false) {}
 public:
   explicit DEV_PROBE()	:ELEMENT(), _reg(false) {}
 protected: // override virtual
-  enum probe_t {VOLTAGE, CURRENT};
-  probe_t _type;	/* current or voltage controlled */
+  enum probe_t { VOLTAGE, // voltage probe
+                 CURRENT  // current probe (short)
+               } _type;
   string value_name()const {return "dummy";}
   string dev_type()const	{return string((_type==VOLTAGE)?"V":"I")+"probe";}
   uint_t	   max_nodes()const	{return 2;}
@@ -49,13 +50,20 @@ protected: // override virtual
   //bool	   has_iv_probe()const  {return true;}
   bool	   use_obsolete_callback_parse()const {return false;}
   CARD*	   clone()const		{return new DEV_PROBE(*this);}
-  void     precalc_first();
+//  void     precalc_first();
   void     precalc_last();
-  hp_float_t   tr_involts()const	{return tr_outvolts();}
-  hp_float_t   tr_involts_limited()const {return tr_outvolts_limited();}
   COMPLEX  ac_involts()const	{untested();return ac_outvolts();}
-  virtual void tr_iwant_matrix(){}
-  virtual void ac_iwant_matrix(){}
+  void tr_iwant_matrix();
+  void tr_begin();
+//  bool do_tr();
+  void tr_load();
+  void tr_unload();
+  double tr_involts()const {return tr_outvolts();}
+  double tr_involts_limited()const {return tr_outvolts_limited();}
+  void ac_iwant_matrix();
+  void ac_begin(){incomplete();}
+  void do_ac(){incomplete();}
+  void ac_load(){incomplete();}
   string port_name(uint_t i)const {
     assert(i != INVALID_NODE);
     assert(i < 2);
@@ -77,12 +85,11 @@ void DEV_PROBE::set_dev_type(const string& new_type)
 {
   trace2("DEV_PROBE:probe type", long_label(), new_type);
   if(new_type=="VProbe"){ untested();
-  }else{ incomplete();
+    _type = VOLTAGE;
+  }else if(new_type=="IProbe"){ untested();
+    _type = CURRENT;
+  }else{ unreachable(); incomplete();
   }
-}
-/*--------------------------------------------------------------------------*/
-void DEV_PROBE::precalc_first()
-{
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::precalc_last()
@@ -95,7 +102,7 @@ void DEV_PROBE::precalc_last()
 
   if(_reg){untested();
   }else{
-    trace1("adding probe", long_label());
+    trace2("adding probe", prb, long_label());
     CS p(CS::_STRING, prb+"("+long_label()+")");
     PROBE_LISTS::print[_sim->_mode].add_list(p);
     _reg = true;
@@ -109,10 +116,67 @@ void DEV_PROBE::expand()
   }
 }
 /*--------------------------------------------------------------------------*/
+void DEV_PROBE::tr_iwant_matrix()
+{
+  switch(_type){
+    case VOLTAGE:
+      break;
+    case CURRENT:
+      tr_iwant_matrix_passive();
+  }
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::tr_begin()
+{
+  ELEMENT::tr_begin();
+  assert(is_constant());
+
+  if(_type==CURRENT) { untested();
+    // from d_res
+    _y1.f1 = _y[0].f1 = OPT::shortckt;
+    _m0.x  = _y[0].x;
+    _m0.c1 = 1./_y[0].f1;
+    _m0.c0 = 0.;
+    _m1 = _m0;
+  }
+  assert(_loss0 == 0.);
+  assert(_loss1 == 0.);
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::ac_iwant_matrix()
+{
+  switch(_type) {
+    case VOLTAGE: untested();
+      break;
+    case CURRENT: untested();
+      ac_iwant_matrix_passive();
+  }
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::tr_load()
+{
+  switch(_type) {
+    case VOLTAGE: untested();
+      break;
+    case CURRENT: untested();
+      tr_load_passive();
+  }
+}
+/*--------------------------------------------------------------------------*/
+void DEV_PROBE::tr_unload()
+{
+  switch(_type) {
+    case VOLTAGE: untested();
+      break;
+    case CURRENT: untested();
+      tr_unload_passive();
+  }
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 DEV_PROBE p1;
 DISPATCHER<CARD>::INSTALL
-  d1(&device_dispatcher, "VProbe", &p1);
+  d1(&device_dispatcher, "VProbe|IProbe", &p1);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

@@ -1,0 +1,17 @@
+load bm_wrapper.so
+load d_probe.so
+verilog
+param u=3
+
+Vdc #(.U(u)) src(1,0);
+R #(.R(1)) res(1,2);
+IProbe p1(2,0);
+
+list
+
+spice
+.options noinsensitive
+.print dc v(nodes) v(p1) i(p1)
+.dc
+
+.end
