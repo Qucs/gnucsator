@@ -66,18 +66,46 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
 
 bool QucsGuessParam(std::string& p)
 {
-	std::string temp;
-	for (unsigned i = 0; p[i] != '\0'; i++){
-		if (p[i] != ' '){ untested();
-			temp.append(1,p[i]);
-		}else{ untested();
-			break;
-		}
-	}
-	p.swap(temp);
+  std::string temp;
+  for (unsigned i = 0; p[i] != '\0'; i++){
+    if (p[i] != ' '){ untested();
+      temp.append(1,p[i]);
+    }else if(!p[++i]){ untested();
+      // end after blank (strange)
+      break;
+    }else if( p[i] == 'a' // -18
+	   || p[i] == 'f' // -15
+	   || p[i] == 'p' // -12
+	   || p[i] == 'n' // -9
+	   || p[i] == 'u' // -6
+	   || p[i] == 'm' // -3
+	   || p[i] == 'c' // -2
+	   || p[i] == 'k' // 3
+	   || p[i] == 'K' // 3
+	   || p[i] == 'M' // 6
+	   || p[i] == 'G' // 9
+	   || p[i] == 'T' // 12
+	   ){ untested();
+      // pass through
+      temp.append(1,p[i]);
+      break;
+    }else if( p[i] == 'A' // -10
+	   || p[i] == 'd' // -1
+	   || p[i] == 'D' // 1
+	   || p[i] == 'h' // 2
+	   || p[i] == 'P' // 15
+	   || p[i] == 'E' // 18
+	   ){ incomplete();
+      break;
+    }else{
+      break;
+    }
+  }
+  trace2("p", p, temp);
+  p.swap(temp);
 
-	bool ok=true; // incomplete.
-	return ok;
+  bool ok=true; // incomplete.
+  return ok;
 }
 
 #endif
