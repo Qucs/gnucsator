@@ -36,6 +36,7 @@ QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
 QUCS_PLUGINS = \
 	$(QUCS_DEVS_SO) \
 	lang_qucs.so \
+	d_eqn.so \
 	d_probe.so \
 	functions.so \
 	bm_value.so \

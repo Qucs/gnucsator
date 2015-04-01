@@ -125,7 +125,7 @@ static void skip_pre_stuff(CS& cmd)
 static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int start)
 {
 	trace3("count_ports", leave_tail, start, maxnodes);
-	assert(start < maxnodes);
+	assert(start <= maxnodes);
 	assert(minnodes <= maxnodes);
 
 	int num_nodes = 0;
