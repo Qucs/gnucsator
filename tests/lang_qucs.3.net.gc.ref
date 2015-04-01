@@ -1,0 +1,30 @@
+<indep time 3>
+0.
+10.u
+0.001
+</indep>
+<dep _net0.vt time>
+  0.
+  10.u
+  0.001
+</dep>
+<dep _net1.vt time>
+  -1.3
+  -1.3
+  -1.3
+</dep>
+<dep _net2.vt time>
+  0.
+  0.
+  0.
+</dep>
+<dep Pr1.vt time>
+  0.
+  0.
+  0.
+</dep>
+<dep Pr2.it time>
+  -1.3
+  -1.3
+  -1.3
+</dep>

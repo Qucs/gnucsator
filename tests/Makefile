@@ -6,16 +6,19 @@ GNUCAP = gnucap$(SUFFIX)
 
 all: gc qucs
 
-check:
-	@echo not implemented
-
 COMMON_TESTS = \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
-	lang_qucs.3.net
+	lang_qucs.3.net \
+	Vrect.1.net
 
 GC_TESTS = \
-	wrap.gc
+	d_eqn.1.gc \
+	wrap.gc \
+	rect.gc
+
+check: $(COMMON_TESTS:%=%.gc.diff) \
+       $(GC_TESTS:%=%.diff)
 
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
@@ -26,7 +29,11 @@ qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 	LD_LIBRARY_PATH=.. $(GNUCSATOR) -i $< > $@
 
 %.gc.out: %.gc
-	LD_LIBRARY_PATH=.. $(GNUCAP) < $< > $@
+	LD_LIBRARY_PATH=.. $(GNUCAP) < $< | sed -e '1,/^core-lib version/d' \
+					                            -e '/default plugins/d' > $@
+
+%.gc.diff: %.gc.out %.gc.ref
+	diff $+
 
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@

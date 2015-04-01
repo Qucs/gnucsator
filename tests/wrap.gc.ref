@@ -1,18 +1,6 @@
-Gnucap : The Gnu Circuit Analysis Package
-Never trust any version less than 1.0
-Copyright 1982-2015, Albert Davis
-Copyright 2009-2015, Felix Salfelder
-Gnucap comes with ABSOLUTELY NO WARRANTY
-This is free software, and you are welcome
-to redistribute it under the terms of 
-the GNU General Public License, version 3 or later.
-See the file "COPYING" for details.
-main version: 0.0.2-rc1+testing GIT 0xe0c2c4d.138
-core-lib version: 0.0.2-rc1+testing GIT 0xe0c2c4d.138
 R: already installed, replacing
 stashing as R:0
-// Vdcold #(.U(3)) old(2,0);
-
-Vdc #(.U(u),.Temp(NA( NA))) foo (.p(1),.n(0));
-#           v(1)       v(foo)    
- 0.         3.         3.        
+Vdc #(.U(u),.Temp(NA( NA))) foo1 (.p(1),.n(0));
+Vdc #(.U(2),.Temp(NA( NA))) foo2 (.p(2),.n(0));
+#           v(1)       v(2)       v(foo1)    v(foo2)   
+ 0.         3.         2.         3.         2.        

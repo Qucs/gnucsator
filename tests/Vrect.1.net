@@ -1,0 +1,9 @@
+# Qucs 0.0.19  /home/felix/extern/gnucap-plugins/tests/simple.sch
+
+R:R2 _net0 gnd R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R1 _net1 _net0 R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+VProbe:Pr1 _net0 gnd
+VProbe:Pr0 _net1 gnd
+Vrect:V1 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns"
+
+.TR:TR1 Type="lin" Start="0" Stop="10m" Points="11" IntegrationMethod="Trapezoidal" Order="2" InitialStep="1 ns" MinStep="1e-16" MaxIter="150" reltol="0.001" abstol="1 pA" vntol="1 uV" Temp="26.85" LTEreltol="1e-3" LTEabstol="1e-6" LTEfactor="1" Solver="CroutLU" relaxTSR="no" initialDC="yes" MaxStep="0"
