@@ -9,10 +9,22 @@
 
 @NOTICE@
 
-if [ "$1" != -i ]; then
-	echo "usage $0 -i <file>"
-	exit 1
-fi
+TEMP=`getopt -o i:o:bg --long input:output: \
+     -n 'gnucsator.sh' -- "$@"`
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+eval set -- "$TEMP"
+
+while true; do
+	case "$1" in
+		-b) shift;;
+		-g) shift;;
+		-i|--input) infile="$2"; shift 2;;
+		-o|--output) outfile="$2"; shift 2;;
+		--) shift; break ;;
+		*) echo "Internal error!" ; exit 1 ;;
+	esac
+done
 
 GNUCAP=gnucap@SUFFIX@
 GNUCAP_LIBDIR=@GNUCAP_LIBDIR@
@@ -40,19 +52,23 @@ postproc()
 		done
 		n=`expr $n + 1`
 	done
-	m=`expr $m - 2`
+	m=`expr $m - 1`
 	echo "<indep time $n>"
 	n=`expr $n - 1`
 	for i in `seq 0 $n`; do
-		eval "echo \$data_${i}_0"
+		eval "echo \ \ +\$data_${i}_0"
 	done
 	echo "</indep>"
-	for i in `seq 0 $m`; do
-		tmp="${probes[$i]}"
+	for i in `seq 1 $m`; do
+		tmp="${probes[`expr $i - 1`]}"
 		br=${tmp##*(}
-		echo "<dep ${br:0:-1}.${tmp%%(*}t time>"
+		what=${tmp%%(*}
+		echo "<dep ${br:0:-1}.${what^}t time>"
 		for j in `seq 0 $n`; do
-			eval "echo \ \ \$data_${j}_$i"
+			eval "data=\$data_${j}_$i"
+			echo -n "  "
+			[ "${data:0:1}" = "-" ] || echo -n +
+			echo "$data"
 		done
 		echo "</dep>"
 	done
@@ -62,9 +78,21 @@ if [ -z "$LD_LIBRARY_PATH" ]; then
 	export LD_LIBRARY_PATH=$GNUCAP_LIBDIR/qucs
 fi
 
+if [ -n "$outfile" ]; then
+	exec > "$outfile"
+fi
+
+echo "<Qucs Dataset 0.0.19>"
+
+# gui mode? suppress stderr
+# if [ -n "$outfile" ]; then
+# 	exec 2> "$outfile.stderr"
+# fi
+
 postproc=${postproc-postproc}
 
 ($GNUCAP | $postproc) <<EOF
+options numdgt 18
 load bm_value.so
 load bm_wrapper.so
 load bm_trivial.so
@@ -74,5 +102,5 @@ load d_probe.so
 load lang_qucs.so
 load functions.so
 qucs
-include $2
+include $infile
 EOF
