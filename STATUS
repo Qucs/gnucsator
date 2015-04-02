@@ -28,10 +28,10 @@ COMPONENTS (table ripped from [1])
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
 │    component    │      label      │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
-│ resistor        │   R             │  E  [V]        │      │                │
+│ resistor        │   R             │  E  [V]        │ T    │                │
 │ capacitor       │   C             │ (E) [V]        │      │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
-│ ground          │                 │                │      │                │
+│ ground          │                 │                │      │not a component?│
 │ DC block        │                 │                │      │                │
 │ DC feed         │                 │                │      │                │
 │ bias T          │                 │                │      │                │
@@ -42,8 +42,8 @@ COMPONENTS (table ripped from [1])
 │ ideal coupler   │                 │                │      │                │
 │ time ctrld sw   │                 │                │      │                │
 │ relais          │                 │ (B,sw?)        │      │                │
-│ current probe   │  Iprobe         │  C             │      │                │
-│ voltage probe   │  Vprobe         │  C             │      │                │
+│ current probe   │  Iprobe         │  C             │ T    │                │
+│ voltage probe   │  Vprobe         │  C             │ T    │                │
 │ ideal transline │                 │                │      │                │
 │ 4-term tline    │                 │                │      │                │
 │ tpair line      │                 │                │      │                │
@@ -73,7 +73,7 @@ COMPONENTS (table ripped from [1])
 │ cccs            │                 │ (E) [V]        │      │                │
 │ vcvs            │                 │ (E) [V]        │      │                │
 │ ccvs            │                 │ (E) [V]        │      │                │
-│ DC voltage      │ Vdc             │  E             │      │                │
+│ DC voltage      │ Vdc             │  E             │ T    │                │
 │ DC current      │                 │ (E)            │      │                │
 │ AC voltage      │                 │                │      │                │
 │ AC current      │                 │                │      │                │
@@ -100,15 +100,15 @@ COMPONENTS (table ripped from [1])
 │ HICUM v1.2 l0   │                 │ (V)            │      │                │
 │ MESFET          │                 │ (V)            │      │                │
 │ EPFL EKV v2.6   │                 │ (V)            │      │                │
-│ equation device │ Eqn             │  C             │      │ probe access?  │
+│ equation device │ Eqn             │  C             │ T    │ probe access?  │
 │ equation RF dev │                 │  ?             │      │                │
 │ eqn RF 2 port   │                 │  ?             │      │                │
 │ S-parameter data│                 │  ?             │      │                │
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
-│ voltage pulse   │ Vpulse?         │ (E)            │      │                │
-│ voltage rect    │ Vrect           │  E             │      │                │
-│ current pulse   │ Ipulse?         │ (E)            │      │                │
-│ current rect    │ Irect ?         │ (E)            │      │                │
+│ voltage pulse   │ Vpulse          │ (E)            │      │                │
+│ voltage rect    │ Vrect           │  E             │ T    │                │
+│ current pulse   │ Ipulse          │ (E)            │      │                │
+│ current rect    │ Irect           │ (E)            │      │                │
 │ vs exp          │                 │ (E)            │      │                │
 │ cs exp          │                 │ (E)            │      │                │
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
