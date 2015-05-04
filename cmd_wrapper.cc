@@ -129,7 +129,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			for(auto&i : TRAN_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << j._start << " " << j._stop << " " << j._stop << " trace=a";
+				x << j._start << " " << j._stop << " " << j._stop << " trace=a basic";
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
