@@ -1,5 +1,7 @@
 R: already installed, replacing
 stashing as R:0
+C: already installed, replacing
+stashing as C:0
 Vdc #(.U(u),.Temp(NA( NA))) src (.p(1),.n(0));
 R #(.R(1),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) res (.p(1),.n(2));
 Iprobe #() p1 (.p(2),.n(0));

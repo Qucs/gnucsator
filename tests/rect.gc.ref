@@ -1,5 +1,7 @@
 R: already installed, replacing
 stashing as R:0
+C: already installed, replacing
+stashing as C:0
 Vrect #(.U(u),.Td(1),.Tr(0.1),.Tf(0.1),.TH(1),.TL(2)) foo (.p(1),.n(0));
 #Time       v(1)      
  0.         0.        

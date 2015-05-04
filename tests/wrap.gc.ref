@@ -1,5 +1,7 @@
 R: already installed, replacing
 stashing as R:0
+C: already installed, replacing
+stashing as C:0
 Vdc #(.U(u),.Temp(NA( NA))) foo1 (.p(1),.n(0));
 Vdc #(.U(2),.Temp(NA( NA))) foo2 (.p(2),.n(0));
 #           v(1)       v(2)       v(foo1)    v(foo2)   
