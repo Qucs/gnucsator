@@ -29,7 +29,7 @@ COMPONENTS (table ripped from [1])
 │    component    │      label      │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
 │ resistor        │   R             │  E  [V]        │ T    │                │
-│ capacitor       │   C             │ (E) [V]        │      │                │
+│ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
 │ ground          │                 │                │      │not a component?│
 │ DC block        │                 │                │      │                │

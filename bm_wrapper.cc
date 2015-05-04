@@ -310,4 +310,10 @@ DEV_BM_WRAP qucs_Res("resistor", "value", "uneeded");
 DEV_SCKT_WRAP m4(&qucs_Res, pn, Vres_param, "R");
 DISPATCHER<CARD>::INSTALL d4(&device_dispatcher, "R", &m4);
 /*--------------------------------------------------------------------------*/
+const char* Vcap_param[] = {"C", "V", NULL,
+                            "c", "ic"};
+DEV_BM_WRAP qucs_Cap("capacitor", "value", "uneeded");
+DEV_SCKT_WRAP m5(&qucs_Cap, pn, Vcap_param, "C");
+DISPATCHER<CARD>::INSTALL d5(&device_dispatcher, "C", &m5);
+/*--------------------------------------------------------------------------*/
 }
