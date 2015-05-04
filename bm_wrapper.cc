@@ -46,7 +46,7 @@ class DEV_BM_WRAP : public COMPONENT { //
 		bool print_type_in_spice() const{ untested(); return false;}
 
 		CARD* clone()const
-		{ untested();
+		{
 			const CARD* c = device_dispatcher[_elt];
 			assert(c);
 			CARD* c2 = c->clone();
@@ -68,7 +68,7 @@ class DEV_BM_WRAP : public COMPONENT { //
 			trace2("setting dev type", d->dev_type(), cname());
 //			d->set_dev_type(cname());
 			if(d->dev_type() == cname()){
-			}else{ untested();
+			}else{
 				trace2("dev_type problem", d->dev_type(), cname());
 				//assert(d->dev_type() == cname());
 			}
@@ -86,7 +86,7 @@ template<class T>
 static unsigned count(const T* what){
 	if (!what) return 0;
 	unsigned n = 0;
-	while(what[n]){ untested();
+	while(what[n]){
 		++n;
 	}
 	return n;
@@ -164,17 +164,17 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		string modelname()const {return "Vdcmodel";}
 		int param_count()const {return (_param_number + BASE_SUBCKT::param_count());}
 		void set_param_by_name(string Name, string Value)
-		{ untested();
+		{
 			trace2("DEV_SCKT_WRAP::set_param_by_name", Name, Value);
 			for(unsigned i=0; i<_param_number; ++i){
-				if (Umatch (Name, _param_name[i])) { untested();
+				if (Umatch (Name, _param_name[i])) {
 					trace2("DEV_SCKT_WRAP::set_param_by_name", i, Value);
 					_param[i] = Value;
-					if(i>=_nocache_number){untested();
+					if(i>=_nocache_number){
 						CS cs(CS::_STRING, Name+"={"+Value+"}");
 						trace2("caching param", Name, Value);
 						_param_cache.parse(cs);
-					}else{untested();
+					}else{
 					}
 					return;
 				}
@@ -197,18 +197,18 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			assert(param_count() - 1 - i < int(_param_number));
 			return _param[param_count() - 1 - i];
 		}
-		double tr_probe_num(const string& s)const{ untested();
+		double tr_probe_num(const string& s)const{
 			assert(_c1);
 			return _c1->tr_probe_num(s);
 		}
-		std::string port_name(uint_t x)const{ untested();
+		std::string port_name(uint_t x)const{
 			assert (x<2);
 			return _port_name[x];
 		}
-		void expand(){ untested();
-			if (!subckt()) { untested();
+		void expand(){
+			if (!subckt()) {
 				assert(scope());
-				if(_assignments){ untested();
+				if(_assignments){
 					new_subckt();
 					subckt()->params()->set_try_again(&_param_cache);
 					_param_cache.set_try_again(scope()->params());
@@ -218,7 +218,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 				assert(subckt()->params());
 			}else{
 			}
-			if (_sim->is_first_expand()) { untested();
+			if (_sim->is_first_expand()) {
 				precalc_first();
 				precalc_last();
 				if (!_c1) {
@@ -239,10 +239,10 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 							trace3("forwarding params", _param_name[i],
 									_param_name[i+_param_number+1], _param[i]);
 							_c1->set_param_by_name(_param_name[i+_param_number+1], _param[i]);
-						}else{ untested();
+						}else{
 						}
 					}
-					for(unsigned i=0; i<_assign_number; ++i){ untested();
+					for(unsigned i=0; i<_assign_number; ++i){
 						trace3("assign params", i, _assignments[i],_assignments[i+_assign_number+1]);
 						_c1->set_param_by_name(_assignments[i],
 						                       _assignments[i+_assign_number+1]);
@@ -258,7 +258,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			subckt()->expand();
 		}
 		void precalc_last()
-		{untested();
+		{
 			COMPONENT::precalc_last();
 			assert(subckt());
 			trace1("wrap:expand", *(subckt()->params()));

@@ -30,7 +30,7 @@
 
 template <class T>
 inline bool QucsGet(CS& cmd, const std::string& key, T* val)
-{ untested();
+{
   if (cmd.umatch(key + " {=}") and OPT::language->name() == "qucs") {
     CS value (CS::_STRING, cmd.ctos(",=;)", "\"'{(", "\"'})"));
     std::string newvalue(value.ctos());
@@ -39,18 +39,18 @@ inline bool QucsGet(CS& cmd, const std::string& key, T* val)
     CS temp (CS::_STRING, newvalue);
     temp >> *val;
     return true;
-  }else{ untested();
+  }else{
     return false;
   }
 }
 
 template <class T>
 inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
-{ untested();
+{
   bool ret = false;
   if (!cmd.umatch("{=}")){ untested();
     cmd.check(bDANGER, "need =");
-  }else{ untested();
+  }else{
     unsigned here = cmd.cursor();
     std::string s = cmd.ctos(",=;)", "\"'{(", "\"'})");
     trace2("QucsSet", key, s);
@@ -68,7 +68,7 @@ bool QucsGuessParam(std::string& p)
 {
   std::string temp;
   for (unsigned i = 0; p[i] != '\0'; i++){
-    if (p[i] != ' '){ untested();
+    if (p[i] != ' '){
       temp.append(1,p[i]);
     }else if(!p[++i]){ untested();
       // end after blank (strange)
@@ -85,7 +85,7 @@ bool QucsGuessParam(std::string& p)
 	   || p[i] == 'M' // 6
 	   || p[i] == 'G' // 9
 	   || p[i] == 'T' // 12
-	   ){ untested();
+	   ){
       // pass through
       temp.append(1,p[i]);
       break;

@@ -322,20 +322,20 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 	trace0(("LANG_QUCS_BASE::parse_args (card)" + (std::string) cmd).c_str() );
 	assert(x);
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
-	if (xx) { untested();
+	if (xx) {
 		COMMON_COMPONENT* cc = xx->mutable_common();
 		unsigned here = cmd.cursor();
 		for (unsigned i=0; ; ++i) {
-			if (!cmd.more()) { untested();
+			if (!cmd.more()) {
 				break;
-			}else{ untested();
+			}else{
 				std::string Name  = cmd.ctos("=", "", "");
 				cmd >> '=';
 				std::string value = cmd.ctos(",=;)", "\"'{(", "\"'})");
 				unsigned there = here;
 				if (cmd.stuck(&here)) { untested();
 					break;
-				}else{ untested();
+				}else{
 					try{
 						if (value == "") {
 							cmd.warn(bDANGER, there, x->long_label() + ": " + Name + " has no value?");
@@ -368,7 +368,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 								xx->set_param_by_name(Name,value);
 								untested();
 							}
-						} else { untested();
+						} else {
 							trace2("no common", Name, value);
 							xx->set_param_by_name(Name,value);
 						}
@@ -470,14 +470,14 @@ void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 DEV_COMMENT* LANG_QUCS_BASE::parse_comment(CS& cmd, DEV_COMMENT* x)
-{ untested();
+{
 	assert(x);
 	x->set(cmd.fullstring());
 	return x;
 }
 /*--------------------------------------------------------------------------*/
 DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
-{ untested();
+{
 	assert(x);
 	x->set(cmd.fullstring());
 	CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
@@ -603,7 +603,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 		parse_label(cmd, x);
 
-		{ untested();
+		{
 			unsigned here = cmd.cursor();
 			int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
 			cmd.reset(here);
@@ -612,7 +612,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 		}
 
-	try { untested();
+	try {
 
 		if (x->print_type_in_spice()) {
 			trace0(("LANG_QUCS_BASE::parse_instance ptis " + (std::string) cmd.tail()).c_str() );
@@ -725,21 +725,21 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	std::string id_string;
 	std::string cmdname;
 	trace1("LANG_QUCS_BASE::cmdproc", cmd.tail());
-	if(cmd.scan(":")){ untested();
+	if(cmd.scan(":")){
 		cmd.reset(here);
 		id_string = cmd.get_to(":");
 		cmd.skip1b(":");
 		cmd >> cmdname;
-	}else{ untested();
+	}else{
 		cmd >> id_string;
 	}
 
 	trace2("LANG_QUCS_BASE::cmdproc", id_string, cmdname);
 	if (cmd.umatch("'|*|#|//|\"")) {
 		unreachable();
-	}else if (id_string != "") { untested();
+	}else if (id_string != "") {
 		CMD* c = command_dispatcher[id_string];
-		if (c) { untested();
+		if (c) {
 			c->set_label(cmdname);
 
 			c->do_it(cmd, scope);
@@ -767,7 +767,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
-{ untested();
+{
 	if (0 && cmd.is_file()
 			&& cmd.is_first_read()
 			&& (Scope == &CARD_LIST::card_list)
@@ -821,7 +821,7 @@ void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
 void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 {
 	assert(x);
-	if (x->comment()[1] != '+') { untested();
+	if (x->comment()[1] != '+') {
 		o << x->comment() << '\n';
 	}else{ untested();
 	}
@@ -884,7 +884,7 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 
 	o <<  " ( ";
 	std::string sep = "";
-	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) { untested();
+	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
 		o << sep << x->port_value(ii);
 		sep = " ";
 	}
@@ -967,7 +967,7 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 	class CMD_QUCS : public CMD {
 		public:
 			void do_it(CS&, CARD_LIST* Scope)
-			{ untested();
+			{
 				command("options lang=qucs", Scope);
 			}
 	} p9;

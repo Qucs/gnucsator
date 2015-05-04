@@ -110,7 +110,7 @@ EQN::EQN(const EQN& p):
   COMPONENT(p),
   _params(p._params),
   _time_p(NULL)
-{untested();
+{
   //this is a bit of a hack. but i do need params in order...
   _param_order.resize(p._param_order.size());
   unsigned cnt = 0;
@@ -121,7 +121,7 @@ EQN::EQN(const EQN& p):
 }
 /*--------------------------------------------------------------------------*/
 void EQN::set_param_by_name(string Name, string Value)
-{ untested();
+{
   if(Name=="Export"){
     incomplete();
   }else{
@@ -164,7 +164,7 @@ XPROBE EQN::ac_probe_ext(const string&)const
 }
 /*--------------------------------------------------------------------------*/
 double EQN::tr_probe_num(const string& what) const
-{ untested();
+{
   try{
     PARAMETER<double> x = _params[what];
     return x;
@@ -174,7 +174,7 @@ double EQN::tr_probe_num(const string& what) const
 }
 /*--------------------------------------------------------------------------*/
 void EQN::tr_advance()
-{ untested();
+{
 }
 /*--------------------------------------------------------------------------*/
 void EQN::tr_accept()
@@ -183,20 +183,20 @@ void EQN::tr_accept()
 }
 /*--------------------------------------------------------------------------*/
 void EQN::parm_eval()
-{ untested();
+{
   assert(subckt());
   trace2("eval", _param_order.size(), _params.size());
-  if(_time_p) {untested();
+  if(_time_p) {
     *_time_p = _sim->_time0;
   }
-  for(auto p : _param_order){ untested();
+  for(auto p : _param_order){
     p->second.e_val(NOT_INPUT, subckt());
     trace2("eval", p->first, p->second);
   }
 }
 /*--------------------------------------------------------------------------*/
 TIME_PAIR EQN::tr_review()
-{ untested();
+{
   q_accept();
   return TIME_PAIR();
 }

@@ -102,7 +102,7 @@ namespace{
 		cmd.check(bWARNING, "what's this (incomplete)?");
 	}
 	void TRAN_WRAP::do_it(CS&cmd, CARD_LIST* cl)
-	{ untested();
+	{
 		assert(cl);
 		options(cmd);
 		tran_t t;
@@ -120,7 +120,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CS p(CS::_STRING, "v(nodes)");
 			PROBE_LISTS::print[s_TRAN].add_list(p);
 			CMD* c = NULL;
-			try { untested();
+			try {
 				c = command_dispatcher["transient"];
 			}catch(Exception){ incomplete();
 			}
@@ -147,7 +147,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 		{
 			trace0("exiting...");
 			CMD* c = NULL;
-			try { untested();
+			try {
 				c = command_dispatcher["exit"];
 			}catch(Exception){ incomplete();
 			}

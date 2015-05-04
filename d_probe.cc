@@ -84,9 +84,9 @@ private:
 void DEV_PROBE::set_dev_type(const string& new_type)
 {
   trace2("DEV_PROBE:probe type", long_label(), new_type);
-  if(new_type=="VProbe"){ untested();
+  if(new_type=="VProbe"){
     _type = VOLTAGE;
-  }else if(new_type=="IProbe"){ untested();
+  }else if(new_type=="IProbe"){
     _type = CURRENT;
   }else{ unreachable(); incomplete();
   }
@@ -100,7 +100,7 @@ void DEV_PROBE::precalc_last()
 
   string prb = string((_type==VOLTAGE)?"v":"i");
 
-  if(_reg){untested();
+  if(_reg){
   }else{
     trace2("adding probe", prb, long_label());
     CS p(CS::_STRING, prb+"("+long_label()+")");
@@ -111,7 +111,7 @@ void DEV_PROBE::precalc_last()
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::expand()
 {
-  if(_sim->is_first_expand()){ untested();
+  if(_sim->is_first_expand()){
   }else{untested();
   }
 }
@@ -131,7 +131,7 @@ void DEV_PROBE::tr_begin()
   ELEMENT::tr_begin();
   assert(is_constant());
 
-  if(_type==CURRENT) { untested();
+  if(_type==CURRENT) {
     // from d_res
     _y1.f1 = _y[0].f1 = OPT::shortckt;
     _m0.x  = _y[0].x;
@@ -146,9 +146,9 @@ void DEV_PROBE::tr_begin()
 void DEV_PROBE::ac_iwant_matrix()
 {
   switch(_type) {
-    case VOLTAGE: untested();
+    case VOLTAGE:
       break;
-    case CURRENT: untested();
+    case CURRENT:
       ac_iwant_matrix_passive();
   }
 }
@@ -156,9 +156,9 @@ void DEV_PROBE::ac_iwant_matrix()
 void DEV_PROBE::tr_load()
 {
   switch(_type) {
-    case VOLTAGE: untested();
+    case VOLTAGE:
       break;
-    case CURRENT: untested();
+    case CURRENT:
       tr_load_passive();
   }
 }
