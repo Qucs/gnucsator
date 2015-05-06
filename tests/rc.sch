@@ -2,10 +2,10 @@
 <Properties>
   <View=0,0,800,800,1.5,0,104>
   <Grid=10,10,1>
-  <DataSet=simple.dat>
-  <DataDisplay=simple.dpl>
+  <DataSet=rc.dat>
+  <DataDisplay=rc.dpl>
   <OpenDisplay=1>
-  <Script=simple.m>
+  <Script=rc.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>
@@ -42,6 +42,10 @@
   <330 190 370 190 "" 0 0 0 "">
 </Wires>
 <Diagrams>
+  <Rect 170 550 240 160 3 #c0c0c0 1 00 1 0 0.002 0.01 1 -0.1 0.5 1.1 1 -1 1 1 315 0 225 "" "" "">
+	<"Pr1.Vt" #0000ff 0 3 0 0 0>
+	<"V1.It" #ff0000 0 3 0 0 0>
+  </Rect>
 </Diagrams>
 <Paintings>
 </Paintings>
