@@ -30,6 +30,8 @@
 #include <map>              // parameter dictionaries
 #include "boost/assign.hpp" // initialization templates
 /*--------------------------------------------------------------------------*/
+using std::string;
+using std::map;
 namespace{
 /*--------------------------------------------------------------------------*/
 class EVAL_BM_VALUE : public EVAL_BM_ACTION_BASE {

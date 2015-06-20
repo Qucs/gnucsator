@@ -24,10 +24,16 @@
 
 #include <e_compon.h>
 #include <u_xprobe.h>
+#include <globals.h>
 #include <map>
+
+#ifndef HAVE_UINT_T
+typedef int uint_t;
+#endif
 
 namespace{
 using std::string;
+using std::vector;
 
 class INTERFACE EQN : public COMPONENT {
 public:
@@ -55,7 +61,7 @@ public: // override virtual
   void tr_advance();
 //  void tr_regress();
   void tr_accept();
-  bool tr_needs_eval()const {untested(); return true;}
+  bool tr_needs_eval()const {itested(); return true;}
 
   CARD* clone()const{return new EQN(*this);}
   //void   map_nodes();
@@ -139,9 +145,17 @@ void EQN::set_param_by_name(string Name, string Value)
 void EQN::expand()
 {
   if (!subckt()) {
+#if 0 // UF hack
     new_subckt(&_params);
     // FIXME: time?
 //    _params.set_try_again(&_params_extra);
+#else
+    new_subckt();
+    PARAM_LIST* dummy = new PARAM_LIST;
+    subckt()->attach_params(dummy, scope());
+    delete dummy;
+    subckt()->params()->set_try_again(&_params);
+#endif
     _params.set_try_again(scope()->params());
   }else{
   }
@@ -186,12 +200,13 @@ void EQN::parm_eval()
 {
   assert(subckt());
   trace2("eval", _param_order.size(), _params.size());
+  // trace1("eval", _params);
   if(_time_p) {
     *_time_p = _sim->_time0;
   }
   for(auto p : _param_order){
     p->second.e_val(NOT_INPUT, subckt());
-    trace2("eval", p->first, p->second);
+    trace3("parm_eval", p->first, p->second, double(p->second));
   }
 }
 /*--------------------------------------------------------------------------*/

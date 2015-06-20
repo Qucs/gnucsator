@@ -27,6 +27,7 @@
 
 using std::map;
 using std::string;
+using std::stringstream;
 
 namespace{
 	class TRAN_WRAP : public CMD {
@@ -118,7 +119,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 		{
 			trace0("go");
 			CS p(CS::_STRING, "v(nodes)");
-			PROBE_LISTS::print[s_TRAN].add_list(p);
+			_probe_lists->print[s_TRAN].add_list(p);
 			CMD* c = NULL;
 			try {
 				c = command_dispatcher["transient"];

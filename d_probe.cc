@@ -23,9 +23,14 @@
  *------------------------------------------------------------------
  * qucs probes
  */
-#include "bm.h"
-#include "e_elemnt.h"
-#include "u_prblst.h"
+#include <globals.h>
+#include <bm.h>
+#include <e_elemnt.h>
+#include <u_prblst.h>
+
+#ifndef HAVE_UINT_T
+typedef int uint_t;
+#endif
 
 using std::string;
 /*--------------------------------------------------------------------------*/
@@ -104,7 +109,7 @@ void DEV_PROBE::precalc_last()
   }else{
     trace2("adding probe", prb, long_label());
     CS p(CS::_STRING, prb+"("+long_label()+")");
-    PROBE_LISTS::print[_sim->_mode].add_list(p);
+    _probe_lists->print[_sim->_mode].add_list(p);
     _reg = true;
   }
 }

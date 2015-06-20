@@ -29,6 +29,9 @@
 #ifdef DO_TRACE
 # include <io_misc.h>
 #endif
+#ifndef HAVE_UINT_T
+typedef int uint_t;
+#endif
 /*--------------------------------------------------------------------------*/
 namespace {
 using std::string;
@@ -163,6 +166,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		string dev_type()const {return _type;} // printed name
 		string modelname()const {return "Vdcmodel";}
 		int param_count()const {return (_param_number + BASE_SUBCKT::param_count());}
+		bool print_type_in_spice()const {return false;}
 		void set_param_by_name(string Name, string Value)
 		{
 			trace2("DEV_SCKT_WRAP::set_param_by_name", Name, Value);
@@ -195,7 +199,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		}
 		std::string param_value(int i)const{ itested();
 			assert(param_count() - 1 - i < int(_param_number));
-			return _param[param_count() - 1 - i];
+			return _param[param_count() - 1 - i].string();
 		}
 		double tr_probe_num(const string& s)const{
 			assert(_c1);
@@ -213,7 +217,16 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 					subckt()->params()->set_try_again(&_param_cache);
 					_param_cache.set_try_again(scope()->params());
 				}else{
+#if 0 // uf hack
 					new_subckt(scope()->params());
+#else
+
+					new_subckt();
+					PARAM_LIST* dummy = new PARAM_LIST;
+					subckt()->attach_params(dummy, scope());
+					delete dummy;
+					subckt()->params()->set_try_again(scope()->params());
+#endif
 				}
 				assert(subckt()->params());
 			}else{
@@ -238,7 +251,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 						if(_param[i].has_hard_value()){
 							trace3("forwarding params", _param_name[i],
 									_param_name[i+_param_number+1], _param[i]);
-							_c1->set_param_by_name(_param_name[i+_param_number+1], _param[i]);
+							_c1->set_param_by_name(string(_param_name[i+_param_number+1]), _param[i].string());
 						}else{
 						}
 					}

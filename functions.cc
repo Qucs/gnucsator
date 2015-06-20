@@ -23,8 +23,18 @@
  */
 
 #include <math.h>
+#include <globals.h>
 #include <u_function.h>
 #include <u_parameter.h>
+
+#ifndef HAVE_UINT_T
+typedef int uint_t;
+#endif
+
+#ifndef _U_FUNC
+typedef std::string fun_t;
+#define to_fun_t to_string
+#endif
 
 #define function_plugin(name, expr) \
 namespace { \

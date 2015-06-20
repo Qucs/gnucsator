@@ -760,7 +760,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 		IO::mstdout.form("time=%8.2f\n", timecheck.check().elapsed());
 	}else{
 	}
-	IO::mstdout.outreset();
+	outreset();
 
 	if (get_timer_was_running) {
 		::status.get.start();
