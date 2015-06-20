@@ -29,9 +29,10 @@
 #include <globals.h>
 #include <e_storag.h>
 
-// where are these supposed to come from?
-#define NR_TINY 1e-9
-typedef double nr_double_t;
+// BUG, qucs headers lack typedefs
+#include <qucs_typedefs.h>
+// BUG, qucs circuit.h uses object, but does not include header
+#include <object.h>
 
 // http://okmij.org/ftp/cpp-digest/computable-include.txt
 // looks ugly, works perfectly
@@ -51,6 +52,8 @@ typedef double nr_double_t;
 #ifndef HAVE_UINT_T
 typedef int uint_t;
 #endif
+
+using std::string;
 
 namespace{
 class DEV_QUCS : public STORAGE {

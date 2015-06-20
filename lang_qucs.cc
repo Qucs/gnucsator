@@ -18,11 +18,12 @@
  * 02110-1301, USA.
  */
 
-#include "u_status.h"
-#include "c_comand.h"
-#include "d_dot.h"
-#include "d_coment.h"
-#include "d_subckt.h"
+#include <u_status.h>
+#include <c_comand.h>
+#include <d_dot.h>
+#include <d_coment.h>
+#include <d_subckt.h>
+#include <globals.h>
 
 // header hack
 // #include "d_logic.h"
@@ -43,6 +44,7 @@
 #define QUCS_ANTI_COMMENT "#>"
 
 using std::stringstream;
+using std::string;
 
 /*--------------------------------------------------------------------------*/
 namespace {
@@ -382,7 +384,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 		xx->attach_common(cc);
 
 	}else if (MODEL_CARD* pp = dynamic_cast<MODEL_CARD*>(x)) {
-		USE(pp); // incomplete();
+		(void*)(pp); // incomplete();
 		// used only for "table"
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
