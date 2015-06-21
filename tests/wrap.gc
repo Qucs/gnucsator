@@ -1,0 +1,16 @@
+load bm_wrapper.so
+load bm_trivial.so
+verilog
+param u=3
+
+Vdc #(.U(u)) foo1(1,0);
+Vdc #(.U(2)) foo2(2,0);
+
+list
+
+spice
+.options noinsensitive
+.print dc v(nodes) v(foo*)
+.dc
+
+.end

@@ -1,0 +1,16 @@
+load bm_wrapper.so
+load bm_trivial.so
+verilog
+param u=3
+param foo=TH+TL+Tr+Tf
+
+Vrect #(.TH(1) .TL(2) .Tr(0.1) .Tf(0.1) .U(u) .Td(1)) foo(1,0);
+
+list
+
+spice
+.options noinsensitive
+.print tran v(nodes)
+.tran 0 10 10 trace=a
+
+.end
