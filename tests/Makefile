@@ -18,6 +18,7 @@ GC_TESTS = \
 	IProbe.1.gc \
 	d_eqn.1.gc \
 	wrap.gc \
+	wrap.bad.gc \
 	rect.gc
 
 check: $(COMMON_TESTS:%=%.gc.diff) \
