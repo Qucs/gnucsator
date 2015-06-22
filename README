@@ -2,7 +2,7 @@ This package provides a gnucap based qucsator implementation.
 
 (Currently) it is meant to work like this:
 - install qucs
-- install gnucap-uf (>=0.0.2-rc2) (sorry, no gnucap-upstream yet)
+- install gnucap-uf (>=0.0.2-rc3) (sorry, no gnucap-upstream yet)
 - install this package
 - type
   $ QUCSATOR=gnucsator.sh qucs

@@ -25,6 +25,7 @@
  */
 #include <globals.h>
 #include <e_compon.h>
+#include <e_elemnt.h>
 #include <d_subckt.h>
 #ifdef DO_TRACE
 # include <io_misc.h>
@@ -95,6 +96,24 @@ static unsigned count(const T* what){
 	return n;
 }
 /*--------------------------------------------------------------------------*/
+#ifndef HAVE_ELEMENT_PARAM // upstream gnucap
+static void stuff_param_into_element(COMPONENT* c, string P, string V)
+{
+	ELEMENT* e = prechecked_cast<ELEMENT*>(c);
+	assert(e);
+	assert(e->has_common());
+	COMMON_COMPONENT* m = e->mutable_common()->clone();
+	if(e->value_name() == P){ // && bm_value?
+		std::string args("= " + V);
+		CS cmd(CS::_STRING, args);
+		m->parse_params_obsolete_callback(cmd);
+	}else{
+		trace2("setting params to bm", P, V);
+		m->set_param_by_name(P,V);
+	}
+	e->attach_common(m);
+}
+#endif
 /*--------------------------------------------------------------------------*/
 /* wrap COMPONENT proto into SCKT,
  * translate port/parameter names, wrap probes.
@@ -250,8 +269,14 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 						assert(i<_param_number);
 						if(_param[i].has_hard_value()){
 							trace3("forwarding params", _param_name[i],
-									_param_name[i+_param_number+1], _param[i]);
+									_param_name[i+_param_number+1], _param[i].string());
+#ifdef HAVE_ELEMENT_PARAM // uf
 							_c1->set_param_by_name(string(_param_name[i+_param_number+1]), _param[i].string());
+#else // upstream gnucap
+							stuff_param_into_element(_c1, string(_param_name[i+_param_number+1]),
+									                   _param[i].string());
+#endif
+							trace1("done param", _param_name[i]);
 						}else{
 						}
 					}
