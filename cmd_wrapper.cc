@@ -136,10 +136,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			}
 
 			cmd.reset();
+#if 0 // probably not a good idea.
 			if(cmd >> "quit"){ itested();
 				quit(cl);
 			}else{untested();
 			}
+#endif
 		}
 
 		// quit is invoked from main()
@@ -156,5 +158,5 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			c->do_it(wcmd, cl);
 		}
 	}go;
-DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "quit|go", &go);
+DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "go", &go);
 }

@@ -103,4 +103,5 @@ load lang_qucs.so
 load functions.so
 qucs
 include $infile
+go
 EOF
