@@ -33,7 +33,7 @@ qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 	LD_LIBRARY_PATH=.. $(GNUCSATOR) -i $< > $@
 
 %.gc.out: %.gc
-	LD_LIBRARY_PATH=.. $(GNUCAP) < $< | sed -e '1,/^core-lib version/d' \
+	LD_LIBRARY_PATH=.. $(GNUCAP) < $< |& grep -v ^@@ | sed -e '1,/^core-lib version/d' \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
