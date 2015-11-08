@@ -4,6 +4,8 @@ QUCSATOR = qucsator
 GNUCSATOR = ../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
+SHELL=/bin/bash
+
 all: gc qucs
 
 COMMON_TESTS = \

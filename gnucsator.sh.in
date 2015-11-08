@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # this is gnucsator, gnucap in qucsator mode.
 # it loads plugins and switches to qucs language.
 #
