@@ -28,7 +28,7 @@ endif
 
 GNUCAP_CXXFLAGS+= -fPIC -shared
 
-QUCS_DEVS = opamp cccs
+# QUCS_DEVS = opamp cccs
 QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
 
 # LDLIBS =
