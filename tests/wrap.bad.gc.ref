@@ -3,13 +3,10 @@ stashing as R:0
 C: already installed, replacing
 stashing as C:0
 Vdc #(.X(u)) foo1(1,0);
-
        ^ ? : bad parameter X ignored
 Vdc #(.X(2)) foo2(2,0);
-
        ^ ? : bad parameter X ignored
 //* X does not exist
-
 Vdc #(.U(NA( NA)),.Temp(NA( NA))) foo1 (.p(1),.n(0));
 Vdc #(.U(NA( NA)),.Temp(NA( NA))) foo2 (.p(2),.n(0));
 #           v(1)       v(2)       v(foo1)    v(foo2)   
