@@ -97,3 +97,6 @@ gnucsator.sh: gnucsator.sh.in Makefile
 
 Make2:
 	[ -e $@ ] || echo "# here you may override settings" > $@
+
+check:
+	$(MAKE) -C tests

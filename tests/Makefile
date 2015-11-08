@@ -42,5 +42,12 @@ qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@
 
+$(COMMON_TESTS:%=%.gc.out) $(GC_TESTS:%=%.out): .P
+
+.PHONY: .P
+
+.P:
+	@:
+
 clean:
 	rm -rf *.out
