@@ -93,11 +93,12 @@ COMPONENTS (table ripped from [1])
 │ deplt mosfet    │                 │  ?             │      │ use mosfet?    │
 │ mosfet w/ bulk  │                 │  ?             │      │ use mosfet?    │
 │ FBH HBT         │                 │ (V)            │      │ ext. temp      │
-│ HICUM v2.1 l2   │                 │ (V)            │      │                │
+│ bsim4v30        │ bsim4v30{p,n}MOS│  V             │      │                │
+│ HICUM v2.1 l2   │ hicumL2V2p1     │  V             │      │                │
 │ HICUM v2.22 l2  │                 │ (V)            │      │                │
 │ HICUM v2.23 l2  │                 │ (V)            │      │                │
 │ HICUM v1.12 l0  │                 │ (V)            │      │                │
-│ HICUM v1.2 l0   │                 │ (V)            │      │                │
+│ HICUM v1.2 l0   │ hicumL0V1p2     │  V             │      │                │
 │ MESFET          │                 │ (V)            │      │                │
 │ EPFL EKV v2.6   │                 │ (V)            │      │                │
 │ equation device │ Eqn             │  C             │ T    │ probe access?  │
