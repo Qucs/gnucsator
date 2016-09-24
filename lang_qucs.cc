@@ -22,7 +22,8 @@
 #include <c_comand.h>
 #include <d_dot.h>
 #include <d_coment.h>
-#include <d_subckt.h>
+#include <e_paramlist.h>
+#include <e_subckt.h>
 #include <globals.h>
 
 // header hack
@@ -62,11 +63,11 @@ class LANG_QUCS_BASE : public LANGUAGE {
 		DEV_COMMENT*	parse_comment(CS&, DEV_COMMENT*);
 		DEV_DOT*	parse_command(CS&, DEV_DOT*);
 		MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*);
-		MODEL_SUBCKT* parse_module(CS&, MODEL_SUBCKT*);
+		BASE_SUBCKT* parse_module(CS&, BASE_SUBCKT*);
 		COMPONENT*	parse_instance(CS&, COMPONENT*);
 		std::string	find_type_in_string(CS&) GCUF_CONST;
 	public: // "local?", called by own commands
-		void parse_module_body(CS&, MODEL_SUBCKT*, CARD_LIST*, const std::string&,
+		void parse_module_body(CS&, BASE_SUBCKT*, CARD_LIST*, const std::string&,
 				EOB, const std::string&);
 	private: // local
 		void parse_type(CS&, CARD*);
@@ -80,7 +81,7 @@ class LANG_QUCS_BASE : public LANGUAGE {
 		void cmdproc(CS&, CARD_LIST*);
 	private: // override virtual, called by print_item
 		void print_paramset(OMSTREAM&, const MODEL_CARD*);
-		void print_module(OMSTREAM&, const MODEL_SUBCKT*);
+		void print_module(OMSTREAM&, const BASE_SUBCKT*);
 		void print_instance(OMSTREAM&, const COMPONENT*);
 		void print_comment(OMSTREAM&, const DEV_COMMENT*);
 		void print_command(OMSTREAM&, const DEV_DOT*);
@@ -321,7 +322,7 @@ void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 {
-	trace0(("LANG_QUCS_BASE::parse_args (card)" + (std::string) cmd).c_str() );
+	trace1("LANG_QUCS_BASE::parse_args (card)", cmd);
 	assert(x);
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
@@ -419,10 +420,10 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, COMMON_COMPONENT* x)
 {
 	assert(false);
 	unreachable(); //probably obsolete.
-	trace0(("LANG_QUCS_BASE::parse_args (common)" + (std::string) cmd).c_str() );
+	trace1("LANG_QUCS_BASE::parse_args (common)", cmd);
 	assert(x);
 
-	unsigned here = cmd.cursor();           
+	unsigned here = cmd.cursor();
 	for (unsigned i=0; ; ++i) {
 		if (!cmd.more()) {
 			break;
@@ -526,7 +527,7 @@ MODEL_CARD* LANG_QUCS_BASE::parse_paramset(CS& cmd, MODEL_CARD* x)
 	return x;
 }
 /*--------------------------------------------------------------------------*/
-MODEL_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, MODEL_SUBCKT* x)
+BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 {
 	trace0(("LANG_QUCS_BASE::parse_module " + cmd.tail()) );
 	assert(x);
@@ -552,7 +553,7 @@ MODEL_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, MODEL_SUBCKT* x)
 	return x;
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::parse_module_body(CS& cmd, MODEL_SUBCKT* x, CARD_LIST* Scope,
+void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 		const std::string& prompt, EOB exit_on_blank, const std::string& exit_key)
 {
 	try {
@@ -623,7 +624,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 		}
 
 		if (c) {
-			trace2("LANG_QUCS_BASE::parse_instance", hp(c), x->long_label());
+			trace2("LANG_QUCS_BASE::parse_instance", c, x->long_label());
 			x->attach_common(c);    
 			parse_args(cmd, x);
 
@@ -793,7 +794,7 @@ void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 	o << ")\n";
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_module(OMSTREAM& o, const MODEL_SUBCKT* x)
+void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 {
 	assert(x);
 	assert(x->subckt());

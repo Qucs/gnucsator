@@ -95,8 +95,8 @@ class DEV_QUCS : public STORAGE {
 		bool is_source()const {return false;}
 		bool f_is_value()const {return false;}
 
-		bool node_is_grounded(uint_t i)const {incomplete(); return false;}
-		bool node_is_connected(uint_t i)const {incomplete(); return false;}
+		bool node_is_grounded(uint_t)const {incomplete(); return false;}
+		bool node_is_connected(uint_t)const {incomplete(); return false;}
 		//--------------------------------------------------------------------
 	public:
 		double tr_review_trunc_error(const FPOLY1* q);

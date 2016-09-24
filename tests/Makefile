@@ -32,7 +32,7 @@ gc: $(GC_TESTS:%.gc=%.gc.out) \
 qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 
 %.net.gc.out: %.net
-	LD_LIBRARY_PATH=.. $(GNUCSATOR) -i $< > $@
+	LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} $(GNUCSATOR) -i $< > $@
 
 %.gc.out: %.gc
 	LD_LIBRARY_PATH=.. $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \

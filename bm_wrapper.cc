@@ -26,9 +26,12 @@
 #include <globals.h>
 #include <e_compon.h>
 #include <e_elemnt.h>
-#include <d_subckt.h>
+#include <e_paramlist.h>
+#include <e_subckt.h>
 #ifdef DO_TRACE
+#ifdef HAVE_IO_MISC_H
 # include <io_misc.h>
+#endif
 #endif
 #ifndef HAVE_UINT_T
 typedef int uint_t;
@@ -292,14 +295,16 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			assert(!is_constant());
 			assert(subckt());
 //			subckt()->set_slave();
-			trace3("expanding sckt", subckt()->size(), hp(this), long_label());
+//			trace3("expanding sckt", subckt()->size(), hp(this), long_label());
 			subckt()->expand();
 		}
 		void precalc_last()
 		{
 			COMPONENT::precalc_last();
 			assert(subckt());
+#ifdef HAVE_IO_MISC_H
 			trace1("wrap:expand", *(subckt()->params()));
+#endif
 			subckt()->precalc_last();
 		}
 };

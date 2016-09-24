@@ -79,7 +79,7 @@ protected: // override virtual
 public:
   string iwant_print() const {
     trace3("DEV_PROBE::iwant_print() calledthe right function",
-        long_label(),hp(this), _sim->_mode); 
+        long_label(), this, _sim->_mode);
     return "v(" + long_label() + ")"; }
 private:
   bool _reg;
