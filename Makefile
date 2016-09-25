@@ -44,7 +44,7 @@ QUCS_PLUGINS = \
 	bm_wrapper.so \
 	cmd_wrapper.so
 
-CLEANFILES = $(QUCS_PLUGINS) *.o *~
+CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
 
 all: $(QUCS_PLUGINS) gnucsator.sh
 
@@ -98,5 +98,5 @@ gnucsator.sh: gnucsator.sh.in Makefile
 Make2:
 	[ -e $@ ] || echo "# here you may override settings" > $@
 
-check:
+check: all
 	$(MAKE) -C tests
