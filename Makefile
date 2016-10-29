@@ -85,4 +85,4 @@ Make2:
 	[ -e $@ ] || echo "# here you may override settings" > $@
 
 check: all
-	$(MAKE) -C tests
+	$(MAKE) -C tests check

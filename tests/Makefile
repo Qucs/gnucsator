@@ -23,8 +23,10 @@ GC_TESTS = \
 	wrap.bad.gc \
 	rect.gc
 
-check: $(COMMON_TESTS:%=%.gc.diff) \
-       $(GC_TESTS:%=%.diff)
+check: diff
+
+diff: $(COMMON_TESTS:%=%.gc.diff) \
+      $(GC_TESTS:%=%.diff)
 
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
@@ -39,14 +41,14 @@ qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
-	diff -u $+
+	diff -w -u $+
 
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@
 
 $(COMMON_TESTS:%=%.gc.out) $(GC_TESTS:%=%.out): .P
 
-.PHONY: .P
+.PHONY: .P check diff
 
 .P:
 	@:
