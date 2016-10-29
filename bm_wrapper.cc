@@ -23,6 +23,10 @@
  *           the others in bm.
  * put this into a sckt shell and dispatch
  */
+
+// tmp hack
+#define USE(x)
+
 #include <globals.h>
 #include <e_compon.h>
 #include <e_elemnt.h>
@@ -268,7 +272,9 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 					node_t nodes[] = { _n[0], _n[1] }; // more?
 					_c1->set_parameters("dev", this, _c1->mutable_common(),
 							0/*value*/, 0, NULL, 2, nodes);
-					for(unsigned i=0; _param_name[i+_param_number+1]; ++i){ itested();
+					for(unsigned i=0; _param_name[i] && // clumsy?
+							            _param_name[i+_param_number+1]; ++i){ itested();
+						trace3("params", i, _param_number, _param_name[i+_param_number+1]);
 						assert(i<_param_number);
 						if(_param[i].has_hard_value()){
 							trace3("forwarding params", _param_name[i],

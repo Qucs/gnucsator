@@ -18,6 +18,9 @@
  * 02110-1301, USA.
  */
 
+// tmp hack
+#define USE(x)
+
 #include <u_status.h>
 #include <c_comand.h>
 #include <d_dot.h>
@@ -499,7 +502,7 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 		cmd >> id_string;
 		untested();
 	}
-	trace1("LANG_QUCS_BASE::parse_command",id_string);
+	trace1("LANG_QUCS_BASE::parse_command", id_string);
 	cmd.reset(here);
 	if (!command_dispatcher[id_string]) {
 		unreachable();
