@@ -9,21 +9,7 @@ ifneq ($(GNUCAP_CONF),)
 	 GNUCAP_LIBDIR   = $(shell $(GNUCAP_CONF) --libdir)
 	 GNUCAP_EXECPREFIX=$(shell $(GNUCAP_CONF) --exec-prefix)
 else
-    $(info no gnucap-conf, this might not work)
-    CXX = g++
-    GNUCAP_CXXFLAGS = \
-        -g -O0 \
-        -Wall -Wextra \
-        -Wswitch-enum -Wundef -Wpointer-arith -Woverloaded-virtual \
-        -Wcast-qual -Wcast-align -Wpacked -Wshadow -Wconversion \
-        -Winit-self -Wmissing-include-dirs -Winvalid-pch \
-        -Wvolatile-register-var -Wstack-protector \
-        -Wlogical-op -Wvla -Woverlength-strings -Wsign-conversion
-    GNUCAP_CPPFLAGS = \
-        -DHAVE_LIBREADLINE \
-        -DUNIX \
-        -DTRACE_UNTESTED
-	 GNUCAP_LIBDIR=/usr/share/gnucap
+    $(error no gnucap-conf, this will not work)
 endif
 
 GNUCAP_CXXFLAGS+= -fPIC -shared
