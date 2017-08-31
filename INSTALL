@@ -2,7 +2,7 @@ This package has no (standard) build system yet.
 
 The static Makefile has a catchall target to build, a "check" and an "install"
 target with the usual semantics. gnucap related options are pulled in from the
-executable "gnucap-conf${SUFFIX}" shipped with gnucap (not upstream yet.)
+executable "gnucap-conf${SUFFIX}" shipped with gnucap (develop branch).
 
 you may want to override some settings, use the makefile snipped "Make2".
 SUFFIX=-uf                # program-suffix of your gnucap installation

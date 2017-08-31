@@ -3,7 +3,7 @@ This package provides a gnucap based qucsator implementation.
 (Currently) it is meant to work like this:
 - install qucs
 - install gnucap
-  - upstream gnucap from savannah git [1]
+  - gnucap from savannah git [1]
   - or gnucap-uf
 - install this package
 - type
@@ -12,4 +12,4 @@ This package provides a gnucap based qucsator implementation.
 please see STATUS for the currently available functionality and tests/*.sch for
 example schematics.
 
-[1] works with "unstable" branch
+[1] works with "develop" branch
