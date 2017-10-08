@@ -24,9 +24,6 @@
  * put this into a sckt shell and dispatch
  */
 
-// tmp hack
-#define USE(x)
-
 #include <globals.h>
 #include <e_compon.h>
 #include <e_elemnt.h>
