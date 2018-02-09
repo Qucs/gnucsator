@@ -1,0 +1,23 @@
+<Qucs Dataset 0.0.19>
+<indep frequency 2>
+1.
+2.
+</indep>
+<indep S[2,2] 2>
+-0.831501+ 0.* i
+-0.831501+ 0.* i
+</indep>
+<indep S[2,1] 2>
+0.2930395+ 0.* i
+0.2930395+ 0.* i
+</indep>
+<indep S[1,2] 2>
+0.07326042+ 0.* i
+0.07326042+ 0.* i
+</indep>
+<indep S[1,1] 2>
+-0.611722+ 0.* i
+-0.611722+ 0.* i
+</indep>
+<indep time 0>
+</indep>

@@ -130,7 +130,7 @@ static void skip_pre_stuff(CS& cmd)
  */
 static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int start)
 {
-	trace3("count_ports", leave_tail, start, maxnodes);
+	trace4("count_ports", leave_tail, start, maxnodes, cmd.tail());
 	assert(start <= maxnodes);
 	assert(minnodes <= maxnodes);
 
@@ -142,16 +142,18 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 	// and other stuff begins
 	spots.push_back(cmd.cursor());
 	for (;;) {
+		trace1("loop", cmd.tail());
+
 		++i;
 		//cmd.skiparg();
 		std::string node_name;
 		cmd >> node_name;
 		spots.push_back(cmd.cursor());
 
-		if (paren && cmd.skip1b(')')) {
+		if (paren && cmd.skip1b(')')) { untested();
 			num_nodes = i;
 			break;
-		}else if (cmd.is_end()) {
+		}else if (cmd.is_end()) { untested();
 			// found the end, no '='
 			if (i <= minnodes) {
 				num_nodes = i;
@@ -163,7 +165,7 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 				num_nodes = maxnodes;
 			}
 			break;
-		}else if (cmd.skip1b("({})")) {
+		}else if (cmd.skip1b("({})")) { untested();
 			// found '(', it's past the end of nodes
 			if (i > maxnodes + leave_tail) {
 				num_nodes = maxnodes;
@@ -171,7 +173,7 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 				num_nodes = i - leave_tail;
 			}
 			break;
-		}else if (cmd.skip1b('=')) {
+		}else if (cmd.skip1b('=')) { untested();
 			// found '=', it's past the end of nodes
 			if (i > maxnodes + leave_tail + 1) {
 				num_nodes = maxnodes;
@@ -179,9 +181,10 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 				num_nodes = i - leave_tail - 1;
 			}
 			break;
-		}else{
+		}else{ untested();
 		}
 	}
+	trace2("nn", num_nodes, start);
 	if (num_nodes < start) {
 		cmd.reset(spots.back());
 		throw Exception("what's this (qucs)?");
@@ -311,7 +314,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
-{
+{ untested();
 	trace1("LANG_QUCS_BASE::parse_type", cmd.tail());
 	assert(x);
 	std::string new_type;
@@ -369,12 +372,11 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 
 							try{
 								cc->set_param_by_name(Name, value);
-							}catch(Exception){
+							}catch(Exception){ untested();
 							  	// retry if common did not like it...
 								xx->set_param_by_name(Name,value);
-								untested();
 							}
-						} else {
+						} else { untested();
 							trace2("no common", Name, value);
 							xx->set_param_by_name(Name,value);
 						}
@@ -519,7 +521,7 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 }
 /*--------------------------------------------------------------------------*/
 MODEL_CARD* LANG_QUCS_BASE::parse_paramset(CS& cmd, MODEL_CARD* x)
-{
+{ untested();
 	assert(x);
 	cmd.reset();
 	cmd >> ".model ";
@@ -541,7 +543,8 @@ BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 	parse_label(cmd, x);
 	{
 		unsigned here = cmd.cursor();
-		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 
+		trace2("LANG_QUCS_BASE::parse_module ", x->min_nodes(), x->max_nodes() );
+		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(),
 				0/*no unnamed par*/, 0/*start*/);
 
 		trace1("LANG_QUCS_BASE::parse_module ", num_nodes );
@@ -611,7 +614,8 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 		{
 			unsigned here = cmd.cursor();
-			int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
+			int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
+			//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
 			cmd.reset(here);
 			parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, false);
 			trace0(("LANG_QUCS_BASE::parse_instance parsed ports " + (std::string) cmd.tail()).c_str() );
@@ -622,7 +626,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 		if (x->print_type_in_spice()) {
 			trace0(("LANG_QUCS_BASE::parse_instance ptis " + (std::string) cmd.tail()).c_str() );
-			parse_type(cmd, x);
+			// parse_type(cmd, x);
 		}else{
 		}
 

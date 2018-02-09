@@ -33,18 +33,38 @@ GNUCAP_LIBDIR=@GNUCAP_LIBDIR@
 # write this in C -- it's still stupid.
 postproc()
 {
-	while read i; do
-		if [ "${i:0:5}"x = "#Timex" ]; then
-			probes=( ${i:5:${#i}} )
-			break;
-		fi
-	done
+	mode=wait
 	n=0
 	m=0
 	while read line; do
+		if [ $mode = tran ]; then
+			# below.
+			:
+		elif [ $mode = verbose ]; then
+			if [ "$line" = @@@ENDVERBOSE@@@ ]; then
+				mode=wait
+				continue
+			fi
+			echo $line
+			continue
+		elif [ "${line:0:5}"x = "#Timex" ]; then
+			probes=( ${line:5:${#i}} )
+			mode=tran;
+			continue
+		elif [ $mode == wait ]; then
+			if [ "$line" = @@@VERBOSE@@@ ]; then
+				mode=verbose
+			fi
+			continue
+		fi
+
+
 		[ -z "$line" ] && break;
 		[ "${line:0:4}" = "open" ] && continue;
-		[ "${line:0:1}" = "#" ] && break;
+		if [ "${line:0:1}" = "#" ]; then
+			mode=wait
+			continue
+		fi
 		m=0
 		for tmp in $line; do
 			eval "data_${n}_$m=\"$tmp\""
@@ -89,18 +109,26 @@ echo "<Qucs Dataset 0.0.19>"
 # 	exec 2> "$outfile.stderr"
 # fi
 
+QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@INCLUDEDIR@}
+export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
+sources=sources.v
 
 ($GNUCAP | $postproc) <<EOF
 options numdgt 18
 load bm_value.so
 load bm_wrapper.so
 load bm_trivial.so
+load c_hide.so
 load cmd_wrapper.so
 load d_probe.so
 *load d_qucs_opamp.so
 load lang_qucs.so
 load functions.so
+load s_sparam.so
+* BUG: use include plugin that knows whw
+load c_qucslib.so
+qucslib $sources
 qucs
 include $infile
 go

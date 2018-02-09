@@ -6,13 +6,13 @@ ifneq ($(GNUCAP_CONF),)
     CXX = $(shell $(GNUCAP_CONF) --cxx)
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
-	 GNUCAP_LIBDIR   = $(shell $(GNUCAP_CONF) --libdir)
+	 GNUCAP_LIBDIR   = $(shell $(GNUCAP_CONF) --pkglibdir)
 	 GNUCAP_EXECPREFIX=$(shell $(GNUCAP_CONF) --exec-prefix)
 else
     $(error no gnucap-conf, this will not work)
 endif
 
-GNUCAP_CXXFLAGS+= -fPIC -shared
+GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
 
 # QUCS_DEVS = opamp cccs
 QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
@@ -22,13 +22,16 @@ QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
 QUCS_PLUGINS = \
 	$(QUCS_DEVS_SO) \
 	lang_qucs.so \
+	c_hide.so \
+	c_qucslib.so \
 	d_eqn.so \
 	d_probe.so \
 	functions.so \
 	bm_value.so \
 	bm_trivial.so \
 	bm_wrapper.so \
-	cmd_wrapper.so
+	cmd_wrapper.so \
+	s_sparam.so
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
 
@@ -49,6 +52,8 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 %.so : %.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
 
+s_sparam.so: LDLIBS=-lgsl -lblas
+
 d_eqn.so: CXXFLAGS+=-std=c++11
 cmd_wrapper.so: CXXFLAGS+=-std=c++11
 
@@ -57,10 +62,14 @@ QUCS_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
 QUCS_LDFLAGS = -L$(QUCS_PREFIX)/lib
 QUCS_LIBS = -lqucs
 
+# hmm, here?
+PKGINCLUDEDIR=${GNUCAP_LIBDIR}/qucs
+
 install: $(QUCS_PLUGINS) gnucsator.sh
 	install -d $(GNUCAP_LIBDIR)/qucs
 	install $(QUCS_PLUGINS) $(GNUCAP_LIBDIR)/qucs
 	install gnucsator.sh $(GNUCAP_EXECPREFIX)/bin
+	${MAKE} -C include PKGINCLUDEDIR=${PKGINCLUDEDIR}
 
 uninstall:
 	(cd $(GNUCAP_LIBDIR)/qucs ; rm $(QUCS_PLUGINS))
@@ -78,6 +87,7 @@ endef
 gnucsator.sh: gnucsator.sh.in Makefile
 	sed -e 's/@SUFFIX@/$(SUFFIX)/' \
 	    -e 's#@GNUCAP_LIBDIR@#$(GNUCAP_LIBDIR)#' \
+	    -e 's#@INCLUDEDIR@#$(PKGINCLUDEDIR)#' \
 	    -e 's/@NOTICE@/$(NOTICE)/' < $< > $@
 	chmod +x $@
 

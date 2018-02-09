@@ -17,7 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * wrapping commands to qucs
+ * qucs commands to gnucap
+ * this is essentially the gnucap driver.
+ * remember: qucs does not support simulator drivers (yet?!).
  */
 #include "globals.h"
 #include "u_lang.h"
@@ -28,8 +30,87 @@
 using std::map;
 using std::string;
 using std::stringstream;
-
+/*--------------------------------------------------------------------------*/
 namespace{
+/*--------------------------------------------------------------------------*/
+class SP_WRAP : public CMD {
+public:
+	SP_WRAP(): CMD() {untested();}
+public:
+	typedef struct{
+		double _start;
+		double _stop;
+	} data_t;
+private: // types
+	enum typeT{
+		tLin = 0,
+		tLog = 1
+	};
+private:
+	double _start;
+	double _stop;
+	unsigned _points;
+	method_t _integration;
+	int _order;
+	double _initialstep;
+	double _dtmin;
+	unsigned _itl;
+	double _reltol;
+	double _abstol;
+	double _vntol;
+
+	void options(CS&);
+	void do_it(CS&cmd, CARD_LIST* cl);
+public: // GO
+	static std::map<string, data_t> _stash;
+private:
+	typeT _type;
+} psp;
+map<string, SP_WRAP::data_t> SP_WRAP::_stash;
+DISPATCHER<CMD>::INSTALL dsp(&command_dispatcher, "SP", &psp);
+/*--------------------------------------------------------------------------*/
+void SP_WRAP::do_it(CS&cmd, CARD_LIST* cl)
+{
+	assert(cl);
+	options(cmd);
+	data_t t;
+	t._start = _start;
+	t._stop = _stop;
+	_stash[short_label()] = t;
+}
+/*--------------------------------------------------------------------------*/
+void SP_WRAP::options(CS& cmd)
+{
+	_order = -1;
+	_points = 0;
+	_dtmin = 0.;
+	_itl = 0;
+	_reltol = -1.;
+	_abstol = -1.;
+	_vntol = -1.;
+	double _whatever; // incomplete
+	unsigned here = cmd.cursor();
+
+	// .SP:SP1 Type="lin" Start="1" Stop="2" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
+	do{
+		trace1("options", cmd.tail());
+		ONE_OF
+			|| QucsGet(cmd, "Start", 	   &_start)
+			|| QucsGet(cmd, "Stop",		   &_stop)
+			|| QucsGet(cmd, "Points",	   &_points)
+			|| (cmd.umatch( "Type") &&
+					(ONE_OF
+					 || QucsSet(cmd, "lin",   &_type, tLin)
+					 || QucsSet(cmd, "log",   &_type, tLog)
+					 || cmd.warn(bWARNING, "need lin, log... incomplete")
+					)
+				)
+			;
+	}while (cmd.more() && !cmd.stuck(&here));
+	cmd.check(bWARNING, "what's this (incomplete)?");
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 	class TRAN_WRAP : public CMD {
 		public:
 			TRAN_WRAP(): CMD() {untested();}
@@ -57,7 +138,7 @@ namespace{
 
 	} p8;
 	map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
-
+/*--------------------------------------------------------------------------*/
 	void TRAN_WRAP::options(CS& cmd)
 	{
 		_order = -1;
@@ -101,7 +182,8 @@ namespace{
 				;
 		}while (cmd.more() && !cmd.stuck(&here));
 		cmd.check(bWARNING, "what's this (incomplete)?");
-	}
+	} // TRAN_WRAP::options
+/*--------------------------------------------------------------------------*/
 	void TRAN_WRAP::do_it(CS&cmd, CARD_LIST* cl)
 	{
 		assert(cl);
@@ -112,7 +194,8 @@ namespace{
 		TRAN_WRAP::_stash[short_label()] = t;
 	}
 DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
-
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 // go. run commands that are scattered
 	class GO : public CMD {
 		void do_it(CS&cmd, CARD_LIST*cl)
@@ -121,8 +204,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CS p(CS::_STRING, "v(nodes)");
 			_probe_lists->print[s_TRAN].add_list(p);
 			CMD* c = NULL;
+			CMD* s = NULL;
+			CMD* o = NULL;
 			try {
 				c = command_dispatcher["transient"];
+				s = command_dispatcher["sp"];
+				o = command_dispatcher["op"];
 			}catch(Exception){ incomplete();
 			}
 			assert(c);
@@ -133,6 +220,18 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				x << j._start << " " << j._stop << " " << j._stop << " trace=a basic";
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
+			}
+			if(TRAN_WRAP::_stash.empty()){
+				CS wcmd(CS::_STRING, " >/dev/null");
+				o->do_it(wcmd, cl);
+			}
+			for(auto&i : SP_WRAP::_stash){
+				stringstream x;
+				auto j = i.second;
+				x << "port * " << j._start << " " << j._stop;
+				trace1("running", x.str());
+				CS wcmd(CS::_STRING, x.str());
+				s->do_it(wcmd, cl);
 			}
 
 			cmd.reset();
@@ -160,3 +259,5 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 	}go;
 DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "go", &go);
 }
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/

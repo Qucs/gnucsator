@@ -1,6 +1,7 @@
 SIMULATION COMMANDS
 
 - tran available as wrapper (stub).
+- sparam plugin
 - ac, dc, fo available
 - sens needs port from -uf
 - harmonic balance not implemented
@@ -8,6 +9,7 @@ SIMULATION COMMANDS
 COMPONENTS (table ripped from [1])
 
 - implementation row
+    S  sckt based model (no probes yet)
     B  built in component + wrapper
    (B) possible (part available)
     E  have element+bm+wrapper
@@ -68,10 +70,9 @@ COMPONENTS (table ripped from [1])
 │ bond wire       │                 │                │      │                │
 │ transformer     │                 │                │      │                │
 │ symm trafo      │                 │                │      │                │
-│ vcvs            │                 │ (E) [V]        │      │                │
+│ vcvs            │                 │ (E) [V] S      │ T    │                │
 │ gyrator         │                 │     [V]        │      │                │
 │ cccs            │                 │ (E) [V]        │      │                │
-│ vcvs            │                 │ (E) [V]        │      │                │
 │ ccvs            │                 │ (E) [V]        │      │                │
 │ DC voltage      │ Vdc             │  E             │ T    │                │
 │ DC current      │                 │ (E)            │      │                │
