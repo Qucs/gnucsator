@@ -48,7 +48,7 @@ postproc()
 			echo $line
 			continue
 		elif [ "${line:0:5}"x = "#Timex" ]; then
-			probes=( ${line:5:${#i}} )
+			probes=( ${line:5:${#line}} )
 			mode=tran;
 			continue
 		elif [ $mode == wait ]; then
