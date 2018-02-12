@@ -70,14 +70,15 @@ COMPONENTS (table ripped from [1])
 │ bond wire       │                 │                │      │                │
 │ transformer     │                 │                │      │                │
 │ symm trafo      │                 │                │      │                │
+│ cccs            │                 │ (E) [V] S      │      │                │
+│ ccvs            │                 │ (E) [V] S      │      │                │
+│ vccs            │                 │ (E) [V] S      │      │                │
 │ vcvs            │                 │ (E) [V] S      │ T    │                │
 │ gyrator         │                 │     [V]        │      │                │
-│ cccs            │                 │ (E) [V]        │      │                │
-│ ccvs            │                 │ (E) [V]        │      │                │
 │ DC voltage      │ Vdc             │  E             │ T    │                │
 │ DC current      │                 │ (E)            │      │                │
-│ AC voltage      │                 │                │      │                │
-│ AC current      │                 │                │      │                │
+│ AC voltage      │                 │      S         │      │                │
+│ AC current      │                 │      S         │      │                │
 │ AC power        │                 │                │      │                │
 │ AM mod vs       │                 │                │      │                │
 │ PM mod vs       │                 │                │      │                │
