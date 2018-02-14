@@ -1,11 +1,11 @@
 This package provides a gnucap based qucsator implementation.
 
 (Currently) it is meant to work like this:
-- install qucs
+- install qucs (the gui).
 - install gnucap
   - official gnucap from savannah
   - or gnucap-uf (obsolete)
-- install this package
+- install this package, "make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
 

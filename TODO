@@ -1,9 +1,11 @@
-- wrappers for dc, ac
-- does this work with upstream gnucap?
-- switch to binary executable making use of libgnucap
-- ground node?
+- extend the component library, see STATUS
+- add the missing simulations or command wrappers
 - Eqn: access probes
 - complex, vector, matrix parameters
 - more functions, functions with >1 args
 - build system (which 1?)
-- see STATUS
+- switch to binary executable making use of libgnucap
+
+- problems in qucs to be addressed:
+ - probe handling
+ - ground node handling

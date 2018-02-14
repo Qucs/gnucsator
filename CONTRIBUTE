@@ -1,0 +1,10 @@
+this repository is open for contributions.
+see TODO for a list...
+
+commit patches in any way that seems to make sense.
+
+most additions to this repository will be trivial to review and will not
+interfere with each other.
+
+additions will have to be licensed under GPLv3, please include a corresponding
+header in new file.
