@@ -29,7 +29,7 @@
 
 typedef unsigned needed_t;
 
-#include "io_matrix.h"
+// #include "io_matrix.h"
 #include "e_node.h"
 #include "e_aux.h"
 #include "e_elemnt.h"
@@ -366,7 +366,9 @@ void SPARAM::solve()
 
   if (_dump_matrix){
     _out.setfloatwidth(0,0);
-    _out << _sim->_acx << "\n" ;
+    incomplete();
+    // _out << _sim->_acx << "\n" ;
+  }else{
   }
   ::status.lud.start();
   _sim->_acx.lu_decomp();
