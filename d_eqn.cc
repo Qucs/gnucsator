@@ -21,9 +21,6 @@
  *------------------------------------------------------------------
  * qucs Eqn evaluator component
  */
-// tmp hack
-#define USE(x)
-
 #include <e_compon.h>
 #include <u_xprobe.h>
 #include <globals.h>

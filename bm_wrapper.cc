@@ -154,7 +154,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 				_n[ii] = p._n[ii];
 			}
 			_param = new PARAMETER<double>[_param_number];
-			for (uint_t ii = 0; ii < _param_number; ++ii) {
+			for (unsigned ii=0; ii < _param_number; ++ii) {
 				_param[ii] = p._param[ii];
 			}
 		}

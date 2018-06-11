@@ -18,9 +18,6 @@
  * 02110-1301, USA.
  */
 
-// tmp hack
-#define USE(x)
-
 #include <u_status.h>
 #include <c_comand.h>
 #include <d_dot.h>
@@ -75,7 +72,6 @@ class LANG_QUCS_BASE : public LANGUAGE {
 	private: // local
 		void parse_type(CS&, CARD*);
 		void parse_args(CS&, CARD*);
-		void parse_args(CS&, COMMON_COMPONENT*);
 		void parse_label(CS&, CARD*);
 		void parse_ports(CS&, COMPONENT*, int minnodes, int start, int num_nodes, bool all_new);
 	private: // compatibility hacks
@@ -417,48 +413,6 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 		}
 	}
 }
-
-
-/*--------------------------------------------------------------------------*/
-
-void LANG_QUCS_BASE::parse_args(CS& cmd, COMMON_COMPONENT* x)
-{
-	assert(false);
-	unreachable(); //probably obsolete.
-	trace1("LANG_QUCS_BASE::parse_args (common)", cmd);
-	assert(x);
-
-	unsigned here = cmd.cursor();
-	for (unsigned i=0; ; ++i) {
-		if (!cmd.more()) {
-			break;
-		}else{
-			std::string Name  = cmd.ctos("=", "", "");
-			cmd >> '=';
-			std::string value = cmd.ctos(",=;)", "\"'{(", "\"'})");
-			// hier den hack mit "1 M" --> "1M"
-			unsigned there = here;
-			if (cmd.stuck(&here)) {untested();
-				break;
-			}else{
-				try{
-
-					if (value == "") {
-						cmd.warn(bDANGER, there, Name + " has no value?");
-					}else{
-					}
-
-					x->set_param_by_name(Name,value);
-
-				}catch (Exception_No_Match&) {itested();
-					cmd.warn(bDANGER, there,"bad parameter " + Name + " ignored");
-				}
-			}
-		}
-	}
-
-}
-
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
 {
