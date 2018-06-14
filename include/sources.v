@@ -19,7 +19,7 @@ endmodule
 
 module VCCS(1 2 3 4);
 parameter G=1
-vccs #(.gain(G)) v(2 3 1 4);
+vccs #(.gm(G)) v(2 3 1 4);
 endmodule
 
 module VCVS(1 2 3 4);

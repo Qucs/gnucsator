@@ -330,12 +330,16 @@ DEV_SCKT_WRAP m2(&qucs_Vsin, pn, Vsin_param, "Vsin");
 DISPATCHER<CARD>::INSTALL d2(&device_dispatcher, "Vsin", &m2);
 /*--------------------------------------------------------------------------*/
 // Vpulse:V3 _net2 _net3 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1 ns" Tf="1 ns"
+// Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns"
 // incomplete.
 const char* Vpulse_param[] =
-{  "U", "TH",   "TL",   "Tr",   "Tf",   "Td", NULL,
-   "pv","width","tlow", "rise", "fall", "delay" };
+{  "U1", "U2", "T2",   "TL",   "Tr",   "Tf",   "T1", NULL,
+   "iv", "pv", "width","tlow", "rise", "fall", "delay" };
+const char* Vpulse_assign[] =
+{  "width",     NULL,
+   "{T2-T1}"};
 DEV_BM_WRAP qucs_Vpulse("vsource", "pulse", "uneeded");
-DEV_SCKT_WRAP m3(&qucs_Vpulse, pn, Vpulse_param, "Vpulse");
+DEV_SCKT_WRAP m3(&qucs_Vpulse, pn, Vpulse_param, "Vpulse", Vpulse_assign, 1);
 DISPATCHER<CARD>::INSTALL d3(&device_dispatcher, "Vpulse", &m3);
 /*--------------------------------------------------------------------------*/
 // Vrect:V2 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns"

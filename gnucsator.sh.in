@@ -116,6 +116,7 @@ QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@INCLUDEDIR@}
 export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
 sources=sources.v
+nonlinear=nonlinear.v
 
 ($GNUCAP | $postproc) <<EOF
 options numdgt 18
@@ -132,6 +133,7 @@ load s_sparam.so
 * BUG: use include plugin that knows whw
 load c_qucslib.so
 qucslib $sources
+qucslib $nonlinear
 qucs
 include $infile
 go

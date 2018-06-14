@@ -25,6 +25,7 @@ COMPONENTS (table ripped from [1])
 
 - test row
     T  have a test
+    E  have an example circuit
    (T) have a test, doesn't work
 
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
@@ -43,7 +44,7 @@ COMPONENTS (table ripped from [1])
 │ phase shifter   │                 │                │      │                │
 │ ideal coupler   │                 │                │      │                │
 │ time ctrld sw   │                 │                │      │                │
-│ relais          │                 │ (B,sw?)        │      │                │
+│ relais          │                 │  sw            │ E    │                │
 │ current probe   │  Iprobe         │  C             │ T    │                │
 │ voltage probe   │  Vprobe         │  C             │ T    │                │
 │ ideal transline │                 │                │      │                │
@@ -108,7 +109,7 @@ COMPONENTS (table ripped from [1])
 │ eqn RF 2 port   │                 │  ?             │      │                │
 │ S-parameter data│                 │  ?             │      │                │
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
-│ voltage pulse   │ Vpulse          │ (E)            │      │                │
+│ voltage pulse   │ Vpulse          │  E             │ E    │                │
 │ voltage rect    │ Vrect           │  E             │ T    │                │
 │ current pulse   │ Ipulse          │ (E)            │      │                │
 │ current rect    │ Irect           │ (E)            │      │                │
