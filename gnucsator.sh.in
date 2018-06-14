@@ -27,7 +27,8 @@ while true; do
 done
 
 GNUCAP=gnucap@SUFFIX@
-GNUCAP_LIBDIR=@GNUCAP_LIBDIR@
+GNUCSATOR_PKGLIBDIR="@GNUCSATOR_PKGLIBDIR@"
+GNUCAP_PKGLIBDIR="@GNUCAP_PKGLIBDIR@"
 
 # don't even try to parse large data sets
 # write this in C -- it's still stupid.
@@ -94,8 +95,10 @@ postproc()
 	done
 }
 
-if [ -z "$LD_LIBRARY_PATH" ]; then
-	export LD_LIBRARY_PATH=$GNUCAP_LIBDIR/qucs
+if [ -n "$GNUCAP_PLUGPATH" ]; then
+	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PLUGPATH}
+else
+	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PKGLIBDIR}
 fi
 
 if [ -n "$outfile" ]; then

@@ -3,13 +3,22 @@ GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
 include Make2
 
 ifneq ($(GNUCAP_CONF),)
+    $(info asking $(GNUCAP_CONF))
     CXX = $(shell $(GNUCAP_CONF) --cxx)
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
-	 GNUCAP_LIBDIR   = $(shell $(GNUCAP_CONF) --pkglibdir)
+	 GNUCAP_PKGLIBDIR = $(shell $(GNUCAP_CONF) --pkglibdir)
 	 GNUCAP_EXECPREFIX=$(shell $(GNUCAP_CONF) --exec-prefix)
+	 GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
 else
     $(error no gnucap-conf, this will not work)
+endif
+
+ifneq ($(PREFIX),)
+    $(info prefix is ${PREFIX}. overriding some)
+	 GNUCAP_LIBDIR = ${PREFIX}/lib
+	 GNUCAP_EXECPREFIX = ${PREFIX}
+	 GNUCSATOR_PKGLIBDIR = ${GNUCAP_LIBDIR}/gnucap/qucs
 endif
 
 GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
@@ -63,11 +72,11 @@ QUCS_LDFLAGS = -L$(QUCS_PREFIX)/lib
 QUCS_LIBS = -lqucs
 
 # hmm, here?
-PKGINCLUDEDIR=${GNUCAP_LIBDIR}/qucs
+PKGINCLUDEDIR=${GNUCSATOR_PKGLIBDIR}
 
 install: $(QUCS_PLUGINS) gnucsator.sh
-	install -d $(GNUCAP_LIBDIR)/qucs
-	install $(QUCS_PLUGINS) $(GNUCAP_LIBDIR)/qucs
+	install -d $(GNUCSATOR_PKGLIBDIR)
+	install $(QUCS_PLUGINS) $(GNUCSATOR_PKGLIBDIR)
 	install gnucsator.sh $(GNUCAP_EXECPREFIX)/bin
 	${MAKE} -C include PKGINCLUDEDIR=${PKGINCLUDEDIR}
 
@@ -87,6 +96,8 @@ endef
 gnucsator.sh: gnucsator.sh.in Makefile
 	sed -e 's/@SUFFIX@/$(SUFFIX)/' \
 	    -e 's#@GNUCAP_LIBDIR@#$(GNUCAP_LIBDIR)#' \
+	    -e 's#@GNUCAP_PKGLIBDIR@#$(GNUCAP_PKGLIBDIR)#' \
+	    -e 's#@GNUCSATOR_PKGLIBDIR@#$(GNUCSATOR_PKGLIBDIR)#' \
 	    -e 's#@INCLUDEDIR@#$(PKGINCLUDEDIR)#' \
 	    -e 's/@NOTICE@/$(NOTICE)/' < $< > $@
 	chmod +x $@
@@ -95,4 +106,4 @@ Make2:
 	[ -e $@ ] || echo "# here you may override settings" > $@
 
 check: all
-	$(MAKE) -C tests check
+	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PKGLIBDIR}

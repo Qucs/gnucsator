@@ -33,11 +33,14 @@ gc: $(GC_TESTS:%.gc=%.gc.out) \
 
 qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 
+ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
+	GNUCAP_PLUGPATH=..${GNUCAP_PLUGPATH:%=:%}
+
 %.net.gc.out: %.net
-	LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} $(GNUCSATOR) -i $< > $@
+	${ENV} $(GNUCSATOR) -i $< > $@
 
 %.gc.out: %.gc
-	LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
+	${ENV} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref

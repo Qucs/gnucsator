@@ -2,12 +2,17 @@ This package provides a gnucap based qucsator implementation.
 
 (Currently) it is meant to work like this:
 - install qucs (the gui).
-- install gnucap
-  - official gnucap from savannah
-  - or gnucap-uf (obsolete)
+- install gnucap (>=20171003)
+  - official gnucap from savannah or
+  - apt-get install gnucap
 - install this package, "make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
+
+In some situations, gnucap paths (as obtained from gnucap-conf) are not
+writable.  then, PREFIX can be set to override them, e.g.
+$ make clean install PREFIX=/usr/local
+("clean" ensures that the custom paths are propagated everywhere).
 
 please see STATUS for the currently available functionality and
 tests/*.{net,sch} for example circuits.
