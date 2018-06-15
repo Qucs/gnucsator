@@ -26,6 +26,7 @@ COMPONENTS (table ripped from [1])
 - test row
     T  have a test
     E  have an example circuit
+    I  interactively tested
    (T) have a test, doesn't work
 
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
@@ -72,7 +73,7 @@ COMPONENTS (table ripped from [1])
 │ transformer     │                 │                │      │                │
 │ symm trafo      │                 │                │      │                │
 │ cccs            │                 │ (E) [V] S      │      │                │
-│ ccvs            │                 │ (E) [V] S      │      │                │
+│ ccvs            │                 │ (E) [V] S      │ EI   │                │
 │ vccs            │                 │ (E) [V] S      │      │                │
 │ vcvs            │                 │ (E) [V] S      │ T    │                │
 │ gyrator         │                 │     [V]        │      │                │

@@ -12,11 +12,6 @@ parameter G=1
 cccs #(.gain(G)) v(2 3 1 4);
 endmodule
 
-module CCVS(1 2 3 4);
-parameter G=1
-ccvs #(.gain(G)) v(2 3 1 4);
-endmodule
-
 module VCCS(1 2 3 4);
 parameter G=1
 vccs #(.gm(G)) v(2 3 1 4);
@@ -41,6 +36,14 @@ I1 1 2 dc=0 ac={I}
 * phase missing!
 V1 1 2 dc=0 ac={I}
 .ends
+
+.subckt CCVS(1 2 3 4);
+.parameter G=1
+.R:0 R1 1 4 1n
+H1 2 3 R1 {G}
+.ends
+
+.list
 
 .simulator lang=acs
 
