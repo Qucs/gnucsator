@@ -7,11 +7,6 @@ simulator language=verilog
 // "sources" section
 
 
-module CCCS(1 2 3 4);
-parameter G=1
-cccs #(.gain(G)) v(2 3 1 4);
-endmodule
-
 module VCCS(1 2 3 4);
 parameter G=1
 vccs #(.gm(G)) v(2 3 1 4);
@@ -43,7 +38,11 @@ V1 1 2 dc=0 ac={I}
 H1 2 3 R1 {G}
 .ends
 
-.list
+.subckt CCCS(1 2 3 4);
+.parameter G=1
+.R:0 R1 1 4 1n
+F1 2 3 R1 {G}
+.ends
 
 .simulator lang=acs
 

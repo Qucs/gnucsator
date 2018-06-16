@@ -45,7 +45,7 @@ COMPONENTS (table ripped from [1])
 │ phase shifter   │                 │                │      │                │
 │ ideal coupler   │                 │                │      │                │
 │ time ctrld sw   │                 │                │      │                │
-│ relais          │                 │  sw            │ E    │                │
+│ relais          │                 │  sw            │ EI   │                │
 │ current probe   │  Iprobe         │  C             │ T    │                │
 │ voltage probe   │  Vprobe         │  C             │ T    │                │
 │ ideal transline │                 │                │      │                │
@@ -72,7 +72,7 @@ COMPONENTS (table ripped from [1])
 │ bond wire       │                 │                │      │                │
 │ transformer     │                 │                │      │                │
 │ symm trafo      │                 │                │      │                │
-│ cccs            │                 │ (E) [V] S      │      │                │
+│ cccs            │                 │ (E) [V] S      │ EI   │                │
 │ ccvs            │                 │ (E) [V] S      │ EI   │                │
 │ vccs            │                 │ (E) [V] S      │      │                │
 │ vcvs            │                 │ (E) [V] S      │ T    │                │
