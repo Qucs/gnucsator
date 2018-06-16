@@ -208,8 +208,14 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			}
 			COMPONENT::set_param_by_name(Name,Value);
 		}
-		std::string param_name(int, int)const{incomplete();
-			return "";
+		std::string param_name(int i, int j)const{ untested();
+			if(param_count() - 1 - i >= int(_param_number)){ untested();
+				return "";
+			}else if(j){ untested();
+				return "";
+			}else{ untested();
+			 return _param_name[param_count() - 1 -i];
+			}
 		}
 		std::string param_name(int i)const{ itested();
 			assert(param_count() - 1 - i < int(_param_number));
