@@ -461,6 +461,7 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 	trace1("LANG_QUCS_BASE::parse_command", id_string);
 	cmd.reset(here);
 	if (!command_dispatcher[id_string]) {
+		std::cerr << "problem with " << id_string << "\n";
 		unreachable();
 		cmd.skip();
 		++here;

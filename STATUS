@@ -82,7 +82,7 @@ COMPONENTS (table ripped from [1])
 │ AC voltage      │                 │      S         │      │                │
 │ AC current      │                 │      S         │      │                │
 │ AC power        │                 │                │      │                │
-│ AM mod vs       │                 │                │      │                │
+│ AM mod vs       │                 │      S         │      │                │
 │ PM mod vs       │                 │                │      │                │
 │ noise voltage   │                 │ (E) (V)        │      │ tran noise     │
 │ noise current   │                 │ (E) (V)        │      │ tran noise     │

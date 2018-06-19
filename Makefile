@@ -34,6 +34,9 @@ QUCS_PLUGINS = \
 	c_hide.so \
 	c_qucslib.so \
 	d_eqn.so \
+	d_poly_g_uf.so \
+	bm_poly.so \
+	d_gpolyk_wrap.so \
 	d_probe.so \
 	functions.so \
 	bm_value.so \
@@ -41,6 +44,8 @@ QUCS_PLUGINS = \
 	bm_wrapper.so \
 	cmd_wrapper.so \
 	s_sparam.so
+
+d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
 

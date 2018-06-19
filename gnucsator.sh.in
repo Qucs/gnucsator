@@ -30,8 +30,8 @@ GNUCAP=gnucap@SUFFIX@
 GNUCSATOR_PKGLIBDIR="@GNUCSATOR_PKGLIBDIR@"
 GNUCAP_PKGLIBDIR="@GNUCAP_PKGLIBDIR@"
 
-# don't even try to parse large data sets
-# write this in C -- it's still stupid.
+# this is stupid (makes gnucap appear slow), but this must be fixed in qucs.
+# see simulator output PRs in qucs.
 postproc()
 {
 	mode=wait
@@ -125,16 +125,18 @@ load bm_wrapper.so
 load bm_trivial.so
 load c_hide.so
 load cmd_wrapper.so
+load d_poly_g_uf.so
 load d_probe.so
 *load d_qucs_opamp.so
 load lang_qucs.so
 load functions.so
 load s_sparam.so
-* BUG: use include plugin that knows whw
+* TODO: use include plugin with paths support.
 load c_qucslib.so
 qucslib $sources
 qucslib $nonlinear
 qucs
 include $infile
+list
 go
 EOF
