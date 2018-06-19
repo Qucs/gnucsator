@@ -17,6 +17,20 @@ parameter G=1
 vcvs #(.gain(G)) v(2 3 1 4);
 endmodule
 
+module CCVS(1, 2, 3, 4);
+parameter G=1
+vsource #(.dc(0)) p(1, 4);
+// looks like a hack. maybe it is.
+ccvs #(.gain(G)) HH(2, 3, p);
+endmodule
+
+module CCCS(1 2 3 4);
+parameter G=1
+vsource #(.dc(0)) p(1, 4);
+// looks like a hack. maybe it is.
+cccs #(.gain(G)) FF(2, 3, p)
+endmodule
+
 simulator lang=spice
 .options noinsensitive
 
@@ -32,17 +46,17 @@ I1 1 2 dc=0 ac={I}
 V1 1 2 dc=0 ac={I}
 .ends
 
-.subckt CCVS(1 2 3 4);
-.parameter G=1
-.R:0 R1 1 4 1n
-H1 2 3 R1 {G}
-.ends
-
-.subckt CCCS(1 2 3 4);
-.parameter G=1
-.R:0 R1 1 4 1n
-F1 2 3 R1 {G}
-.ends
+* don't need spice for this
+* .subckt CCVS(1 2 3 4);
+* .parameter G=1
+* .R:0 R1 1 4 1n
+* H1 2 3 R1 {G}
+* .ends
+* .subckt CCCS(1 2 3 4);
+* .parameter G=1
+* .R:0 R1 1 4 1n
+* F1 2 3 R1 {G}
+* .ends
 
 .simulator lang=acs
 

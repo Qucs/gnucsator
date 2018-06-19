@@ -137,6 +137,5 @@ qucslib $sources
 qucslib $nonlinear
 qucs
 include $infile
-list
 go
 EOF
