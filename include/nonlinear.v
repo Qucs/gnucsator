@@ -10,16 +10,20 @@ simulator language=verilog
 
 // AM_Mod:V1 _net1 gnd _net2 U="1 V" f="1 Hz" Phase="0" m="1.0"
 // Phase is broken in qucsator?
-module AM_Mod(1 2 3);
+module AM_Mod(1, 2, 3);
 parameter U=1
 parameter f=1
 parameter Phase=0
 parameter m=1
 Vsin #(.U(U) .f(f) .Phase(Phase)) V1(1 2i);
-g_poly_2 #(.c(0,1,0,0,1)) mul(1,2j,1,2i,3,3);
-resistor #(.r(1e-20)) res(2j, 1);
-ccvs #(.gain(1.)) HH(1,2,res);
+g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(1, 2j, 1, 2i, 3, 0);
+vsource #(.dc(0.)) p(2j, 1);
+ccvs #(.gain(1.)) HH(1,2,p);
 endmodule;
+
+// HACK. gnd does not work
+// this is a problem in AM_Mod, missing reference voltage for node 3 (duh!)
+vsource #(.dc(0.)) p(gnd, 0);
 
 hidemodule AM_Mod
 
