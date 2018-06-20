@@ -135,6 +135,8 @@ load s_sparam.so
 load c_qucslib.so
 qucslib $sources
 qucslib $nonlinear
+verilog
+vsource #(.dc(0.)) p(gnd, 0);
 qucs
 include $infile
 go

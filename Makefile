@@ -45,11 +45,11 @@ QUCS_PLUGINS = \
 	cmd_wrapper.so \
 	s_sparam.so
 
-d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
-
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
 
 all: $(QUCS_PLUGINS) gnucsator.sh
+
+d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
 lang_qucs.so: l_qucs.h
 cmd_wrapper.so: l_qucs.h

@@ -21,10 +21,6 @@ vsource #(.dc(0.)) p(2j, 1);
 ccvs #(.gain(1.)) HH(1,2,p);
 endmodule;
 
-// HACK. gnd does not work
-// this is a problem in AM_Mod, missing reference voltage for node 3 (duh!)
-vsource #(.dc(0.)) p(gnd, 0);
-
 hidemodule AM_Mod
 
 // -------------------------------------------------------------------- //

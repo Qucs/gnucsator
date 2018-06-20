@@ -26,6 +26,7 @@
 #include "c_comand.h"
 #include "l_qucs.h"
 #include "u_prblst.h"
+#include "e_cardlist.h"
 
 using std::map;
 using std::string;
@@ -201,8 +202,8 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 		void do_it(CS&cmd, CARD_LIST*cl)
 		{
 			trace0("go");
-			CS p(CS::_STRING, "v(nodes)");
-			_probe_lists->print[s_TRAN].add_list(p);
+			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
+			CMD::command("print tran -v(gnd)", &CARD_LIST::card_list);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;

@@ -30,12 +30,12 @@ COMPONENTS (table ripped from [1])
    (T) have a test, doesn't work
 
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
-│    component    │      label      │ implementation │ test │    comment     │
+│    component    │  qucsator name  │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
 │ resistor        │   R             │  E  [V]        │ T    │                │
 │ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
-│ ground          │                 │                │      │not a component?│
+│ ground          │   -             │                │      │ BUG, hidden    │
 │ DC block        │                 │                │      │                │
 │ DC feed         │                 │                │      │                │
 │ bias T          │                 │                │      │                │
@@ -45,7 +45,7 @@ COMPONENTS (table ripped from [1])
 │ phase shifter   │                 │                │      │                │
 │ ideal coupler   │                 │                │      │                │
 │ time ctrld sw   │                 │                │      │                │
-│ relais          │                 │  sw            │ EI   │                │
+│ relais          │  Relais         │  sw            │ EI   │                │
 │ current probe   │  Iprobe         │  C             │ T    │                │
 │ voltage probe   │  Vprobe         │  C             │ T    │                │
 │ ideal transline │                 │                │      │                │
@@ -72,21 +72,21 @@ COMPONENTS (table ripped from [1])
 │ bond wire       │                 │                │      │                │
 │ transformer     │                 │                │      │                │
 │ symm trafo      │                 │                │      │                │
-│ cccs            │                 │ (E) [V] S      │ EI   │                │
-│ ccvs            │                 │ (E) [V] S      │ EI   │                │
-│ vccs            │                 │ (E) [V] S      │      │                │
-│ vcvs            │                 │ (E) [V] S      │ T    │                │
+│ cccs            │ CCCS            │ (E) [V] S      │ EI   │                │
+│ ccvs            │ CCVS            │ (E) [V] S      │ EI   │                │
+│ vccs            │ VCCS            │ (E) [V] S      │      │                │
+│ vcvs            │ VCVS            │ (E) [V] S      │ T    │                │
 │ gyrator         │                 │     [V]        │      │                │
 │ DC voltage      │ Vdc             │  E             │ T    │                │
 │ DC current      │                 │ (E)            │      │                │
-│ AC voltage      │                 │      S         │      │                │
+│ AC voltage      │ Vac             │      S         │      │                │
 │ AC current      │                 │      S         │      │                │
 │ AC power        │                 │                │      │                │
-│ AM mod vs       │                 │      S         │      │                │
+│ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │
 │ PM mod vs       │                 │                │      │                │
 │ noise voltage   │                 │ (E) (V)        │      │ tran noise     │
 │ noise current   │                 │ (E) (V)        │      │ tran noise     │
-│ diode           │                 │ (B) [V]        │      │                │
+│ diode           │ Diode           │ (B) [V]  S     │ E    │                │
 │ diac            │                 │                │      │                │
 │ thyristor       │                 │                │      │                │
 │ triac           │                 │                │      │                │
@@ -172,7 +172,7 @@ COMPONENTS (table ripped from [1])
 │ 1bit half adder │                 │                │      │                │
 │ 1bit full adder │                 │                │      │                │
 │ 2bit full adder │                 │                │      │                │
-│ VHDL file       │                 │ ??             │      │                │
+│ VHDL file       │                 │ ??             │      │ lang_vhdl?     │
 │ Verilog-HDL     │                 │ ?              │      │ icarus?        │
 └─────────────────┴─────────────────┴────────────────┴──────┴────────────────┘
 
