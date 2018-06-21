@@ -137,6 +137,7 @@ COMPONENTS (table ripped from [1])
 │ logical NOR     │                 │ (L)            │      │                │
 │ logical NOR     │                 │ (L)            │      │                │
 │ logical NAND    │                 │ (L)            │      │                │
+│ logical AND     │  AND            │ S              │ EI   │                │
 │ logical XOR     │                 │ (L)            │      │                │
 │ logical XNOR    │                 │ (L)            │      │                │
 │ inverter        │                 │ (L)            │      │                │
