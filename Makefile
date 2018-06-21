@@ -91,6 +91,10 @@ uninstall:
 clean :
 	rm -f $(CLEANFILES)
 
+info:
+	@echo GNUCAP_PKGLIBDIR: ${GNUCAP_PKGLIBDIR}
+	@echo GNUCAP_PLUGPATH: ${GNUCAP_PLUGPATH}
+
 distclean: clean
 	rm Make.override
 
@@ -111,4 +115,5 @@ Make2:
 	[ -e $@ ] || echo "# here you may override settings" > $@
 
 check: all
-	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PKGLIBDIR}
+	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \
+		GNUCAP_PKGLIBDIR=${GNUCAP_PKGLIBDIR}

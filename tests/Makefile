@@ -35,7 +35,7 @@ gc: $(GC_TESTS:%.gc=%.gc.out) \
 qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=..${GNUCAP_PLUGPATH:%=:%}
+	GNUCAP_PLUGPATH=..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%}
 
 %.net.gc.out: %.net
 	${ENV} $(GNUCSATOR) -i $< > $@

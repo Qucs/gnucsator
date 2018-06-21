@@ -15,4 +15,4 @@ $ make clean install PREFIX=/usr/local
 ("clean" ensures that the custom paths are propagated everywhere).
 
 please see STATUS for the currently available functionality and
-tests/*.{net,sch} for example circuits.
+{tests,examples}/*.{net,sch} for example circuits.

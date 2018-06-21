@@ -201,7 +201,9 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 	class GO : public CMD {
 		void do_it(CS&cmd, CARD_LIST*cl)
 		{
-			trace0("go");
+			cmd.skip1b("go");
+			trace1("go", cmd.tail());
+			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
 			CMD::command("print tran -v(gnd)", &CARD_LIST::card_list);
 			CMD* c = NULL;
@@ -211,14 +213,17 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				c = command_dispatcher["transient"];
 				s = command_dispatcher["sp"];
 				o = command_dispatcher["op"];
-			}catch(Exception){ incomplete();
+			}catch(Exception){ untested();
+				error(bDanger, "some commands are missing, load plugin?\n");
+				exit(1);
 			}
 			assert(c);
 
-			for(auto&i : TRAN_WRAP::_stash){
+			// what happens if there are multiple trans?
+			for(auto const&i : TRAN_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << j._start << " " << j._stop << " " << j._stop << " trace=a basic";
+				x << j._start << " " << j._stop << " " << j._stop << " trace=a basic"; // tail, redirect?
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
