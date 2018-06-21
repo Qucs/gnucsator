@@ -336,7 +336,14 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 			}else{
 				std::string Name  = cmd.ctos("=", "", "");
 				cmd >> '=';
-				std::string value = cmd.ctos(",=;)", "\"'{(", "\"'})");
+				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
+				if(!value.size()) { untested();
+				}else if(value[0]=='['){ untested();
+					value[0]='{';
+					value[value.size()-1]='}';
+				}else{ untested();
+				}
+				trace2("LANG_QUCS_BASE::parse_args", Name, value);
 				unsigned there = here;
 				if (cmd.stuck(&here)) { untested();
 					break;

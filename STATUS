@@ -44,7 +44,7 @@ COMPONENTS (table ripped from [1])
 │ circulator      │                 │                │      │                │
 │ phase shifter   │                 │                │      │                │
 │ ideal coupler   │                 │                │      │                │
-│ time ctrld sw   │                 │                │      │                │
+│ time ctrld sw   │  Switch         │  S             │ EI   │                │
 │ relais          │  Relais         │  sw            │ EI   │                │
 │ current probe   │  IProbe         │  C             │ TE   │                │
 │ voltage probe   │  VProbe         │  C             │ T    │                │

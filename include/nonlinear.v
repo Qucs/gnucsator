@@ -65,6 +65,18 @@ simulator lang=spice
 S1 1 3 2 4 sss
 
 .ends
+
+* Switch:S1 _net0 _net1 init="off" time="[1 ms]" Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Transition="spline"
+*
+.subckt Switch(1 2);
+.parameter time=1m
+.parameter Roff=1e12
+.parameter Ron=0
+V1 c 0 pulse rise={2*time} pv=2 iv=0
+.model  sss  sw  ( vt=.5  vh=.5  ron={Ron+1e-20}  roff=Roff)
+S1 1 2 c 0 sss
+
+.ends
 ******************************************************************************
 
 .simulator lang=acs
