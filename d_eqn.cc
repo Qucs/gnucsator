@@ -21,6 +21,7 @@
  *------------------------------------------------------------------
  * qucs Eqn evaluator component
  */
+
 #include <e_compon.h>
 #include <u_xprobe.h>
 #include <globals.h>
@@ -99,7 +100,7 @@ static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name)
   incomplete();
 #else
   //BUG: linear search
-  for(auto i=list.begin(); i!=list.end(); ++i){
+  for(PARAM_LIST::iterator i=list.begin(); i!=list.end(); ++i){
     if(i->first == name){
       return i;
     }

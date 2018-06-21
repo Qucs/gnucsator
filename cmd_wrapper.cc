@@ -214,7 +214,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				s = command_dispatcher["sp"];
 				o = command_dispatcher["op"];
 			}catch(Exception){ untested();
-				error(bDanger, "some commands are missing, load plugin?\n");
+				error(bDANGER, "some commands are missing, load plugin?\n");
 				exit(1);
 			}
 			assert(c);

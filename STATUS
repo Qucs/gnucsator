@@ -112,8 +112,8 @@ COMPONENTS (table ripped from [1])
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
 │ voltage pulse   │ Vpulse          │  E             │ E    │                │
 │ voltage rect    │ Vrect           │  E             │ T    │                │
-│ current pulse   │ Ipulse          │ (E)            │      │                │
-│ current rect    │ Irect           │ (E)            │      │                │
+│ current pulse   │ Ipulse          │  S             │ EI   │                │
+│ current rect    │ Irect           │  S             │ EI   │                │
 │ vs exp          │                 │ (E)            │      │                │
 │ cs exp          │                 │ (E)            │      │                │
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
