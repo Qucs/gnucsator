@@ -1,5 +1,5 @@
 
-FILES=sources.v nonlinear.v
+FILES=sources.v nonlinear.v vadev.v
 
 install:
 	install -d ${PKGINCLUDEDIR}

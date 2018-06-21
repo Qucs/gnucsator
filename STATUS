@@ -46,8 +46,8 @@ COMPONENTS (table ripped from [1])
 │ ideal coupler   │                 │                │      │                │
 │ time ctrld sw   │                 │                │      │                │
 │ relais          │  Relais         │  sw            │ EI   │                │
-│ current probe   │  Iprobe         │  C             │ T    │                │
-│ voltage probe   │  Vprobe         │  C             │ T    │                │
+│ current probe   │  IProbe         │  C             │ TE   │                │
+│ voltage probe   │  VProbe         │  C             │ T    │                │
 │ ideal transline │                 │                │      │                │
 │ 4-term tline    │                 │                │      │                │
 │ tpair line      │                 │                │      │                │
@@ -76,6 +76,7 @@ COMPONENTS (table ripped from [1])
 │ ccvs            │ CCVS            │ (E) [V] S      │ EI   │                │
 │ vccs            │ VCCS            │ (E) [V] S      │      │                │
 │ vcvs            │ VCVS            │ (E) [V] S      │ T    │                │
+│ vcr             │ vcresistor      │         S      │ EI   │                │
 │ gyrator         │                 │     [V]        │      │                │
 │ DC voltage      │ Vdc             │  E             │ T    │                │
 │ DC current      │                 │ (E)            │      │                │

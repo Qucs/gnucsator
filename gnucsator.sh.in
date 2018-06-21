@@ -117,6 +117,7 @@ export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
 sources=sources.v
 nonlinear=nonlinear.v
+vadev=vadev.v
 
 ($GNUCAP | $postproc) <<EOF
 options numdgt 18
@@ -135,6 +136,7 @@ load s_sparam.so
 load c_qucslib.so
 qucslib $sources
 qucslib $nonlinear
+qucslib $vadev
 verilog
 vsource #(.dc(0.)) p(gnd, 0);
 qucs
