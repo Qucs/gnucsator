@@ -9,7 +9,8 @@ SIMULATION COMMANDS
 COMPONENTS (table ripped from [1])
 
 - implementation row
-    S  sckt based model (no probes yet)
+    S  sckt based ("macro") model
+    W  sckt wrapper, bultin component
     B  built in component + wrapper
    (B) possible (part available)
     E  have element+bm+wrapper
@@ -76,18 +77,19 @@ COMPONENTS (table ripped from [1])
 │ ccvs            │ CCVS            │ (E) [V] S      │ EI   │                │
 │ vccs            │ VCCS            │ (E) [V] S      │      │                │
 │ vcvs            │ VCVS            │ (E) [V] S      │ T    │                │
-│ vcr             │ vcresistor      │         S      │ EI   │                │
-│ gyrator         │                 │     [V]        │      │                │
-│ DC voltage      │ Vdc             │  E             │ T    │                │
+│ vcr             │ vcresistor      │      W         │ EI   │                │
+│ gyrator         │ Gyrator         │      S         │ EI   │                │
+│ DC voltage      │ Vdc             │  E             │ T    │ unconditional  │
+│                 │                 │                │      │ current probe? │
 │ DC current      │                 │ (E)            │      │                │
-│ AC voltage      │ Vac             │      S         │      │                │
-│ AC current      │                 │      S         │      │                │
+│ AC voltage      │ Vac             │      W         │      │                │
+│ AC current      │                 │      W         │      │                │
 │ AC power        │                 │                │      │                │
 │ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │
 │ PM mod vs       │                 │                │      │                │
 │ noise voltage   │                 │ (E) (V)        │      │ tran noise     │
 │ noise current   │                 │ (E) (V)        │      │ tran noise     │
-│ diode           │ Diode           │ (B) [V]  S     │ E    │                │
+│ diode           │ Diode           │ (B) [V]  W     │ E    │                │
 │ diac            │                 │                │      │                │
 │ thyristor       │                 │                │      │                │
 │ triac           │                 │                │      │                │
@@ -113,8 +115,8 @@ COMPONENTS (table ripped from [1])
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
 │ voltage pulse   │ Vpulse          │  E             │ E    │                │
 │ voltage rect    │ Vrect           │  E             │ T    │                │
-│ current pulse   │ Ipulse          │  S             │ EI   │                │
-│ current rect    │ Irect           │  S             │ EI   │                │
+│ current pulse   │ Ipulse          │  W             │ EI   │                │
+│ current rect    │ Irect           │  W             │ EI   │                │
 │ vs exp          │                 │ (E)            │      │                │
 │ cs exp          │                 │ (E)            │      │                │
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
@@ -137,7 +139,7 @@ COMPONENTS (table ripped from [1])
 │ logical NOR     │                 │ (L)            │      │                │
 │ logical NOR     │                 │ (L)            │      │                │
 │ logical NAND    │                 │ (L)            │      │                │
-│ logical AND     │  AND            │ S              │ EI   │                │
+│ logical AND     │  AND            │  W             │ EI   │                │
 │ logical XOR     │                 │ (L)            │      │                │
 │ logical XNOR    │                 │ (L)            │      │                │
 │ inverter        │                 │ (L)            │      │                │

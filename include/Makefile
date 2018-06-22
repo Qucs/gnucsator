@@ -1,5 +1,10 @@
 
-FILES=sources.v nonlinear.v vadev.v logic.v
+FILES = \
+	logic.v \
+	lumped.v \
+	nonlinear.v \
+   sources.v \
+	vadev.v
 
 install:
 	install -d ${PKGINCLUDEDIR}

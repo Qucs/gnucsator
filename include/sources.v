@@ -40,6 +40,8 @@ simulator lang=spice
 I1 1 2 dc=0 ac={I}
 .ends
 
+* Vexp:V1 _net4 _net5 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1  ms" Tf="1 ms"
+
 
 * Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms"
 .subckt Ipulse(1 2);

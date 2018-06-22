@@ -119,6 +119,7 @@ sources=sources.v
 nonlinear=nonlinear.v
 vadev=vadev.v
 logic=logic.v
+lumped=lumped.v
 
 ($GNUCAP | $postproc) <<EOF
 options numdgt 18
@@ -139,6 +140,7 @@ qucslib $sources
 qucslib $nonlinear
 qucslib $vadev
 qucslib $logic
+qucslib $lumped
 verilog
 vsource #(.dc(0.)) p(gnd, 0);
 qucs
