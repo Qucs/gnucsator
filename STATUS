@@ -135,14 +135,13 @@ COMPONENTS (table ripped from [1])
 │ corr noise vs   │                 │                │      │                │
 │ corr noise cs   │                 │                │      │                │
 │ digital source  │                 │ (L)            │      │                │
-│ logical OR      │                 │ (L)            │      │                │
-│ logical NOR     │                 │ (L)            │      │                │
-│ logical NOR     │                 │ (L)            │      │                │
-│ logical NAND    │                 │ (L)            │      │                │
-│ logical AND     │  AND            │  W             │ EI   │                │
-│ logical XOR     │                 │ (L)            │      │                │
-│ logical XNOR    │                 │ (L)            │      │                │
-│ inverter        │                 │ (L)            │      │                │
+│ logical OR      │  OR             │  W             │      │ preliminary    │
+│ logical NOR     │  NOR            │  W             │      │ preliminary    │
+│ logical NAND    │  NAND           │  W             │ EI   │ preliminary    │
+│ logical AND     │  AND            │  W             │ EI   │ preliminary    │
+│ logical XOR     │  XOR            │  W             │      │ preliminary    │
+│ logical XNOR    │  XNOR           │  W             │      │ preliminary    │
+│ inverter        │  Inv            │  W             │ EI   │ preliminary    │
 │ buffer          │                 │                │      │                │
 │ D-flipflop      │                 │                │      │                │
 │ RS-flipflop     │                 │                │      │                │
