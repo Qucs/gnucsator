@@ -1,0 +1,19 @@
+load ../c_hide.so
+
+verilog
+
+module tst(1, 2);
+
+endmodule
+
+list
+
+hidemodule tst
+list
+
+tst a(1 2);
+
+
+op
+
+end

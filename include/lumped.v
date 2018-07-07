@@ -17,7 +17,22 @@ vsource #(.dc(0)) vp1(3i 3);
 ccvs #(.gain(R)) vs2(4i 1 vp1);
 vsource #(.dc(0)) vp2(4i 4);
 endmodule
+
 hidemodule Gyrator
+
+// Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB"
+module Amp(1 2);
+	parameter G=10;
+	parameter Z1=50;
+	parameter Z2=50;
+	parameter NF=1;
+
+	// almost?
+	resistor #(.r(Z1)) r(2i 2);
+	vcvs #(.gain(G)) vs1(2i 0 1 0);
+endmodule
+
+hidemodule Amp
 
 // d'oh. in qucsator, "MOSFET" is both, nFET and pFET.
 parameter nfet=1
@@ -159,5 +174,4 @@ module MOSFET(g, d, s, b);
 	mypmos #(.w(W*(1.-Type)*.5), .l(L)) p(d, g, s, b);
 endmodule
 
-// does not work with these..
-// hidemodule MOSFET
+hidemodule MOSFET

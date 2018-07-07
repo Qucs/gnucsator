@@ -121,7 +121,7 @@ COMPONENTS (table ripped from [1])
 │ cs exp          │                 │ (E)            │      │                │
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
 │ file based cs   │                 │ (E)            │      │ c_wave+bm_wave │
-│ amplifier       │                 │ (E) [V]        │      │                │
+│ amplifier       │ Amp             │  W             │ EI   │                │
 │ opamp           │                 │ (E) [V]        │      │                │
 │ modular opamp   │ mod_amp         │  V             │      │                │
 │ log amplifier   │ log_amp         │  V             │      │                │
