@@ -82,7 +82,7 @@ COMPONENTS (table ripped from [1])
 │ DC voltage      │ Vdc             │  E             │ T    │ unconditional  │
 │                 │                 │                │      │ current probe? │
 │ DC current      │                 │ (E)            │      │                │
-│ AC voltage      │ Vac             │      W         │      │                │
+│ AC voltage      │ Vac             │      W         │ EI   │ sine source    │
 │ AC current      │                 │      W         │      │                │
 │ AC power        │                 │                │      │                │
 │ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │
@@ -97,8 +97,8 @@ COMPONENTS (table ripped from [1])
 │ homo bjt        │                 │                │      │                │
 │ homo bjt w/ sub │                 │                │      │                │
 │ mosfet          │ MOSFET          │  W             │ EI   │ level 1        │
-│ deplt mosfet    │                 │  ?             │      │ use mosfet?    │
-│ mosfet w/ bulk  │                 │  ?             │      │ use mosfet?    │
+│ deplt mosfet    │ MOSFET          │  W             │      │                │
+│ mosfet w/ bulk  │ MOSFET          │  W             │      │                │
 │ FBH HBT         │                 │ (V)            │      │ ext. temp      │
 │ bsim4v30        │ bsim4v30{p,n}MOS│  V             │      │                │
 │ HICUM v2.1 l2   │ hicumL2V2p1     │  V             │      │                │
