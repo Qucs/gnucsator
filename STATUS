@@ -122,7 +122,7 @@ COMPONENTS (table ripped from [1])
 │ file based vs   │                 │ (E)            │      │ c_wave+bm_wave │
 │ file based cs   │                 │ (E)            │      │ c_wave+bm_wave │
 │ amplifier       │ Amp             │  W             │ EI   │                │
-│ opamp           │                 │ (E) [V]        │      │                │
+│ opamp           │ OpAmp           │  W             │ EI   │ using tanh     │
 │ modular opamp   │ mod_amp         │  V             │      │                │
 │ log amplifier   │ log_amp         │  V             │      │                │
 │ potentiometer   │ potentiometer   │ (V)            │      │ noise?         │

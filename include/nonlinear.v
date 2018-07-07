@@ -20,9 +20,15 @@ g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(1, 2j, 1, 2i, 3, 0);
 vsource #(.dc(0.)) p(2j, 1);
 ccvs #(.gain(1.)) HH(1,2,p);
 endmodule;
+// -------------------------------------------------------------------- //
 
-hidemodule AM_Mod
-
+// OpAmp:OP1 gnd _net0 _net4 G="1e6" Umax="15 V"
+// module OpAmp(1, 2, 3);
+// 	parameter G=1
+// 	parameter Umax=15
+// 	vcvs #(.gain(1.)) HH(1, 2, p);
+// endmodule;
+// hidemodule OpAmp
 // -------------------------------------------------------------------- //
 
 module Diode(1 2);
@@ -78,8 +84,17 @@ S1 1 2 c 0 sss
 
 .ends
 ******************************************************************************
+* OpAmp:OP1 gnd _net0 _net4 G="1e6" Umax="15 V"
+.subckt OpAmp 1 2 3
+	.parameter G=1
+	.parameter Umax=15
+	E1 3 0 1 2 tanh gain=G limit=Umax
+.ends
+******************************************************************************
 
 .simulator lang=acs
 * hide in listings.
 hidemodule Diode
 hidemodule Relais
+hidemodule AM_Mod
+hidemodule OpAmp
