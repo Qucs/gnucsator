@@ -96,7 +96,7 @@ COMPONENTS (table ripped from [1])
 │ junction fet    │                 │ (V)            │      │                │
 │ homo bjt        │                 │                │      │                │
 │ homo bjt w/ sub │                 │                │      │                │
-│ mosfet          │                 │ (B) [V]        │      │                │
+│ mosfet          │ MOSFET          │  W             │ EI   │ level 1        │
 │ deplt mosfet    │                 │  ?             │      │ use mosfet?    │
 │ mosfet w/ bulk  │                 │  ?             │      │ use mosfet?    │
 │ FBH HBT         │                 │ (V)            │      │ ext. temp      │

@@ -89,13 +89,17 @@ bool QucsGuessParam(std::string& p)
       // pass through
       temp.append(1,p[i]);
       break;
-    }else if( p[i] == 'A' // -10
+    }else if( p[i] == 'A' ){ untested();
+      // this could be "Ampere". ignore.
+    }else if( ONE_OF
 	   || p[i] == 'd' // -1
 	   || p[i] == 'D' // 1
 	   || p[i] == 'h' // 2
 	   || p[i] == 'P' // 15
 	   || p[i] == 'E' // 18
-	   ){ incomplete();
+	   ){
+      incomplete();
+      error(bDANGER, "what is %s?\n", p.c_str());
       break;
     }else{
       break;

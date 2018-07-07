@@ -69,10 +69,12 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 .ends
 .hidemodule Irect
 
-.subckt VAC(1 2);
+* Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0"
+.subckt Vac(1 2);
 .parameter U=1
+.parameter f=1
 * phase missing!
-V1 1 2 dc=0 ac={I}
+V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 .ends
 
 * don't need spice for this
