@@ -10,6 +10,7 @@ all: gc qucs
 
 COMMON_TESTS = \
 	AM_Mod.1.net \
+	sub.1.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \

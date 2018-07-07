@@ -9,6 +9,7 @@ SIMULATION COMMANDS
 COMPONENTS (table ripped from [1])
 
 - implementation row
+    N  native
     S  sckt based ("macro") model
     W  sckt wrapper, bultin component
     B  built in component + wrapper
@@ -33,6 +34,8 @@ COMPONENTS (table ripped from [1])
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
 │    component    │  qucsator name  │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
+| subckt          │   Sub           │ N, d_subckt    │ TE   │                │
+|                 │                 │                │      │                │
 │ resistor        │   R             │  E  [V]        │ T    │                │
 │ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
