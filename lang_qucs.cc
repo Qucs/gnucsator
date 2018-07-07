@@ -277,15 +277,6 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 				break; // done.  have maxnodes.
 			}else if (!cmd.more()) {untested();
 				break; // done.  premature end of line.
-			}else if (OPT::keys_between_nodes &&
-					(cmd.umatch("poly ")
-					 || cmd.umatch("pwl ")
-					 || cmd.umatch("vccap ")
-					 || cmd.umatch("vcg ")
-					 || cmd.umatch("vcr "))
-					) { untested();
-				cmd.reset(here1);
-				break; // done, found reserved word between nodes
 			}else{
 				//----------------------
 				unsigned here = cmd.cursor();
@@ -303,7 +294,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 					break; // illegal node name, might be proper exit.
 				}else{
 					if (all_new) {
-						if (x->node_is_grounded(ii)) {untested();
+						if (x->node_is_grounded(ii)) {
 							cmd.warn(bDANGER, here1, "node 0 not allowed here");
 						}else{
 						}
@@ -316,7 +307,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 	}catch (Exception& e) {itested();
 		cmd.warn(bDANGER, here1, e.message());
 	}
-	if (ii < minnodes) {itested();
+	if (ii < minnodes) {
 		cmd.warn(bDANGER, "need " + to_string(minnodes-ii) +" more nodes");
 	}else{
 	}
@@ -327,7 +318,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 	//assert(x->_net_nodes == ii);
 
 	// ground unused input nodes
-	for (int iii = ii;  iii < minnodes;  ++iii) {itested();
+	for (int iii = ii;  iii < minnodes;  ++iii) {
 		x->set_port_to_ground(iii);
 	}
 	//assert(x->_net_nodes >= ii);
@@ -342,7 +333,6 @@ void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
 	trace1("LANG_QUCS_BASE::parse_type", cmd.tail());
 	assert(x);
 	std::string new_type;
-//	cmd >> new_type;
 	new_type = cmd.get_to(":");
 	trace2("LANG_QUCS_BASE::parse_type", new_type, x->dev_type());
 
@@ -570,46 +560,27 @@ void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope
 /*--------------------------------------------------------------------------*/
 COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 {
-		assert(x);
-		cmd.reset().umatch(QUCS_ANTI_COMMENT);
+	assert(x);
+	cmd.reset().umatch(QUCS_ANTI_COMMENT);
 
-		// cmd.skip1b(":");
-		cmd.reset();
-		parse_type(cmd, x);
-		string id_string = cmd.get_to(":");
-//		}else{ untested();
-//		}
+	// cmd.skip1b(":");
+	cmd.reset();
+	parse_type(cmd, x);
+	string id_string = cmd.get_to(":");
 
-		//COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
+	COMMON_COMPONENT * c = NULL;
 
-		COMMON_COMPONENT * c = NULL;
+	parse_label(cmd, x);
 
-		// FIXME: bm_cond ???
-		trace1("LANG_QUCS_BASE::parse_instance ",id_string);
-		if (Umatch(id_string,"Vpulse|Ipulse|Vrectangle|Irectangle")){ untested();
-			//c = bm_dispatcher.clone("pulse");
-			assert(c);
-		}else if (Umatch(id_string,"Idc|Vdc")){ untested();
-			//c = bm_dispatcher.clone("value");
-		}else if (Umatch(id_string,"Vac|Iac")){ untested();
-			//c = bm_dispatcher.clone("sin");
-			assert(c);
-		} else {
-			//c = bm_dispatcher.clone("value");
-			untested();
-		}
+	{
+		unsigned here = cmd.cursor();
+		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
+		//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
+		cmd.reset(here);
+		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, false);
+		trace0(("LANG_QUCS_BASE::parse_instance parsed ports " + (std::string) cmd.tail()).c_str() );
 
-		parse_label(cmd, x);
-
-		{
-			unsigned here = cmd.cursor();
-			int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
-			//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
-			cmd.reset(here);
-			parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, false);
-			trace0(("LANG_QUCS_BASE::parse_instance parsed ports " + (std::string) cmd.tail()).c_str() );
-
-		}
+	}
 
 	try {
 
@@ -640,7 +611,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 		}
 
 
-	}catch (Exception& e) { untested();
+	}catch (Exception& e) {
 		cmd.warn(bDANGER, e.message());
 	}
 	return x;
@@ -749,7 +720,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	}else{itested();
 	}
 
-	if (OPT::acct  &&  didsomething) {itested();
+	if (OPT::acct  &&  didsomething) {
 		IO::mstdout.form("time=%8.2f\n", timecheck.check().elapsed());
 	}else{
 	}
@@ -825,7 +796,7 @@ void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
-{ untested();
+{
 	assert(x);
 	o << x->s() << '\n';
 }
@@ -883,7 +854,7 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 		o << sep << x->port_value(ii);
 		sep = " ";
 	}
-	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) { untested();
+	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) {
 		o << sep << x->current_port_value(ii);
 		sep = " ";
 	}
