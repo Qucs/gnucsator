@@ -51,12 +51,12 @@ using std::string;
 namespace {
 /*--------------------------------------------------------------------------*/
 struct subckt_alias{
-	subckt_alias(){ untested();
+	subckt_alias(){
 		CARD* x=device_dispatcher["subckt"];
 		assert(x);
 		_d=new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", x);
 	}
-	~subckt_alias(){ untested();
+	~subckt_alias(){
 		delete _d;
 	}
 	DISPATCHER<CARD>::INSTALL* _d;
@@ -121,7 +121,7 @@ ds(&language_dispatcher, lang_qucs.name(), &lang_qucs);
 /*--------------------------------------------------------------------------*/
 class CMD_SUBCKT : public CMD {
   void do_it(CS& cmd, CARD_LIST* Scope)
-  { untested();
+  {
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
     assert(new_module);
     assert(!new_module->owner());
@@ -140,7 +140,7 @@ d0(&device_dispatcher, ";|*|'|\"|dev_comment", &p0);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static void skip_pre_stuff(CS& cmd)
-{ untested();
+{
 	cmd.skipbl();
 	while (cmd.umatch(CKT_PROMPT)) {untested();
 		/* skip any number of copies of the prompt */
@@ -153,7 +153,7 @@ static void skip_pre_stuff(CS& cmd)
  * side effect:  "CS" is advanced to past the ports, ready for what follows
  */
 static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int start)
-{ untested();
+{
 	trace4("count_ports", leave_tail, start, maxnodes, cmd.tail());
 	assert(start <= maxnodes);
 	assert(minnodes <= maxnodes);
@@ -165,7 +165,7 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 	// loop over the tokens to try to guess where the nodes end
 	// and other stuff begins
 	spots.push_back(cmd.cursor());
-	for (;;) { untested();
+	for (;;) {
 		trace1("loop", cmd.tail());
 
 		++i;
@@ -177,13 +177,13 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 		if (paren && cmd.skip1b(')')) { untested();
 			num_nodes = i;
 			break;
-		}else if (cmd.is_end()) { untested();
+		}else if (cmd.is_end()) {
 			// found the end, no '='
-			if (i <= minnodes) { untested();
+			if (i <= minnodes) {
 				num_nodes = i;
 			}else if (i <= minnodes + leave_tail) { untested();
 				num_nodes = minnodes;
-			}else if (i <= maxnodes + leave_tail) { untested();
+			}else if (i <= maxnodes + leave_tail) {
 				num_nodes = i - leave_tail;
 			}else{ untested();
 				num_nodes = maxnodes;
@@ -197,22 +197,22 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 				num_nodes = i - leave_tail;
 			}
 			break;
-		}else if (cmd.skip1b('=')) { untested();
+		}else if (cmd.skip1b('=')) {
 			// found '=', it's past the end of nodes
 			if (i > maxnodes + leave_tail + 1) { untested();
 				num_nodes = maxnodes;
-			}else{ untested();
+			}else{
 				num_nodes = i - leave_tail - 1;
 			}
 			break;
-		}else{ untested();
+		}else{
 		}
 	}
 	trace2("nn", num_nodes, start);
 	if (num_nodes < start) { untested();
 		cmd.reset(spots.back());
 		throw Exception("what's this (qucs)?");
-	}else{ untested();
+	}else{
 	}
 
 	cmd.reset(spots[static_cast<unsigned>(num_nodes-start)]);
@@ -261,19 +261,19 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
  */
 void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 		int start, int num_nodes, bool all_new)
-{ untested();
+{
 	assert(x);
 
 	int paren = cmd.skip1b('(');
 	int ii = start;
 	unsigned here1 = cmd.cursor();
-	try{ untested();
-		for (;;) { untested();
+	try{
+		for (;;) {
 			here1 = cmd.cursor();
 			if (paren && cmd.skip1b(')')) { untested();
 				--paren;
 				break; // done.  have closing paren.
-			}else if (ii >= num_nodes) { untested();
+			}else if (ii >= num_nodes) {
 				break; // done.  have maxnodes.
 			}else if (!cmd.more()) {untested();
 				break; // done.  premature end of line.
@@ -286,7 +286,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 					) { untested();
 				cmd.reset(here1);
 				break; // done, found reserved word between nodes
-			}else{ untested();
+			}else{
 				//----------------------
 				unsigned here = cmd.cursor();
 				std::string node_name;
@@ -294,20 +294,20 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 				if (cmd.stuck(&here)) {itested();
 					// didn't move, probably a terminator.
 					throw Exception("bad node name");
-				}else{ untested();
+				}else{
 					// legal node name, store it.
 					x->set_port_by_index(ii, node_name);
 				}
 				//----------------------
 				if (!(x->node_is_connected(ii))) {untested();
 					break; // illegal node name, might be proper exit.
-				}else{ untested();
-					if (all_new) { untested();
+				}else{
+					if (all_new) {
 						if (x->node_is_grounded(ii)) {untested();
 							cmd.warn(bDANGER, here1, "node 0 not allowed here");
-						}else{ untested();
+						}else{
 						}
-					}else{ untested();
+					}else{
 					}
 					++ii;
 				}
@@ -318,11 +318,11 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 	}
 	if (ii < minnodes) {itested();
 		cmd.warn(bDANGER, "need " + to_string(minnodes-ii) +" more nodes");
-	}else{ untested();
+	}else{
 	}
 	if (paren != 0) {untested();
 		cmd.warn(bWARNING, "need )");
-	}else{ untested();
+	}else{
 	}
 	//assert(x->_net_nodes == ii);
 
@@ -338,7 +338,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
-{ untested();
+{
 	trace1("LANG_QUCS_BASE::parse_type", cmd.tail());
 	assert(x);
 	std::string new_type;
@@ -351,35 +351,35 @@ void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
-{ untested();
+{
 	trace1("LANG_QUCS_BASE::parse_args (card)", cmd);
 	assert(x);
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
-	if (xx) { untested();
+	if (xx) {
 		COMMON_COMPONENT* cc = xx->mutable_common();
 		unsigned here = cmd.cursor();
-		for (unsigned i=0; ; ++i) { untested();
-			if (!cmd.more()) { untested();
+		for (unsigned i=0; ; ++i) {
+			if (!cmd.more()) {
 				break;
-			}else{ untested();
+			}else{
 				std::string Name  = cmd.ctos("=", "", "");
 				cmd >> '=';
 				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
-				if(!value.size()) { untested();
+				if(!value.size()) {
 				}else if(value[0]=='['){ untested();
 					value[0]='{';
 					value[value.size()-1]='}';
-				}else{ untested();
+				}else{
 				}
 				trace2("LANG_QUCS_BASE::parse_args", Name, value);
 				unsigned there = here;
 				if (cmd.stuck(&here)) { untested();
 					break;
-				}else{ untested();
-					try{ untested();
-						if (value == "") { untested();
+				}else{
+					try{
+						if (value == "") {
 							cmd.warn(bDANGER, there, x->long_label() + ": " + Name + " has no value?");
-						}else if (QucsGuessParam(value)){ untested();
+						}else if (QucsGuessParam(value)){
 							trace1("guessed value", value);
 						}else{ untested();
 						}
@@ -398,16 +398,16 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 							try{ // to be sure, maybe later.
 							  	xx->set_param_by_name(Name,value);
 							}catch(Exception){}
-						}else if (cc){ untested();
+						}else if (cc){
 							trace2("have common", Name, value);
 
-							try{ untested();
+							try{
 								cc->set_param_by_name(Name, value);
 							}catch(Exception){ untested();
 							  	// retry if common did not like it...
 								xx->set_param_by_name(Name,value);
 							}
-						} else { untested();
+						} else {
 							trace2("no common", Name, value);
 							xx->set_param_by_name(Name,value);
 						}
@@ -450,7 +450,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
-{ untested();
+{
 	trace0(("LANG_QUCS_BASE::parse_label " + cmd.tail()).c_str() );
 	assert(x);
 
@@ -467,14 +467,14 @@ void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 DEV_COMMENT* LANG_QUCS_BASE::parse_comment(CS& cmd, DEV_COMMENT* x)
-{ untested();
+{
 	assert(x);
 	x->set(cmd.fullstring());
 	return x;
 }
 /*--------------------------------------------------------------------------*/
 DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
-{ untested();
+{
 	assert(x);
 	x->set(cmd.fullstring());
 	CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
@@ -485,21 +485,21 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 
 	std::string id_string;
 	cmd.reset(here); // skip dot
-	if (cmd.scan(":")){ untested();
+	if (cmd.scan(":")){
 		cmd.reset(here); // skip dot again
 		id_string = cmd.get_to(":");
 		untested();
-	} else { untested();
+	} else {
 		cmd >> id_string;
 		untested();
 	}
 	trace1("LANG_QUCS_BASE::parse_command", id_string);
 	cmd.reset(here);
-	if (!command_dispatcher[id_string]) { untested();
+	if (!command_dispatcher[id_string]) {
 		// there's just a DOT in the way. duh
 		cmd.skip();
 		++here;
-	}else{ untested();
+	}else{
 	}
 
 	// WARNING: not to be confused with CMD::cmdproc
@@ -522,7 +522,7 @@ MODEL_CARD* LANG_QUCS_BASE::parse_paramset(CS& cmd, MODEL_CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
-{ untested();
+{
 	trace0(("LANG_QUCS_BASE::parse_module " + cmd.tail()) );
 	assert(x);
 
@@ -530,7 +530,7 @@ BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 	cmd.reset();
 	(cmd >> ".Def");
 	parse_label(cmd, x);
-	{ untested();
+	{
 		unsigned here = cmd.cursor();
 		trace2("LANG_QUCS_BASE::parse_module ", x->min_nodes(), x->max_nodes() );
 		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(),
@@ -550,15 +550,15 @@ BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 		const std::string& prompt, EOB exit_on_blank, const std::string& exit_key)
-{ untested();
-	try { untested();
-		for (;;) { untested();
+{
+	try {
+		for (;;) {
 			cmd.get_line(prompt);
 
 			if ((exit_on_blank==EXIT_ON_BLANK && cmd.is_end()) 
-					|| cmd.umatch(exit_key)) { untested();
+					|| cmd.umatch(exit_key)) {
 				break;
-			}else{ untested();
+			}else{
 				trace2("LANG_QUCS_BASE::parse_module_body ", cmd.fullstring(), OPT::language);
 				skip_pre_stuff(cmd);
 				new__instance(cmd, x, Scope);
@@ -569,7 +569,7 @@ void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope
 }
 /*--------------------------------------------------------------------------*/
 COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
-{ untested();
+{
 		assert(x);
 		cmd.reset().umatch(QUCS_ANTI_COMMENT);
 
@@ -594,14 +594,14 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 		}else if (Umatch(id_string,"Vac|Iac")){ untested();
 			//c = bm_dispatcher.clone("sin");
 			assert(c);
-		} else { untested();
+		} else {
 			//c = bm_dispatcher.clone("value");
 			untested();
 		}
 
 		parse_label(cmd, x);
 
-		{ untested();
+		{
 			unsigned here = cmd.cursor();
 			int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
 			//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
@@ -611,12 +611,12 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 		}
 
-	try { untested();
+	try {
 
-		if (x->print_type_in_spice()) { untested();
+		if (x->print_type_in_spice()) {
 			trace0(("LANG_QUCS_BASE::parse_instance ptis " + (std::string) cmd.tail()).c_str() );
 			// parse_type(cmd, x);
-		}else{ untested();
+		}else{
 		}
 
 		if (c) { untested();
@@ -635,7 +635,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 			// It might be something else that is simpler but equivalent.
 			x->attach_common(dc);
 
-		}else{ untested();
+		}else{
 			parse_args(cmd, x);
 		}
 
@@ -649,7 +649,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 /*--------------------------------------------------------------------------*/
 std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
-{ untested();
+{
 	cmd.umatch(QUCS_ANTI_COMMENT);
 
 	unsigned here = cmd.cursor();
@@ -662,11 +662,11 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 
 	if (first_letter == '.') {
 		cmd.reset(here+1); // cut the dot
-		if(cmd.scan(":")){ untested();
+		if(cmd.scan(":")){
 			cmd.reset(here+1); // cut the dot again
 			id_string = cmd.get_to(":");
 			trace1("LANG_QUCS_BASE::parse_instance colon", id_string);
-		}else { untested();
+		}else {
 			cmd >> id_string;
 		}
 		trace1("LANG_QUCS_BASE::find_type_in_string found leading dot. assuming command",id_string);
@@ -674,21 +674,21 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 			cmd.skip();
 			++here;
 			id_string = id_string.substr(1);
-		}else{ untested();
+		}else{
 		}
 		trace1("LANG_QUCS_BASE::find_type_in_string found command", id_string);
 		return id_string;
-	}else if (!cmd.scan(":")){ untested();
+	}else if (!cmd.scan(":")){
 		cmd >> id_string;
-	}else{ untested();
+	}else{
 		cmd.reset();
 		id_string = cmd.get_to(":");
 		cmd.reset(here);
-		if(id_string=="Sub"){ untested();
+		if(id_string=="Sub"){
 			trace1("get_to", cmd.tail());
 			scan_get(cmd, "Type", &id_string);
 			trace1("got_to", cmd.tail());
-		}else{ untested();
+		}else{
 		}
 	}
 	trace2("LANG_QUCS_BASE::find_type_in_string", cmd.fullstring(), id_string);
@@ -697,7 +697,7 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 /*--------------------------------------------------------------------------*/
 // cloning from c__cmd.cc for now
 void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
-{ untested();
+{
 	trace1("LANG_QUCS_BASE::cmdproc", cmd.fullstring());
 	bool get_timer_was_running = ::status.get.is_running();
 	::status.get.stop();
@@ -720,21 +720,21 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	std::string id_string;
 	std::string cmdname;
 	trace1("LANG_QUCS_BASE::cmdproc", cmd.tail());
-	if(cmd.scan(":")){ untested();
+	if(cmd.scan(":")){
 		cmd.reset(here);
 		id_string = cmd.get_to(":");
 		cmd.skip1b(":");
 		cmd >> cmdname;
-	}else{ untested();
+	}else{
 		cmd >> id_string;
 	}
 
 	trace2("LANG_QUCS_BASE::cmdproc", id_string, cmdname);
 	if (cmd.umatch("'|*|#|//|\"")) { untested();
 		unreachable();
-	}else if (id_string != "") { untested();
+	}else if (id_string != "") {
 		CMD* c = command_dispatcher[id_string];
-		if (c) { untested();
+		if (c) {
 			c->set_label(cmdname);
 
 			c->do_it(cmd, scope);
@@ -751,18 +751,18 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 
 	if (OPT::acct  &&  didsomething) {itested();
 		IO::mstdout.form("time=%8.2f\n", timecheck.check().elapsed());
-	}else{ untested();
+	}else{
 	}
 	outreset();
 
 	if (get_timer_was_running) { untested();
 		::status.get.start();
-	}else{ untested();
+	}else{
 	}
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
-{ untested();
+{
 	if (0 && cmd.is_file()
 			&& cmd.is_first_read()
 			&& (Scope == &CARD_LIST::card_list)
@@ -779,7 +779,7 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
-{ untested();
+{
 	assert(x);
 	o << ".model " << x->short_label() << ' ' << x->dev_type() << " (";
 	print_args(o, x);
@@ -787,7 +787,7 @@ void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
-{ untested();
+{
 	assert(x);
 	assert(x->subckt());
 
@@ -796,7 +796,7 @@ void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 	o << '\n';
 
 	for (CARD_LIST::const_iterator 
-			ci = x->subckt()->begin(); ci != x->subckt()->end(); ++ci) { untested();
+			ci = x->subckt()->begin(); ci != x->subckt()->end(); ++ci) {
 		print_item(o, *ci);
 	}
 
@@ -804,7 +804,7 @@ void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
-{ untested();
+{
 	print_type(o, x);
 	o << ":";
 	print_label(o, x);
@@ -814,9 +814,9 @@ void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
-{ untested();
+{
 	assert(x);
-	if (x->comment()[1] != '+') { untested();
+	if (x->comment()[1] != '+') {
 		o << x->comment() << '\n';
 	}else{ untested();
 	}
@@ -832,10 +832,10 @@ void LANG_QUCS_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_args(OMSTREAM& o, const MODEL_CARD* x)
-{ untested();
+{
 	assert(x);
-	for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) { untested();
-		if (x->param_is_printable(ii)) { untested();
+	for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
+		if (x->param_is_printable(ii)) {
 			std::string arg = " " + x->param_name(ii) + "=" + x->param_value(ii);
 			o << arg;
 		}else{ untested();
@@ -844,42 +844,42 @@ void LANG_QUCS_BASE::print_args(OMSTREAM& o, const MODEL_CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_type(OMSTREAM& o, const COMPONENT* x)
-{ untested();
+{
 	assert(x);
 	o << "  " << x->dev_type();
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_args(OMSTREAM& o, const COMPONENT* x)
-{ untested();
+{
 	assert(x);
 	o << ' ';
-		for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) { untested();
-			if (x->param_is_printable(ii)) { untested();
-				if ((ii != x->param_count() - 1) || (x->param_name(ii) != x->value_name())) { untested();
+		for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
+			if (x->param_is_printable(ii)) {
+				if ((ii != x->param_count() - 1) || (x->param_name(ii) != x->value_name())) {
 					// skip name if plain value
 					o << " " << x->param_name(ii) << "=";
-				}else{ untested();
+				}else{
 				}
 				o << x->param_value(ii);
-			}else{ untested();
+			}else{
 			}
 		}
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_label(OMSTREAM& o, const COMPONENT* x)
-{ untested();
+{
 	assert(x);
 	std::string label = x->short_label();
 	o << label;
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
-{ untested();
+{
 	assert(x);
 
 	o <<  " ( ";
 	std::string sep = "";
-	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) { untested();
+	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
 		o << sep << x->port_value(ii);
 		sep = " ";
 	}
@@ -962,7 +962,7 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 	class CMD_QUCS : public CMD {
 		public:
 			void do_it(CS&, CARD_LIST* Scope)
-			{ untested();
+			{
 				command("options lang=qucs", Scope);
 			}
 	} p9;
