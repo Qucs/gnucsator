@@ -19,6 +19,7 @@ COMMON_TESTS = \
 	Vrect.2.net
 
 GC_TESTS = \
+	lang_qucs.1.gc \
 	c_hide.2.gc \
 	IProbe.1.gc \
 	d_eqn.1.gc \

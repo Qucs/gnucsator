@@ -762,7 +762,7 @@ void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 	assert(x);
 	assert(x->subckt());
 
-	o << ".subckt " <<  x->short_label();
+	o << ".Def:" <<  x->short_label();
 	print_ports(o, x);
 	o << '\n';
 
@@ -771,7 +771,7 @@ void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 		print_item(o, *ci);
 	}
 
-	o << ".ends " << x->short_label() << "\n";
+	o << ".Def:End\n";
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
@@ -848,7 +848,7 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 
-	o <<  " ( ";
+	o <<  " ";
 	std::string sep = "";
 	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
 		o << sep << x->port_value(ii);
@@ -858,7 +858,7 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 		o << sep << x->current_port_value(ii);
 		sep = " ";
 	}
-	o << " )";
+	o << " ";
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
