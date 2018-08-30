@@ -11,6 +11,7 @@ module proper_AND(a b y);
 parameter V=1
 parameter TR=1
 
+`if 0
 paramset mos logic; \
 delay= 1n;\
 rise= 1n;\
@@ -25,6 +26,7 @@ over=10k;\
 vmax= 5.;\
 vmin= 0.;\
 endparamset
+`endif
 
 // notyet
 
@@ -101,10 +103,13 @@ VV1 dd 0 V
 U7 y 0 dd dd a mos inv
 .ends
 ******************************************************************************
-.hidemodule AND
-.hidemodule NAND
-.hidemodule NOR
-.hidemodule OR
-.hidemodule XOR
-.hidemodule XNOR
-.simulator lang=acs
+.simulator lang=verilog
+`ifdef GNUCAP
+hidemodule AND
+hidemodule NAND
+hidemodule NOR
+hidemodule OR
+hidemodule XOR
+hidemodule XNOR
+`endif
+simulator lang=acs

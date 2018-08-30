@@ -18,7 +18,6 @@ ccvs #(.gain(R)) vs2(4i 1 vp1);
 vsource #(.dc(0)) vp2(4i 4);
 endmodule
 
-hidemodule Gyrator
 
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB"
 module Amp(1 2);
@@ -174,4 +173,7 @@ module MOSFET(g, d, s, b);
 	mypmos #(.w(W*(1.-Type)*.5), .l(L)) p(d, g, s, b);
 endmodule
 
+`ifdef GNUCAP
+hidemodule Gyrator
 hidemodule MOSFET
+`endif

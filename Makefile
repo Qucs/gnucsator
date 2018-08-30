@@ -31,7 +31,9 @@ QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
 QUCS_PLUGINS = \
 	$(QUCS_DEVS_SO) \
 	lang_qucs.so \
+	lang_verilog.so \
 	c_hide.so \
+	c_vpp.so \
 	c_qucslib.so \
 	d_eqn.so \
 	d_poly_g_uf.so \

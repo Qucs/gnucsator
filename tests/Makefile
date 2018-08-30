@@ -23,14 +23,15 @@ GC_TESTS = \
 	c_hide.2.gc \
 	IProbe.1.gc \
 	d_eqn.1.gc \
+	list.1.gc \
 	wrap.gc \
 	wrap.bad.gc \
 	rect.gc
 
 check: diff
 
-diff: $(COMMON_TESTS:%=%.gc.diff) \
-      $(GC_TESTS:%=%.diff)
+diff: $(GC_TESTS:%=%.diff) \
+      $(COMMON_TESTS:%=%.gc.diff)
 
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
@@ -38,7 +39,8 @@ gc: $(GC_TESTS:%.gc=%.gc.out) \
 qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%}
+	GNUCAP_PLUGPATH=..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%} \
+	QUCSATOR_PKGINCLUDEDIR=../include
 
 %.net.gc.out: %.net
 	${ENV} $(GNUCSATOR) -i $< > $@

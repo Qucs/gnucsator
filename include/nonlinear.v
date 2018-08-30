@@ -92,9 +92,11 @@ S1 1 2 c 0 sss
 .ends
 ******************************************************************************
 
-.simulator lang=acs
-* hide in listings.
+.simulator lang=verilog
+`ifdef GNUCAP
 hidemodule Diode
 hidemodule Relais
 hidemodule AM_Mod
 hidemodule OpAmp
+`endif
+simulator lang=acs

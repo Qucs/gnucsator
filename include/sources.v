@@ -67,7 +67,6 @@ I1 2 1 pulse rise=Tr fall=Tf delay=T1 pv=I iv=0 width={T2-T1-Tr-Tf}
 
 I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 .ends
-.hidemodule Irect
 
 * Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0"
 .subckt Vac(1 2);
@@ -89,12 +88,17 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 * F1 2 3 R1 {G}
 * .ends
 
-.simulator lang=acs
+.simulator lang=verilog
 
-* hide this sckt in listings.
+`ifdef GNUCAP
+// hide this sckt in listings.
+hidemodule Irect
 hidemodule CCCS
 hidemodule CCVS
 hidemodule VCCS
 hidemodule VCVS
 hidemodule IAC
-hidemodule VAC
+hidemodule Vac
+`endif
+
+simulator lang=acs

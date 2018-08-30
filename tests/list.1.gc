@@ -1,0 +1,17 @@
+
+load ../lang_qucs.so
+load ../bm_wrapper.so
+load ../c_hide.so
+
+load public ../lang_verilog.so
+load ../c_vpp.so
+
+include ../include/sources.v
+
+options lang=qucs
+
+R:R1 _net0 _net1 R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+
+.options lang=verilog
+
+list
