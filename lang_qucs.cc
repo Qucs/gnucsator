@@ -294,7 +294,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 					break; // illegal node name, might be proper exit.
 				}else{
 					if (all_new) {
-						if (x->node_is_grounded(ii)) {
+						if (x->node_is_grounded(ii)) { untested();
 							cmd.warn(bDANGER, here1, "node 0 not allowed here");
 						}else{
 						}
@@ -307,7 +307,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 	}catch (Exception& e) {itested();
 		cmd.warn(bDANGER, here1, e.message());
 	}
-	if (ii < minnodes) {
+	if (ii < minnodes) { untested();
 		cmd.warn(bDANGER, "need " + to_string(minnodes-ii) +" more nodes");
 	}else{
 	}
@@ -318,7 +318,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 	//assert(x->_net_nodes == ii);
 
 	// ground unused input nodes
-	for (int iii = ii;  iii < minnodes;  ++iii) {
+	for (int iii = ii;  iii < minnodes;  ++iii) { untested();
 		x->set_port_to_ground(iii);
 	}
 	//assert(x->_net_nodes >= ii);
@@ -330,11 +330,19 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
 {
-	trace1("LANG_QUCS_BASE::parse_type", cmd.tail());
 	assert(x);
 	std::string new_type;
 	new_type = cmd.get_to(":");
-	trace2("LANG_QUCS_BASE::parse_type", new_type, x->dev_type());
+	trace3("LANG_QUCS_BASE::parse_type", cmd.fullstring(), new_type, x->dev_type());
+
+	// HACK (qucs language misfeature)
+	if(new_type=="Sub"){
+		// it's not really Sub. let's see.
+		int here=cmd.cursor();
+		scan_get(cmd, "Type", &new_type);
+		cmd.reset(here);
+	}
+	trace3("LANG_QUCS_BASE::parse_type", cmd.fullstring(), new_type, x->dev_type());
 
 	// this has weird side effects for elt+bm
 	x->set_dev_type(new_type);
@@ -387,13 +395,13 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 							cc->parse_numlist(v); // HACK.
 							try{ // to be sure, maybe later.
 							  	xx->set_param_by_name(Name,value);
-							}catch(Exception){}
+							}catch(Exception const&){}
 						}else if (cc){
 							trace2("have common", Name, value);
 
 							try{
 								cc->set_param_by_name(Name, value);
-							}catch(Exception){ untested();
+							}catch(Exception const&){ untested();
 							  	// retry if common did not like it...
 								xx->set_param_by_name(Name,value);
 							}
@@ -446,7 +454,7 @@ void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
 
 	if (cmd.skip1b(":") != true){ untested();
 		cmd.reset(0);
-		throw Exception("missing colon. device name not recognized.");
+		throw Exception("missing colon. device name not recognized: " + cmd.fullstring());
 	}
 
 	std::string my_name;
@@ -611,7 +619,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 		}
 
 
-	}catch (Exception& e) {
+	}catch (Exception& e) { untested();
 		cmd.warn(bDANGER, e.message());
 	}
 	return x;
@@ -720,7 +728,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	}else{itested();
 	}
 
-	if (OPT::acct  &&  didsomething) {
+	if (OPT::acct  &&  didsomething) { untested();
 		IO::mstdout.form("time=%8.2f\n", timecheck.check().elapsed());
 	}else{
 	}
@@ -796,7 +804,7 @@ void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
-{
+{ untested();
 	assert(x);
 	o << x->s() << '\n';
 }
@@ -854,7 +862,7 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 		o << sep << x->port_value(ii);
 		sep = " ";
 	}
-	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) {
+	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) { untested();
 		o << sep << x->current_port_value(ii);
 		sep = " ";
 	}

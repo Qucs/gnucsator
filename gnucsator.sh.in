@@ -116,11 +116,7 @@ echo "<Qucs Dataset 0.0.19>"
 QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@INCLUDEDIR@}
 export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
-sources=sources.v
-nonlinear=nonlinear.v
-vadev=vadev.v
-logic=logic.v
-lumped=lumped.v
+all=all.v
 
 ($GNUCAP | $postproc) <<EOF
 options numdgt 18
@@ -133,15 +129,14 @@ load d_poly_g_uf.so
 load d_probe.so
 *load d_qucs_opamp.so
 load lang_qucs.so
+load public lang_verilog.so
+load c_vpp.so
 load functions.so
 load s_sparam.so
 * TODO: use include plugin with paths support.
-load c_qucslib.so
-qucslib $sources
-qucslib $nonlinear
-qucslib $vadev
-qucslib $logic
-qucslib $lumped
+load c_include.so
+set_includepath {.:$QUCSATOR_PKGINCLUDEDIR}
+\`include $all
 verilog
 vsource #(.dc(0.)) p(gnd, 0);
 qucs

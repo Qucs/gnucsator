@@ -34,7 +34,7 @@ QUCS_PLUGINS = \
 	lang_verilog.so \
 	c_hide.so \
 	c_vpp.so \
-	c_qucslib.so \
+	c_include.so \
 	d_eqn.so \
 	d_poly_g_uf.so \
 	bm_poly.so \

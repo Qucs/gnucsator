@@ -213,7 +213,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				c = command_dispatcher["transient"];
 				s = command_dispatcher["sp"];
 				o = command_dispatcher["op"];
-			}catch(Exception){ untested();
+			}catch(Exception const&){ untested();
 				error(bDANGER, "some commands are missing, load plugin?\n");
 				exit(1);
 			}

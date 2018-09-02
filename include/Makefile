@@ -1,5 +1,6 @@
 
 FILES = \
+	all.v \
 	logic.v \
 	lumped.v \
 	nonlinear.v \
