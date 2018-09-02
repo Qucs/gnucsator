@@ -43,15 +43,15 @@ class CMD_HIDE : public CMD {
 public:
   typedef DISPATCHER<CARD>::INSTALL installer;
 public:
-  ~CMD_HIDE(){ untested();
-    for(auto i : _hidden){ untested();
+  ~CMD_HIDE(){
+    for(auto i : _hidden){
       delete i.first;
       delete i.second;
     }
   }
 public:
   void do_it(CS& cmd, CARD_LIST* Scope)
-  { untested();
+  {
 
     // only operate on top level, for now.
     if(Scope!=&CARD_LIST::card_list){ untested();
@@ -59,14 +59,14 @@ public:
       return;
     }
     unsigned here = cmd.cursor();
-    try { untested();
+    try {
       std::string sckt_name;
       cmd >> sckt_name;
 
       CARD_LIST::iterator i = Scope->begin();
-      for(;i != Scope->end(); ++i) { untested();
-	if (auto m=dynamic_cast<BASE_SUBCKT*>(*i)) { untested();
-	  if ((*i)->short_label()==sckt_name) { untested();
+      for(;i != Scope->end(); ++i) {
+	if (auto m=dynamic_cast<BASE_SUBCKT*>(*i)) {
+	  if ((*i)->short_label()==sckt_name) {
 	    trace2("hide found", sckt_name, (*i)->short_label());
 	    auto sl=(*i)->short_label();
 
@@ -80,9 +80,9 @@ public:
 	    _hidden.push_back(P);
 
 	    break;
-	  }else{ untested();
+	  }else{
 	  }
-	}else{ untested();
+	}else{
 	}
       }
 
