@@ -435,13 +435,6 @@ DEV_CPOLY_G::DEV_CPOLY_G(const DEV_CPOLY_G& p)
     trace2("DEV_CPOLY_G, copy more nodes", net_nodes(), max_nodes());
     _n = new node_t[max_nodes()]; // BUG?
 
-    for (uint_t ii = 0; ii<max_nodes(); ++ii) { untested();
-      trace1("DEV_CPOLY_G, copy" , ii);
-      if(p._n[ii].is_connected()){ untested();
-//	_n[ii] = p._n[ii];
-      }else{ untested();
-      }
-    }
     notstd::copy_n(p._n, net_nodes(), _n);
   }else{ untested();
   }
