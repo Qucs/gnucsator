@@ -182,7 +182,7 @@ double EQN::tr_probe_num(const string& what) const
   try{
     PARAMETER<double> x = _params[what];
     return x;
-  }catch(Exception){untested();
+  }catch(Exception const&){untested();
     return NOT_VALID;
   }
 }
