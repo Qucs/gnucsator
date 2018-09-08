@@ -54,7 +54,7 @@ public: // override virtual
   bool print_type_in_spice()const {return false;}
   void precalc_last();
   void expand();
-  void tr_begin() {untested(); q_eval();}
+  void tr_begin() { q_eval();}
   TIME_PAIR tr_review();
 //  void tr_restore();
 //  void dc_advance();

@@ -45,6 +45,7 @@ QUCS_PLUGINS = \
 	bm_trivial.so \
 	bm_wrapper.so \
 	cmd_wrapper.so \
+	s_dc.so \
 	s_sparam.so
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh

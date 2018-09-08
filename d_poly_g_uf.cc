@@ -46,7 +46,7 @@ public:
     _n_ports(0),
     _minnodes(2),
     _maxnodes(4)
-  { untested();
+  {
     // set_modelname("poly");
   }
   COMMON_G_POLY_K(const COMMON_G_POLY_K& p) :
@@ -57,13 +57,13 @@ public:
     _n_ports(p._n_ports),
     _minnodes(p._minnodes),
     _maxnodes(p._maxnodes)
-  { untested();
+  {
     trace1("copy. coeffs", _coeffs);
     trace3("copy. coeff", _coeff, _maxnodes, _minnodes);
   }
 
   COMMON_COMPONENT* clone()const{return new COMMON_G_POLY_K(*this);}
-  bool operator==(const COMMON_COMPONENT&x)const { untested();
+  bool operator==(const COMMON_COMPONENT&x)const {
     const COMMON_G_POLY_K* p = dynamic_cast<const COMMON_G_POLY_K*>(&x);
     bool rv = p
       && _n_ports == p->_n_ports
@@ -88,16 +88,16 @@ public:
   bool has_tr_eval()const{return true;}
   bool ac_too()const {untested();return false;}
   void set_param_by_name(std::string Name, std::string Value)
-  { untested();
+  {
     trace2("", Name, Value);
-    if (Umatch(Name, "c{oeffs} ")) { untested();
+    if (Umatch(Name, "c{oeffs} ")) {
       _coeffs = Value;
       trace1("coeffs", _coeffs);
-    }else if (Umatch(Name, "np{orts} ")) { untested();
+    }else if (Umatch(Name, "np{orts} ")) {
       int x=atoi(Value.c_str());
       if(_n_ports){ untested();
 	incomplete();
-      }else{ untested();
+      }else{
 	assert(x);
 	set_nports(x);
 	// _n = new node_t[net_nodes()];
@@ -143,7 +143,7 @@ public:
     }
   }
 
-  void set_nports(unsigned n_ports) { untested();
+  void set_nports(unsigned n_ports) {
     trace1("COMMON_G_POLY_K::set_nports", n_ports);
 
     _n_ports = n_ports;
@@ -151,27 +151,27 @@ public:
     _minnodes = 2*n_ports;
   }
 
-  void precalc_first(const CARD_LIST* scope) { untested();
+  void precalc_first(const CARD_LIST* scope) {
     trace3("COMMON_G_POLY_K::precfirst", _maxnodes, _n_ports, _minnodes);
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     trace2("COMMON_G_POLY_K::precfirst", _coeffs, _n_ports);
-    if(_coeffs.has_hard_value()){ untested();
+    if(_coeffs.has_hard_value()){
     }else if(_coeff.size()==0){ untested();
     }else if(_coeff[0].has_hard_value()){ untested();
       _coeffs = _coeff;
       _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     }
-    if(_poly){ untested();
+    if(_poly){
     }else if(_n_ports<2){ untested();
-    }else{ untested();
+    }else{
       trace2("COMMON_G_POLY_K::new poly", _coeffs, _n_ports);
       _poly = new MV_POLY<double>(vector<PARAMETER<double> >(_coeffs), _n_ports-1);
       trace0("COMMON_G_POLY_K::new poly done");
     }
   }
-  void precalc_last(const CARD_LIST* scope) { untested();
+  void precalc_last(const CARD_LIST* scope) {
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
-    if(_poly){ untested();
+    if(_poly){
     }else{ untested();
       assert(_n_ports);
       _poly = new MV_POLY<double>(vector<PARAMETER<double> >(_coeffs), _n_ports-1);
@@ -222,8 +222,8 @@ public:
    _n_ports(np),
    _time(NOT_VALID),
    _inputs(NULL)
-  { untested();
-    if(np){ untested();
+  {
+    if(np){
       _n = new node_t[net_nodes()];
       COMMON_COMPONENT* bc = c->clone();
       bc->set_param_by_name("nports", to_string(np));
@@ -239,7 +239,7 @@ protected: // override virtual
   bool print_type_in_spice()const {return false;}
   std::string value_name()const	{return "p0";}
   std::string dev_type()const	{return _dev_type;}
-  void  set_dev_type(const std::string& new_type){ untested();
+  void  set_dev_type(const std::string& new_type){
     _dev_type = new_type;
   }
 
@@ -311,22 +311,22 @@ private:
 };
 /*--------------------------------------------------------------------------*/
 uint_t DEV_CPOLY_G::net_nodes()const
-{ untested();
-  if(!common()){ untested();
+{
+  if(!common()){
     return _n_ports*2;
-  }else{ untested();
+  }else{
     assert(max_nodes()<100);
     return max_nodes();
   }
 }
 /*--------------------------------------------------------------------------*/
 uint_t DEV_CPOLY_G::min_nodes()const
-{ untested();
+{
   if(!common()){ untested();
     return net_nodes();
   }else if(!_n_ports){ untested();
     return 2;
-  }else{ untested();
+  }else{
     assert(_n_ports<50);
     return _n_ports*2;
   }
@@ -365,11 +365,11 @@ uint_t DEV_CPOLY_G::max_nodes() const
 //}
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::set_port_by_index(uint_t num, std::string& ext_name)
-{ untested();
+{
   trace3("DEV_CPOLY_G::set_port_by_index", num, ext_name, max_nodes());
-  if (num < max_nodes()) { untested();
+  if (num < max_nodes()) {
     _n[num].new_node(ext_name, this);
-    if (num+1 > _net_nodes) { untested();
+    if (num+1 > _net_nodes) {
       _net_nodes = num+1;
     }else{ untested();
       // it's already big enough, probably assigning out of order
@@ -381,7 +381,7 @@ void DEV_CPOLY_G::set_port_by_index(uint_t num, std::string& ext_name)
 }
 /*--------------------------------------------------------------------------*/
 void COMMON_G_POLY_K::tr_eval(ELEMENT* e) const
-{ untested();
+{
   DEV_CPOLY_G* d = prechecked_cast<DEV_CPOLY_G*>(e);
 //  trace3("COMMON_G_POLY_K::tr_eval", e->long_label(), _n_ports, d->net_nodes());
 //  trace2("b4", d->_values[2], d->_values[3]);
@@ -391,7 +391,7 @@ void COMMON_G_POLY_K::tr_eval(ELEMENT* e) const
   trace2("deriv", d->_values[2], d->_values[3]);
 
   // bool DEV_FPOLY_G::do_tr()?
-  for(unsigned i=2; i<=_n_ports; ++i) { untested();
+  for(unsigned i=2; i<=_n_ports; ++i) {
     d->_values[0] -= dn_diff(d->n_(2*i-2).v0(),d->n_(2*i-1).v0()) * d->_values[i];
   }
 
@@ -421,17 +421,17 @@ DEV_CPOLY_G::DEV_CPOLY_G(const DEV_CPOLY_G& p)
    _n_ports(p._n_ports),
    _time(NOT_VALID),
    _inputs(NULL)
-{ untested();
+{
   assert(!p._values);
   assert(!p._old_values);
-  if(_n_ports){ untested();
+  if(_n_ports){
     _n = new node_t[net_nodes()];
   }else{ untested();
   }
   assert(!p._inputs);
 
   assert(p.max_nodes() == max_nodes());
-  if (max_nodes() > NODES_PER_BRANCH) { untested();
+  if (max_nodes() > NODES_PER_BRANCH) {
     trace2("DEV_CPOLY_G, copy more nodes", net_nodes(), max_nodes());
     _n = new node_t[max_nodes()]; // BUG?
 
@@ -441,10 +441,10 @@ DEV_CPOLY_G::DEV_CPOLY_G(const DEV_CPOLY_G& p)
 }
 /*--------------------------------------------------------------------------*/
 DEV_CPOLY_G::~DEV_CPOLY_G()
-{ untested();
+{
   delete [] _old_values;
   _old_values=NULL;
-  if (max_nodes() > NODES_PER_BRANCH) { untested();
+  if (max_nodes() > NODES_PER_BRANCH) {
     trace1("~DEV_CPOLY_G", max_nodes());
     delete [] _n;
     _n=NULL;
@@ -454,23 +454,23 @@ DEV_CPOLY_G::~DEV_CPOLY_G()
 }
 /*--------------------------------------------------------------------------*/
 bool DEV_CPOLY_G::do_tr_con_chk_and_q()
-{ untested();
+{
   q_load();
 
   assert(_old_values);
   set_converged(conchk(_time, _sim->_time0));
   _time = _sim->_time0;
-  for (uint_t i=0; converged() && i<=_n_ports; ++i) { untested();
+  for (uint_t i=0; converged() && i<=_n_ports; ++i) {
     set_converged(conchk(_old_values[i], _values[i]));
   }
   return converged();
 }
 /*--------------------------------------------------------------------------*/
 bool DEV_CPOLY_G::do_tr()
-{ untested();
+{
   trace3("DEV_CPOLY_G::do_tr", long_label(), _n_ports, hp(&n_(0)));
-  if (using_tr_eval()) { untested();
-    for(uint_t i=2; i<=_n_ports; ++i) { untested();
+  if (using_tr_eval()) {
+    for(uint_t i=2; i<=_n_ports; ++i) {
       trace2("", long_label(), i);
       _values[i] = dn_diff(n_(2*i-2).v0(), n_(2*i-1).v0());
     }
@@ -509,12 +509,12 @@ bool DEV_FPOLY_G::do_tr()
 #endif
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::tr_load()
-{ untested();
+{
   trace3("tr_load", long_label(),_values[0], _values[1]);
   tr_load_passive();
   _old_values[0] = _values[0];
   _old_values[1] = _values[1];
-  for (uint_t i=2; i<=_n_ports; ++i) { untested();
+  for (uint_t i=2; i<=_n_ports; ++i) {
     trace4("tr_load", i, _values[i], _n[2*i-2].v0(), _n[2*i-1].v0());
     tr_load_extended(_n[OUT1], _n[OUT2], _n[2*i-2], _n[2*i-1], &(_values[i]), &(_old_values[i]));
   }
@@ -612,7 +612,7 @@ void DEV_CPOLY_G::set_param_by_index(int pos, std::string& Value, int slot)
 }
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::alloc_values()
-{ untested();
+{
   assert(common());
 //  assert(p);
 //  _n_ports = p->_maxnodes/2;
@@ -625,7 +625,7 @@ void DEV_CPOLY_G::alloc_values()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
-{ untested();
+{
   bool retry = false;
   if (!common()){ incomplete();
     if (Umatch(Name, "nports")) { untested();
@@ -666,18 +666,18 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
 
     // HACK
     alloc_values();
-  }else if (Umatch(Name, "c{oeffs} ")) { untested();
+  }else if (Umatch(Name, "c{oeffs} ")) {
     // HACK. try all names.
     assert(common());
     COMMON_COMPONENT* m = common()->clone();
-    try{ untested();
+    try{
       m->set_param_by_name(Name,Value);
     }catch(Exception){untested();
       retry = true;
       delete m;
       m = NULL;
     }
-    if(m){ untested();
+    if(m){
       attach_common(m);
       trace2("coeffs attached", common()->param_value(m->param_count()-1), hp(common()));
     }else{ untested();
@@ -688,26 +688,26 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
 
   if(retry){ untested();
     ELEMENT::set_param_by_name(Name, Value);
-  }else{ untested();
+  }else{
   }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::expand()
-{ untested();
+{
   if(_values){ untested();
     // hack: done by set_parameters
     // move to common somehow
-  }else{ untested();
+  }else{
     alloc_values();
   }
   ELEMENT::expand();
 }
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::precalc_last()
-{ untested();
+{
   trace3("DEV_CPOLY_G::precalc_last", long_label(), net_nodes(), matrix_nodes());
 
-  if(_values){ untested();
+  if(_values){
     // hack: done by set_parameters
     // move to common somehow
   }else{ untested();

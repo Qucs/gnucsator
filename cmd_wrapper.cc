@@ -34,9 +34,45 @@ using std::stringstream;
 /*--------------------------------------------------------------------------*/
 namespace{
 /*--------------------------------------------------------------------------*/
+class DC_WRAP : public CMD {
+public:
+	DC_WRAP(): CMD() {}
+public:
+	typedef struct{
+		double _start;
+		double _stop;
+	} data_t;
+private:
+	double _start;
+	double _stop;
+	unsigned _points;
+	method_t _integration;
+	int _order;
+	double _initialstep;
+	double _dtmin;
+	unsigned _itl;
+	double _reltol;
+	double _abstol;
+	double _vntol;
+
+//	void options(CS&);
+	void do_it(CS&cmd, CARD_LIST* cl) {
+		assert(cl);
+//		options(cmd);
+		data_t t;
+		t._start = _start;
+		t._stop = _stop;
+		_stash[short_label()] = t;
+	}
+public: // GO
+	static std::map<string, data_t> _stash;
+} pdc;
+map<string, DC_WRAP::data_t> DC_WRAP::_stash;
+DISPATCHER<CMD>::INSTALL ddc(&command_dispatcher, "DC", &pdc);
+/*--------------------------------------------------------------------------*/
 class SP_WRAP : public CMD {
 public:
-	SP_WRAP(): CMD() {untested();}
+	SP_WRAP(): CMD() {}
 public:
 	typedef struct{
 		double _start;
@@ -61,7 +97,14 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl);
+	void do_it(CS&cmd, CARD_LIST* cl) {
+		assert(cl);
+		options(cmd);
+		data_t t;
+		t._start = _start;
+		t._stop = _stop;
+		_stash[short_label()] = t;
+	}
 public: // GO
 	static std::map<string, data_t> _stash;
 private:
@@ -69,16 +112,6 @@ private:
 } psp;
 map<string, SP_WRAP::data_t> SP_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL dsp(&command_dispatcher, "SP", &psp);
-/*--------------------------------------------------------------------------*/
-void SP_WRAP::do_it(CS&cmd, CARD_LIST* cl)
-{
-	assert(cl);
-	options(cmd);
-	data_t t;
-	t._start = _start;
-	t._stop = _stop;
-	_stash[short_label()] = t;
-}
 /*--------------------------------------------------------------------------*/
 void SP_WRAP::options(CS& cmd)
 {
@@ -112,81 +145,30 @@ void SP_WRAP::options(CS& cmd)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-	class TRAN_WRAP : public CMD {
-		public:
-			TRAN_WRAP(): CMD() {untested();}
-		public:
-			typedef struct{
-				double _start;
-				double _stop;
-			} tran_t;
-			static std::map<string, tran_t> _stash;
-		private:
-			double _start;
-			double _stop;
-			unsigned _points;
-			method_t _integration;
-			int _order;
-			double _initialstep;
-			double _dtmin;
-			unsigned _itl;
-			double _reltol;
-			double _abstol;
-			double _vntol;
+class TRAN_WRAP : public CMD {
+public:
+	TRAN_WRAP(): CMD() {}
+public:
+	typedef struct{
+		double _start;
+		double _stop;
+	} tran_t;
+	static std::map<string, tran_t> _stash;
+private:
+	double _start;
+	double _stop;
+	unsigned _points;
+	method_t _integration;
+	int _order;
+	double _initialstep;
+	double _dtmin;
+	unsigned _itl;
+	double _reltol;
+	double _abstol;
+	double _vntol;
 
-			void options(CS&);
-			void do_it(CS&cmd, CARD_LIST* cl);
-
-	} p8;
-	map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
-/*--------------------------------------------------------------------------*/
-	void TRAN_WRAP::options(CS& cmd)
-	{
-		_order = -1;
-		_points = 0;
-		_dtmin = 0.;
-		_itl = 0;
-		_reltol = -1.;
-		_abstol = -1.;
-		_vntol = -1.;
-		double _whatever; // incomplete
-		unsigned here = cmd.cursor();
-		do{
-			trace1("options", cmd.tail());
-			ONE_OF
-				|| QucsGet(cmd, "Start", 	   &_start)
-				|| QucsGet(cmd, "Stop",		   &_stop)
-				|| QucsGet(cmd, "Points",	   &_points)
-				|| (cmd.umatch( "IntegrationMethod") &&
-						(ONE_OF
-						 || QucsSet(cmd, "Trapezoidal",   &_integration, meTRAP)
-						 || QucsSet(cmd, "Euler",         &_integration, meEULER)
-						 || cmd.warn(bWARNING, "need Trapezoidal, Euler ... incomplete")
-						)
-					)
-				|| QucsGet(cmd, "Order",      &_order)
-				|| QucsGet(cmd, "InitialStep",&_initialstep)
-				|| QucsGet(cmd, "MinStep",    &_dtmin)
-				|| QucsGet(cmd, "MaxIter",    &_itl)
-				|| QucsGet(cmd, "reltol",     &_reltol)
-				|| QucsGet(cmd, "abstol",     &_abstol)
-				|| QucsGet(cmd, "vntol",      &_vntol)
-				|| QucsGet(cmd, "Temp",       &_whatever)
-				|| QucsGet(cmd, "LTEreltol",  &_whatever)
-				|| QucsGet(cmd, "LTEabstol",  &_whatever)
-				|| QucsGet(cmd, "LTEfactor",  &_whatever)
-				|| QucsGet(cmd, "Solver",     &_whatever)
-				|| QucsGet(cmd, "relaxTSR",   &_whatever)
-				|| QucsGet(cmd, "initialDC",  &_whatever)
-				|| QucsGet(cmd, "MaxStep",    &_whatever)
-				|| QucsGet(cmd, "Type",       &_whatever)
-				;
-		}while (cmd.more() && !cmd.stuck(&here));
-		cmd.check(bWARNING, "what's this (incomplete)?");
-	} // TRAN_WRAP::options
-/*--------------------------------------------------------------------------*/
-	void TRAN_WRAP::do_it(CS&cmd, CARD_LIST* cl)
-	{
+	void options(CS&);
+	void do_it(CS&cmd, CARD_LIST* cl){
 		assert(cl);
 		options(cmd);
 		tran_t t;
@@ -194,6 +176,55 @@ void SP_WRAP::options(CS& cmd)
 		t._stop = _stop;
 		TRAN_WRAP::_stash[short_label()] = t;
 	}
+
+} p8;
+map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
+/*--------------------------------------------------------------------------*/
+void TRAN_WRAP::options(CS& cmd)
+{
+	_order = -1;
+	_points = 0;
+	_dtmin = 0.;
+	_itl = 0;
+	_reltol = -1.;
+	_abstol = -1.;
+	_vntol = -1.;
+	double _whatever; // incomplete
+	unsigned here = cmd.cursor();
+	do{
+		trace1("options", cmd.tail());
+		ONE_OF
+			|| QucsGet(cmd, "Start", 	   &_start)
+			|| QucsGet(cmd, "Stop",		   &_stop)
+			|| QucsGet(cmd, "Points",	   &_points)
+			|| (cmd.umatch( "IntegrationMethod") &&
+					(ONE_OF
+					 || QucsSet(cmd, "Trapezoidal",   &_integration, meTRAP)
+					 || QucsSet(cmd, "Euler",         &_integration, meEULER)
+					 || cmd.warn(bWARNING, "need Trapezoidal, Euler ... incomplete")
+					)
+				)
+			|| QucsGet(cmd, "Order",      &_order)
+			|| QucsGet(cmd, "InitialStep",&_initialstep)
+			|| QucsGet(cmd, "MinStep",    &_dtmin)
+			|| QucsGet(cmd, "MaxIter",    &_itl)
+			|| QucsGet(cmd, "reltol",     &_reltol)
+			|| QucsGet(cmd, "abstol",     &_abstol)
+			|| QucsGet(cmd, "vntol",      &_vntol)
+			|| QucsGet(cmd, "Temp",       &_whatever)
+			|| QucsGet(cmd, "LTEreltol",  &_whatever)
+			|| QucsGet(cmd, "LTEabstol",  &_whatever)
+			|| QucsGet(cmd, "LTEfactor",  &_whatever)
+			|| QucsGet(cmd, "Solver",     &_whatever)
+			|| QucsGet(cmd, "relaxTSR",   &_whatever)
+			|| QucsGet(cmd, "initialDC",  &_whatever)
+			|| QucsGet(cmd, "MaxStep",    &_whatever)
+			|| QucsGet(cmd, "Type",       &_whatever)
+			;
+	}while (cmd.more() && !cmd.stuck(&here));
+	cmd.check(bWARNING, "what's this (incomplete)?");
+} // TRAN_WRAP::options
+/*--------------------------------------------------------------------------*/
 DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -206,6 +237,8 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
 			CMD::command("print tran -v(gnd)", &CARD_LIST::card_list);
+			CMD::command("print op v(nodes)", &CARD_LIST::card_list);
+			CMD::command("print op -v(gnd)", &CARD_LIST::card_list);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
@@ -229,6 +262,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			}
 			if(TRAN_WRAP::_stash.empty()){
 				CS wcmd(CS::_STRING, " >/dev/null");
+				o->do_it(wcmd, cl);
+			}
+			for(auto const&i : DC_WRAP::_stash){
+				stringstream x;
+				x << " trace=n basic"; // tail, redirect?
+				CS wcmd(CS::_STRING, x.str());
 				o->do_it(wcmd, cl);
 			}
 			for(auto&i : SP_WRAP::_stash){
@@ -257,7 +296,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CMD* c = NULL;
 			try {
 				c = command_dispatcher["exit"];
-			}catch(Exception){ incomplete();
+			}catch(Exception const&){ incomplete();
 			}
 			CS wcmd(CS::_STRING, "");
 			c->do_it(wcmd, cl);

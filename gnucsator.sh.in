@@ -52,6 +52,9 @@ postproc()
 			probes=( ${line:5:${#line}} )
 			mode=tran;
 			continue
+		elif [ "${line:0:5}"x = "===DCx" ]; then
+			mode=verbose;
+			continue
 		elif [ $mode == wait ]; then
 			if [ "$line" = @@@VERBOSE@@@ ]; then
 				mode=verbose
@@ -132,8 +135,8 @@ load lang_qucs.so
 load public lang_verilog.so
 load c_vpp.so
 load functions.so
+load s_dc.so
 load s_sparam.so
-* TODO: use include plugin with paths support.
 load c_include.so
 set_includepath {.:$QUCSATOR_PKGINCLUDEDIR}
 \`include $all
