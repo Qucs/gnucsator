@@ -16,6 +16,7 @@ COMMON_TESTS = \
 	lang_qucs.3.net \
 	rc.net \
 	rr.net \
+	dio.net \
 	Vrect.1.net \
 	Vrect.2.net
 

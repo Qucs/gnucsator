@@ -1,12 +1,12 @@
 <Qucs Dataset 0.0.19>
 <indep _net0.V 1>
-0.9999999
+-0.7146539
 </indep>
 <indep _net1.V 1>
-0.6666666
+-1.429308
 </indep>
 <indep Pr1.V 1>
-0.9999999
+-0.7146539
 </indep>
 <indep time 0>
 </indep>

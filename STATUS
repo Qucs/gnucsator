@@ -84,7 +84,7 @@ COMPONENTS (table ripped from [1])
 │ gyrator         │ Gyrator         │      S         │ EI   │                │
 │ DC voltage      │ Vdc             │  E             │ T    │ unconditional  │
 │                 │                 │                │      │ current probe? │
-│ DC current      │                 │ (E)            │      │                │
+│ DC current      │ Idc             │ S              │ T    │                │
 │ AC voltage      │ Vac             │      W         │ EI   │ sine source    │
 │ AC current      │                 │      W         │      │                │
 │ AC power        │                 │                │      │                │

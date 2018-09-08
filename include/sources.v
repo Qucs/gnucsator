@@ -6,6 +6,10 @@ simulator language=verilog
 // mapping qucsator names to actual devices
 // "sources" section
 
+module Idc(1 2);
+parameter I=1m
+isource #(.dc(I)) v(2 1);
+endmodule
 
 module VCCS(1 2 3 4);
 parameter G=1
@@ -92,6 +96,7 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 
 `ifdef GNUCAP
 // hide this sckt in listings.
+hidemodule Idc
 hidemodule Irect
 hidemodule CCCS
 hidemodule CCVS
