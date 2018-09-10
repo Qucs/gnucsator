@@ -1,0 +1,75 @@
+#ifndef GNUCAP_MAIN_CONFIG_H
+#define GNUCAP_MAIN_CONFIG_H
+/*--------------------------------------------------------------------------*/
+#include <io_trace.h>
+#include <libgen.h> // basename
+#include <l_lib.h>
+
+static char const* systemstartfile(char const* x)
+{
+	static char buf[512];
+	x = basename((char*) x);
+
+	sprintf(buf, "%s.rc", x);
+	trace1("systemstartfile", buf);
+	return buf;
+}
+
+static char const* systemstartpath()
+{
+	if(const char* x=getenv("GNUCAP_SYSCONFDIR")){
+		trace1("systemstartpath from env", x);
+		return x;
+	}else{
+		trace1("systemstartpath default", DEFAULT_SYSTEMSTARTPATH);
+		return DEFAULT_SYSTEMSTARTPATH;
+	}
+}
+/* configuration */
+#define GNUCAP_PLUGPATH "@plugpath@"
+/*--------------------------------------------------------------------------*/
+/* user interface preferences */
+#define DEFAULT_LANGUAGE "acs"
+/*--------------------------------------------------------------------------*/
+/* installation setup */
+#if defined(__WIN32__)
+#warning untested
+#if !defined(DEFAULT_PLUGINS)
+  #define DEFAULT_PLUGINS "gnucap-default-plugins.dll"
+#endif
+#if !defined(SYSTEMSTARTFILE)
+  #define SYSTEMSTARTFILE "gnucap.rc"
+#endif
+#if !defined(SYSTEMSTARTPATH)
+  #define SYSTEMSTARTPATH OS::getenv("PATH")
+#endif
+#if !defined(USERSTARTFILE)
+  #define USERSTARTFILE "gnucap.rc"
+#endif
+#if !defined(USERSTARTPATH)
+  #define USERSTARTPATH OS::getenv("HOME")
+#endif
+/*--------------------------------------------------------------------------*/
+#else
+#if !defined(DEFAULT_PLUGINS)
+  #define DEFAULT_PLUGINS "gnucap-default-plugins.so"
+#endif
+#if !defined(SYSTEMSTARTFILE)
+  #define SYSTEMSTARTFILE systemstartfile(argv[0])
+#endif
+#if !defined(DEFAULT_SYSTEMSTARTPATH)
+  #define DEFAULT_SYSTEMSTARTPATH "@sysconfdir@"
+#endif
+#if !defined(SYSTEMSTARTPATH)
+  #define SYSTEMSTARTPATH systemstartpath()
+#endif
+#if !defined(USERSTARTFILE)
+  #define USERSTARTFILE ".gnucaprc"
+#endif
+#if !defined(USERSTARTPATH)
+  #define USERSTARTPATH OS::getenv("HOME")
+#endif
+#endif
+/*--------------------------------------------------------------------------*/
+
+#endif

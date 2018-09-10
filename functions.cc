@@ -52,7 +52,7 @@ DISPATCHER<FUNCTION>::INSTALL d##name(&function_dispatcher, #name, &p##name); \
 }
 
 // exponential and logarithmic functions
-function_plugin(exp, exp(x))
+// function_plugin(exp, exp(x))
 function_plugin(limexp, exp(x)) // uuh
 function_plugin(log10, log10(x))
 function_plugin(log2, log2(x))
@@ -67,9 +67,9 @@ function_plugin(arcsin, asin(x))
 // function_plugin(arctan, arctan); two args. FIXME
 
 // hyperbolic functions
-function_plugin(cosh, cosh(x)) // (exp(x)+exp(-x))*.5)
+//function_plugin(cosh, cosh(x)) // (exp(x)+exp(-x))*.5)
 function_plugin(cosech, 1./sinh(x)) // 2./(exp(x)-exp(-x))
 function_plugin(coth, 1.+2./exp(2*x-1)) // cosh(x)/sinh(x)
 function_plugin(sech, 2./(exp(x)+exp(-x))) // 1/cosh(x)
-function_plugin(sinh, sinh(x))
-function_plugin(tanh, 1.-2./exp(2*x+1)) // sinh(x)/cosh(x)
+//function_plugin(sinh, sinh(x))
+//function_plugin(tanh, 1.-2./exp(2*x+1)) // sinh(x)/cosh(x)

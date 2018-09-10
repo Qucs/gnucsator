@@ -250,7 +250,11 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				error(bDANGER, "some commands are missing, load plugin?\n");
 				exit(1);
 			}
-			assert(c);
+
+			if(!c){
+				error(bDANGER, "transient command missing, load plugin?\n");
+				exit(1);
+			}
 
 			// what happens if there are multiple trans?
 			for(auto const&i : TRAN_WRAP::_stash){

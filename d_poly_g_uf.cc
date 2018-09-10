@@ -672,7 +672,7 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
     COMMON_COMPONENT* m = common()->clone();
     try{
       m->set_param_by_name(Name,Value);
-    }catch(Exception){untested();
+    }catch(Exception const&){untested();
       retry = true;
       delete m;
       m = NULL;

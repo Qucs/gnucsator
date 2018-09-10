@@ -1,0 +1,7 @@
+# Qucs 0.0.19
+
+R:R1 _net0 _net1 R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+VProbe:Pr1 _net0 gnd
+.DC:DC1
+Vdc:V1 _net0 gnd U="1 V"
+R:R2 _net1 gnd R="100 Ohm"

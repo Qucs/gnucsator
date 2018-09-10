@@ -5,6 +5,7 @@ GNUCSATOR = ../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
 SHELL=/bin/bash
+LN_S=ln -s
 
 all: gc qucs
 
@@ -38,11 +39,17 @@ diff: $(GC_TESTS:%=%.diff) \
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
 
-qucs: $(COMMON_TESTS:%.net=%.net.qucs.out)
+$(COMMON_TESTS:%.net=%.net.qucs.out): qucs
+
+qucs:
+	[ -e qucs ] || ${LN_S} qucs ..
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 	GNUCAP_PLUGPATH=..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%} \
-	QUCSATOR_PKGINCLUDEDIR=../include
+	QUCSATOR_PKGINCLUDEDIR=../include \
+   GNUCAP_SYSCONFDIR=.. \
+   PATH=..:$$PATH
+
 
 %.net.gc.out: %.net
 	${ENV} $(GNUCSATOR) -i $< > $@

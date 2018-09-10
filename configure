@@ -1,0 +1,73 @@
+#!/bin/sh
+# configure for executable
+
+mkdir -p O
+#-------------  Stuff added to enable --prefix  --------------
+if test "x$1" != "x"; then
+    # echo Found input parameter -- $1
+    #  Now see if the parameter is --prefix=
+    if test "x${1#--prefix=}" != "x$1"; then
+        # echo "Found --prefix in input args.  Setting prefix directory."
+        prefix=${1#--prefix=}
+    else
+        # echo "Found unrecognized parameter in input args."
+        #  Just use the default prefix dir.
+        prefix=/usr/local
+    fi
+
+    pkglibdir=${prefix}/lib/gnucap
+    plugpath=${pkglibdir}:$( gnucap-conf --pkglibdir )
+    sysconfdir=${prefix}/etc
+else
+    # echo "No input parameter found."
+    #  Just use the default prefix dir
+    prefix=$( gnucap-conf --exec-prefix )
+    pkglibdir=$( gnucap-conf --pkglibdir )
+    plugpath=$( gnucap-conf --pkglibdir )
+    sysconfdir=$( gnucap-conf --sysconfdir )
+fi
+
+# bug. this is not implemented consistently.
+CXX=${CXX-c++}
+
+echo prefix:     $prefix
+echo pkglibdir:  $pkglibdir
+echo plugpath:   $plugpath
+
+STATUS="$*"
+
+NOTICE="\#THIS_FILE_IS_AUTOMATICALLY_GENERATED"
+# hmm, here?
+GNUCSATOR_PKGLIBDIR=${pkglibdir}/qucs
+PKGINCLUDEDIR=${prefix}/include/gnucap-qucs/
+
+fill_template() {
+t=$( tempfile )
+sed -e "s#@prefix@#$prefix#" \
+    -e "s#@exec_prefix@#$prefix#" \
+    -e "s#@libdir@#$prefix/lib#" \
+    -e "s#@NOTICE@#$NOTICE#" \
+    -e "s#@PKGINCLUDEDIR@#$PKGINCLUDEDIR#" \
+    -e "s#@includedir@#$\{prefix\}/include#" \
+    -e "s#@datarootdir@#$\{prefix\}/share/gnucap#" \
+    -e "s#@sysconfdir@#$sysconfdir#" \
+    -e "s#@pkglibdir@#$pkglibdir#" \
+    -e "s#@plugpath@#$plugpath#" \
+    -e "s#@CXXFLAGS@#$CCFLAGS#" \
+    -e "s#@LIBS@#-lgnucap#" \
+    -e "s#@STATUS@#$STATUS#" \
+    -e "s#@CXX@#$CXX#" < $1.in > $t
+if diff $1 $t >/dev/null; then
+	rm $t;
+else
+	mv $t $1;
+fi
+}
+
+fill_template config.h
+fill_template Makefile
+fill_template gnucsator.sh
+chmod +x gnucsator.sh
+
+date > config.log
+echo $0 "$@" >> config.log

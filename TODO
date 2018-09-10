@@ -3,8 +3,7 @@
 - Eqn: access probes
 - complex, vector, matrix parameters
 - more functions, functions with >1 args
-- build system (which 1?)
-- switch to binary executable making use of libgnucap
+- get rid of wrapper gnucsator.sh
 - write directly to output file. and only output
 - fix logic. multiport and process
 

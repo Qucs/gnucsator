@@ -1,0 +1,35 @@
+
+load gnucap-default-plugins.so
+
+attach qucs/c_uninst.so
+uninstall lang verilog
+uninstall command verilog
+uninstall command module
+uninstall command macromodule
+uninstall command dc
+uninstall command op
+uninstall command paramset
+uninstall comp dev_comment
+uninstall comp C
+uninstall comp D
+uninstall comp R
+unload qucs/c_uninst.so
+
+options numdgt 18
+load qucs/bm_value.so
+load qucs/bm_wrapper.so
+load qucs/bm_trivial.so
+load qucs/c_hide.so
+load qucs/cmd_wrapper.so
+load qucs/d_poly_g_uf.so
+load qucs/d_probe.so
+*load d_qucs_opamp.so
+load qucs/lang_qucs.so
+load public qucs/lang_verilog.so
+load qucs/c_vpp.so
+load qucs/functions.so
+load qucs/s_dc.so
+load qucs/s_sparam.so
+load qucs/c_include.so
+
+* TODO: include component library from here.

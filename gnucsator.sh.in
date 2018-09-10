@@ -26,9 +26,9 @@ while true; do
 	esac
 done
 
-GNUCAP=gnucap@SUFFIX@
-GNUCSATOR_PKGLIBDIR="@GNUCSATOR_PKGLIBDIR@"
-GNUCAP_PKGLIBDIR="@GNUCAP_PKGLIBDIR@"
+GNUCSATOR=gnucsator
+# GNUCSATOR_PKGLIBDIR="@GNUCSATOR_PKGLIBDIR@"
+# GNUCAP_PKGLIBDIR="@GNUCAP_PKGLIBDIR@"
 
 # this is stupid (makes gnucap appear slow), but this must be fixed in qucs.
 # see simulator output PRs in qucs.
@@ -99,11 +99,11 @@ postproc()
 	done
 }
 
-if [ -n "$GNUCAP_PLUGPATH" ]; then
-	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PLUGPATH}
-else
-	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PKGLIBDIR}
-fi
+# if [ -n "$GNUCAP_PLUGPATH" ]; then
+# 	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PLUGPATH}
+# else
+# 	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PKGLIBDIR}
+# fi
 
 if [ -n "$outfile" ]; then
 	exec > "$outfile"
@@ -116,29 +116,13 @@ echo "<Qucs Dataset 0.0.19>"
 # 	exec 2> "$outfile.stderr"
 # fi
 
-QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@INCLUDEDIR@}
+QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@PKGINCLUDEDIR@}
 export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
 all=all.v
 
-($GNUCAP | $postproc) <<EOF
-options numdgt 18
-load bm_value.so
-load bm_wrapper.so
-load bm_trivial.so
-load c_hide.so
-load cmd_wrapper.so
-load d_poly_g_uf.so
-load d_probe.so
-*load d_qucs_opamp.so
-load lang_qucs.so
-load public lang_verilog.so
-load c_vpp.so
-load functions.so
-load s_dc.so
-load s_sparam.so
-load c_include.so
-set_includepath {.:$QUCSATOR_PKGINCLUDEDIR}
+($GNUCSATOR | $postproc) <<EOF
+set_includepath {$QUCSATOR_PKGINCLUDEDIR}
 \`include $all
 verilog
 vsource #(.dc(0.)) p(gnd, 0);

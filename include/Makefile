@@ -8,5 +8,5 @@ FILES = \
 	vadev.v
 
 install:
-	install -d ${PKGINCLUDEDIR}
-	install ${FILES} ${PKGINCLUDEDIR}
+	install -d $(DESTDIR)${PKGINCLUDEDIR}
+	install ${FILES} $(DESTDIR)${PKGINCLUDEDIR}
