@@ -99,6 +99,7 @@ bool QucsGuessParam(std::string& p)
 	   || p[i] == 'E' // 18
 	   ){
       incomplete();
+      // dBm? need to substitute x for 10*log_10(x * 1000) (or so).
       error(bDANGER, "what is %s?\n", p.c_str());
       break;
     }else{

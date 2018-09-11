@@ -73,10 +73,19 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 .ends
 
 * Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0"
-.subckt Vac(1 2);
+.subckt Vac(1 2)
 .parameter U=1
 .parameter f=1
 * phase missing!
+V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
+.ends
+
+.subckt Pac(1 2);
+.parameter Z=50
+.parameter P=1
+.parameter frequency=1
+* local!
+.parameter U={sqrt(8 * P / Z)}
 V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 .ends
 
@@ -97,6 +106,7 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 `ifdef GNUCAP
 // hide this sckt in listings.
 hidemodule Idc
+hidemodule Pac
 hidemodule Irect
 hidemodule CCCS
 hidemodule CCVS

@@ -41,6 +41,11 @@ postproc()
 		if [ $mode = tran ]; then
 			# below.
 			:
+		elif [ $mode = dc ]; then
+			[ "${line:0:4}" = "open" ] && continue;
+			[ "${line:0:4}" = "infl" ] && continue;
+			echo $line
+			continue
 		elif [ $mode = verbose ]; then
 			if [ "$line" = @@@ENDVERBOSE@@@ ]; then
 				mode=wait
@@ -53,7 +58,7 @@ postproc()
 			mode=tran;
 			continue
 		elif [ "${line:0:5}"x = "===DCx" ]; then
-			mode=verbose;
+			mode=dc;
 			continue
 		elif [ $mode == wait ]; then
 			if [ "$line" = @@@VERBOSE@@@ ]; then
@@ -68,6 +73,9 @@ postproc()
 		[ "${line:0:4}" = "infl" ] && continue;
 		if [ "${line:0:1}" = "#" ]; then
 			mode=wait
+			continue
+		elif [ "${line:0:5}"x = "===DCx" ]; then
+			mode=dc
 			continue
 		fi
 		m=0
