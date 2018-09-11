@@ -87,7 +87,7 @@ COMPONENTS (table ripped from [1])
 │ DC current      │ Idc             │ S              │ T    │                │
 │ AC voltage      │ Vac             │      W         │ EI   │ sine source    │
 │ AC current      │                 │      W         │      │                │
-│ AC power        │ Pac             │                │ T    │                │
+│ AC power        │ Pac             │      S         │ TI   │                │
 │ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │
 │ PM mod vs       │                 │                │      │                │
 │ noise voltage   │                 │ (E) (V)        │      │ tran noise     │

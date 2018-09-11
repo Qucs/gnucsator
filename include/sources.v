@@ -83,10 +83,11 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 .subckt Pac(1 2);
 .parameter Z=50
 .parameter P=1
-.parameter frequency=1
+.parameter f=1
 * local!
 .parameter U={sqrt(8 * P / Z)}
-V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
+V1 1 i dc=0 ac={U} tran sin amplitude=U frequency=f
+.resistor R1 i 2 {Z}
 .ends
 
 * don't need spice for this
