@@ -389,21 +389,24 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 						OPT::case_insensitive = false;
 
 						trace3("LANG_QUCS_BASE value_name", xx->value_name(), value, Name);
-						if (cc && isame) {untested();
+						if(value==""){
+							// bug in qucs?
+						}else if (cc && isame) {untested();
 							trace1("isame hack", value);
 							CS v(CS::_STRING, value);
 							cc->parse_numlist(v); // HACK.
 							try{ // to be sure, maybe later.
 							  	xx->set_param_by_name(Name,value);
-							}catch(Exception const&){}
+							}catch(Exception const&){
+							}
 						}else if (cc){
 							trace2("have common", Name, value);
 
-							try{
+							try{ untested();
 								cc->set_param_by_name(Name, value);
 							}catch(Exception const&){ untested();
 							  	// retry if common did not like it...
-								xx->set_param_by_name(Name,value);
+								xx->set_param_by_name(Name, value);
 							}
 						} else {
 							trace2("no common", Name, value);

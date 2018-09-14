@@ -131,7 +131,7 @@ COMPONENTS (table ripped from [1])
 │ potentiometer   │ potentiometer   │ (V)            │      │ noise?         │
 │ photodiode      │ photodiode      │  V             │      │                │
 │ phototransistor │ phototransistor │                │      │                │
-│ mutual inductors│                 │ (E)            │      │                │
+│ mutual inductors│ MUT             │  W             │ TI   │                │
 │ three mutual    │                 │                │      │                │
 │ inductors       │                 │                │      │                │
 │ corr noise srcs │                 │                │      │                │

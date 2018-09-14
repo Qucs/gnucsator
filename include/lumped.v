@@ -173,7 +173,21 @@ module MOSFET(g, d, s, b);
 	mypmos #(.w(W*(1.-Type)*.5), .l(L)) p(d, g, s, b);
 endmodule
 
+simulator lang=spice
+.options noinsensitive
+* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9"
+.subckt MUT (a1 b1 b2 a2)
+.parameter k=.9
+.parameter L1=1m
+.parameter L2=1m
+K1 (Ll1 Ll2) {k}
+Ll1 (a1 a2) {L1}
+Ll2 (b1 b2) {L2}
+.ends
+.verilog
+
 `ifdef GNUCAP
 hidemodule Gyrator
 hidemodule MOSFET
+hidemodule MUT
 `endif

@@ -26,6 +26,8 @@ endif
 EXECUTABLES = gnucsator gnucsator.sh
 GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
 
+all: $(QUCS_PLUGINS) gnucsator.sh gnucsator
+
 main.o: main.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -shared -c -o $@ $<
 
@@ -65,8 +67,6 @@ QUCS_PLUGINS = \
 	s_sparam.so
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
-
-all: $(QUCS_PLUGINS) gnucsator.sh
 
 d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
