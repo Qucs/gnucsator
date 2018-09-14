@@ -184,10 +184,28 @@ K1 (Ll1 Ll2) {k}
 Ll1 (a1 a2) {L1}
 Ll2 (b1 b2) {L2}
 .ends
+
+* MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9"
+* TODO: check port order
+.subckt MUT2 (a1 b1 c1 c2 b2 a2)
+.parameter k12=.9
+.parameter k13=.9
+.parameter k23=.9
+.parameter L1=1m
+.parameter L2=1m
+.parameter L3=1m
+K1 (Ll1 Ll2) {k12}
+K2 (Ll2 Ll3) {k23}
+K3 (Ll1 Ll3) {k13}
+Ll1 (a1 a2) {L1}
+Ll2 (b1 b2) {L2}
+Ll3 (c1 c2) {L3}
+.ends
 .verilog
 
 `ifdef GNUCAP
 hidemodule Gyrator
 hidemodule MOSFET
 hidemodule MUT
+hidemodule MUT2
 `endif
