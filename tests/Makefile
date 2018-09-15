@@ -4,14 +4,17 @@ QUCSATOR = qucsator
 GNUCSATOR = ../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
+DIFF = diff -w -u
+DIFF = numdiff -r1.e-10 -a1.e-10
+
 SHELL=/bin/bash
 LN_S=ln -s
 
 all: gc qucs
 
 COMMON_TESTS = \
-	pac.net \
 	AM_Mod.1.net \
+	pac.net \
 	sub.1.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
@@ -63,7 +66,7 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
-	diff -w -u $+
+	${DIFF} $+
 
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@

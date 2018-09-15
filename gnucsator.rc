@@ -36,3 +36,7 @@ load qucs/s_sparam.so
 load qucs/c_include.so
 
 * TODO: include component library from here.
+
+verilog
+vsource #(.dc(0.)) p(gnd, 0);
+acs

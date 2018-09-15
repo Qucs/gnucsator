@@ -132,8 +132,6 @@ all=all.v
 ($GNUCSATOR | $postproc) <<EOF
 set_includepath {$QUCSATOR_PKGINCLUDEDIR}
 \`include $all
-verilog
-vsource #(.dc(0.)) p(gnd, 0);
 qucs
 include $infile
 go
