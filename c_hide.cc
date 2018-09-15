@@ -65,7 +65,8 @@ public:
 
       CARD_LIST::iterator i = Scope->begin();
       for(;i != Scope->end(); ++i) {
-	if (auto m=dynamic_cast<BASE_SUBCKT*>(*i)) {
+	if (dynamic_cast<BASE_SUBCKT const*>(*i)
+	 || dynamic_cast<MODEL_CARD const*>(*i)) {
 	  if ((*i)->short_label()==sckt_name) {
 	    trace2("hide found", sckt_name, (*i)->short_label());
 	    auto sl=(*i)->short_label();
@@ -73,10 +74,10 @@ public:
 	    // take it out of the cardlist.
 ///	    ((HACK_CARDLIST*)(Scope))->cl().erase(i);
 	    reinterpret_cast<HACK_CARDLIST*>(Scope)->cl().erase(i);
-	    auto I=new installer(&device_dispatcher, sl, m);
+	    auto I=new installer(&device_dispatcher, sl, *i);
 
 	    assert(device_dispatcher[sl]);
-	    auto P=std::make_pair(I, m);
+	    auto P=std::make_pair(I, *i);
 	    _hidden.push_back(P);
 
 	    break;

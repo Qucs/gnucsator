@@ -114,5 +114,7 @@ hidemodule OR
 hidemodule XOR
 hidemodule XNOR
 hidemodule Inv
+hidemodule mos
+******************************************************************************
 `endif
 simulator lang=acs
