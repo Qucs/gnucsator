@@ -23,10 +23,14 @@ ifneq ($(PREFIX),)
 	 GNUCSATOR_PKGLIBDIR = ${GNUCAP_LIBDIR}/gnucap/qucs
 endif
 
-EXECUTABLES = gnucsator gnucsator.sh
 GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
+EXECUTABLES = \
+	gnucsator.sh \
+	gnucsator \
+	net2verilog.sh
 
-all: $(QUCS_PLUGINS) gnucsator.sh gnucsator
+all: $(QUCS_PLUGINS) ${EXECUTABLES}
+
 
 main.o: main.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -shared -c -o $@ $<
@@ -50,6 +54,7 @@ QUCS_PLUGINS = \
 	lang_qucs.so \
 	lang_verilog.so \
 	c_hide.so \
+	c_list.so \
 	c_uninst.so \
 	c_vpp.so \
 	c_include.so \

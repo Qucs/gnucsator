@@ -7,6 +7,8 @@ uninstall command verilog
 uninstall command module
 uninstall command macromodule
 uninstall command dc
+uninstall command list
+uninstall command save
 uninstall command op
 uninstall command paramset
 uninstall comp dev_comment
@@ -20,6 +22,7 @@ load qucs/bm_value.so
 load qucs/bm_wrapper.so
 load qucs/bm_trivial.so
 load qucs/c_hide.so
+load qucs/c_list.so
 load qucs/cmd_wrapper.so
 load qucs/d_poly_g_uf.so
 load qucs/d_probe.so

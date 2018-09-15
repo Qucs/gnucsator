@@ -67,7 +67,9 @@ fi
 fill_template config.h
 fill_template Makefile
 fill_template gnucsator.sh
+fill_template net2verilog.sh
 chmod +x gnucsator.sh
+chmod +x net2verilog.sh
 
 date > config.log
 echo $0 "$@" >> config.log

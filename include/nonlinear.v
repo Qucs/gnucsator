@@ -98,5 +98,6 @@ hidemodule Diode
 hidemodule Relais
 hidemodule AM_Mod
 hidemodule OpAmp
+hidemodule Switch
 `endif
 simulator lang=acs

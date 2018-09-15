@@ -7,6 +7,7 @@ simulator language=verilog
 // "logic devices" section
 //
 //AND:Y1 _net2 _net1 _net0 V="1 V" t="0" TR="10"
+`if 0 // not yet
 module proper_AND(a b y);
 parameter V=1
 parameter TR=1
@@ -31,6 +32,7 @@ endparamset
 // notyet
 
 endmodule
+`endif
 
 simulator lang=spice
 .options noinsensitive
@@ -111,5 +113,6 @@ hidemodule NOR
 hidemodule OR
 hidemodule XOR
 hidemodule XNOR
+hidemodule Inv
 `endif
 simulator lang=acs
