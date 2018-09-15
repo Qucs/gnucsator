@@ -47,7 +47,7 @@ public:
 
 public: // override virtual, used by callback
   std::string arg_front()const {untested();
-    switch (_mode) { untested();
+    switch (_mode) {
     case mPARAMSET:untested(); return " .";			    break;
     case mDEFAULT:untested();  return (arg_count++ > 0) ? ", ." : "."; break;
     }
@@ -55,7 +55,7 @@ public: // override virtual, used by callback
     return "";
   }
   std::string arg_mid()const {untested();
-    switch (_mode) { untested();
+    switch (_mode) {
     case mPARAMSET:untested(); return "="; break;
     case mDEFAULT:untested();  return "("; break;
     }
@@ -63,7 +63,7 @@ public: // override virtual, used by callback
     return "";
   }
   std::string arg_back()const {untested();
-    switch (_mode) { untested();
+    switch (_mode) {
     case mPARAMSET:untested(); return ";"; break;
     case mDEFAULT:untested();  return ")"; break;
     }

@@ -76,8 +76,10 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 .subckt Vac(1 2)
 .parameter U=1
 .parameter f=1
-* phase missing!
-V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
+.parameter Phase=0
+
+*V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/3.141592653589793/2.-10)/f}
+V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/360.-10)/f}
 .ends
 
 

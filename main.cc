@@ -88,6 +88,7 @@ static void read_startup_files(char *const* argv)
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
     if (name != "") { untested();
+      trace2("", name, &CARD_LIST::card_list);
       CMD::command("include " + name, &CARD_LIST::card_list);
     }else{ untested();
       CMD::command(std::string("load " DEFAULT_PLUGINS), &CARD_LIST::card_list);

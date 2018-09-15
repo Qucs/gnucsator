@@ -33,14 +33,8 @@ if [ -n "$2" ]; then
 	save="save $2"
 fi
 
-# gui mode? suppress stderr
-# if [ -n "$outfile" ]; then
-# 	exec 2> "$outfile.stderr"
-# fi
-
 QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-/usr/local/include/gnucap-qucs/}
 export QUCSATOR_PKGINCLUDEDIR
-postproc=${postproc-postproc}
 all=all.v
 
 $GNUCSATOR <<EOF
@@ -52,4 +46,5 @@ include $1
 
 .verilog
 $save
+
 EOF

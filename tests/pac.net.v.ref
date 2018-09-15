@@ -1,0 +1,7 @@
+
+vsource #(.dc(0.)) p (.p(gnd),.n(0));
+Iprobe #() Pr1 (.p(_net0),.n(_net1));
+Vprobe #() Pr2 (.p(_net2),.n(_net0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net2),.n(_net0));
+R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R2 (.p(_net2),.n(_net1));
+Pac #(.Num(1),.P(1),.Temp(26.85),.Z(1),.f(1)) P1 (.1(_net0),.2(_net2));

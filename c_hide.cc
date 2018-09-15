@@ -45,6 +45,7 @@ public:
 public:
   ~CMD_HIDE(){
     for(auto i : _hidden){
+      trace1("delete", i.second->short_label());
       delete i.first;
       delete i.second;
     }

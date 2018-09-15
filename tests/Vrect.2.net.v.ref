@@ -1,0 +1,4 @@
+
+vsource #(.dc(0.)) p (.p(gnd),.n(0));
+Vprobe #() Pr1 (.p(_net1),.n(gnd));
+Vrect #(.U(1),.Td(0n),.Tr(1n),.Tf(1n),.TH(1m),.TL(1m)) V1 (.p(_net1),.n(gnd));

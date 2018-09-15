@@ -425,6 +425,7 @@ DEV_CPOLY_G::DEV_CPOLY_G(const DEV_CPOLY_G& p)
   assert(!p._values);
   assert(!p._old_values);
   if(_n_ports){
+    trace2("DEV_CPOLY_G, copy nodes", net_nodes(), max_nodes());
     _n = new node_t[net_nodes()];
   }else{ untested();
   }
@@ -447,7 +448,7 @@ DEV_CPOLY_G::~DEV_CPOLY_G()
   if (max_nodes() > NODES_PER_BRANCH) {
     trace1("~DEV_CPOLY_G", max_nodes());
     delete [] _n;
-    _n=NULL;
+    _n = NULL;
   }else{ untested();
     // it is part of a base class
   }

@@ -328,16 +328,6 @@ DEV_BM_WRAP qucs_Vdc("vsource", "value", "uneeded");
 DEV_SCKT_WRAP m1(&qucs_Vdc, pn, Vdc_param, "Vdc");
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "Vdc", &m1);
 /*--------------------------------------------------------------------------*/
-// dispatch(vsource, sin, Vsin)
-const char* Vsin_param[] = {"U", "f", "Phase", NULL,
-                            "amplitude", "frequency", "phase"};
-const char* Vsin_assign[] =
-{  "delay",     NULL,
-   "{(-Phase/3.141592653589793/2.-10)/f}"};
-DEV_BM_WRAP qucs_Vsin("vsource", "sin", "uneeded");
-DEV_SCKT_WRAP m2(&qucs_Vsin, pn, Vsin_param, "Vsin", Vsin_assign, 1);
-DISPATCHER<CARD>::INSTALL d2(&device_dispatcher, "Vsin", &m2);
-/*--------------------------------------------------------------------------*/
 // Vpulse:V3 _net2 _net3 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1 ns" Tf="1 ns"
 // Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns"
 // incomplete.

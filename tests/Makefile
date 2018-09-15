@@ -5,7 +5,7 @@ GNUCSATOR = ../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
 DIFF = diff -w -u
-DIFF = numdiff -r1.e-10 -a1.e-10
+NUMDIFF = numdiff -r1.e-10 -a1.e-10
 
 SHELL=/bin/bash
 LN_S=ln -s
@@ -13,16 +13,16 @@ LN_S=ln -s
 all: gc qucs
 
 COMMON_TESTS = \
-	AM_Mod.1.net \
+	rr.net \
+	rc.net \
 	pac.net \
+	AM_Mod.1.net \
 	sub.1.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	MUT.net \
-	rc.net \
 	sparam_e.net \
-	rr.net \
 	dio.net \
 	Vrect.1.net \
 	Vrect.2.net
@@ -41,7 +41,8 @@ GC_TESTS = \
 check: diff
 
 diff: $(GC_TESTS:%=%.diff) \
-      $(COMMON_TESTS:%=%.gc.diff)
+      $(COMMON_TESTS:%=%.gc.diff) \
+      $(COMMON_TESTS:%=%.v.diff)
 
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
@@ -57,6 +58,8 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
    GNUCAP_SYSCONFDIR=.. \
    PATH=..:$$PATH
 
+%.net.v.out: %.net
+	${ENV} ../net2verilog.sh $< $@
 
 %.net.gc.out: %.net
 	${ENV} $(GNUCSATOR) -i $< > $@
@@ -66,12 +69,15 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
+	${NUMDIFF} $+
+
+%.v.diff: %.v.out %.v.ref
 	${DIFF} $+
 
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@
 
-$(COMMON_TESTS:%=%.gc.out) $(GC_TESTS:%=%.out): .P
+$(COMMON_TESTS:%=%.gc.out) $(COMMON_TESTS:%=%.v.out) $(GC_TESTS:%=%.out): .P
 
 .PHONY: .P check diff
 
