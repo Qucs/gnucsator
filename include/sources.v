@@ -80,15 +80,6 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f
 .ends
 
-.subckt Pac(1 2);
-.parameter Z=50
-.parameter P=1
-.parameter f=1
-* local!
-.parameter U={sqrt(8 * P / Z)}
-V1 1 i dc=0 ac={U} tran sin amplitude=U frequency=f
-.resistor R1 i 2 {Z}
-.ends
 
 * don't need spice for this
 * .subckt CCVS(1 2 3 4);
@@ -101,11 +92,32 @@ V1 1 i dc=0 ac={U} tran sin amplitude=U frequency=f
 * .R:0 R1 1 4 1n
 * F1 2 3 R1 {G}
 * .ends
+*
+
+* only admit in dc and tr
+.subckt y_dctr 1 2
+.parameter y
+Y1 1 2 ac 0 dc {y} tran {y}
+.ends
+
 
 .simulator lang=verilog
 
+module Pac(1 2);
+parameter Z=50
+parameter P=1
+parameter f=1
+parameter Num=1
+// local!
+parameter U={sqrt(8 * P / Z)}
+Vac #(.U(U) .f(f)) sine(1, i);
+y_dctr #(.y({1/Z})) Y1(i 2);
+pac_ #(.Num(Num) .Z(Z) .P(P) .amplitude(U) .frequency(f)) sp(1, 2);
+endmodule
+
+
 `ifdef GNUCAP
-// hide this sckt in listings.
+hidemodule y_dctr
 hidemodule Idc
 hidemodule Pac
 hidemodule Irect

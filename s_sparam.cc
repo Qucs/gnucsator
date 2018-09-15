@@ -26,6 +26,7 @@
 #include "s__.h"
 #include "io.h"
 #include "globals.h"
+#include "e_subckt.h"
 
 typedef unsigned needed_t;
 
@@ -58,7 +59,8 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class PAC : public ELEMENT {
 private:
-  explicit PAC(const PAC& p) :ELEMENT(p) {}
+  explicit PAC(const PAC& p) :ELEMENT(p),
+ _num(p._num) {}
 public:
   explicit PAC()		:ELEMENT() {}
 private: // override virtual
@@ -108,7 +110,7 @@ public:
 private:
   PARAMETER<unsigned> _num;
 }pp;
-static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac|Pac", &pp);
+static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void PAC::precalc_last()
@@ -167,6 +169,7 @@ private:
   bool next_freq();
   void solve();
   void clear();
+void hack_findall( CARD_LIST* scope);
   void setup(CS&);
   void outmatrix(gsl_matrix_complex const* M);
   void outdata(double);
@@ -231,6 +234,20 @@ void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 static int needslinfix;	// flag: lin option needs patch later (spice compat)
 /*--------------------------------------------------------------------------*/
+void SPARAM::hack_findall( CARD_LIST* scope){
+  for (CARD_LIST::iterator i = scope->begin(); i != scope->end(); ++i) {
+    if ( PAC* c = dynamic_cast< PAC*>(*i) ) {
+      trace1("found port", c->long_label());
+      _ports.push_back( c );
+    }else if (!(*i)->is_device()){
+        // model, perhaps
+    } else if ( BASE_SUBCKT* s = dynamic_cast< BASE_SUBCKT*>(*i) ) {
+      trace1("going down", s->long_label());
+      hack_findall( s->subckt() );
+    }
+  }
+}
+/*--------------------------------------------------------------------------*/
 void SPARAM::setup(CS& Cmd)
 {
   _out = IO::mstdout;
@@ -262,10 +279,12 @@ void SPARAM::setup(CS& Cmd)
 
     std::string port;
     if (Cmd.umatch("port")){ untested();
-      trace2("setup", port, Cmd.tail());
-
+      trace2("findbranch", port, Cmd.tail());
       unsigned arg1=Cmd.cursor();
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
+#if 1
+      hack_findall(&CARD_LIST::card_list);
+#else
       if (ci.is_end()){ untested();
         Cmd.reset(arg1);
         throw Exception_CS("cannot find port", Cmd);
@@ -274,18 +293,18 @@ void SPARAM::setup(CS& Cmd)
         for(;!ci.is_end();){ untested();
           trace1("have", (*ci)->long_label());
           if(PAC* P=dynamic_cast<PAC*>(*ci)){
+            error(bDANGER, (*ci)->long_label() + " is a port\n");
             _ports.push_back(P);
           }else{
             error(bDANGER, (*ci)->long_label() + " is not a port, skipping\n");
           }
 
           Cmd.reset(arg1);
-          trace1("res", Cmd.tail());
-          ci = findbranch(Cmd, ++ci);
-          trace1("f", Cmd.tail());
+          ci = findbranch(Cmd, ci);
         }
         Cmd.reset(next);
       }
+#endif
       trace2("done ports", Cmd.tail(), _ports.size());
     }else{ untested();
 

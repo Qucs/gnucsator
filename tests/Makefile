@@ -10,6 +10,7 @@ LN_S=ln -s
 all: gc qucs
 
 COMMON_TESTS = \
+	pac.net \
 	AM_Mod.1.net \
 	sub.1.net \
 	lang_qucs.1.net \
@@ -17,7 +18,7 @@ COMMON_TESTS = \
 	lang_qucs.3.net \
 	MUT.net \
 	rc.net \
-	pac.net \
+	sparam_e.net \
 	rr.net \
 	dio.net \
 	Vrect.1.net \
