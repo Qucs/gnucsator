@@ -1,14 +1,31 @@
 SIMULATION COMMANDS
 
-- tran available as wrapper (stub).
-- sparam plugin
-- ac, dc, fo available
-- sens needs port from -uf
-- harmonic balance not implemented
+- implementation column
+    U  upstream
+    M  modified upstream plugin
+    C  custom plugin
+    S  postprocessor script
+
+- test column
+    T  have a test
+    E  have an example circuit
+    I  interactively tested
+
+┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
+│    simulation   │  qucsator name  │ implementation │ test │    comment     │
+├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
+│ operating point │  DC             │   M            │ TEI  │                │
+│ transient       │  TR             │   US           │ TEI  │ mixed signal   │
+│ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
+│ ac analysis     │  AC             │                │      │                │
+│ sensitivity     │  ?              │                │      │ gnucap-uf..    │
+│ noise           │  ?              │                │      │ gnucap-uf..    │
+│ harmonic balance│                 │                │      │ WIP            │
+└─────────────────┴─────────────────┴────────────────┴──────┴────────────────┘
 
 COMPONENTS (table ripped from [1])
 
-- implementation row
+- implementation column
     N  native
     S  sckt based ("macro") model
     W  sckt wrapper, bultin component
@@ -25,7 +42,7 @@ COMPONENTS (table ripped from [1])
    [V] a verilog-A model could do this
     ?  no idea
 
-- test row
+- test column
     T  have a test
     E  have an example circuit
     I  interactively tested
@@ -34,8 +51,8 @@ COMPONENTS (table ripped from [1])
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
 │    component    │  qucsator name  │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
-| subckt          │   Sub           │ N, d_subckt    │ TE   │                │
-|                 │                 │                │      │                │
+│ subckt          │   Sub           │ N, d_subckt    │ TE   │                │
+│                 │                 │                │      │                │
 │ resistor        │   R             │  E  [V]        │ T    │                │
 │ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
@@ -88,7 +105,7 @@ COMPONENTS (table ripped from [1])
 │ AC voltage      │ Vac             │      W         │ EI   │ sine source    │
 │ AC current      │                 │      W         │      │                │
 │ AC power        │ Pac             │      S         │ TI   │ also acts as   │
-|                 │                 │                │      │ sparam src     │
+│                 │                 │                │      │ sparam src     │
 │ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │
 │ PM mod vs       │                 │                │      │                │
 │ noise voltage   │                 │ (E) (V)        │      │ tran noise     │

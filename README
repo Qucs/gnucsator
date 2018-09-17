@@ -1,18 +1,34 @@
-This package provides a gnucap based qucsator implementation.
+== contents
 
-(Currently) it is meant to work like this:
+This package provides a gnucap based simulation kernel for qucs, a component
+library and related tools.
+
+== gnucsator.sh
+
+replaces qucsator and enhances qucs (the default simulator in qucs) in some
+situations. e.g. by introducing stable/fast dc/tran analysis and
+extensibility.
+
+Please see STATUS for the currently available functionality and
+{tests,examples}/*.{net,sch} for example circuits.
+
+== net2verilog.sh
+
+convert qucsator "net" files into verilog. embedded commands are stripped.
+
+== gnucsator
+
+binary executable. equivalent to gnucap, but loads a different run time
+configuration file (gnucsator.rc).
+
+== setup
+
 - install qucs (the gui).
 - install gnucap (>=20171003)
-  - official gnucap from savannah or
-  - apt-get install gnucap
-- install this package, "make install"
+  - official gnucap from savannah [1], or
+  - apt-get install gnucap (in debian>=buster)
+- install this package, "./configure; make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
 
-In some situations, gnucap paths (as obtained from gnucap-conf) are not
-writable.  then, PREFIX can be set to override them, e.g.
-$ make clean install PREFIX=/usr/local
-("clean" ensures that the custom paths are propagated everywhere).
-
-please see STATUS for the currently available functionality and
-{tests,examples}/*.{net,sch} for example circuits.
+[1] git://git.sv.gnu.org/gnucap.git
