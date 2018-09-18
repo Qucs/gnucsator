@@ -1,4 +1,4 @@
-== contents
+== gnucap-qucs
 
 This package provides a gnucap based simulation kernel for qucs, a component
 library and related tools.
@@ -30,5 +30,16 @@ configuration file (gnucsator.rc).
 - install this package, "./configure; make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
+
+== customisation
+
+gnucap-qucs ships the main executable from gnucap-custom as gnucsator, it is
+much like the usual gnucap, but loads gnucsator.rc at startup. you may
+override this, by setting GNUCAP_SYSTEMSTARTFILE. For example
+
+$ QUCSATOR=gnucsator.sh GNUCAP_SYSTEMSTARTFILE=my_own.rc qucs
+
+will run a qucs session with your own gnucsator rc. make sure this file exists
+next to gnucsator.rc (or also set GNUCAP_SYSTEMSTARTPATH..).
 
 [1] git://git.sv.gnu.org/gnucap.git

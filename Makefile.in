@@ -29,8 +29,7 @@ EXECUTABLES = \
 	gnucsator \
 	net2verilog.sh
 
-all: $(QUCS_PLUGINS) ${EXECUTABLES}
-
+all:
 
 main.o: main.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -shared -c -o $@ $<
@@ -71,6 +70,8 @@ QUCS_PLUGINS = \
 	s_dc.so \
 	s_sparam.so
 
+all: $(QUCS_PLUGINS) ${EXECUTABLES}
+
 CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
 
 d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
@@ -89,6 +90,8 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 
 %.so : %.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
+
+${QUCS_PLUGINS}: %.so: %.cc
 
 gncp: main.o config.h
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) $(LIBS)

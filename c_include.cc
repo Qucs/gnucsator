@@ -92,8 +92,14 @@ public:
       char* base=basename(basetmp);
       trace1("chdir", dir);
 
-      std::string full_file_name=findfile(file_name, gnucap_includepath, R_OK);
-      trace3("...", full_file_name, gnucap_includepath, base);
+      std::string incl(gnucap_includepath);
+      if(const char* x=getenv("GNUCAP_INCLUDEPATH")){
+        incl=x;
+      }else{
+      }
+
+      std::string full_file_name=findfile(file_name, incl, R_OK);
+      trace3("...", full_file_name, incl, base);
       chdir(dir);
 
       CS file(CS::_INC_FILE, std::string(full_file_name));
