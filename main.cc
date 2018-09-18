@@ -98,7 +98,7 @@ static void read_startup_files(char *const* argv)
     // TODO: also scan parent directories
     std::string name = findfile(USERSTARTFILE, USERSTARTPATH, R_OK);
     if (name != "") {untested();
-      CMD::command("`include " + name, &CARD_LIST::card_list);
+      CMD::command("include " + name, &CARD_LIST::card_list);
     }else{
     }
   }
@@ -290,13 +290,14 @@ public:
 private:
   SIM_DATA _sim_data;
   PROBE_LISTS _probe_lists;
-} main_;
+};
 /*--------------------------------------------------------------------------*/
 int main(int argc, char *const* argv)
 {
-    int r=main_(argc, argv);
-    main_.uninit(); // required before ~MAIN
-    return r;
+  MAIN main_;
+  int r=main_(argc, argv);
+  main_.uninit(); // required before ~MAIN
+  return r;
 }
 /*--------------------------------------------------------------------------*/
 int MAIN::operator()(int argc, char *const* argv)

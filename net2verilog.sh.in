@@ -33,13 +33,7 @@ if [ -n "$2" ]; then
 	save="save $2"
 fi
 
-QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-/usr/local/include/gnucap-qucs/}
-export QUCSATOR_PKGINCLUDEDIR
-all=all.v
-
 $GNUCSATOR <<EOF
-set_includepath {$QUCSATOR_PKGINCLUDEDIR}
-\`include $all
 qucs
 
 include $1

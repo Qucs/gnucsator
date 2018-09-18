@@ -18,6 +18,7 @@ COMMON_TESTS = \
 	pac.net \
 	AM_Mod.1.net \
 	sub.1.net \
+	sub.2.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
@@ -28,6 +29,7 @@ COMMON_TESTS = \
 	Vrect.2.net
 
 GC_TESTS = \
+	lang_verilog.param1.gc \
 	lang_qucs.1.gc \
 	c_hide.2.gc \
 	IProbe.1.gc \
@@ -40,9 +42,10 @@ GC_TESTS = \
 
 check: diff
 
-diff: $(GC_TESTS:%=%.diff) \
-      $(COMMON_TESTS:%=%.gc.diff) \
-      $(COMMON_TESTS:%=%.v.diff)
+diff: \
+	$(COMMON_TESTS:%=%.v.diff) \
+	$(GC_TESTS:%=%.diff) \
+	$(COMMON_TESTS:%=%.gc.diff)
 
 gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
@@ -55,7 +58,7 @@ qucs:
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 	GNUCAP_PLUGPATH=.:..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%} \
 	QUCSATOR_PKGINCLUDEDIR=../include \
-	GNUCAP_INCLUDEPATH=../include${GNUCAP_INCLUDEPATH:%=:%} \
+	GNUCAP_INCLUDEPATH=../include:.${GNUCAP_INCLUDEPATH:%=:%} \
    GNUCAP_SYSCONFDIR=.. \
    PATH=..:$$PATH
 

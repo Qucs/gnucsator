@@ -7,7 +7,6 @@ simulator language=verilog
 // nonlinear stuff
 
 // -------------------------------------------------------------------- //
-/*--------------------------------------------------------------------------*/
 // AM_Mod:V1 _net1 gnd _net2 U="1 V" f="1 Hz" Phase="0" m="1.0"
 // Phase is broken in qucsator?
 module AM_Mod(1, 2, 3);

@@ -1,4 +1,6 @@
 
+* options trace
+
 load gnucap-default-plugins.so
 
 attach qucs/c_uninst.so
@@ -40,3 +42,6 @@ load qucs/c_include.so
 verilog
 vsource #(.dc(0.)) p(gnd, 0);
 acs
+
+set_includepath @PKGINCLUDEDIR@
+`include all.v

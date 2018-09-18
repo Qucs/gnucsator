@@ -473,7 +473,11 @@ void LANG_VERILOG::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
   o << "module " <<  x->short_label();
   print_ports_short(o, x);
   o << ";\n";
-  
+  auto p=x->subckt()->params();
+  for(auto i: *p){
+    o << "parameter " << i.first << "={" << i.second << "};\n";
+  }
+
   for (CARD_LIST::const_iterator 
 	 ci = x->subckt()->begin(); ci != x->subckt()->end(); ++ci) {
     print_item(o, *ci);

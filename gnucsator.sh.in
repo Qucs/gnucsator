@@ -127,11 +127,8 @@ echo "<Qucs Dataset 0.0.19>"
 QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@PKGINCLUDEDIR@}
 export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
-all=all.v
 
 ($GNUCSATOR | $postproc) <<EOF
-set_includepath {$QUCSATOR_PKGINCLUDEDIR}
-\`include $all
 qucs
 include $infile
 go

@@ -12,7 +12,7 @@ module proper_AND(a b y);
 parameter V=1
 parameter TR=1
 
-`if 0
+`if 1
 paramset mos logic; \
 delay= 1n;\
 rise= 1n;\
