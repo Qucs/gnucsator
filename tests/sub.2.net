@@ -1,0 +1,9 @@
+# Qucs 0.0.19  /tmp/neur.sch
+
+.Def:TESTSUB _net0 _net1 RES="1" PARAM2="2"
+resistor:a _net0 _net1 r="RES"
+.Def:End
+
+.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU"
+Sub:T1 _net1 0 Type="TESTSUB" RES="2"
+Idc:V1 _net1 0 I="5"

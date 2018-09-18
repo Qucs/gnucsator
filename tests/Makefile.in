@@ -51,6 +51,9 @@ gc: $(GC_TESTS:%.gc=%.gc.out) \
     $(COMMON_TESTS:%.net=%.net.gc.out)
 
 $(COMMON_TESTS:%.net=%.net.gc.out): qucs
+$(GC_TESTS:%.net=%.gc.out): qucs
+$(COMMON_TESTS:%.net=%.net.v.out): qucs
+
 
 qucs:
 	[ -e qucs ] || ${LN_S} .. qucs
