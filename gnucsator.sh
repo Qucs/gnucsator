@@ -7,8 +7,6 @@
 # shared library and output pluggability are ready.
 # the .sh extension is intentional.
 
-@NOTICE@
-
 TEMP=`getopt -o i:o:bg --long input:output: \
      -n 'gnucsator.sh' -- "$@"`
 
@@ -27,8 +25,6 @@ while true; do
 done
 
 GNUCSATOR=gnucsator
-# GNUCSATOR_PKGLIBDIR="@GNUCSATOR_PKGLIBDIR@"
-# GNUCAP_PKGLIBDIR="@GNUCAP_PKGLIBDIR@"
 
 # this is stupid (makes gnucap appear slow), but this must be fixed in qucs.
 # see simulator output PRs in qucs.

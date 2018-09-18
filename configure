@@ -1,8 +1,5 @@
 #!/bin/sh
-# configure for executable
 
-mkdir -p O
-#-------------  Stuff added to enable --prefix  --------------
 if test "x$1" != "x"; then
     # echo Found input parameter -- $1
     #  Now see if the parameter is --prefix=
@@ -29,10 +26,6 @@ fi
 
 # bug. this is not implemented consistently.
 CXX=${CXX-c++}
-
-echo prefix:     $prefix
-echo pkglibdir:  $pkglibdir
-echo plugpath:   $plugpath
 
 STATUS="$*"
 
@@ -66,11 +59,13 @@ fi
 
 fill_template config.h
 fill_template Makefile
-fill_template gnucsator.sh
+fill_template tests/Makefile
 fill_template gnucsator.rc
-fill_template net2verilog.sh
-chmod +x gnucsator.sh
-chmod +x net2verilog.sh
 
+echo -n '# ' > config.log
 date > config.log
 echo $0 "$@" >> config.log
+
+echo prefix:     $prefix
+echo pkglibdir:  $pkglibdir
+echo plugpath:   $plugpath

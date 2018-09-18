@@ -56,20 +56,23 @@ qucs:
 	[ -e qucs ] || ${LN_S} .. qucs
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=.:..:${GNUCAP_PKGLIBDIR}${GNUCAP_PLUGPATH:%=:%} \
+	GNUCAP_PLUGPATH=.:..:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
 	QUCSATOR_PKGINCLUDEDIR=../include \
 	GNUCAP_INCLUDEPATH=../include:.${GNUCAP_INCLUDEPATH:%=:%} \
-   GNUCAP_SYSCONFDIR=.. \
+	GNUCAP_SYSCONFDIR=.. \
    PATH=..:$$PATH
 
 %.net.v.out: %.net
-	${ENV} ../net2verilog.sh $< $@
+	@echo ../net2verilog.sh $< $@
+	@${ENV} ../net2verilog.sh $< $@
 
 %.net.gc.out: %.net
-	${ENV} $(GNUCSATOR) -i $< > $@
+	@echo "$(GNUCSATOR) -i $< > $@"
+	@${ENV} $(GNUCSATOR) -i $< > $@
 
 %.gc.out: %.gc
-	${ENV} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
+	@echo "$(GNUCAP) < $< | ... | > $@"
+	@${ENV} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
