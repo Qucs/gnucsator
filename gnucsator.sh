@@ -66,6 +66,8 @@ postproc()
 
 		[ -z "$line" ] && break;
 		[ "${line:0:4}" = "open" ] && continue;
+		[ "${line:0:4}" = "zero" ] && continue;
+		[ "${line:0:4}" = "newt" ] && continue;
 		[ "${line:0:4}" = "infl" ] && continue;
 		if [ "${line:0:1}" = "#" ]; then
 			mode=wait
@@ -103,12 +105,6 @@ postproc()
 	done
 }
 
-# if [ -n "$GNUCAP_PLUGPATH" ]; then
-# 	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PLUGPATH}
-# else
-# 	export GNUCAP_PLUGPATH=$GNUCSATOR_PKGLIBDIR:${GNUCAP_PKGLIBDIR}
-# fi
-
 if [ -n "$outfile" ]; then
 	exec > "$outfile"
 fi
@@ -120,8 +116,6 @@ echo "<Qucs Dataset 0.0.19>"
 # 	exec 2> "$outfile.stderr"
 # fi
 
-QUCSATOR_PKGINCLUDEDIR=${QUCSATOR_PKGINCLUDEDIR-@PKGINCLUDEDIR@}
-export QUCSATOR_PKGINCLUDEDIR
 postproc=${postproc-postproc}
 
 ($GNUCSATOR | $postproc) <<EOF

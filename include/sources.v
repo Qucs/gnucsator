@@ -49,14 +49,15 @@ I1 1 2 dc=0 ac={I}
 
 * Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms"
 .subckt Ipulse(1 2);
-.parameter I=1
+.parameter I1=0
+.parameter I2=1
 .parameter T2=1m
 .parameter TL=1m
 .parameter Tr=1n
 .parameter Tf=1n
 .parameter T1=0
 
-I1 2 1 pulse rise=Tr fall=Tf delay=T1 pv=I iv=0 width={T2-T1-Tr-Tf}
+I1 2 1 pulse rise=Tr fall=Tf delay=T1 pv=I2 iv=I1 width={T2-T1-Tr-Tf}
 .ends
 .hidemodule Ipulse
 

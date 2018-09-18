@@ -34,7 +34,9 @@ all:
 main.o: main.cc
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -shared -c -o $@ $<
 
-gnucsator: main.o config.h
+main.o: config.h
+
+gnucsator: main.o
 	$(CXX) $(CXXFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) ${GNUCAP_LIBS}
 
 # QUCS_DEVS = opamp cccs
