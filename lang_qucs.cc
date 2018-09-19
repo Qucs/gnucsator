@@ -50,6 +50,8 @@ using std::string;
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
+static /*const*/  std::string ground_name="0";
+/*--------------------------------------------------------------------------*/
 struct subckt_alias{
 	subckt_alias(){
 		CARD* x=device_dispatcher["subckt"];
@@ -285,6 +287,8 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 				if (cmd.stuck(&here)) {itested();
 					// didn't move, probably a terminator.
 					throw Exception("bad node name");
+				}else if(node_name=="gnd"){
+					x->set_port_by_index(ii, ground_name);
 				}else{
 					// legal node name, store it.
 					x->set_port_by_index(ii, node_name);
@@ -862,7 +866,12 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 	o <<  " ";
 	std::string sep = "";
 	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
-		o << sep << x->port_value(ii);
+		o << sep;
+		if(x->port_value(ii) == "0"){ untested();
+			o << "gnd";
+		}else{ untested();
+		   o << x->port_value(ii);
+		}
 		sep = " ";
 	}
 	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) { untested();

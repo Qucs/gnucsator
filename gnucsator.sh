@@ -65,9 +65,13 @@ postproc()
 
 
 		[ -z "$line" ] && break;
+		# TODO: redirect data
 		[ "${line:0:4}" = "open" ] && continue;
 		[ "${line:0:4}" = "zero" ] && continue;
 		[ "${line:0:4}" = "newt" ] && continue;
+		[ "${line:0:4}" = "back" ] && continue;
+		[ "${line:0:3}" = "new" ] && continue;
+		[ "${line:0:4}" = "step" ] && continue;
 		[ "${line:0:4}" = "infl" ] && continue;
 		if [ "${line:0:1}" = "#" ]; then
 			mode=wait

@@ -26,5 +26,6 @@ macromodule: already installed, replacing
 stashing as macromodule:0
 verilog: already installed, replacing
 stashing as verilog:0
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(_net1));
+  R:R1 gnd _net1   R=50 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(0),.n(_net1));
 

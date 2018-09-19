@@ -1,6 +1,8 @@
-
-vsource #(.dc(0.)) p (.p(gnd),.n(0));
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(_net1));
-Vprobe #() Pr1 (.p(_net0),.n(gnd));
-Vdc #(.U(1),.Temp(NA( NA))) V1 (.p(_net0),.n(gnd));
-R #(.R(100),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R2 (.p(_net1),.n(gnd));
+--- rr.net.v.out	2018-09-19 02:01:30.967945871 +0100
++++ rr.net.v.ref	2018-09-19 01:49:18.763975897 +0100
+@@ -1,4 +1,5 @@
+ 
++vsource #(.dc(0.)) p (.p(gnd),.n(0));
+ R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(_net1));
+ Vprobe #() Pr1 (.p(_net0),.n(0));
+ Vdc #(.U(1),.Temp(NA( NA))) V1 (.p(_net0),.n(0));

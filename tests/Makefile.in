@@ -79,10 +79,10 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 					                            -e '/default plugins/d' > $@
 
 %.gc.diff: %.gc.out %.gc.ref
-	${NUMDIFF} $+
+	${NUMDIFF} $+ | tee $@
 
 %.v.diff: %.v.out %.v.ref
-	${DIFF} $+
+	${DIFF} $+ | tee $@
 
 %.net.qucs.out: %.net
 	$(QUCSATOR) -i $< > $@
