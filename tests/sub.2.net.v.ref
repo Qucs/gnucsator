@@ -1,8 +1,10 @@
---- sub.2.net.v.out	2018-09-19 02:01:31.035945868 +0100
-+++ sub.2.net.v.ref	2018-09-19 01:49:18.763975897 +0100
-@@ -1,4 +1,5 @@
- 
-+vsource #(.dc(0.)) p (.p(gnd),.n(0));
- module TESTSUB (_net0,_net1);
- parameter PARAM2={2};
- parameter RES={1};
+
+vsource #(.dc(0.)) p (.p(gnd),.n(0));
+module TESTSUB (_net0,_net1);
+parameter PARAM2={2};
+parameter RES={1};
+resistor #(.r(RES)) a (.p(_net0),.n(_net1));
+endmodule // TESTSUB
+
+TESTSUB #(.RES(2),.Type(TESTSUB)) T1 (._net0(_net1),._net1(0));
+Idc #(.I(5)) V1 (.1(_net1),.2(0));

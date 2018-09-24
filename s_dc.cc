@@ -342,7 +342,7 @@ void DCOP::options(CS& Cmd, int Nest)
 /*--------------------------------------------------------------------------*/
 void DCOP::sweep()
 {
-  _out << "===DC===;\n";
+//  _out << "===DC===;\n";
   // head(_start[0], _stop[0], " ");
   _sim->_bypass_ok = false;
   _sim->set_inc_mode_bad();

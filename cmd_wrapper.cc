@@ -232,8 +232,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 	class GO : public CMD {
 		void do_it(CS&cmd, CARD_LIST*cl)
 		{
-			cmd.skip1b("go");
-			trace1("go", cmd.tail());
+			cmd >> _outfile;
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
 			CMD::command("print tran -v(gnd)", &CARD_LIST::card_list);
@@ -260,7 +259,8 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			for(auto const&i : TRAN_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << j._start << " " << j._stop << " " << j._stop << " trace=a basic"; // tail, redirect?
+				x << j._start << " " << j._stop << " " << j._stop
+				  << " trace=a basic > " << _outfile << ".tr";
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
@@ -270,14 +270,15 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			}
 			for(auto const&i : DC_WRAP::_stash){
 				stringstream x;
-				x << " trace=n basic"; // tail, redirect?
+				x << " trace=n basic > " << _outfile << ".dc";
 				CS wcmd(CS::_STRING, x.str());
 				o->do_it(wcmd, cl);
 			}
 			for(auto&i : SP_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << "port * " << j._start << " " << j._stop;
+				x << "port * " << j._start << " " << j._stop
+				  << " > " << _outfile << ".sp";
 				trace1("running", x.str());
 				CS wcmd(CS::_STRING, x.str());
 				s->do_it(wcmd, cl);
@@ -305,6 +306,8 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CS wcmd(CS::_STRING, "");
 			c->do_it(wcmd, cl);
 		}
+	private:
+		std::string _outfile;
 	}go;
 DISPATCHER<CMD>::INSTALL d9(&command_dispatcher, "go", &go);
 }

@@ -1,11 +1,4 @@
 <Qucs Dataset 0.0.19>
-parameter TESTSUB not specified, using default
-parameter TESTSUB value is "NOT_INPUT"
-parameter TESTSUB not specified, using default
-parameter TESTSUB value is "NOT_INPUT"
 <indep _net1.V 1>
 10.
-</indep>
-
-<indep time 0>
 </indep>

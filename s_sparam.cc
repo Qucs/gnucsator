@@ -428,7 +428,6 @@ void qfl(T const& t, O& o, unsigned n){
 void SPARAM::flush()
 {
   trace1("flush", _data.size());
-  _out << "@@@VERBOSE@@@\n";
   _out << "<indep frequency " << _data[0].size() << ">\n";
   for( auto i : _data[0]){
     _out << i.real() << "\n";
@@ -445,7 +444,6 @@ void SPARAM::flush()
     qfl(_data[i], _out, size);
     _out << "</indep>\n";
   }
-  _out << "@@@ENDVERBOSE@@@\n";
 
 }
 /*--------------------------------------------------------------------------*/
@@ -499,7 +497,7 @@ void SPARAM::sweep()
   //sprintf(format, "%%c%%-%u.%us", width, width);
   sprintf(format, "%%c%%-%us", width);
 
-  _out.form(format, '*', "param");
+//  _out.form(format, '*', "param");
   sprintf(format, "%%-%us", width);
   head(_start, _stop, "@freq");
   trace2("eval done", _start, _stop);
@@ -507,7 +505,7 @@ void SPARAM::sweep()
   CARD_LIST::card_list.ac_begin();
 
   do { untested();
-    _out << "...." << _sim->_freq << "\n";
+//    _out << "...." << _sim->_freq << "\n";
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     solve();
     unsigned i=0;

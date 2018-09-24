@@ -37,11 +37,6 @@ postproc()
 		if [ $mode = tran ]; then
 			# below.
 			:
-		elif [ $mode = dc ]; then
-			[ "${line:0:4}" = "open" ] && continue;
-			[ "${line:0:4}" = "infl" ] && continue;
-			echo $line
-			continue
 		elif [ $mode = verbose ]; then
 			if [ "$line" = @@@ENDVERBOSE@@@ ]; then
 				mode=wait
@@ -53,9 +48,6 @@ postproc()
 			probes=( ${line:5:${#line}} )
 			mode=tran;
 			continue
-		elif [ "${line:0:5}"x = "===DCx" ]; then
-			mode=dc;
-			continue
 		elif [ $mode == wait ]; then
 			if [ "$line" = @@@VERBOSE@@@ ]; then
 				mode=verbose
@@ -65,14 +57,6 @@ postproc()
 
 
 		[ -z "$line" ] && break;
-		# TODO: redirect data
-		[ "${line:0:4}" = "open" ] && continue;
-		[ "${line:0:4}" = "zero" ] && continue;
-		[ "${line:0:4}" = "newt" ] && continue;
-		[ "${line:0:4}" = "back" ] && continue;
-		[ "${line:0:3}" = "new" ] && continue;
-		[ "${line:0:4}" = "step" ] && continue;
-		[ "${line:0:4}" = "infl" ] && continue;
 		if [ "${line:0:1}" = "#" ]; then
 			mode=wait
 			continue
@@ -109,21 +93,24 @@ postproc()
 	done
 }
 
-if [ -n "$outfile" ]; then
-	exec > "$outfile"
+if [ -z "$outfile" ]; then
+	outfile=outfile.dat
 fi
 
-echo "<Qucs Dataset 0.0.19>"
+out=${outfile%%.dat}
 
-# gui mode? suppress stderr
-# if [ -n "$outfile" ]; then
-# 	exec 2> "$outfile.stderr"
-# fi
+echo "<Qucs Dataset 0.0.19>" > $outfile
 
 postproc=${postproc-postproc}
 
-($GNUCSATOR | $postproc) <<EOF
+$GNUCSATOR <<EOF
 qucs
 include $infile
-go
+go ${outfile%%.dat}
 EOF
+
+[ -f $out.dc ] && cat $out.dc >> $outfile
+[ -f $out.tr ] && cat $out.tr | postproc >> $outfile
+[ -f $out.sp ] && cat $out.sp >> $outfile
+
+:
