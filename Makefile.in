@@ -1,3 +1,7 @@
+# Makefile for gnucap-qucs
+# (c) Felix Salfelder 2015-18
+# License: GPLv3+
+
 GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
 
 include Make2

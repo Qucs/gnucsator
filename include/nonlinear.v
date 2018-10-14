@@ -1,7 +1,7 @@
 simulator language=verilog
 // This File is part of gnucap-qucs
 // (C) 2018 Felix Salfelder
-// GPLv3
+// GPLv3+
 
 // mapping qucsator names to actual devices
 // nonlinear stuff
