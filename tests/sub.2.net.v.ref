@@ -1,5 +1,4 @@
 
-vsource #(.dc(0.)) p (.p(gnd),.n(0));
 module TESTSUB (_net0,_net1);
 parameter PARAM2={2};
 parameter RES={1};

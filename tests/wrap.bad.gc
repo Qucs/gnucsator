@@ -1,5 +1,11 @@
 load bm_wrapper.so
 load bm_trivial.so
+load d_probe.so
+load s_sparam.so
+load public lang_verilog.so
+load c_vpp.so
+load c_hide.so
+include ../include/sources.v
 verilog
 param u=3
 

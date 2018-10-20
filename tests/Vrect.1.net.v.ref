@@ -1,5 +1,4 @@
 
-vsource #(.dc(0.)) p (.p(gnd),.n(0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R2 (.p(_net0),.n(0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net1),.n(_net0));
 Vprobe #() Pr1 (.p(_net0),.n(0));

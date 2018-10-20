@@ -2,6 +2,38 @@ R: already installed, replacing
 stashing as R:0
 C: already installed, replacing
 stashing as C:0
+verilog: already installed, replacing
+stashing as verilog:0
+paramset: already installed, replacing
+stashing as paramset:0
+module: already installed, replacing
+stashing as module:0
+macromodule: already installed, replacing
+stashing as macromodule:0
+verilog: already installed, replacing
+stashing as verilog:0
+// This File is part of gnucap-qucs 
+// (C) 2018 Felix Salfelder 
+// GPLv3+ 
+// mapping qucsator names to actual devices 
+// "sources" section 
+//* Vexp:V1 _net4 _net5 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1  ms" Tf="1 ms" 
+//* Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms" 
+//* Irect:I1 _net0 _net1 I="1" TH="1 ms" TL="1 ms" Tr=".5m" Tf=".5m" Td=".5m" 
+//* Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0" 
+//* don't need spice for this 
+//* .subckt CCVS(1 2 3 4); 
+//* .parameter G=1 
+//* .R:0 R1 1 4 1n 
+//* H1 2 3 R1 {G} 
+//* .ends 
+//* .subckt CCCS(1 2 3 4); 
+//* .parameter G=1 
+//* .R:0 R1 1 4 1n 
+//* F1 2 3 R1 {G} 
+//* .ends 
+//* 
+//* only admit in dc and tr 
 Vdc #(.U(u),.Temp(NA( NA))) src (.p(1),.n(0));
 R #(.R(1),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) res (.p(1),.n(2));
 Iprobe #() p1 (.p(2),.n(0));

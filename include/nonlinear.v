@@ -237,15 +237,19 @@ module BJT(b, c, e, s);
 	mypnp #(.area(Area*(1.-Type)*.5+1e-20) .temp(Temp)) p(c, b, e, s);
 endmodule // BJT
 
+parameter on=1
+parameter off=0
 spice
+.options noinsensitive
 * Switch:S1 _net0 _net1 init="off" time="[1 ms]" Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Transition="spline"
 *
 .subckt Switch(1 2);
+.parameter init=1
 .parameter time=1m
 .parameter Roff=1e12
 .parameter Ron=0
-V1 c 0 pulse rise={2*time} pv=2 iv=0
-.model  sss  sw  ( vt=.5  vh=.5  ron={Ron+1e-20}  roff=Roff)
+V1 c 0 pulse rise={2*time} pv={2-6*init} iv={2*init}
+.model  sss  sw  ( vt=0  vh=1  ron={Ron+1e-10}  roff=Roff)
 S1 1 2 c 0 sss
 
 .ends

@@ -1,0 +1,10 @@
+# Qucs 0.0.19  /home/felix/extern/gnucap-qucs/examples/switch.sch
+
+Switch:S4 _net0 _net1 init="on" time="[.2ms]" Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Transition="spline"
+Vdc:V1 _net2 gnd U="3.7 V"
+R:R2 _net1 _net3 R="12k" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+VProbe:Pr1 _net3 _net4
+R:R1 gnd _net4 R="180" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R3 _net2 _net3 R="12k" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+.TR:TR1 Type="lin" Start="0" Stop="1 ms" Points="110" IntegrationMethod="Trapezoidal" Order="2" InitialStep="1 ns" MinStep="1e-16" MaxIter="150" reltol="0.001" abstol="1 pA" vntol="1 uV" Temp="26.85" LTEreltol="1e-3" LTEabstol="1e-6" LTEfactor="1" Solver="CroutLU" relaxTSR="no" initialDC="yes" MaxStep="0"
+Switch:S3 gnd _net0 init="off" time="[0.1ms]" Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Transition="spline"
