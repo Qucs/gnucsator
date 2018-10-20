@@ -84,7 +84,6 @@ module MOSFET(g, d, s, b);
 
 	paramset mynmos nmos;
 		.level=1;
-		.vt0=Vt0;
 		.kp=Kp;
 		.gamma=Gamma;
 		.phi=Phi;
@@ -111,23 +110,24 @@ module MOSFET(g, d, s, b);
 		.tpg=Tpg;
 		.uo=Uo;
 		.rsh=Rsh;
-		.nrd=Nrd;
-		.nrs=Nrs;
 		.cj=Cj;
 		.js=Js;
 		.ad=Ad;
-		.as=As;
 		.pd=Pd;
 		.ps=Ps;
 		.kf=Kf;
 		.af=Af;
 		.temp=Temp;
 		.tnom=Tnom;
+		.vto=Vt0;
 	endparamset
+		//.as=As;
+		//.nrd=Nrd;
+		//.nrs=Nrs;
 
 	paramset mypmos pmos;
 		.level=1;
-		.vt0=Vt0;
+		.vto=Vt0;
 		.kp=Kp;
 		.gamma=Gamma;
 		.phi=Phi;
@@ -154,12 +154,9 @@ module MOSFET(g, d, s, b);
 		.tpg=Tpg;
 		.uo=Uo;
 		.rsh=Rsh;
-		.nrd=Nrd;
-		.nrs=Nrs;
 		.cj=Cj;
 		.js=Js;
 		.ad=Ad;
-		.as=As;
 		.pd=Pd;
 		.ps=Ps;
 		.kf=Kf;
@@ -167,8 +164,12 @@ module MOSFET(g, d, s, b);
 		.temp=Temp;
 		.tnom=Tnom;
 	endparamset
+		//.as=As;
+		//.nrd=Nrd;
+		//.nrs=Nrs;
 	
 	// workaround: select one of them.
+	// make the other one very narrow
 	mynmos #(.w(W*(1.+Type)*.5), .l(L)) n(d, g, s, b);
 	mypmos #(.w(W*(1.-Type)*.5), .l(L)) p(d, g, s, b);
 endmodule

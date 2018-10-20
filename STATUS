@@ -115,8 +115,8 @@ COMPONENTS (table ripped from [1])
 │ thyristor       │                 │                │      │                │
 │ triac           │                 │                │      │                │
 │ junction fet    │                 │ (V)            │      │                │
-│ homo bjt        │                 │                │      │                │
-│ homo bjt w/ sub │                 │                │      │                │
+│ homo bjt        │ BJT             │  W             │      │ select tweak   │
+│ homo bjt w/ sub │ BJT             │  W             │      │ select tweak   │
 │ mosfet          │ MOSFET          │  W             │ EI   │ level 1        │
 │ deplt mosfet    │ MOSFET          │  W             │      │                │
 │ mosfet w/ bulk  │ MOSFET          │  W             │      │                │
