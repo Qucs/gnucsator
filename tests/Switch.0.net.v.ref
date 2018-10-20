@@ -2,7 +2,7 @@
 Switch #(.MaxDuration(1e-6),.Roff(1e12),.Ron(0),.Temp(26.85),.Transition(spline),.init(on),.time(.2ms)) S4 (.1(_net0),.2(_net1));
 Vdc #(.U(3.7),.Temp(NA( NA))) V1 (.p(_net2),.n(0));
 R #(.R(12k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R2 (.p(_net1),.n(_net3));
-Vprobe #() Pr1 (.p(_net3),.n(_net4));
+VProbe #() Pr1 (.p(_net3),.n(_net4));
 R #(.R(180),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(0),.n(_net4));
 R #(.R(12k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R3 (.p(_net2),.n(_net3));
 Switch #(.MaxDuration(1e-6),.Roff(1e12),.Ron(0),.Temp(26.85),.Transition(spline),.init(off),.time(0.1ms)) S3 (.1(0),.2(_net0));

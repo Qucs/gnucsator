@@ -1,10 +1,10 @@
 
-Vprobe #() Pr1 (.p(_net0),.n(0));
+VProbe #() Pr1 (.p(_net0),.n(0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R2 (.p(_net1),.n(_net2));
 Vac #(.Phase(0),.Theta(0),.U(1),.f(1000)) V1 (.1(_net1),.2(0));
 R #(.R(70),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(0));
 R #(.R(1m),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R4 (.p(_net3),.n(0));
-Iprobe #() Pr2 (.p(_net2),.n(_net4));
+IProbe #() Pr2 (.p(_net2),.n(_net4));
 MUT #(.L1(11m),.L2(5m),.k(.8)) Tr1 (.a1(_net2),.b1(_net0),.b2(_net3),.a2(0));
 R #(.R(10),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R3 (.p(_net4),.n(_net0));
 C #(.C(1m),.V(NA( NA))) C1 (.p(0),.n(_net2));

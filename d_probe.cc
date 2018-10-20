@@ -46,7 +46,7 @@ protected: // override virtual
                  CURRENT  // current probe (short)
                } _type;
   string value_name()const {return "dummy";}
-  string dev_type()const	{return string((_type==VOLTAGE)?"V":"I")+"probe";}
+  string dev_type()const	{return string((_type==VOLTAGE)?"V":"I")+"Probe";}
   uint_t	   max_nodes()const	{return 2;}
   uint_t	   min_nodes()const	{return 2;}
   uint_t	   matrix_nodes()const	{return 2;}
