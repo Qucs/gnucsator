@@ -31,148 +31,7 @@ module Amp(1 2);
 	vcvs #(.gain(G)) vs1(2i 0 1 0);
 endmodule
 
-hidemodule Amp
 
-// d'oh. in qucsator, "MOSFET" is both, nFET and pFET.
-parameter nfet=1
-parameter pfet=-1
-
-module MOSFET(g, d, s, b);
-	parameter Vt0=.7;
-	parameter Kp=50e-6;
-	parameter Gamma=.96;
-	parameter Phi=.5763;
-	parameter Lambda=0;
-	parameter Rd=0;
-	parameter Rs=0;
-	parameter Rg=0;
-	parameter Is=0;
-	parameter N=1.;
-	parameter W=3.5u;
-	parameter L=5.5u;
-	parameter Ld=.5e-6;
-	parameter Tox=50e-9;
-	parameter Cgso=0.;
-	parameter Cgdo=0.;
-	parameter Cgbo=0.;
-	parameter Cbd=0.;
-	parameter Cbs=0.;
-	parameter Pb=.7;
-	parameter Mj=.5;
-	parameter Fc=.5;
-	parameter Cjsw=.05e-9;
-	parameter Mjsw=.33;
-	parameter Tt=0;
-	parameter Nsub=1e16;
-	parameter Nss=0;
-	parameter Tpg=1;
-	parameter Uo=600.;
-	parameter Rsh=20;
-	parameter Nrd=1;
-	parameter Nrs=1;
-	parameter Cj=1e-4;
-	parameter Js=1e-8;
-	parameter Ad=100.p;
-	parameter As=100.p;
-	parameter Pd=50.u;
-	parameter Ps=50.u;
-	parameter Kf=0;
-	parameter Af=1;
-	parameter Ffe=1; // ignored
-	parameter Temp=26.85;
-	parameter Tnom=26.85;
-
-	paramset mynmos nmos;
-		.level=1;
-		.kp=Kp;
-		.gamma=Gamma;
-		.phi=Phi;
-		.lambda=Lambda;
-		.rd=Rd;
-		.rs=Rs;
-		.rg=Rg;
-		.is=Is;
-		.ld=Ld;
-		.tox=Tox;
-		.cgso=Cgso;
-		.cgdo=Cgdo;
-		.cgbo=Cgbo;
-		.cbd=Cbd;
-		.cbs=Cbs;
-		.pb=Pb;
-		.mj=Mj;
-		.fc=Fc;
-		.cjsw=Cjsw;
-		.mjsw=Mjsw;
-		.tt=Tt;
-		.nsub=Nsub;
-		.nss=Nss;
-		.tpg=Tpg;
-		.uo=Uo;
-		.rsh=Rsh;
-		.cj=Cj;
-		.js=Js;
-		.ad=Ad;
-		.pd=Pd;
-		.ps=Ps;
-		.kf=Kf;
-		.af=Af;
-		.temp=Temp;
-		.tnom=Tnom;
-		.vto=Vt0;
-	endparamset
-		//.as=As;
-		//.nrd=Nrd;
-		//.nrs=Nrs;
-
-	paramset mypmos pmos;
-		.level=1;
-		.vto=Vt0;
-		.kp=Kp;
-		.gamma=Gamma;
-		.phi=Phi;
-		.lambda=Lambda;
-		.rd=Rd;
-		.rs=Rs;
-		.rg=Rg;
-		.is=Is;
-		.ld=Ld;
-		.tox=Tox;
-		.cgso=Cgso;
-		.cgdo=Cgdo;
-		.cgbo=Cgbo;
-		.cbd=Cbd;
-		.cbs=Cbs;
-		.pb=Pb;
-		.mj=Mj;
-		.fc=Fc;
-		.cjsw=Cjsw;
-		.mjsw=Mjsw;
-		.tt=Tt;
-		.nsub=Nsub;
-		.nss=Nss;
-		.tpg=Tpg;
-		.uo=Uo;
-		.rsh=Rsh;
-		.cj=Cj;
-		.js=Js;
-		.ad=Ad;
-		.pd=Pd;
-		.ps=Ps;
-		.kf=Kf;
-		.af=Af;
-		.temp=Temp;
-		.tnom=Tnom;
-	endparamset
-		//.as=As;
-		//.nrd=Nrd;
-		//.nrs=Nrs;
-	
-	// workaround: select one of them.
-	// make the other one very narrow
-	mynmos #(.w(W*(1.+Type)*.5), .l(L)) n(d, g, s, b);
-	mypmos #(.w(W*(1.-Type)*.5), .l(L)) p(d, g, s, b);
-endmodule
 
 simulator lang=spice
 .options noinsensitive
@@ -205,8 +64,8 @@ Ll3 (c1 c2) {L3}
 .verilog
 
 `ifdef GNUCAP
+hidemodule Amp
 hidemodule Gyrator
-hidemodule MOSFET
 hidemodule MUT
 hidemodule MUT2
 `endif

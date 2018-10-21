@@ -85,6 +85,13 @@ parameter pnp=-1
 // Xtf="3.414" Vtf="5.23" Itf="0.1483" Tr="1e-32" Temp="26.85" Kf="0" Af="1"
 // Ffe="1" Kb="0" Ab="1" Fb="1" Ptf="0" Xtb="0" Xti="3" Eg="1.11" Tnom="26.85"
 // Area="1"
+// BJT:T1 _net6 _net7 _net8 _net7 Type="pnp" Is="1e-16" Nf="1" Nr="1" Ikf="0"
+// Ikr="0" Vaf="0" Var="0" Ise="0" Ne="1.5" Isc="0" Nc="2" Bf="100" Br="1"
+// Rbm="0" Irb="0" Rc="0" Re="0" Rb="0" Cje="0" Vje="0.75" Mje="0.33" Cjc="0"
+// Vjc="0.75" Mjc="0.33" Xcjc="1.0" Cjs="0" Vjs="0.75" Mjs="0" Fc="0.5"
+// Tf="0.0" Xtf="0.0" Vtf="0.0" Itf="0.0" Tr="0.0" Temp="26.85" Kf="0.0"
+// Af="1.0" Ffe="1.0" Kb="0.0" Ab="1.0" Fb="1.0" Ptf="0.0" Xtb="0.0" Xti="3.0"
+// Eg="1.11" Tnom="26.85" Area="1.0"
 module BJT(b, c, e, s);
 	parameter Area;
 	parameter Type;
@@ -237,6 +244,145 @@ module BJT(b, c, e, s);
 	mypnp #(.area(Area*(1.-Type)*.5+1e-20) .temp(Temp)) p(c, b, e, s);
 endmodule // BJT
 
+// d'oh. in qucsator, "MOSFET" is both, nFET and pFET.
+parameter nfet=1
+parameter pfet=-1
+
+module MOSFET(g, d, s, b);
+	parameter Vt0=.7;
+	parameter Kp=50e-6;
+	parameter Gamma=.96;
+	parameter Phi=.5763;
+	parameter Lambda=0;
+	parameter Rd=0;
+	parameter Rs=0;
+	parameter Rg=0;
+	parameter Is=0;
+	parameter N=1.;
+	parameter W=3.5u;
+	parameter L=5.5u;
+	parameter Ld=.5e-6;
+	parameter Tox=50e-9;
+	parameter Cgso=0.;
+	parameter Cgdo=0.;
+	parameter Cgbo=0.;
+	parameter Cbd=0.;
+	parameter Cbs=0.;
+	parameter Pb=.7;
+	parameter Mj=.5;
+	parameter Fc=.5;
+	parameter Cjsw=.05e-9;
+	parameter Mjsw=.33;
+	parameter Tt=0;
+	parameter Nsub=1e16;
+	parameter Nss=0;
+	parameter Tpg=1;
+	parameter Uo=600.;
+	parameter Rsh=20;
+	parameter Nrd=1;
+	parameter Nrs=1;
+	parameter Cj=1e-4;
+	parameter Js=1e-8;
+	parameter Ad=100.p;
+	parameter As=100.p;
+	parameter Pd=50.u;
+	parameter Ps=50.u;
+	parameter Kf=0;
+	parameter Af=1;
+	parameter Ffe=1; // ignored
+	parameter Temp=26.85;
+	parameter Tnom=26.85;
+
+	paramset mynmos nmos;
+		.level=1;
+		.kp=Kp;
+		.gamma=Gamma;
+		.phi=Phi;
+		.lambda=Lambda;
+		.rd=Rd;
+		.rs=Rs;
+		.is=Is;
+		.ld=Ld;
+		.tox=Tox;
+		.cgso=Cgso;
+		.cgdo=Cgdo;
+		.cgbo=Cgbo;
+		.cbd=Cbd;
+		.cbs=Cbs;
+		.pb=Pb;
+		.mj=Mj;
+		.fc=Fc;
+		.cjsw=Cjsw;
+		.mjsw=Mjsw;
+		.nsub=Nsub;
+		.nss=Nss;
+		.tpg=Tpg;
+		.uo=Uo;
+		.rsh=Rsh;
+		.cj=Cj;
+		.js=Js;
+		.kf=Kf;
+		.af=Af;
+		.tnom=Tnom;
+		.vto=Vt0;
+	endparamset
+	//.pd=Pd;
+	//.tt=Tt;
+	//.ps=Ps;
+	//.rg=Rg;
+	//.ad=Ad;
+	//.as=As;
+	//.nrd=Nrd;
+	//.nrs=Nrs;
+
+	paramset mypmos pmos;
+		.level=1;
+		.vto=Vt0;
+		.kp=Kp;
+		.gamma=Gamma;
+		.phi=Phi;
+		.lambda=Lambda;
+		.rd=Rd;
+		.rs=Rs;
+		.is=Is;
+		.ld=Ld;
+		.tox=Tox;
+		.cgso=Cgso;
+		.cgdo=Cgdo;
+		.cgbo=Cgbo;
+		.cbd=Cbd;
+		.cbs=Cbs;
+		.pb=Pb;
+		.mj=Mj;
+		.fc=Fc;
+		.cjsw=Cjsw;
+		.mjsw=Mjsw;
+		.nsub=Nsub;
+		.nss=Nss;
+		.tpg=Tpg;
+		.uo=Uo;
+		.rsh=Rsh;
+		.cj=Cj;
+		.js=Js;
+		.kf=Kf;
+		.af=Af;
+		.tnom=Tnom;
+	endparamset
+	//.pd=Pd;
+	//.tt=Tt;
+	//.ps=Ps;
+	//.rg=Rg;
+	//.ad=Ad;
+	//.as=As;
+	//.nrd=Nrd;
+	//.nrs=Nrs;
+	
+	// workaround: select one of them.
+	// make the other one very narrow
+	mynmos #(.w(W*(1.+Type)*.5), .l(L), .temp(Temp)) n(d, g, s, b);
+	mypmos #(.w(W*(1.-Type)*.5), .l(L), .temp(Temp)) p(d, g, s, b);
+endmodule // MOSFET
+
 parameter on=1
 parameter off=0
 spice
@@ -269,6 +415,7 @@ hidemodule Relais
 hidemodule AM_Mod
 hidemodule OpAmp
 hidemodule BJT
+hidemodule MOSFET
 hidemodule Switch
 `endif
 simulator lang=acs
