@@ -2,9 +2,14 @@ simulator language=verilog
 // This File is part of gnucap-qucs
 // (C) 2018 Felix Salfelder
 // GPLv3+
-
+//
 // mapping qucsator names to actual devices
-// "verilog devices" section
+// "lumped components" section
+
+module C(p, n);
+	parameter C
+	capacitor #(.c(C)) C1(p, n);
+endmodule // C
 
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
 // Zref is some sparam hack.. ignore for now
@@ -64,6 +69,7 @@ Ll3 (c1 c2) {L3}
 .verilog
 
 `ifdef GNUCAP
+hidemodule C
 hidemodule Amp
 hidemodule Gyrator
 hidemodule MUT
