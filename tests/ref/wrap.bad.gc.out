@@ -10,10 +10,6 @@ macromodule: already installed, replacing
 stashing as macromodule:0
 verilog: already installed, replacing
 stashing as verilog:0
-Vdc #(.X(u)) foo1(1,0); 
-       ^ ? : bad parameter X ignored
-Vdc #(.X(2)) foo2(2,0); 
-       ^ ? : bad parameter X ignored
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 
@@ -37,7 +33,7 @@ Vdc #(.X(2)) foo2(2,0);
 //* 
 //* only admit in dc and tr 
 //* X does not exist 
-Vdc #(.U(NA( NA))) foo1 (.p(1),.n(0));
-Vdc #(.U(NA( NA))) foo2 (.p(2),.n(0));
+Vdc #(.X(u)) foo1 (.p(1),.n(0));
+Vdc #(.X(2)) foo2 (.p(2),.n(0));
 #           v(1)       v(2)       v(foo1)    v(foo2)   
- 0.         0.         0.         0.         0.        
+ 0.         0.001      0.001      ??         ??        

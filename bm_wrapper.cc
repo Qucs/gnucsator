@@ -321,13 +321,6 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 /*--------------------------------------------------------------------------*/
 const char* pn[3] = {"p","n", NULL};
 /*--------------------------------------------------------------------------*/
-// dispatch(vsource, qucs_trivial_U, Vdc)
-const char* Vdc_param[5] = {"U",   NULL,
-                            "dc" };
-DEV_BM_WRAP qucs_Vdc("vsource", "value", "uneeded");
-DEV_SCKT_WRAP m1(&qucs_Vdc, pn, Vdc_param, "Vdc");
-DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "Vdc", &m1);
-/*--------------------------------------------------------------------------*/
 // Vpulse:V3 _net2 _net3 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1 ns" Tf="1 ns"
 // Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns"
 // incomplete.

@@ -11,7 +11,7 @@ parameter I=1m
 isource #(.dc(I)) v(2 1);
 endmodule
 
-module Vdc_notyet(p n);
+module Vdc(p n);
 // it's missing a probe
 	parameter U=1m
 	parameter Temp
@@ -129,7 +129,7 @@ endmodule
 `ifdef GNUCAP
 hidemodule y_dctr
 hidemodule Idc
-hidemodule Vdc_notyet
+hidemodule Vdc
 hidemodule Pac
 hidemodule Irect
 hidemodule CCCS

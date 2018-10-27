@@ -34,5 +34,5 @@ stashing as verilog:0
 //* only admit in dc and tr 
 Vdc #(.U(u)) foo1 (.p(1),.n(0));
 Vdc #(.U(2)) foo2 (.p(2),.n(0));
-#           v(1)       v(2)       v(foo1)    v(foo2)   
+#           v(1)       v(2)       v(foo1.v)  v(foo2.v) 
  0.         3.         2.         3.         2.        

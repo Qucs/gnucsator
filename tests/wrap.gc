@@ -16,7 +16,7 @@ list
 
 spice
 .options noinsensitive
-.print dc v(nodes) v(foo*)
+.print dc v(nodes) v(foo*.v)
 .dc
 
 .end
