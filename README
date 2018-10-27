@@ -42,4 +42,20 @@ $ QUCSATOR=gnucsator.sh GNUCAP_SYSTEMSTARTFILE=my_own.rc qucs
 will run a qucs session with your own gnucsator rc. make sure this file exists
 next to gnucsator.rc (or also set GNUCAP_SYSTEMSTARTPATH..).
 
+== technical notes
+
+hidemodule. The 'list' command is used to convert netlists, it prints
+out items in the netlist. This is where module/subckt declarations live.
+dynamically loaded modules don't show up in the netlist, but are reachable
+through the dispatcher. the hidemodule command moves modules from the netlist
+to the dispatcher, so 'list' does not show them.
+
+bm_wrapper. dispatch element+bm combinations through dispatcher. avoids
+listing similar to hidemodule & allows probes... (obsolete).
+
+postproc. Qucs requires the data in an upside-down 'dat' format. mangling is
+currently implemented for transient output. This is unnecessary and will be
+fixed in future qucs. In the meantime, there will be a bypass option, so other
+viewers can still be used for displaying.
+
 [1] git://git.sv.gnu.org/gnucap.git
