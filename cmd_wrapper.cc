@@ -28,11 +28,46 @@
 #include "u_prblst.h"
 #include "e_cardlist.h"
 
-using std::map;
 using std::string;
 using std::stringstream;
 /*--------------------------------------------------------------------------*/
 namespace{
+/*--------------------------------------------------------------------------*/
+class AC_WRAP : public CMD {
+public:
+	AC_WRAP(): CMD() {}
+public:
+	typedef struct{
+		double _start;
+		double _stop;
+	} data_t;
+private:
+	double _start;
+	double _stop;
+	unsigned _points;
+	method_t _integration;
+	int _order;
+	double _initialstep;
+	double _dtmin;
+	unsigned _itl;
+	double _reltol;
+	double _abstol;
+	double _vntol;
+
+//	void options(CS&);
+	void do_it(CS&cmd, CARD_LIST* cl) {
+		assert(cl);
+//		options(cmd);
+		data_t t;
+		t._start = _start;
+		t._stop = _stop;
+		_stash[short_label()] = t;
+	}
+public: // GO
+	static std::map<string, data_t> _stash;
+} pac;
+std::map<string, AC_WRAP::data_t> AC_WRAP::_stash;
+DISPATCHER<CMD>::INSTALL ddc(&command_dispatcher, "AC", &pac);
 /*--------------------------------------------------------------------------*/
 class DC_WRAP : public CMD {
 public:
@@ -67,8 +102,8 @@ private:
 public: // GO
 	static std::map<string, data_t> _stash;
 } pdc;
-map<string, DC_WRAP::data_t> DC_WRAP::_stash;
-DISPATCHER<CMD>::INSTALL ddc(&command_dispatcher, "DC", &pdc);
+std::map<string, DC_WRAP::data_t> DC_WRAP::_stash;
+DISPATCHER<CMD>::INSTALL dac(&command_dispatcher, "DC", &pdc);
 /*--------------------------------------------------------------------------*/
 class SP_WRAP : public CMD {
 public:
@@ -110,7 +145,7 @@ public: // GO
 private:
 	typeT _type;
 } psp;
-map<string, SP_WRAP::data_t> SP_WRAP::_stash;
+std::map<string, SP_WRAP::data_t> SP_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL dsp(&command_dispatcher, "SP", &psp);
 /*--------------------------------------------------------------------------*/
 void SP_WRAP::options(CS& cmd)
@@ -178,7 +213,7 @@ private:
 	}
 
 } p8;
-map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
+std::map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
 /*--------------------------------------------------------------------------*/
 void TRAN_WRAP::options(CS& cmd)
 {
@@ -239,10 +274,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
+			CMD* a = NULL;
 			try {
 				c = command_dispatcher["transient"];
 				s = command_dispatcher["sp"];
 				o = command_dispatcher["op"];
+				a = command_dispatcher["ac"];
 			}catch(Exception const&){ untested();
 				error(bDANGER, "some commands are missing, load plugin?\n");
 				exit(1);
@@ -270,6 +307,15 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				stringstream x;
 				x << " trace=n basic > " << _outfile << ".dc";
 				CS wcmd(CS::_STRING, x.str());
+				o->do_it(wcmd, cl);
+			}
+			for(auto const&i : AC_WRAP::_stash){
+				stringstream x;
+				auto j = i.second;
+				x << j._start << " " << j._stop << " " << j._stop
+				  << " trace=a basic > " << _outfile << ".ac";
+				CS wcmd(CS::_STRING, x.str());
+				trace1("run ac", wcmd.fullstring());
 				o->do_it(wcmd, cl);
 			}
 			for(auto&i : SP_WRAP::_stash){

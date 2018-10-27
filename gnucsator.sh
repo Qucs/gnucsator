@@ -103,6 +103,11 @@ echo "<Qucs Dataset 0.0.19>" > $outfile
 
 postproc=${postproc-postproc}
 
+rm -f $out.dc
+rm -f $out.tr
+rm -f $out.sp
+rm -f $out.ac
+
 $GNUCSATOR <<EOF
 qucs
 include $infile
@@ -112,5 +117,6 @@ EOF
 [ -f $out.dc ] && cat $out.dc >> $outfile
 [ -f $out.tr ] && cat $out.tr | postproc >> $outfile
 [ -f $out.sp ] && cat $out.sp >> $outfile
+[ -f $out.ac ] && cat $out.ac >> $outfile
 
 :

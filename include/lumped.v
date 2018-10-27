@@ -8,7 +8,13 @@ simulator language=verilog
 
 module C(p, n);
 	parameter C
+	parameter V
 	capacitor #(.c(C)) C1(p, n);
+endmodule // C
+
+module L(p, n);
+	parameter L
+	inductor #(.l(L)) L1(p, n);
 endmodule // C
 
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
@@ -46,8 +52,8 @@ simulator lang=spice
 .parameter L1=1m
 .parameter L2=1m
 K1 (Ll1 Ll2) {k}
-Ll1 (a1 a2) {L1}
-Ll2 (b1 b2) {L2}
+.inductor Ll1 (a1 a2) {L1}
+.inductor Ll2 (b1 b2) {L2}
 .ends
 
 * MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9"
@@ -70,6 +76,7 @@ Ll3 (c1 c2) {L3}
 
 `ifdef GNUCAP
 hidemodule C
+hidemodule L
 hidemodule Amp
 hidemodule Gyrator
 hidemodule MUT

@@ -17,7 +17,7 @@ SIMULATION COMMANDS
 │ operating point │  DC             │   M            │ TEI  │                │
 │ transient       │  TR             │   US           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
-│ ac analysis     │  AC             │                │      │                │
+│ ac analysis     │  AC             │   M            │      │ needs hack     │
 │ sensitivity     │  ?              │                │      │ gnucap-uf..    │
 │ noise           │  ?              │                │      │ gnucap-uf..    │
 │ harmonic balance│                 │                │      │ WIP            │
@@ -151,7 +151,7 @@ COMPONENTS (table ripped from [1])
 │ phototransistor │ phototransistor │                │      │                │
 │ mutual inductors│ MUT             │  S             │ TI   │                │
 │ three mutual    │ MUT2            │  S             │      │                │
-│ inductors       │                 │                │      │                │
+│ inductor        │ L               │  W             │      │                │
 │ corr noise srcs │                 │                │      │                │
 │ corr noise vs   │                 │                │      │                │
 │ corr noise cs   │                 │                │      │                │

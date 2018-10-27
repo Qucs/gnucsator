@@ -28,6 +28,9 @@
 #include "u_parameter.h"
 #include "u_prblst.h"
 #include "s__.h"
+#include "s__out.cc"
+#include "s__init.cc"
+#include "s__solve.cc"
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
@@ -254,7 +257,16 @@ void AC::sweep()
   do {
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     solve();
-    outdata(_sim->_freq, ofPRINT | ofSTORE);
+//    outdata(_sim->_freq, ofPRINT | ofSTORE);
+    {
+      //    qucsator style output hack
+      for(auto i: printlist()){
+	_out << "<indep " << _sim->_freq*M_TWO_PI << " 1>\n";
+	_out << i.value() << "\n"
+	  << "</indep>\n";
+      }
+    }
+
   } while (next());
 }
 /*--------------------------------------------------------------------------*/
