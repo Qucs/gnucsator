@@ -97,7 +97,7 @@ if [ -z "$outfile" ]; then
 	outfile=outfile.dat
 fi
 
-out=${outfile%%.dat}
+out=${infile}.tmp
 
 echo "<Qucs Dataset 0.0.19>" > $outfile
 
@@ -111,7 +111,7 @@ rm -f $out.ac
 $GNUCSATOR <<EOF
 qucs
 include $infile
-go ${outfile%%.dat}
+go ${out}
 EOF
 
 [ -f $out.dc ] && cat $out.dc >> $outfile
