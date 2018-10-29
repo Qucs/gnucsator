@@ -1,4 +1,22 @@
-<Qucs Dataset 0.0.19>
+default plugins: master 2017.10.03
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+# .TR:mySim2 Start="0" Stop="1 ms" Points="5" IntegrationMethod="Trape
+^ ? # .TR: no match
+Gnucap   System status
+iterations: op=0, dc=0, tran=8, fourier=0, total=11
+transient timesteps: accepted=3, rejected=0, total=3
+nodes: user=2, subckt=0, model=0, total=2
+dctran density=100.0%, ac density=100.0%
+
 <indep time 3>
   +0.
   +10.0000000000000022E-6

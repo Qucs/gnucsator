@@ -1,4 +1,20 @@
-<Qucs Dataset 0.0.19>
+default plugins: master 2017.10.03
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+Gnucap   System status
+iterations: op=0, dc=0, tran=252, fourier=0, total=347
+transient timesteps: accepted=64, rejected=31, total=95
+nodes: user=2, subckt=0, model=0, total=2
+dctran density=100.0%, ac density=100.0%
+
 <indep time 64>
   +0.
   +1.00000000000000022E-9
@@ -79,7 +95,7 @@
   +0.
   +0.
   +0.
-  +0.49999994994116701
+  +0.499999949941168075
   +0.499999949987505054
   +0.499999949987505054
   +0.499999949987505054
@@ -109,7 +125,7 @@
   +0.499999949987505054
   +0.499999949987505054
   +0.499999949987505054
-  +0.49999994977066402
+  +0.499999949770664997
   +0.
   +0.
   +0.

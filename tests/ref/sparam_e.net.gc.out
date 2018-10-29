@@ -1,19 +1,50 @@
-<Qucs Dataset 0.0.19>
+default plugins: master 2017.10.03
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+what is 0 dBm?
+what is 0 dBm?
+R:RR gnd _net1 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
+                         ^ ? RR: Temp has no value?
+.SP:SP1 Type="l ... Stop="2" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s
+                                        ^ ? what's this (incomplete)?
+R:RR1 _net0 _net3 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
+                            ^ ? RR1: Temp has no value?
+  Pac:P2 _net0 gnd   Num=2 P=0 Temp=26.85 Z=10 f=1G
+  Pac:P1 _net2 gnd   Num=1 P=0 Temp=26.85 Z=10 f=1G
+  R:R3 _net1 _net0   R=1 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+  R:RR gnd _net1   R=1 Tc1=0.0 Tc2=0.0 Temp=NA( NA) Tnom=26.85 ic=NA( NA)
+  R:R2 _net2 _net1   R=1 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+  VCVS:SRC1 _net2 _net3 gnd gnd   G=1 T=0
+  R:RR1 _net0 _net3   R=1 Tc1=0.0 Tc2=0.0 Temp=NA( NA) Tnom=26.85 ic=NA( NA)
+Gnucap   System status
+iterations: op=3, dc=0, tran=0, fourier=0, total=5
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=4, subckt=2, model=0, total=6
+dctran density=61.1%, ac density=61.1%
+
 <indep frequency 2>
-1.
-2.
+ 1.
+ 2.
 </indep>
 <indep S[2,2] 2>
 -0.831501+ 0.* i
 -0.831501+ 0.* i
 </indep>
 <indep S[2,1] 2>
-0.2930395+ 0.* i
-0.2930395+ 0.* i
+ 0.2930395+ 0.* i
+ 0.2930395+ 0.* i
 </indep>
 <indep S[1,2] 2>
-0.07326042+ 0.* i
-0.07326042+ 0.* i
+ 0.07326042+ 0.* i
+ 0.07326042+ 0.* i
 </indep>
 <indep S[1,1] 2>
 -0.611722+ 0.* i

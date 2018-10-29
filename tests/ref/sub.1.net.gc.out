@@ -1,4 +1,49 @@
-<Qucs Dataset 0.0.19>
+default plugins: master 2017.10.03
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+.Def:mysub _net0 _net1 
+  R:R1 _net0 _net1   R=50 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+.Def:End
+  VProbe:Pr1 post gnd  
+  Vac:V1 pre gnd   Phase=0 Theta=0 U=1 f=1
+  R:R1 post gnd   R=100 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+  VProbe:Pr2 _net0 gnd  
+  mysub:foo1 pre _net0   Type=mysub
+  mysub:foo pre post   Type=mysub
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+parameter mysub not specified, using default
+parameter mysub value is "NOT_INPUT"
+Gnucap   System status
+iterations: op=0, dc=0, tran=47, fourier=0, total=59
+transient timesteps: accepted=12, rejected=0, total=12
+nodes: user=3, subckt=0, model=0, total=3
+dctran density=77.8%, ac density=77.8%
+
 <indep time 12>
   +0.
   +0.01

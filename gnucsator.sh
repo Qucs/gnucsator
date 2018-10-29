@@ -112,6 +112,7 @@ $GNUCSATOR <<EOF
 qucs
 include $infile
 go ${out}
+status notime
 EOF
 
 [ -f $out.dc ] && cat $out.dc >> $outfile

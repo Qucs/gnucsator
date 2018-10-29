@@ -26,6 +26,7 @@ COMMON_TESTS = \
 	MUT.net \
 	sparam_e.net \
 	dio.net \
+	Switch.0.net \
 	Vrect.1.net \
 	Vrect.2.net
 
@@ -77,8 +78,8 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 	@${ENV} ../net2verilog.sh $< $@
 
 %.net.gc.out: %.net
-	@echo "$(GNUCSATOR) -i $< -o $@"
-	@${ENV} $(GNUCSATOR) -i $< -o $@
+	@echo "$(GNUCSATOR) -i $< -o /dev/stdout > $@"
+	@${ENV} $(GNUCSATOR) -i $< -o /dev/stdout > $@
 
 %.gc.out: %.gc
 	@echo "$(GNUCAP) < $< | ... | > $@"

@@ -1,4 +1,40 @@
-<Qucs Dataset 0.0.19>
+default plugins: master 2017.10.03
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+Gnucap   System status
+iterations: op=0, dc=0, tran=94, fourier=0, total=128
+transient timesteps: accepted=28, rejected=6, total=34
+nodes: user=5, subckt=2, model=0, total=7
+dctran density=30.6%, ac density=30.6%
+
 <indep time 28>
   +0.
   +10.0000000000000022E-6
