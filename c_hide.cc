@@ -44,7 +44,7 @@ public:
   typedef DISPATCHER<CARD>::INSTALL installer;
 public:
   ~CMD_HIDE(){
-    for(auto i : _hidden){
+    for(auto i : _hidden){untested();
       trace1("delete", i.second->short_label());
       delete i.first;
       delete i.second;
@@ -62,31 +62,47 @@ public:
     unsigned here = cmd.cursor();
     try {
       std::string sckt_name;
-      cmd >> sckt_name;
+//      cmd >> sckt_name;
 
-      CARD_LIST::iterator i = Scope->begin();
-      for(;i != Scope->end(); ++i) {
+//      CARD_LIST::iterator i = Scope->begin();
+
+      int here=cmd.cursor();
+      auto i=findbranch(cmd, Scope);
+
+      while(!i.is_end()){
+	cmd.reset(here);
 	if (dynamic_cast<BASE_SUBCKT const*>(*i)
 	 || dynamic_cast<MODEL_CARD const*>(*i)) {
-	  if ((*i)->short_label()==sckt_name) {
-	    trace2("hide found", sckt_name, (*i)->short_label());
+	  trace2("hide found", cmd.fullstring(), (*i)->short_label());
+	  {
 	    auto sl=(*i)->short_label();
 
 	    // take it out of the cardlist.
 ///	    ((HACK_CARDLIST*)(Scope))->cl().erase(i);
-	    reinterpret_cast<HACK_CARDLIST*>(Scope)->cl().erase(i);
-	    auto I=new installer(&device_dispatcher, sl, *i);
+	    auto& CL=reinterpret_cast<HACK_CARDLIST*>(Scope)->cl();
+	    auto j=find(CL.begin(), CL.end(), *i);
+	    if(j!=CL.end()){
+	      assert(*j==*i);
+	      trace2("gotit", cmd.tail(), (*j)->short_label());
+	      auto I=new installer(&device_dispatcher, sl, *j);
 
-	    assert(device_dispatcher[sl]);
-	    auto P=std::make_pair(I, *i);
-	    _hidden.push_back(P);
+	      assert(device_dispatcher[sl]);
+	      auto P=std::make_pair(I, *j);
+	      _hidden.push_back(P);
+	      i = findbranch(cmd, ++i); // next match
+	      CL.erase(j);
+	    }else{
+	      i = findbranch(cmd, ++i); // next match
+	      unreachable(); // for now.
+	    }
 
-	    break;
-	  }else{
+	//    break;
 	  }
 	}else{
+	  i = findbranch(cmd, ++i); // next match
 	}
       }
+      trace2("done", cmd.fullstring(), cmd.tail());
 
     }catch (Exception_File_Open& e) { untested();
       cmd.warn(bDANGER, here, e.message() + '\n');
