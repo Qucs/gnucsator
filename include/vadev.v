@@ -13,5 +13,7 @@ vcr #(.r(gain)) v(3 4 1 2);
 endmodule
 
 `ifdef GNUCAP
-hidemodule vcresistor
+hidemodule *
 `endif
+
+simulator lang=acs

@@ -66,7 +66,6 @@ I1 1 2 dc=0 ac={I}
 
 I1 2 1 pulse rise=Tr fall=Tf delay=T1 pv=I2 iv=I1 width={T2-T1-Tr-Tf}
 .ends
-.hidemodule Ipulse
 
 * Irect:I1 _net0 _net1 I="1" TH="1 ms" TL="1 ms" Tr=".5m" Tf=".5m" Td=".5m"
 .subckt Irect(1 2);
@@ -125,19 +124,8 @@ y_dctr #(.y({1/Z})) Y1(i 2);
 pac_ #(.Num(Num) .Z(Z) .P(P) .amplitude(U) .frequency(f)) sp(1, 2);
 endmodule
 
-
 `ifdef GNUCAP
-hidemodule y_dctr
-hidemodule Idc
-hidemodule Vdc
-hidemodule Pac
-hidemodule Irect
-hidemodule CCCS
-hidemodule CCVS
-hidemodule VCCS
-hidemodule VCVS
-hidemodule IAC
-hidemodule Vac
+hidemodule *
 `endif
 
 simulator lang=acs

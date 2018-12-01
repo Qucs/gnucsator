@@ -107,13 +107,6 @@ U7 y 0 dd dd a mos inv
 ******************************************************************************
 .simulator lang=verilog
 `ifdef GNUCAP
-hidemodule AND
-hidemodule NAND
-hidemodule NOR
-hidemodule OR
-hidemodule XOR
-hidemodule XNOR
-hidemodule Inv
-hidemodule mos
+hidemodule *
 `endif
 simulator lang=acs

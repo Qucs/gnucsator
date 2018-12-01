@@ -75,10 +75,5 @@ Ll3 (c1 c2) {L3}
 .verilog
 
 `ifdef GNUCAP
-hidemodule C
-hidemodule L
-hidemodule Amp
-hidemodule Gyrator
-hidemodule MUT
-hidemodule MUT2
+hidemodule *
 `endif

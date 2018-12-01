@@ -27,7 +27,6 @@ endmodule;
 // 	parameter Umax=15
 // 	vcvs #(.gain(1.)) HH(1, 2, p);
 // endmodule;
-// hidemodule OpAmp
 // -------------------------------------------------------------------- //
 
 module Diode(1 2);
@@ -408,14 +407,4 @@ S1 1 2 c 0 sss
 .ends
 ******************************************************************************
 
-.simulator lang=verilog
-`ifdef GNUCAP
-hidemodule Diode
-hidemodule Relais
-hidemodule AM_Mod
-hidemodule OpAmp
-hidemodule BJT
-hidemodule MOSFET
-hidemodule Switch
-`endif
-simulator lang=acs
+.simulator lang=acs
