@@ -79,8 +79,8 @@ public:
 
 	    // take it out of the cardlist.
 ///	    ((HACK_CARDLIST*)(Scope))->cl().erase(i);
-	    auto& CL=reinterpret_cast<HACK_CARDLIST*>(Scope)->cl();
-	    auto j=find(CL.begin(), CL.end(), *i);
+	    auto& CL=reinterpret_cast<HACK_CARDLIST*>(i.list())->cl();
+	    auto j=i.iter();
 	    if(j!=CL.end()){
 	      assert(*j==*i);
 	      trace2("gotit", cmd.tail(), (*j)->short_label());
