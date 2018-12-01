@@ -73,7 +73,3 @@ Ll2 (b1 b2) {L2}
 Ll3 (c1 c2) {L3}
 .ends
 .verilog
-
-`ifdef GNUCAP
-hidemodule *
-`endif

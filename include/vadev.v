@@ -12,8 +12,4 @@ parameter gain=1
 vcr #(.r(gain)) v(3 4 1 2);
 endmodule
 
-`ifdef GNUCAP
-hidemodule *
-`endif
-
 simulator lang=acs

@@ -106,7 +106,4 @@ U7 y 0 dd dd a mos inv
 .ends
 ******************************************************************************
 .simulator lang=verilog
-`ifdef GNUCAP
-hidemodule *
-`endif
 simulator lang=acs
