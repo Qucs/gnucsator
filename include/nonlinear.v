@@ -395,7 +395,7 @@ spice
 .parameter Roff=1e12
 .parameter Ron=0
 V1 c 0 pulse rise={2*time} pv={2-6*init} iv={2*init}
-.model  sss  sw  ( vt=0  vh=1  ron={Ron+1e-10}  roff=Roff)
+.model  sss  sw  ( vt=0  vh=1  ron={if(Ron,Ron,1e-10)}  roff=Roff)
 S1 1 2 c 0 sss
 
 .ends
