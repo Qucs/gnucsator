@@ -18,6 +18,7 @@ SIMULATION COMMANDS
 │ transient       │  TR             │   US           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
 │ ac analysis     │  AC             │   M            │      │ needs hack     │
+│ pz              │  ?              │   C            │      │ gnucap-python  │
 │ sensitivity     │  ?              │                │      │ gnucap-uf..    │
 │ noise           │  ?              │                │      │ gnucap-uf..    │
 │ harmonic balance│                 │                │      │ WIP            │
@@ -69,6 +70,7 @@ COMPONENTS (table ripped from [1])
 │ relais          │  Relais         │  sw            │ EI   │                │
 │ current probe   │  IProbe         │  C             │ TE   │                │
 │ voltage probe   │  VProbe         │  C             │ T    │                │
+│ power probe     │  WProbe         │                │      │                │
 │ ideal transline │                 │                │      │                │
 │ 4-term tline    │                 │                │      │                │
 │ tpair line      │                 │                │      │                │
