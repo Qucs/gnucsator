@@ -157,7 +157,6 @@ void SP_WRAP::options(CS& cmd)
 	_reltol = -1.;
 	_abstol = -1.;
 	_vntol = -1.;
-	double _whatever; // incomplete
 	unsigned here = cmd.cursor();
 
 	// .SP:SP1 Type="lin" Start="1" Stop="2" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
@@ -264,6 +263,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 // go. run commands that are scattered
+// BUG // that's what 'end' is supposed to do.
 	class GO : public CMD {
 		void do_it(CS&cmd, CARD_LIST*cl)
 		{
@@ -304,6 +304,8 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				o->do_it(wcmd, cl);
 			}
 			for(auto const&i : DC_WRAP::_stash){
+				incomplete();
+				(void) i;
 				stringstream x;
 				x << " trace=n basic > " << _outfile << ".dc";
 				CS wcmd(CS::_STRING, x.str());

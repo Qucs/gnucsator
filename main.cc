@@ -41,9 +41,9 @@
 #endif
 /*--------------------------------------------------------------------------*/
 #ifdef HAVE_LIBREADLINE
-static bool use_readline=true;
+// static bool use_readline=true;
 #else
-static bool use_readline=false;
+// static bool use_readline=false;
 #endif
 /*--------------------------------------------------------------------------*/
 extern std::string gnucap_includepath;
@@ -186,10 +186,8 @@ static void finish(void)
 static void process_cmd_line(int argc, char * const*argv)
 {
   int opt;
-  int nsecs, tfnd=0;
   CS cmd(CS::_STRING, "");
 
-  nsecs = 0;
   try{
     while ((opt = getopt(argc, argv, "a:b:c:i:vI:D:U:")) != -1) { untested();
       switch (opt) {

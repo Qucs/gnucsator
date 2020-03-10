@@ -425,9 +425,8 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 		}
 		xx->attach_common(cc);
 
-	}else if (MODEL_CARD* pp = dynamic_cast<MODEL_CARD*>(x)) { untested();
-		(void*)(pp); // incomplete();
-		// used only for "table"
+	}else if (dynamic_cast<MODEL_CARD*>(x)) { untested();
+		unreachable(); // used only for "table"
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
 		for (;;) { untested();

@@ -62,7 +62,7 @@ private:
   explicit PAC(const PAC& p) :ELEMENT(p),
  _num(p._num) {}
 public:
-  explicit PAC()		:ELEMENT() {}
+  explicit PAC()		:ELEMENT(), _num(-1u) {}
 private: // override virtual
   char	   id_letter()const	{return '\0';}
   std::string value_name()const {return "Z";}
@@ -125,6 +125,7 @@ void PAC::precalc_last()
     trace0("have value");
   }
   _num.e_val(0, scope());
+  assert(_num!=-1u);
 }
 /*--------------------------------------------------------------------------*/
 double PAC::tr_probe_num(const std::string& x)const
@@ -284,6 +285,8 @@ void SPARAM::setup(CS& Cmd)
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
 #if 1
       hack_findall(&CARD_LIST::card_list);
+      (void) arg1;
+      (void) ci;
 #else
       if (ci.is_end()){ untested();
         Cmd.reset(arg1);
