@@ -316,7 +316,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				  << " trace=a basic > " << _outfile << ".ac";
 				CS wcmd(CS::_STRING, x.str());
 				trace1("run ac", wcmd.fullstring());
-				o->do_it(wcmd, cl);
+				a->do_it(wcmd, cl);
 			}
 			for(auto&i : SP_WRAP::_stash){
 				stringstream x;
