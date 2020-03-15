@@ -1,0 +1,57 @@
+# Make1 for gnucap-qucs
+# (c) Felix Salfelder 2020
+# License: GPLv3+
+
+
+bin_PROGRAMS = gnucsator
+
+dist_bin_SCRIPTS = \
+	gnucsator.sh \
+	net2verilog.sh
+
+PLUGIN_CC = \
+	lang_qucs.cc \
+	lang_verilog.cc \
+	c_hide.cc \
+	c_list.cc \
+	c_uninst.cc \
+	c_vpp.cc \
+	c_include.cc \
+	d_eqn.cc \
+	d_poly_g_uf.cc \
+	bm_poly.cc \
+	d_gpolyk_wrap.cc \
+	d_probe.cc \
+	functions.cc \
+	bm_value.cc \
+	bm_trivial.cc \
+	bm_wrapper.cc \
+	cmd_wrapper.cc \
+	s_dc.cc \
+	s_sparam.cc
+
+OBSOLETE_CC = s__*.cc
+
+noinst_HEADERS = \
+	io.h \
+	l_qucs.h \
+	m_mvpoly.h \
+	u_parameter_uf.h
+
+EXTRA_DIST = \
+	config.h.in \
+	gnucsator.rc.in \
+	configure \
+	README \
+	INSTALL \
+	CONTRIBUTE \
+	STATUS \
+	TODO
+
+# BUG: use tests/Make1
+TEST_EXTRA_DIST = \
+	tests/Makefile.in \
+	tests/*.net \
+	tests/*.gc \
+	tests/ref/*.out
+
