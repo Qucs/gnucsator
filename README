@@ -31,6 +31,7 @@ configuration file (gnucsator.rc).
 - install some other dependencies
   - apt install libboost-all-dev # (this is a superset)
   - apt install libgsl-dev
+  - apt install libblas-dev
 - install this package, "./configure; make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
