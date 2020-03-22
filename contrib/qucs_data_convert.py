@@ -8,6 +8,10 @@
 # with a reference to the python script
 # [ -f $out.tr ] && cat $out.tr | qucs_data_convert.py $out.tr $outfile
 
+# BUG # should be
+#$ export GNUCSATOR_CONVERT_TR=qucs_data_convert.py
+# but it doesn't work.
+
 import sys
 from pathlib import Path
 

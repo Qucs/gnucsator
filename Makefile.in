@@ -39,7 +39,7 @@ endif
 
 GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
 EXECUTABLES = \
-  ${bin_PROGRAMS} ${dist_bin_SCRIPTS}
+  ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
 
 all:
 

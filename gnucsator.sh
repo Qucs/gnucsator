@@ -101,7 +101,7 @@ out=${infile}.tmp
 
 echo "<Qucs Dataset 0.0.19>" > $outfile
 
-postproc=${postproc-postproc}
+postproc_tr=${GNUCSATOR_POSTOROC_TR-postproc}
 
 rm -f $out.dc
 rm -f $out.tr
@@ -116,7 +116,7 @@ status notime
 EOF
 
 [ -f $out.dc ] && cat $out.dc >> $outfile
-[ -f $out.tr ] && cat $out.tr | postproc >> $outfile
+[ -f $out.tr ] && cat $out.tr | $postproc_tr >> $outfile
 [ -f $out.sp ] && cat $out.sp >> $outfile
 [ -f $out.ac ] && cat $out.ac >> $outfile
 

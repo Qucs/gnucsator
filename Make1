@@ -9,6 +9,9 @@ dist_bin_SCRIPTS = \
 	gnucsator.sh \
 	net2verilog.sh
 
+contrib_bin_SCRIPTS = \
+	contrib/qucs_data_convert.py
+
 PLUGIN_CC = \
 	lang_qucs.cc \
 	lang_verilog.cc \
@@ -39,6 +42,7 @@ noinst_HEADERS = \
 	u_parameter_uf.h
 
 EXTRA_DIST = \
+	contrib/*.py \
 	config.h.in \
 	gnucsator.rc.in \
 	configure \
