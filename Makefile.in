@@ -66,7 +66,7 @@ QUCS_PLUGINS = ${PLUGIN_CC:%.cc=%.so}
 
 all: $(QUCS_PLUGINS) ${EXECUTABLES}
 
-CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator.sh
+CLEANFILES = $(QUCS_PLUGINS) *.o *~
 
 d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
