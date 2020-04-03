@@ -37,8 +37,6 @@ load qucs/s_dc.so
 load qucs/s_sparam.so
 load qucs/c_include.so
 
-* TODO: include component library from here.
-
 acs
 
 set_includepath @PKGINCLUDEDIR@
