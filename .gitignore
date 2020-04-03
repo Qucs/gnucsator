@@ -1,4 +1,22 @@
+Makefile
+Make2
+config.h
+config.log
+
+main.o
+gnucsator
+gnucsator.rc
 *.so
 *.out
 *.dat
 *~
+
+tests/*.diff
+tests/qucs
+
+*.bz2
+
+# tmp hack
+tests/*.dc
+tests/*.tr
+tests/*.sp
