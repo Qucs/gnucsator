@@ -32,6 +32,7 @@ configuration file (gnucsator.rc).
   - apt install libboost-all-dev # (this is a superset)
   - apt install libgsl-dev
   - apt install libblas-dev
+  - apt install numdiff # used in "make check"
 - install this package, "./configure; make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
