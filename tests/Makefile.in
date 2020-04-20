@@ -78,9 +78,9 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 	@${ENV} ../net2verilog.sh $< $@
 
 %.net.gc.out: %.net
-	@echo "$(GNUCSATOR) -i $< -o /dev/stdout > $@"
-	@${ENV} $(GNUCSATOR) -i $< -o /dev/stdout > $@
-
+	@echo "$(GNUCSATOR) -i $< -o /dev/stdout | sed ... > $@"
+	@${ENV} $(GNUCSATOR) -i $< -o /dev/stdout | sed -e '/default plugins:/s/:.*/: ignored/' \
+	                                                -e '/<Qucs Dataset/s/t .*/t>/' > $@
 %.gc.out: %.gc
 	@echo "$(GNUCAP) < $< | ... | > $@"
 	@${ENV} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
