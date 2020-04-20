@@ -136,7 +136,7 @@ public:
     }
   }
 
-  std::string param_value(int i)const { untested();
+  std::string param_value(int i)const {
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
       case 0: return _coeffs.string();
       default: return EVAL_BM_ACTION_BASE::param_value(i);
@@ -449,7 +449,7 @@ DEV_CPOLY_G::~DEV_CPOLY_G()
     trace1("~DEV_CPOLY_G", max_nodes());
     delete [] _n;
     _n = NULL;
-  }else{ untested();
+  }else{
     // it is part of a base class
   }
 }

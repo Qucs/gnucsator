@@ -85,11 +85,11 @@ private: // override virtual
     return names[i];
   }
 private:
-  void set_param_by_name(std::string a, std::string b){ untested();
+  void set_param_by_name(std::string a, std::string b){
     trace2("set_param_by_name", a, b);
-    if(a=="Z"){ untested();
+    if(a=="Z"){
       set_value(b);
-    }else if(a=="Num"){ untested();
+    }else if(a=="Num"){
       _num = b;
     }else{
     }

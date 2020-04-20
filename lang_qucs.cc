@@ -368,7 +368,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 				cmd >> '=';
 				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
 				if(!value.size()) {
-				}else if(value[0]=='['){ untested();
+				}else if(value[0]=='['){
 					value[0]='{';
 					value[value.size()-1]='}';
 				}else{
@@ -406,7 +406,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 						}else if (cc){
 							trace2("have common", Name, value);
 
-							try{ untested();
+							try{
 								cc->set_param_by_name(Name, value);
 							}catch(Exception const&){ untested();
 							  	// retry if common did not like it...
@@ -866,9 +866,9 @@ void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
 	std::string sep = "";
 	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
 		o << sep;
-		if(x->port_value(ii) == "0"){ untested();
+		if(x->port_value(ii) == "0"){
 			o << "gnd";
-		}else{ untested();
+		}else{
 		   o << x->port_value(ii);
 		}
 		sep = " ";

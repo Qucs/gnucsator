@@ -73,7 +73,7 @@ static void prepare_env()
                               "\0         (reserved space)                 ";
 
   std::string ldlpath = OS::getenv("LD_LIBRARY_PATH");
-  if (ldlpath != "") {untested();
+  if (ldlpath != "") {
     ldlpath += ":";
   }else{
   }
@@ -87,7 +87,7 @@ static void read_startup_files(char *const* argv)
   {
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
-    if (name != "") { untested();
+    if (name != "") {
       trace2("", name, &CARD_LIST::card_list);
       CMD::command("include " + name, &CARD_LIST::card_list);
     }else{ untested();
@@ -110,7 +110,7 @@ static void read_startup_files(char *const* argv)
         !OPT::language && i!=language_dispatcher.end(); ++i) {untested();
       OPT::language = prechecked_cast<LANGUAGE*>(i->second);
     }
-  }else{untested();
+  }else{
     // already have a language specified in a startup file
   }
   if (OPT::language) {
@@ -321,18 +321,18 @@ int MAIN::operator()(int argc, char *const* argv)
       return 0; // check?
     }
 
-    { untested();
+    {
       SET_RUN_MODE xx(rINTERACTIVE);
       CS cmd(CS::_STDIN);
       for (;;) {
         if (!sigsetjmp(env.p, true)) {
           try {
-            if (OPT::language) { untested();
+            if (OPT::language) {
               OPT::language->parse_top_item(cmd, &CARD_LIST::card_list);
             }else{untested();
               CMD::cmdproc(cmd.get_line(I_PROMPT), &CARD_LIST::card_list);
             }
-          }catch (Exception_End_Of_Input& e) { untested();
+          }catch (Exception_End_Of_Input& e) {
             error(bDANGER, e.message() + '\n');
             break;
           }catch (Exception& e) { untested();
