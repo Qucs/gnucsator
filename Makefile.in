@@ -1,6 +1,8 @@
 # Makefile for gnucap-qucs
 # (c) Felix Salfelder 2015-20
 # License: GPLv3+
+#
+# TODO: use autotools (or so) instead, and only use Make1.
 
 PACKAGE_NAME = gnucap-qucs
 PACKAGE_VERSION = 0.0.0
@@ -18,16 +20,18 @@ include Make2
 
 ifneq ($(GNUCAP_CONF),)
     $(info asking $(GNUCAP_CONF))
+	 # TODO. complete the move to configure.
     CXX             = $(shell $(GNUCAP_CONF) --cxx)   # c++
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
 	GNUCAP_LDFLAGS  = $(shell $(GNUCAP_CONF) --ldflags)
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
-	GNUCAP_LIBS     = $(shell $(GNUCAP_CONF) --libs)  # -lgnucap
-	 GNUCAP_PLUGPATH = @plugpath@
-	 GNUCAP_EXEC_PREFIX = @prefix@
-	 GNUCAP_PKGLIBDIR = @pkglibdir@
-	 GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
-	 GNUCAP_SYSCONFDIR = @sysconfdir@
+
+	GNUCAP_LIBS        = @libs@
+	GNUCAP_PLUGPATH    = @plugpath@
+	GNUCAP_EXEC_PREFIX = @prefix@
+	GNUCAP_PKGLIBDIR   = @pkglibdir@
+	GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
+	GNUCAP_SYSCONFDIR  = @sysconfdir@
 else
     $(error no gnucap-conf, this will not work)
 endif
@@ -38,19 +42,27 @@ ifneq ($(PREFIX),)
 	 GNUCSATOR_PKGLIBDIR = ${GNUCAP_LIBDIR}/gnucap/qucs
 endif
 
-GNUCAP_CXXFLAGS+= -fPIC -std=c++11 -shared -Wall
+# TODO: what do we get from gnucap-conf and why?
+# GNUCAP_CXXFLAGS+= -shared
+
+# for now. does it make sense?
+GNUCSATOR_CXXFLAGS = ${CXXFLAGS} -std=c++11 -fPIC -shared $(GNUCAP_CXXFLAGS)
+
+# TODO: is this platform dependent?
+GSL_LIBS = -lgsl -lblas -lgslcblas
+
 EXECUTABLES = \
   ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
 
 all:
 
 main.o: gnucsator.cc
-	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -shared -c -o $@ $<
+	$(CXX) $(GNUCSATOR_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -c -o $@ $<
 
 main.o: config.h
 
 gnucsator: main.o
-	$(CXX) $(CXXFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) ${GNUCAP_LIBS}
+	$(CXX) $(GNUCSATOR_CXXFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) ${GNUCAP_LIBS}
 
 # QUCS_DEVS = opamp cccs
 # QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
@@ -78,23 +90,20 @@ dbg:
 	echo $(QUCS_DEVS_SO)
 
 $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
-	$(CXX) -std=c++11 $(CXXFLAGS) $(GNUCAP_CXXFLAGS) -DQUCS_DEVICE=$* \
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(GNUCAP_CXXFLAGS) -DQUCS_DEVICE=$* \
 		$(CPPFLAGS) $(QUCS_CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ \
 		$< $(QUCS_LDFLAGS) $(QUCS_LIBS) \
 	$(LDLIBS)
 
 %.so : %.cc
-	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
 
 ${QUCS_PLUGINS}: %.so: %.cc
 
 gncp: main.o config.h
-	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) $(LIBS)
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) $(LIBS)
 
-s_sparam.so: LDLIBS=-lgsl -lblas -lgslcblas
-
-d_eqn.so: CXXFLAGS+=-std=c++11
-cmd_wrapper.so: CXXFLAGS+=-std=c++11
+s_sparam.so: LDLIBS=${GSL_LIBS}
 
 QUCS_INCLUDEDIR = $(QUCS_PREFIX)/include
 QUCS_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
@@ -135,7 +144,7 @@ define NOTICE
 endef
 
 Make2:
-	[ -e $@ ] || echo "# here you may override settings\n#CXXFLAGS = -DDO_TRACE=1 -g3" > $@
+	[ -e $@ ] || echo "# here you may override settings\n#CPPFLAGS = -DDO_TRACE -DTRACE_UNTESTED\n#CXXFLAGS = -O0 -g3" > $@
 
 check: all
 	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \

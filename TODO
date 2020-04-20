@@ -6,6 +6,7 @@
 - get rid of wrapper gnucsator.sh
 - write directly to output file. and only output
 - fix logic. multiport and process
+- try other build system. contrib/?
 
 - problems in qucs to be addressed:
  - probe handling
