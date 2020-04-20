@@ -18,11 +18,12 @@ include Make2
 
 ifneq ($(GNUCAP_CONF),)
     $(info asking $(GNUCAP_CONF))
-    CXX = $(shell $(GNUCAP_CONF) --cxx)
+    CXX             = $(shell $(GNUCAP_CONF) --cxx)   # c++
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
-	 GNUCAP_PLUGPATH = @plugpath@
+	GNUCAP_LDFLAGS  = $(shell $(GNUCAP_CONF) --ldflags)
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
-	 GNUCAP_LIBS = $(shell $(GNUCAP_CONF) --libs)
+	GNUCAP_LIBS     = $(shell $(GNUCAP_CONF) --libs)  # -lgnucap
+	 GNUCAP_PLUGPATH = @plugpath@
 	 GNUCAP_EXEC_PREFIX = @prefix@
 	 GNUCAP_PKGLIBDIR = @pkglibdir@
 	 GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
@@ -37,7 +38,7 @@ ifneq ($(PREFIX),)
 	 GNUCSATOR_PKGLIBDIR = ${GNUCAP_LIBDIR}/gnucap/qucs
 endif
 
-GNUCAP_CXXFLAGS+= -fPIC -shared -Wall
+GNUCAP_CXXFLAGS+= -fPIC -std=c++11 -shared -Wall
 EXECUTABLES = \
   ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
 
@@ -90,7 +91,7 @@ ${QUCS_PLUGINS}: %.so: %.cc
 gncp: main.o config.h
 	$(CXX) $(CXXFLAGS) $(GNUCAP_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) $(LIBS)
 
-s_sparam.so: LDLIBS=-lgsl -lblas
+s_sparam.so: LDLIBS=-lgsl -lblas -lgslcblas
 
 d_eqn.so: CXXFLAGS+=-std=c++11
 cmd_wrapper.so: CXXFLAGS+=-std=c++11
@@ -134,7 +135,7 @@ define NOTICE
 endef
 
 Make2:
-	[ -e $@ ] || echo "# here you may override settings" > $@
+	[ -e $@ ] || echo "# here you may override settings\n#CXXFLAGS = -DDO_TRACE=1 -g3" > $@
 
 check: all
 	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \

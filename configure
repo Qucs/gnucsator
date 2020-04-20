@@ -35,26 +35,26 @@ GNUCSATOR_PKGLIBDIR=${pkglibdir}/qucs
 PKGINCLUDEDIR=${prefix}/include/gnucap-qucs/
 
 fill_template() {
-t=$( tempfile )
-sed -e "s#@prefix@#$prefix#" \
-    -e "s#@exec_prefix@#$prefix#" \
-    -e "s#@libdir@#$prefix/lib#" \
-    -e "s#@NOTICE@#$NOTICE#" \
-    -e "s#@PKGINCLUDEDIR@#$PKGINCLUDEDIR#" \
-    -e "s#@includedir@#$\{prefix\}/include#" \
-    -e "s#@datarootdir@#$\{prefix\}/share/gnucap#" \
-    -e "s#@sysconfdir@#$sysconfdir#" \
-    -e "s#@pkglibdir@#$pkglibdir#" \
-    -e "s#@plugpath@#$plugpath#" \
-    -e "s#@CXXFLAGS@#$CCFLAGS#" \
-    -e "s#@LIBS@#-lgnucap#" \
-    -e "s#@STATUS@#$STATUS#" \
-    -e "s#@CXX@#$CXX#" < $1.in > $t
-if diff $1 $t >/dev/null; then
+  t=$( mktemp );#tempfile depricated -> mktemp
+  sed -e "s#@prefix@#$prefix#g" \
+    -e "s#@exec_prefix@#$prefix#g" \
+    -e "s#@libdir@#$prefix/lib#g" \
+    -e "s#@NOTICE@#$NOTICE#g" \
+    -e "s#@PKGINCLUDEDIR@#$PKGINCLUDEDIR#g" \
+    -e "s#@includedir@#$\{prefix\}/include#g" \
+    -e "s#@datarootdir@#$\{prefix\}/share/gnucap#g" \
+    -e "s#@sysconfdir@#$sysconfdir#g" \
+    -e "s#@pkglibdir@#$pkglibdir#g" \
+    -e "s#@plugpath@#$plugpath#g" \
+    -e "s#@CXXFLAGS@#$CCFLAGS#g" \
+    -e "s#@LIBS@#-lgnucap#g" \
+    -e "s#@STATUS@#$STATUS#g" \
+    -e "s#@CXX@#$CXX#g" < $1.in > $t
+  if diff $1 $t 2>&1 > /dev/null; then
 	rm $t;
-else
+  else
 	mv $t $1;
-fi
+  fi
 }
 
 fill_template config.h
