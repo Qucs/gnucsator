@@ -46,7 +46,7 @@ endif
 # GNUCAP_CXXFLAGS+= -shared
 
 # for now. does it make sense?
-GNUCSATOR_CXXFLAGS = ${CXXFLAGS} -std=c++11 -fPIC -shared $(GNUCAP_CXXFLAGS)
+GNUCSATOR_CXXFLAGS = -std=c++11 -fPIC $(GNUCAP_CXXFLAGS) $(CXXFLAGS)
 
 # TODO: is this platform dependent?
 GSL_LIBS = -lgsl -lblas -lgslcblas
@@ -96,7 +96,7 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 	$(LDLIBS)
 
 %.so : %.cc
-	$(CXX) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS)
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) -shared
 
 ${QUCS_PLUGINS}: %.so: %.cc
 
