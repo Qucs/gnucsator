@@ -114,14 +114,14 @@ static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void PAC::precalc_last()
-{ untested();
+{
   ELEMENT::precalc_last();
   set_constant(true);
   set_converged();
   if(value()<=0){ untested();
     error(bPICKY, long_label()+": setting default impedance, 50Ohm\n");
     set_value(50);
-  }else{ untested();
+  }else{
     trace0("have value");
   }
   _num.e_val(0, scope());
@@ -260,11 +260,11 @@ void SPARAM::setup(CS& Cmd)
   std::string output;
 
   unsigned here = Cmd.cursor();
-  do{ untested();
-    if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
+  do{
+    if (Cmd.match1("'\"({") || Cmd.is_float()) {
       Cmd >> _start;
       trace1("got start", _start);
-      if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
+      if (Cmd.match1("'\"({") || Cmd.is_float()) {
         Cmd >> _stop;
       }else{ untested();
         _stop = _start;
@@ -279,7 +279,7 @@ void SPARAM::setup(CS& Cmd)
     }
 
     std::string port;
-    if (Cmd.umatch("port")){ untested();
+    if (Cmd.umatch("port")){
       trace2("findbranch", port, Cmd.tail());
       unsigned arg1=Cmd.cursor();
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
@@ -309,7 +309,7 @@ void SPARAM::setup(CS& Cmd)
       }
 #endif
       trace2("done ports", Cmd.tail(), _ports.size());
-    }else{ untested();
+    }else{
 
     }
     //try{
@@ -360,7 +360,7 @@ void SPARAM::setup(CS& Cmd)
     needslinfix = false;		// but step must be read first
   }else{			// for Spice compatibility
   }		
-  if (_step==0.) { untested();
+  if (_step==0.) {
     _step = _stop - _start;
     _linswp = true;
   }else{
@@ -400,16 +400,16 @@ void SPARAM::solve()
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::outdata(double x)
-{ untested();
+{
   store_results(x);
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::store_results(double x)
-{ untested();
+{
   unsigned n=1;
   _data[0].push_back(x);
-  for(unsigned i=0; i< _Z->size1; ++i){ untested();
-    for(unsigned j=0; j< _Z->size2; ++j){ untested();
+  for(unsigned i=0; i< _Z->size1; ++i){
+    for(unsigned j=0; j< _Z->size2; ++j){
       assert(n<_data.size());
       gsl_complex vv=gsl_matrix_complex_get(_Z, i, j);
       COMPLEX v=COMPLEX(GSL_REAL(vv), GSL_IMAG(vv));
@@ -507,12 +507,12 @@ void SPARAM::sweep()
   first();
   CARD_LIST::card_list.ac_begin();
 
-  do { untested();
+  do {
 //    _out << "...." << _sim->_freq << "\n";
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     solve();
     unsigned i=0;
-    for(auto& in : _ports){ untested();
+    for(auto& in : _ports){
       std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0);
       in->stamp_rhs();
 
@@ -521,7 +521,7 @@ void SPARAM::sweep()
       ::status.back.stop();
 
       unsigned j=0;
-      for(auto const& out: _ports){ untested();
+      for(auto const& out: _ports){
         COMPLEX v=out->ac_involts();
         gsl_complex vv;
         GSL_SET_COMPLEX(&vv, v.real(), v.imag());
@@ -534,7 +534,7 @@ void SPARAM::sweep()
       }
       if(_type==tZ){ untested();
         std::cout << "\n";
-      }else{ untested();
+      }else{
       }
       ++i;
     }
@@ -554,7 +554,7 @@ void SPARAM::sweep()
       gsl_matrix_complex_free(Y);
       gsl_permutation_free(p);
 
-    }else if(_type==tS){ untested();
+    }else if(_type==tS){
       size_t size=_ports.size();
       trace1("S", size);
       std::vector<double> sy0(size);
@@ -588,7 +588,7 @@ void SPARAM::sweep()
 
       gsl_matrix_complex* S=_Z;
 
-      for(unsigned i=0; i< _Z->size1; ++i){ untested();
+      for(unsigned i=0; i< _Z->size1; ++i){
         gsl_vector_complex_const_view b = gsl_matrix_complex_const_column(B, i);
         gsl_vector_complex_view s = gsl_matrix_complex_row(S, i);
         gsl_linalg_complex_LU_solve (A, p, &b.vector, &s.vector); // FIXME. compute row by row.
@@ -610,13 +610,13 @@ void SPARAM::first()
 }
 /*--------------------------------------------------------------------------*/
 bool SPARAM::next_freq()
-{ untested();
+{
   double realstop = (_linswp)
     ? _stop - _step/100.
     : _stop / pow(_step,.01);
-  if (!in_order(double(_start), _sim->_freq, realstop)) { untested();
+  if (!in_order(double(_start), _sim->_freq, realstop)) {
     return false;
-  }else{ untested();
+  }else{
   }
 
   _sim->_freq = (_linswp)
