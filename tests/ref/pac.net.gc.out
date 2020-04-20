@@ -1,4 +1,4 @@
-default plugins: master 2017.10.03
+default plugins: develop 2019.12.20
 ;: already installed, replacing
 stashing as ;:0
 *: already installed, replacing

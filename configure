@@ -18,11 +18,15 @@ if test "x$1" != "x"; then
 else
     # echo "No input parameter found."
     #  Just use the default prefix dir
+    libs=$( gnucap-conf --libs )
     prefix=$( gnucap-conf --exec-prefix )
     pkglibdir=$( gnucap-conf --pkglibdir )
     plugpath=$( gnucap-conf --pkglibdir )
     sysconfdir=$( gnucap-conf --sysconfdir )
 fi
+
+# TODO: check if gnucap-conf works, then use it.
+libs=-lgnucap # $( gnucap-conf --libs )
 
 # bug. this is not implemented consistently.
 CXX=${CXX-c++}
@@ -35,26 +39,26 @@ GNUCSATOR_PKGLIBDIR=${pkglibdir}/qucs
 PKGINCLUDEDIR=${prefix}/include/gnucap-qucs/
 
 fill_template() {
-t=$( tempfile )
-sed -e "s#@prefix@#$prefix#" \
-    -e "s#@exec_prefix@#$prefix#" \
-    -e "s#@libdir@#$prefix/lib#" \
-    -e "s#@NOTICE@#$NOTICE#" \
-    -e "s#@PKGINCLUDEDIR@#$PKGINCLUDEDIR#" \
-    -e "s#@includedir@#$\{prefix\}/include#" \
-    -e "s#@datarootdir@#$\{prefix\}/share/gnucap#" \
-    -e "s#@sysconfdir@#$sysconfdir#" \
-    -e "s#@pkglibdir@#$pkglibdir#" \
-    -e "s#@plugpath@#$plugpath#" \
-    -e "s#@CXXFLAGS@#$CCFLAGS#" \
-    -e "s#@LIBS@#-lgnucap#" \
-    -e "s#@STATUS@#$STATUS#" \
-    -e "s#@CXX@#$CXX#" < $1.in > $t
-if diff $1 $t >/dev/null; then
+  t=$( mktemp );
+  sed -e "s#@prefix@#$prefix#g" \
+    -e "s#@exec_prefix@#$prefix#g" \
+    -e "s#@libdir@#$prefix/lib#g" \
+    -e "s#@NOTICE@#$NOTICE#g" \
+    -e "s#@PKGINCLUDEDIR@#$PKGINCLUDEDIR#g" \
+    -e "s#@includedir@#$\{prefix\}/include#g" \
+    -e "s#@datarootdir@#$\{prefix\}/share/gnucap#g" \
+    -e "s#@sysconfdir@#$sysconfdir#g" \
+    -e "s#@pkglibdir@#$pkglibdir#g" \
+    -e "s#@plugpath@#$plugpath#g" \
+    -e "s#@CXXFLAGS@#$CCFLAGS#g" \
+    -e "s#@libs@#$libs#g" \
+    -e "s#@STATUS@#$STATUS#g" \
+    -e "s#@CXX@#$CXX#g" < $1.in > $t
+  if diff $1 $t 2>&1 > /dev/null; then
 	rm $t;
-else
+  else
 	mv $t $1;
-fi
+  fi
 }
 
 fill_template config.h
