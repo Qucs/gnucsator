@@ -54,7 +54,7 @@ fill_template() {
     -e "s#@libs@#$libs#g" \
     -e "s#@STATUS@#$STATUS#g" \
     -e "s#@CXX@#$CXX#g" < $1.in > $t
-  if diff $1 $t 2>&1 > /dev/null; then
+  if diff $1 $t &> /dev/null; then
 	rm $t;
   else
 	mv $t $1;
@@ -70,6 +70,18 @@ echo -n '# ' > config.log
 date > config.log
 echo $0 "$@" >> config.log
 
-echo prefix:     $prefix
-echo pkglibdir:  $pkglibdir
-echo plugpath:   $plugpath
+echo "-----------------------------------------"
+echo "prefix:     $prefix"
+echo "pkglibdir:  $pkglibdir"
+echo "plugpath:   $plugpath"
+if [ ! -f Make2 ]; then
+  echo "# here you may override settings"         > Make2
+  echo "#CPPFLAGS = -DDO_TRACE -DTRACE_UNTESTED" >> Make2
+  echo "#CXXFLAGS = -g3"                         >> Make2
+fi
+echo "--------------------Make2-------------------"
+cat Make2
+
+if [ ! -z "CXXFLAGS" ]; then
+  echo "CXXFLAGS=$CXXFLAGS"
+fi

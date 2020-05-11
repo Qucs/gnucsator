@@ -3,9 +3,10 @@ Make2
 config.h
 config.log
 
-main.o
+*.o
 gnucsator
 gnucsator.rc
+translate2qucs
 *.so
 *.out
 *.dat

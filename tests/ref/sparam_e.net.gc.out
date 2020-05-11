@@ -1,4 +1,3 @@
-<Qucs Dataset>
 default plugins: ignored
 ;: already installed, replacing
 stashing as ;:0
@@ -31,6 +30,7 @@ transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=4, subckt=2, model=0, total=6
 dctran density=61.1%, ac density=61.1%
 
+<Qucs Dataset>
 <indep frequency 2>
  1.
  2.

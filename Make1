@@ -3,7 +3,8 @@
 # License: GPLv3+
 
 
-bin_PROGRAMS = gnucsator
+bin_PROGRAMS = gnucsator \
+               translate2qucs
 
 dist_bin_SCRIPTS = \
 	gnucsator.sh \
