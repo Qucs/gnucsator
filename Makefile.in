@@ -156,8 +156,6 @@ DIST_FILES = \
 	${dist_bin_SCRIPTS} \
 	${noinst_HEADERS} \
 	${EXTRA_DIST} \
-	${INCLUDE_PAT} \
-	${OBSOLETE_CC} \
 	${PLUGIN_CC} \
 	${TEST_EXTRA_DIST}
 

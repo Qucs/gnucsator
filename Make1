@@ -42,6 +42,7 @@ noinst_HEADERS = \
 	u_parameter_uf.h
 
 EXTRA_DIST = \
+	${OBSOLETE_CC} \
 	contrib/*.py \
 	contrib/*.cc \
 	config.h.in \
