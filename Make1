@@ -43,6 +43,7 @@ noinst_HEADERS = \
 
 EXTRA_DIST = \
 	contrib/*.py \
+	contrib/*.cc \
 	config.h.in \
 	gnucsator.rc.in \
 	configure \
