@@ -13,13 +13,16 @@ uninstall command list
 uninstall command save
 uninstall command op
 uninstall command paramset
+uninstall command transient
+uninstall command generator
+uninstall status transient
 uninstall comp dev_comment
 uninstall comp C
 uninstall comp D
 uninstall comp R
 unload qucs/c_uninst.so
 
-options numdgt 18
+options numdgt 40
 load qucs/bm_value.so
 load qucs/bm_wrapper.so
 load qucs/bm_trivial.so
@@ -34,6 +37,7 @@ load public qucs/lang_verilog.so
 load qucs/c_vpp.so
 load qucs/functions.so
 load qucs/s_dc.so
+load qucs/s_tr.so
 load qucs/s_sparam.so
 load qucs/c_include.so
 

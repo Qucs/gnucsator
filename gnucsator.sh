@@ -101,7 +101,7 @@ out=${infile}.tmp
 
 echo "<Qucs Dataset 0.0.19>" > $outfile
 
-postproc_tr=${GNUCSATOR_POSTPROC_TR-postproc}
+postproc_tr=${GNUCSATOR_POSTPROC_TR-cat}
 
 rm -f $out.dc
 rm -f $out.tr
