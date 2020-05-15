@@ -34,6 +34,7 @@ load public qucs/lang_verilog.so
 load qucs/c_vpp.so
 load qucs/functions.so
 load qucs/s_dc.so
+load qucs/s_tr.so
 load qucs/s_sparam.so
 load qucs/c_include.so
 

@@ -30,10 +30,9 @@ PLUGIN_CC = \
 	bm_trivial.cc \
 	bm_wrapper.cc \
 	cmd_wrapper.cc \
+	s_tr.cc \
 	s_dc.cc \
 	s_sparam.cc
-
-OBSOLETE_CC = s__*.cc
 
 noinst_HEADERS = \
 	io.h \
@@ -42,7 +41,7 @@ noinst_HEADERS = \
 	u_parameter_uf.h
 
 EXTRA_DIST = \
-	${OBSOLETE_CC} \
+	${OBSOLETE_EXTRA_DIST} \
 	contrib/*.py \
 	contrib/*.cc \
 	config.h.in \
@@ -53,6 +52,12 @@ EXTRA_DIST = \
 	CONTRIBUTE \
 	STATUS \
 	TODO
+
+OBSOLETE_EXTRA_DIST = \
+	s__init.cc \
+	s__solve.cc \
+	s__out.cc \
+	s_tr_out.cc
 
 # BUG: use tests/Make1
 TEST_EXTRA_DIST = \
