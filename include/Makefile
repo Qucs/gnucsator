@@ -1,12 +1,6 @@
 
-FILES = \
-	all.v \
-	logic.v \
-	lumped.v \
-	nonlinear.v \
-   sources.v \
-	vadev.v
+include MakeList
 
 install:
 	install -d $(DESTDIR)${PKGINCLUDEDIR}
-	install ${FILES} $(DESTDIR)${PKGINCLUDEDIR}
+	install ${INCLUDE_FILES} $(DESTDIR)${PKGINCLUDEDIR}

@@ -2,20 +2,20 @@
 # (c) Felix Salfelder 2015-20
 # License: GPLv3+
 #
-# TODO: use autotools (or so) instead, and only use Make1.
+# TODO: use autotools (or so) instead, and only use MakeList.
 
 PACKAGE_NAME = gnucap-qucs
 PACKAGE_VERSION = 0.0.0
 
 GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
 
-# BUG: use tests/Make1
+# BUG: use tests/MakeList
 TESTFILES_PAT = \
   tests/*.gc \
   tests/*.gc.ref \
   tests/*.gc.out
 
-include Make1
+include MakeList
 include Make2
 
 ifneq ($(GNUCAP_CONF),)
@@ -150,12 +150,16 @@ check: all
 	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \
 		GNUCAP_PKGLIBDIR=${GNUCAP_PKGLIBDIR}
 
+include include/MakeList
+
 DIST_FILES = \
-	Make1 Makefile.in \
+	MakeList Makefile.in \
+	include/MakeList \
 	${bin_PROGRAMS:%=%.cc} \
 	${dist_bin_SCRIPTS} \
 	${noinst_HEADERS} \
 	${EXTRA_DIST} \
+	${INCLUDE_FILES:%=include/%} \
 	${PLUGIN_CC} \
 	${TEST_EXTRA_DIST}
 
