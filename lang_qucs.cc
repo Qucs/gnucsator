@@ -492,10 +492,8 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 	if (cmd.scan(":")){
 		cmd.reset(here); // skip dot again
 		id_string = cmd.get_to(":");
-		untested();
 	} else {
 		cmd >> id_string;
-		untested();
 	}
 	trace1("LANG_QUCS_BASE::parse_command", id_string);
 	cmd.reset(here);

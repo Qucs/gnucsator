@@ -27,13 +27,15 @@ namespace{
 class CMD_UNINST : public CMD {
 public:
 	void do_it(CS& cmd, CARD_LIST*) {
-		DISPATCHER<CARD*>* d=NULL;
+		DISPATCHER<CARD>* d=NULL;
 		if (cmd.umatch("command")) {
-			d = (DISPATCHER<CARD*>*) &command_dispatcher;
+			d = (DISPATCHER<CARD>*) &command_dispatcher;
+		}else if(cmd.umatch("status")){
+			d = (DISPATCHER<CARD>*) &status_dispatcher;
 		}else if(cmd.umatch("lang{uage}")){
-			d = (DISPATCHER<CARD*>*) &language_dispatcher;
+			d = (DISPATCHER<CARD>*) &language_dispatcher;
 		}else if(cmd.umatch("comp{onent}")){
-			d = (DISPATCHER<CARD*>*) &device_dispatcher;
+			d = (DISPATCHER<CARD>*) &device_dispatcher;
 		}else{
 			incomplete();
 			return;

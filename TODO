@@ -9,5 +9,7 @@
 - try other build system. contrib/?
 
 - problems in qucs to be addressed:
+ - dataset format
+ - (unnecessary) syntax irregularities
  - probe handling
  - ground node handling
