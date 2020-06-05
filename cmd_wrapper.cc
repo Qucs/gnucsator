@@ -295,7 +295,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " " << j._stop
-				  << " trace=a basic > " << _outfile << ".tr";
+				  << " trace=a basic >>" << _outfile ; //<< ".tr";
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
@@ -307,7 +307,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				incomplete();
 				(void) i;
 				stringstream x;
-				x << " trace=n basic > " << _outfile << ".dc";
+				x << " trace=n basic >> " << _outfile ; //<< ".dc";
 				CS wcmd(CS::_STRING, x.str());
 				o->do_it(wcmd, cl);
 			}
@@ -315,7 +315,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " " << j._stop
-				  << " trace=a basic > " << _outfile << ".ac";
+				  << " trace=a basic >> " << _outfile ; //<< ".ac";
 				CS wcmd(CS::_STRING, x.str());
 				trace1("run ac", wcmd.fullstring());
 				a->do_it(wcmd, cl);
@@ -324,7 +324,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				stringstream x;
 				auto j = i.second;
 				x << "port * " << j._start << " " << j._stop
-				  << " > " << _outfile << ".sp";
+				  << " >> " << _outfile ; //<< ".sp";
 				trace1("running", x.str());
 				CS wcmd(CS::_STRING, x.str());
 				s->do_it(wcmd, cl);

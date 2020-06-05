@@ -186,16 +186,19 @@ static void finish(void)
 static void process_cmd_line(int argc, char * const*argv)
 {
   int opt;
+  std::string inpFile;
+  std::string outFile;
   CS cmd(CS::_STRING, "");
 
   try{
-    while ((opt = getopt(argc, argv, "a:b:c:i:vI:D:U:")) != -1) { untested();
+    while ((opt = getopt(argc, argv, "a:bc:gi:vI:D:U:l:o:")) != -1) { untested();
       switch (opt) {
         case 'a': untested();
           CMD::command(std::string("attach ") + optarg, &CARD_LIST::card_list);
           break;
-        case 'b': untested();
-          incomplete();
+        case 'b': //ignore: from qucs->qucsator -b, --bar enable textual progress bar
+          break;
+        case 'g': //ignore: from qucs->qucsator -g, --gui special progress bar used by gui
           break;
         case 'c': untested();
           cmd = CS(CS::_STRING, optarg);
@@ -208,7 +211,7 @@ static void process_cmd_line(int argc, char * const*argv)
         case 'I': untested();
           CMD::command(std::string("`add_include ") + optarg, &CARD_LIST::card_list);
           break;
-        case 'i':
+        case 'l': //previously i
           CMD::command(std::string("`include ") + optarg, &CARD_LIST::card_list);
           break;
         case 'D':
@@ -216,6 +219,12 @@ static void process_cmd_line(int argc, char * const*argv)
           break;
         case 'U':
           CMD::command(std::string("`undef ") + optarg, &CARD_LIST::card_list);
+          break;
+        case 'i':
+          inpFile = optarg;
+          break;
+        case 'o':
+          outFile = optarg;
           break;
         default:
           printf("options (incomplete):\n"
@@ -246,13 +255,16 @@ static void process_cmd_line(int argc, char * const*argv)
       error(bDANGER, e.message() + '\n');
       finish();
     }
-    if (optind >= argc) {itested();
-      //CMD::command("end", &CARD_LIST::card_list);
-      throw Exception_Quit("");
-    }else{untested();
-    }
   }
-
+  if (!inpFile.empty() && !outFile.empty()){
+    CMD::command(std::string("qucs"                      ) , &CARD_LIST::card_list);
+    CMD::command(std::string("include "+ inpFile         ) , &CARD_LIST::card_list);
+    CMD::command(std::string("attach custom/c_message.so") , &CARD_LIST::card_list);
+    CMD::command(std::string("`message \"<Qucs Dataset>\" >"+ outFile) , &CARD_LIST::card_list);
+    CMD::command(std::string("go "+ outFile              ) , &CARD_LIST::card_list);
+    CMD::command(std::string("status notime"             ) , &CARD_LIST::card_list);
+    CMD::command(std::string("quit"                      ) , &CARD_LIST::card_list);
+  }
 }
 /*--------------------------------------------------------------------------*/
 class MAIN{
