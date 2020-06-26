@@ -259,7 +259,7 @@ void SPARAM::setup(CS& Cmd)
 //
   std::string output;
 
-  unsigned here = Cmd.cursor();
+  size_t here = Cmd.cursor();
   do{
     if (Cmd.match1("'\"({") || Cmd.is_float()) {
       Cmd >> _start;

@@ -268,7 +268,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 
 	int paren = cmd.skip1b('(');
 	int ii = start;
-	unsigned here1 = cmd.cursor();
+	size_t here1 = cmd.cursor();
 	try{
 		for (;;) {
 			here1 = cmd.cursor();
@@ -281,7 +281,7 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 				break; // done.  premature end of line.
 			}else{
 				//----------------------
-				unsigned here = cmd.cursor();
+				size_t here = cmd.cursor();
 				std::string node_name;
 				cmd >> node_name;
 				if (cmd.stuck(&here)) {itested();
@@ -359,8 +359,8 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
 		COMMON_COMPONENT* cc = xx->mutable_common();
-		unsigned here = cmd.cursor();
-		for (unsigned i=0; ; ++i) {
+		size_t here = cmd.cursor();
+		for (size_t i=0; ; ++i) {
 			if (!cmd.more()) {
 				break;
 			}else{
@@ -374,7 +374,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 				}else{
 				}
 				trace2("LANG_QUCS_BASE::parse_args", Name, value);
-				unsigned there = here;
+				size_t there = here;
 				if (cmd.stuck(&here)) { untested();
 					break;
 				}else{
@@ -430,7 +430,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
 		for (;;) { untested();
-			unsigned here = cmd.cursor();
+			size_t here = cmd.cursor();
 			// pp->parse_params_obsolete_callback(cmd);  //BUG//callback//
 			if (!cmd.more()) { untested();
 				break;

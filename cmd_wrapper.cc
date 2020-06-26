@@ -157,7 +157,7 @@ void SP_WRAP::options(CS& cmd)
 	_reltol = -1.;
 	_abstol = -1.;
 	_vntol = -1.;
-	unsigned here = cmd.cursor();
+	size_t here = cmd.cursor();
 
 	// .SP:SP1 Type="lin" Start="1" Stop="2" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
 	do{
@@ -224,7 +224,7 @@ void TRAN_WRAP::options(CS& cmd)
 	_abstol = -1.;
 	_vntol = -1.;
 	double _whatever; // incomplete
-	unsigned here = cmd.cursor();
+	size_t here = cmd.cursor();
 	do{
 		trace1("options", cmd.tail());
 		ONE_OF
