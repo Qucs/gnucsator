@@ -1,27 +1,29 @@
-== gnucap-qucs
+# gnucap-qucs
 
-This package provides a gnucap based simulation kernel for qucs, a component
-library and related tools.
-
-== gnucsator.sh
-
-replaces qucsator and enhances qucs (the default simulator in qucs) in some
-situations. e.g. by introducing stable/fast dc/tran analysis and
-extensibility.
-
-Please see STATUS for the currently available functionality and
+This package provides a Gnucap based simulation kernel for Qucs, as well as a
+component library and related tools.
+See [STATUS](STATUS) for the currently available functionality and
 {tests,examples}/*.{net,sch} for example circuits.
 
-== net2verilog.sh
+Your support is gratefully received.
 
-convert qucsator "net" files into verilog. embedded commands are stripped.
+[![donate](https://liberapay.com/assets/widgets/donate.svg "donate through lp")](https://liberapay.com/felixs/donate)
 
-== gnucsator
+## gnucsator.sh
 
-binary executable. equivalent to gnucap, but loads a different run time
+Emulates qucsator and enhances Qucs (the default simulator in qucs) in some
+situations. e.g. by introducing stable/fast dc/tran analysis and extensibility.
+
+## net2verilog.sh
+
+Convert qucsator "net" files into verilog. embedded commands are stripped.
+
+## gnucsator
+
+Binary executable. equivalent to gnucap, but loads a different run time
 configuration file (gnucsator.rc).
 
-== setup
+## setup
 
 - install qucs (the gui).
 - install gnucap (>=20171003)
@@ -37,7 +39,7 @@ configuration file (gnucsator.rc).
 - type
   $ QUCSATOR=gnucsator.sh qucs
 
-== customisation
+## customisation
 
 gnucap-qucs ships the main executable from gnucap-custom as gnucsator, it is
 much like the usual gnucap, but loads gnucsator.rc at startup. you may
@@ -48,7 +50,7 @@ $ QUCSATOR=gnucsator.sh GNUCAP_SYSTEMSTARTFILE=my_own.rc qucs
 will run a qucs session with your own gnucsator rc. make sure this file exists
 next to gnucsator.rc (or also set GNUCAP_SYSTEMSTARTPATH..).
 
-== technical notes
+## technical notes
 
 hidemodule. The 'list' command is used to convert netlists, it prints
 out items in the netlist. This is where module/subckt declarations live.
@@ -61,7 +63,7 @@ listing similar to hidemodule & allows probes... (obsolete).
 
 postproc. Qucs requires the data in an upside-down 'dat' format. mangling is
 currently implemented for transient output. This is unnecessary and will be
-fixed in future qucs. In the meantime, there will be a bypass option, so other
-viewers can still be used for displaying.
+fixed in future qucs. In the meantime, there will be a bypass option
+(currently suspended), so other viewers can still be used for displaying.
 
 [1] git://git.sv.gnu.org/gnucap.git
