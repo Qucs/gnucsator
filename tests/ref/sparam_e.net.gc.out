@@ -28,6 +28,7 @@ R:RR1 _net0 _net3 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85"
 Gnucap   System status
 iterations: op=3, dc=0, tran=0, fourier=0, total=5
 transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=4, subckt=2, model=0, total=6
 dctran density=61.1%, ac density=61.1%
 

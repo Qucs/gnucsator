@@ -13,36 +13,37 @@ stashing as L:0
 Gnucap   System status
 iterations: op=0, dc=0, tran=8, fourier=0, total=11
 transient timesteps: accepted=3, rejected=0, total=3
+transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=0, model=0, total=3
 dctran density=100.0%, ac density=100.0%
 
 <indep time 3>
-  +0.
-  +10.0000000000000022E-6
-  +0.00100000000000000022
+ 0.
+ 10.E-6
+ 0.001
 </indep>
 <dep _net0.Vt time>
-  -0.799998440003172106
-  -0.799998440003172106
-  -0.799998440003172106
+-0.7999984
+-0.7999984
+-0.7999984
 </dep>
 <dep _net1.Vt time>
-  +0.5
-  +0.5
-  +0.5
+ 0.5
+ 0.5
+ 0.5
 </dep>
 <dep _net2.Vt time>
-  -0.799997140006032037
-  -0.799997140006032037
-  -0.799997140006032037
+-0.7999971
+-0.7999971
+-0.7999971
 </dep>
 <dep Pr1.Vt time>
-  -1.29999844000317189
-  -1.29999844000317189
-  -1.29999844000317189
+-1.299998
+-1.299998
+-1.299998
 </dep>
 <dep Pr2.It time>
-  -0.129999714004735956
-  -0.129999714004735956
-  -0.129999714004735956
+-0.1299997
+-0.1299997
+-0.1299997
 </dep>
