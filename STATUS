@@ -39,8 +39,9 @@ COMPONENTS (table ripped from [1])
     C  have component
    (C) candidate for component
     V  have verilog-A model
+    V* verilog-A model in Qucsator, but inaccessible
    (V) uses feature not supported by gnucap-adms
-   [V] a verilog-A model could do this
+   [V] a verilog-A/MS model could do this
     ?  no idea
 
 - test column
@@ -169,32 +170,32 @@ COMPONENTS (table ripped from [1])
 │ D-flipflop      │                 │                │      │                │
 │ RS-flipflop     │                 │                │      │                │
 │ JK-flipflop     │                 │                │      │                │
-│ logic 0         │                 │                │      │                │
-│ logic 1         │                 │                │      │                │
-│ T-ff w/ SR      │                 │                │      │                │
-│ JK-ff w/ SR     │                 │                │      │                │
-│ D-ff w/ SR      │                 │                │      │                │
+│ logic 0         │ logic_0         │  V*            │      │                │
+│ logic 1         │ logic_1         │  V*            │      │                │
+│ T-ff w/ SR      │ tff_SR          │  V*            │      │                │
+│ JK-ff w/ SR     │ jkff_SR         │  V*            │      │                │
+│ D-ff w/ SR      │ dff_SR          │  V*            │      │                │
 │ high prio enc   │                 │                │      │                │
-│ grey2bin        │                 │                │      │                │
-│ bin2grey        │                 │                │      │                │
+│ grey2bin        │ greytobinary4bit│  V*            │      │                │
+│ bin2grey        │ binarytogrey4bit│  V*            │      │                │
 │ gated D-latch   │                 │                │      │                │
 │ d/a lvl shift   │                 │                │      │                │
 │ a/d lvl shift   │                 │                │      │                │
-│ 2to1 mux        │                 │                │      │                │
-│ 4to1 mux        │                 │                │      │                │
-│ 8to1 mux        │                 │                │      │                │
+│ 2to1 mux        │                 │  V*            │      │                │
+│ 4to1 mux        │                 │  V*            │      │                │
+│ 8to1 mux        │                 │  V*            │      │                │
 │ 2to4 mux        │                 │                │      │                │
 │ 3to8 mux        │                 │                │      │                │
-│ 4to16 demux     │                 │                │      │                │
-│ 4x2 and/or      │                 │                │      │                │
-│ 4x3 and/or      │                 │                │      │                │
-│ 4x4 and/or      │                 │                │      │                │
+│ 4to16 demux     │  dmux4to16      │  V*            │      │                │
+│ 4x2 and/or      │  andor4x2       │  V*            │      │                │
+│ 4x3 and/or      │  andor4x3       │  V*            │      │                │
+│ 4x4 and/or      │  andor4x4       │  V*            │      │                │
 │ 2bit pat gen    │                 │                │      │                │
 │ 3bit pat gen    │                 │                │      │                │
 │ 4bit pat gen    │                 │                │      │                │
-│ 1bit comparator │                 │                │      │                │
-│ 2bit comparator │                 │                │      │                │
-│ 4bit comparator │                 │                │      │                │
+│ 1bit comparator │ comp_1bit       │  V*            │      │                │
+│ 2bit comparator │ comp_2bit       │  V*            │      │                │
+│ 4bit comparator │ comp_4bit       │  V*            │      │                │
 │ 1bit half adder │                 │                │      │                │
 │ 1bit full adder │                 │                │      │                │
 │ 2bit full adder │                 │                │      │                │
