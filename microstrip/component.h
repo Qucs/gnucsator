@@ -1,5 +1,8 @@
 // (C) 2020 Felix Salfelder
 //     GPLv3+
+//
+#ifndef QW_COMPONENT_H
+#define QW_COMPONENT_H
 
 #include <gnucap/io_trace.h>
 #include <gnucap/e_compon.h>
@@ -22,6 +25,8 @@ typedef std::complex<double> nr_complex_t;
 #include "logging.h"
 #undef node_t
 
+// struct property_t required;
+
 namespace qucs{
 
 static const int CIR_MSCOUPLED = 3;
@@ -36,10 +41,11 @@ static const double two_over_pi = 2./pi;
 static const double pi_over_2 = pi*.5;
 #endif
 
-typedef enum {NODE_1 = 0,
-		NODE_2 = 1,
-		NODE_3 = 2,
-		NODE_4 = 3} node_number;
+typedef enum {
+	NODE_1 = 0,
+	NODE_2 = 1,
+	NODE_3 = 2,
+	NODE_4 = 3} node_number;
 
 typedef enum { VSRC_1 = 0, VSRC_2 = 1} vsrc_number;
 
@@ -111,43 +117,28 @@ inline double sqr(double x)
 {
 	return x*x;
 }
-inline matrix operator*(double, matrix)
-{
-	incomplete();
-	return matrix();
-}
-inline matrix::matrix()
-{
-	incomplete();
-}
-inline matrix::matrix(matrix const&)
-{
-	incomplete();
-}
-inline matrix::~matrix()
-{
-	incomplete();
-}
-inline matrix conj(matrix)
-{
-	incomplete();
-	return matrix();
-}
-inline matrix real(matrix)
-{
-	incomplete();
-	return matrix();
-}
-inline matrix transpose(matrix)
-{
-	incomplete();
-	return matrix();
-}
-inline matrix operator*(matrix, matrix)
-{
-	incomplete();
-	return matrix();
-}
+// inline matrix operator*(double, matrix)
+// {
+// 	incomplete();
+// 	return matrix();
+// }
+// inline matrix::matrix()
+// {
+// 	incomplete();
+// }
+// inline matrix::matrix(matrix const&)
+// {
+// 	incomplete();
+// }
+// inline matrix::~matrix()
+// {
+// 	incomplete();
+// }
+// inline matrix conj(matrix)
+// {
+// 	incomplete();
+// 	return matrix();
+// }
 
 struct substrate{
 	double getPropertyDouble(std::string const&){
@@ -164,16 +155,45 @@ class circuit : public COMPONENT{
 protected:
 	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){
 		assert(_num_ports);
-		_n = new node_t[_num_ports];
+		// init();
 	};
 public:
 	circuit(int n) :  COMPONENT(), _num_ports(n) {
 		assert(n);
-		_n = new node_t[_num_ports];
 	}
 	~circuit() {
 		incomplete();
+		for(auto i : _p){
+			delete i;
+		}
 		// delete _n;
+	}
+private:
+	virtual define_t* cd() const = 0;
+public:
+	void init(){ untested();
+		_n = new node_t[_num_ports];
+		unsigned i=0;
+		for(;;++i){ untested();
+			if(char const* k=cd()->required[i].key){
+				_p.push_back(new PARAMETER<double>);
+				_pnames.push_back(k);
+				_pn[k] = _p.back();
+			}else{
+				break;
+			}
+		}
+		unsigned j=0;
+		for(;;++j){ untested();
+			if(char const* k=cd()->optional[j].key){
+				_p.push_back(new PARAMETER<double>);
+				_pnames.push_back(k);
+				_pn[k] = _p.back();
+			}else{
+				break;
+			}
+		}
+		trace2("circuit::init params", i, j);
 	}
 protected: // qucsator globals
 
@@ -209,9 +229,59 @@ protected: // qucsator globals
    void voltageSource (vsrc_number, node_number, node_number){ incomplete(); }
 
 private: // COMPONENT
+   int param_count()const override{
+		trace1("circuit::param_count", _p.size());
+		return COMPONENT::param_count() + _p.size();
+	}
+   bool param_is_printable(int)const override{ return true; } // {COMPONENT::param_count() + _p.size();}
+	void set_param_by_index(int i, std::string& b, int j) override{
+		trace3("circuit::set_param_by_index", i, b, j);
+		int s = _p.size() - 1 - i;
+		if(s < _p.size()){
+			*_p[s] = b;
+		}else{
+			COMPONENT::set_param_by_index(i, b, j);
+		}
+	}
 	void set_param_by_name(std::string a, std::string b) override{
+		trace2("circuit::set_param_by_name", a, b);
+		auto i = _pn.find(a);
+		if(i == _pn.end()){
+			incomplete();
+		}else{
+			*i->second = b;
+		}
 		trace2("spbn", a, b);
 	}
+	std::string param_name(int i)const{
+		int s = _p.size() - 1 - i;
+		if(s < _p.size()){
+			assert(i<_pnames.size());
+			return _pnames[i];
+		}else{ untested();
+			return COMPONENT::param_name(i);
+		}
+	}
+	std::string param_name(int i,int j)const{
+		if(j==0){
+			return param_name(i);
+		}else{
+			incomplete();
+			return "dunno";
+		}
+	}
+	std::string param_value(int i)const override{
+		int s = _p.size() - 1 - i;
+		if(s >= _p.size()){
+			return COMPONENT::param_name(i);
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[i])){ untested();
+			assert(i<_p.size());
+			return ps->string();
+		}else{ untested();
+			return "unreachable";
+		}
+	}
+
 	std::string value_name()const override{incomplete(); return "incomplete";}
 	std::string port_name(int i)const override{ untested();
 		return "p"+to_string(i);
@@ -243,13 +313,18 @@ protected: // qucsator globals
 //	static double C0; // ??
 private:
 	int _num_ports;
+	std::vector<PARA_BASE*> _p;
+	std::vector<std::string> _pnames;
+	std::map<std::string, PARA_BASE*> _pn;
 };
 }
 
 #define CREATOR(a) \
 public: \
 	static define_t cirdef; \
+	define_t* cd() const override {untested(); return &cirdef;} \
 	a(); \
 	a( const a& p) : circuit(p){incomplete();} \
-	COMPONENT* clone() const{ return new a(*this); }
+	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
 
+#endif

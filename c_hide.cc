@@ -45,7 +45,7 @@ public:
 public:
   ~CMD_HIDE(){
     for(auto i : _hidden){
-      trace1("delete", i.second->short_label());
+      // trace1("hide delete", i.second->short_label());
       delete i.first;
       delete i.second;
     }
@@ -73,7 +73,7 @@ public:
 	cmd.reset(here);
 	if (dynamic_cast<BASE_SUBCKT const*>(*i)
 	 || dynamic_cast<MODEL_CARD const*>(*i)) {
-	  trace2("hide found", cmd.fullstring(), (*i)->short_label());
+	  // trace2("hide found", cmd.fullstring(), (*i)->short_label());
 	  {
 	    auto sl=(*i)->short_label();
 
