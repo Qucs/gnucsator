@@ -1,0 +1,6 @@
+
+
+namespace qucs{
+struct strlist{
+};
+}

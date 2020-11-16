@@ -1,5 +1,8 @@
+// (C) 2020 Felix Salfelder
+//     GPLv3+
 
 #include <gnucap/io_trace.h>
+#include <gnucap/e_compon.h>
 #include <cmath>
 #include <complex>
 #include <string.h>
@@ -10,17 +13,25 @@ typedef std::complex<double> nr_complex_t;
 #define NR_TINY 1e-12 // yikes.
 #include "matrix.h"
 #include "real.h"
+#include "complex.h"
 #include "constants.h"
+#include "consts.h"
 #include "netdefs.h"
-
+#include "logging.h"
 
 namespace qucs{
 
-static const int CIR_MSCOUPLED=3;
+static const int CIR_MSCOUPLED = 3;
+static const int CIR_MSLINE = 2;
+static const nr_double_t z0 = 50.0; // yikes.
+
+#if 0
+static const double euler = 2.7182818284590452353602874713526625;
 static const double pi = M_PI;
 static const double one_over_pi = 1./pi;
-static const nr_double_t z0 = 50.0; // yikes.
-static const double euler = 2.7182818284590452353602874713526625;
+static const double two_over_pi = 2./pi;
+static const double pi_over_2 = pi*.5;
+#endif
 
 typedef enum {NODE_1 = 0,
 		NODE_2 = 1,
@@ -29,37 +40,110 @@ typedef enum {NODE_1 = 0,
 
 typedef enum { VSRC_1 = 0, VSRC_2 = 1} vsrc_number;
 
-double exp(double y)
+// some other header?
+inline double sin(double y)
+{
+	return ::sin(y);
+}
+inline double exp(double y)
 {
 	return ::exp(y);
 }
-double pow(double x, double y)
+inline double pow(double x, double y)
 {
 	return ::pow(x, y);
 }
-double log(double x)
+inline double log(double x)
 {
 	return ::log(x);
 }
-double cosh(double x)
+inline double coth(double x)
+{
+	return 1./::tanh(x);
+}
+inline nr_complex_t coth (const nr_complex_t z)
+{
+    nr_double_t r = 2.0 * std::real (z);
+    nr_double_t i = 2.0 * std::imag (z);
+    return 1.0 + 2.0 / (std::polar (std::exp (r), i) - 1.0);
+}
+inline double quadr(double x)
+{
+	incomplete();
+	return 0.;
+}
+inline double log10(double x)
+{
+	return std::log10(x);
+}
+inline double cosh(double x)
 {
 	return ::cosh(x);
 }
-double sinh(double x)
+inline double atan(double x)
+{
+	return ::atan(x);
+}
+inline double sinh(double x)
 {
 	return ::sinh(x);
 }
-nr_complex_t sinh(nr_complex_t x)
+inline nr_complex_t sinh(nr_complex_t x)
 {
 	return std::sinh(x);
 }
-double sqrt(double x)
+inline nr_complex_t cosech (const nr_complex_t z)
+{
+    return (1.0 / std::sinh(z));
+}
+inline nr_complex_t cosh (const nr_complex_t z)
+{
+    return std::cosh(z);
+}
+inline double sqrt(double x)
 {
 	return ::sqrt(x);
 }
-double sqr(double x)
+inline double sqr(double x)
 {
 	return x*x;
+}
+inline matrix operator*(double, matrix)
+{
+	incomplete();
+	return matrix();
+}
+inline matrix::matrix()
+{
+	incomplete();
+}
+inline matrix::matrix(matrix const&)
+{
+	incomplete();
+}
+inline matrix::~matrix()
+{
+	incomplete();
+}
+inline matrix conj(matrix)
+{
+	incomplete();
+	return matrix();
+}
+inline matrix real(matrix)
+{
+	incomplete();
+	return matrix();
+}
+inline matrix transpose(matrix)
+{
+	incomplete();
+	return matrix();
+}
+inline matrix operator*(matrix, matrix)
+{
+	incomplete();
+	return matrix();
 }
 
 struct substrate{
@@ -73,7 +157,7 @@ struct substrate{
 	}
 };
 
-class circuit{
+class circuit : public COMPONENT{
 protected:
 	circuit(circuit const& c){ incomplete(); }
 public:
@@ -95,27 +179,37 @@ protected: // qucsator globals
 		incomplete();
 		return nullptr;
 	}
-   void setVoltageSources(double);
-   void setInternalVoltageSource(double);
-   void allocMatrixMNA ();
-	matrix getMatrixS();
-	matrix getMatrixY();
-	void setMatrixN (matrix);
-	void clearY ();
-	int getSize(); // number of ports??
+   void setVoltageSources(double) {incomplete();}
+   void setInternalVoltageSource(double) {incomplete();}
+   void allocMatrixMNA () {incomplete();}
+	matrix getMatrixS() {incomplete(); return matrix();}
+	matrix getMatrixY() {incomplete(); return matrix();}
+	void setMatrixN (matrix) {incomplete();}
+	void clearY (){incomplete();}
+	int getSize() {incomplete(); return 0;} // number of ports??
 
 //	load_ac?
-	void setS (node_number, node_number, nr_complex_t);
-	void setD (vsrc_number, vsrc_number, nr_complex_t);
+	void setS (node_number, node_number, nr_complex_t){ incomplete(); }
+	void setD (vsrc_number, vsrc_number, nr_complex_t){ incomplete(); }
 // acrhs?
-	void setY (node_number, node_number, nr_complex_t);
-   void voltageSource (vsrc_number, node_number, node_number);
+	void setY (node_number, node_number, nr_complex_t){ incomplete(); }
+   void voltageSource (vsrc_number, node_number, node_number){ incomplete(); }
+
+private: // COMPONENT
+	std::string value_name()const override{incomplete(); return "incomplete";}
+	std::string port_name(int)const override{return "ppp"; }
+	bool print_type_in_spice()const override{return false;}
 
 protected: // qucsator globals
 	int type;
-	double C0; // ??
+//	static double C0; // ??
 };
 }
 
-#define CREATOR(a) public: static define_t cirdef; a(); a( const a& p) : circuit(p){incomplete();}
+#define CREATOR(a) \
+public: \
+	static define_t cirdef; \
+	a(); \
+	a( const a& p) : circuit(p){incomplete();} \
+	COMPONENT* clone() const{ return new a(*this); }
 
