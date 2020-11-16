@@ -10,8 +10,6 @@ stashing as ':0
 stashing as ":0
 L: already installed, replacing
 stashing as L:0
-what is 0 dBm?
-what is 0 dBm?
 R:RR gnd _net1 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
                          ^ ? RR: Temp has no value?
 .SP:SP1 Type="l ... Stop="2" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s

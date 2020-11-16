@@ -3,6 +3,7 @@
 
 #include <gnucap/io_trace.h>
 #include <gnucap/e_compon.h>
+#include <gnucap/e_node.h>
 #include <cmath>
 #include <complex>
 #include <string.h>
@@ -10,6 +11,7 @@
 typedef double nr_double_t;
 typedef std::complex<double> nr_complex_t;
 
+#define node_t qucs_node_t
 #define NR_TINY 1e-12 // yikes.
 #include "matrix.h"
 #include "real.h"
@@ -18,6 +20,7 @@ typedef std::complex<double> nr_complex_t;
 #include "consts.h"
 #include "netdefs.h"
 #include "logging.h"
+#undef node_t
 
 namespace qucs{
 
@@ -159,9 +162,19 @@ struct substrate{
 
 class circuit : public COMPONENT{
 protected:
-	circuit(circuit const& c){ incomplete(); }
+	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){
+		assert(_num_ports);
+		_n = new node_t[_num_ports];
+	};
 public:
-	circuit(int){ incomplete(); }
+	circuit(int n) :  COMPONENT(), _num_ports(n) {
+		assert(n);
+		_n = new node_t[_num_ports];
+	}
+	~circuit() {
+		incomplete();
+		// delete _n;
+	}
 protected: // qucsator globals
 
 	double getPropertyDouble(std::string const&){
@@ -186,7 +199,7 @@ protected: // qucsator globals
 	matrix getMatrixY() {incomplete(); return matrix();}
 	void setMatrixN (matrix) {incomplete();}
 	void clearY (){incomplete();}
-	int getSize() {incomplete(); return 0;} // number of ports??
+	int getSize() const {return _num_ports;}
 
 //	load_ac?
 	void setS (node_number, node_number, nr_complex_t){ incomplete(); }
@@ -196,13 +209,40 @@ protected: // qucsator globals
    void voltageSource (vsrc_number, node_number, node_number){ incomplete(); }
 
 private: // COMPONENT
+	void set_param_by_name(std::string a, std::string b) override{
+		trace2("spbn", a, b);
+	}
 	std::string value_name()const override{incomplete(); return "incomplete";}
-	std::string port_name(int)const override{return "ppp"; }
-	bool print_type_in_spice()const override{return false;}
+	std::string port_name(int i)const override{ untested();
+		return "p"+to_string(i);
+	}
+	bool print_type_in_spice()const override{ untested(); return false;}
+//	void set_port_by_index(int a, std::string& b) override { incomplete();}
+//	bool node_is_connected(int a) const override { incomplete(); return false; }
+	std::string dev_type()const override {return "some_ms";}
+	const std::string port_value(int i)const 
+	{
+		/// ????
+		assert(_n);
+		assert(i >= 0);
+		assert(i < net_nodes());
+		return _n[i].short_label();
+	}
 
+	int max_nodes()const override{ untested();
+		return getSize();
+	}
+	int net_nodes()const override{ untested();
+		return getSize();
+	}
+	int min_nodes()const override{ untested();
+		return getSize();
+	}
 protected: // qucsator globals
 	int type;
 //	static double C0; // ??
+private:
+	int _num_ports;
 };
 }
 

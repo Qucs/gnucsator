@@ -6,10 +6,10 @@ GNUCAP = gnucap$(SUFFIX)
 
 DIFF = diff -w -u
 NUMDIFF = numdiff -r1.e-6 -a1.e-8
-REF=ref
+REF = ref
 
-SHELL=/bin/bash
-LN_S=ln -s
+SHELL = /bin/bash
+LN_S = ln -s
 
 all: gc qucs
 
@@ -43,6 +43,9 @@ GC_TESTS = \
 	wrap.bad.gc \
 	rect.gc
 
+NOTYET_GC_TESTS = \
+	mscoupler.1.gc
+
 check: diff
 
 diff: \
@@ -62,7 +65,7 @@ qucs:
 	[ -e qucs ] || ${LN_S} .. qucs
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=.:..:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
+	GNUCAP_PLUGPATH=.:..:../microstrip:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
 	QUCSATOR_PKGINCLUDEDIR=../include \
 	GNUCAP_INCLUDEPATH=../include:.${GNUCAP_INCLUDEPATH:%=:%} \
 	GNUCAP_SYSCONFDIR=qucs \
