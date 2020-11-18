@@ -14,18 +14,19 @@ LN_S=ln -s
 all: gc qucs
 
 COMMON_TESTS = \
-	rr.net \
-	rc.net \
-	pac.net \
 	AM_Mod.1.net \
-	sub.1.net \
-	sub.2.net \
+	dio.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	MUT.net \
+	pac.net \
+	rc.net \
+	resonance_ac.net \
+	rr.net \
 	sparam_e.net \
-	dio.net \
+	sub.1.net \
+	sub.2.net \
 	Switch.0.net \
 	Vrect.1.net \
 	Vrect.2.net

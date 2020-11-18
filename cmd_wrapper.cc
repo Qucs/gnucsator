@@ -33,6 +33,11 @@ using std::stringstream;
 /*--------------------------------------------------------------------------*/
 namespace{
 /*--------------------------------------------------------------------------*/
+enum typeT{
+	tLin = 0,
+	tLog = 1
+};
+/*--------------------------------------------------------------------------*/
 class AC_WRAP : public CMD {
 public:
 	AC_WRAP(): CMD() {}
@@ -40,6 +45,7 @@ public:
 	typedef struct{
 		double _start;
 		double _stop;
+		std::string _args;
 	} data_t;
 private:
 	double _start;
@@ -54,20 +60,58 @@ private:
 	double _abstol;
 	double _vntol;
 
-//	void options(CS&);
+	void options(CS&);
 	void do_it(CS&cmd, CARD_LIST* cl) {
 		assert(cl);
-//		options(cmd);
+		options(cmd);
 		data_t t;
 		t._start = _start;
 		t._stop = _stop;
+
+		if (_type == tLin) {
+			double range = _stop - _start;
+			double step = range / _points;
+			incomplete();
+			t._args = "step " + to_string(step) + " ";
+		}else{
+			incomplete();
+		}
+
 		_stash[short_label()] = t;
 	}
 public: // GO
 	static std::map<string, data_t> _stash;
+private:
+	typeT _type;
 } pac;
 std::map<string, AC_WRAP::data_t> AC_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL ddc(&command_dispatcher, "AC", &pac);
+/*--------------------------------------------------------------------------*/
+void AC_WRAP::options(CS& cmd)
+{
+	_start = 0;
+	_stop = 0;
+	_points = 0;
+	double _whatever; // incomplete
+	size_t here = cmd.cursor();
+	do{
+		trace1("options", cmd.tail());
+		ONE_OF
+			|| QucsGet(cmd, "Start", 	   &_start)
+			|| QucsGet(cmd, "Stop",		   &_stop)
+			|| QucsGet(cmd, "Points",	   &_points)
+			|| (cmd.umatch( "Type") &&
+					(ONE_OF
+					 || QucsSet(cmd, "lin",   &_type, tLin)
+					 || QucsSet(cmd, "log",   &_type, tLog)
+					 || cmd.warn(bWARNING, "need lin, log... incomplete")
+					)
+				)
+			;
+	}while (cmd.more() && !cmd.stuck(&here));
+	cmd.check(bWARNING, "what's this (incomplete)?");
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class DC_WRAP : public CMD {
 public:
@@ -113,11 +157,6 @@ public:
 		double _start;
 		double _stop;
 	} data_t;
-private: // types
-	enum typeT{
-		tLin = 0,
-		tLog = 1
-	};
 private:
 	double _start;
 	double _stop;
@@ -271,6 +310,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
 			CMD::command("print op v(nodes)", &CARD_LIST::card_list);
+			CMD::command("print ac v(nodes)", &CARD_LIST::card_list);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
@@ -314,8 +354,10 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			for(auto const&i : AC_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << j._start << " " << j._stop << " " << j._stop
-				  << " trace=a basic > " << _outfile << ".ac";
+				x << j._start << " " << j._stop << " ";
+				x << j._args;
+					
+				x << " basic > " << _outfile << ".ac";
 				CS wcmd(CS::_STRING, x.str());
 				trace1("run ac", wcmd.fullstring());
 				a->do_it(wcmd, cl);
