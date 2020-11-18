@@ -64,7 +64,7 @@ struct subckt_alias{
 	DISPATCHER<CARD>::INSTALL* _d;
 }a;
 /*--------------------------------------------------------------------------*/
-class LANG_QUCS_BASE : public LANGUAGE {
+class LANG_QUCSATOR : public LANGUAGE {
 	public:
 		enum EOB {NO_EXIT_ON_BLANK, EXIT_ON_BLANK};
 
@@ -110,7 +110,7 @@ class LANG_QUCS_BASE : public LANGUAGE {
 
 // idea: different qucs language versions?
 // (hopefully not!)
-class LANG_QUCS : public LANG_QUCS_BASE {
+class LANG_QUCS : public LANG_QUCSATOR {
 	public:
 		std::string name()const {return "qucs";}
 		bool case_insensitive()const {return false;}
@@ -261,7 +261,7 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
  *	This is used for the header line in .subckt, which starts clean.
  *	The main benefit is to reject duplicates.
  */
-void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
+void LANG_QUCSATOR::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 		int start, int num_nodes, bool all_new)
 {
 	assert(x);
@@ -332,12 +332,12 @@ void LANG_QUCS_BASE::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 /*--------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
+void LANG_QUCSATOR::parse_type(CS& cmd, CARD* x)
 {
 	assert(x);
 	std::string new_type;
 	new_type = cmd.get_to(":");
-	trace3("LANG_QUCS_BASE::parse_type", cmd.fullstring(), new_type, x->dev_type());
+	trace3("LANG_QUCSATOR::parse_type", cmd.fullstring(), new_type, x->dev_type());
 
 	// HACK (qucs language misfeature)
 	if(new_type=="Sub"){
@@ -346,15 +346,15 @@ void LANG_QUCS_BASE::parse_type(CS& cmd, CARD* x)
 		scan_get(cmd, "Type", &new_type);
 		cmd.reset(here);
 	}
-	trace3("LANG_QUCS_BASE::parse_type", cmd.fullstring(), new_type, x->dev_type());
+	trace3("LANG_QUCSATOR::parse_type", cmd.fullstring(), new_type, x->dev_type());
 
 	// this has weird side effects for elt+bm
 	x->set_dev_type(new_type);
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
+void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 {
-	trace1("LANG_QUCS_BASE::parse_args (card)", cmd);
+	trace1("LANG_QUCSATOR::parse_args (card)", cmd);
 	assert(x);
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
@@ -373,7 +373,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 					value[value.size()-1]='}';
 				}else{
 				}
-				trace2("LANG_QUCS_BASE::parse_args", Name, value);
+				trace2("LANG_QUCSATOR::parse_args", Name, value);
 				size_t there = here;
 				if (cmd.stuck(&here)) { untested();
 					break;
@@ -392,7 +392,7 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 						                                             // maybe write smarter wrappers instead...
 						OPT::case_insensitive = false;
 
-						trace3("LANG_QUCS_BASE value_name", xx->value_name(), value, Name);
+						trace3("LANG_QUCSATOR value_name", xx->value_name(), value, Name);
 						if(value==""){
 							// bug in qucs?
 						}else if (cc && isame) {untested();
@@ -453,9 +453,9 @@ void LANG_QUCS_BASE::parse_args(CS& cmd, CARD* x)
 	}
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
+void LANG_QUCSATOR::parse_label(CS& cmd, CARD* x)
 {
-	trace0(("LANG_QUCS_BASE::parse_label " + cmd.tail()).c_str() );
+	trace0(("LANG_QUCSATOR::parse_label " + cmd.tail()).c_str() );
 	assert(x);
 
 	if (cmd.skip1b(":") != true){ untested();
@@ -465,19 +465,19 @@ void LANG_QUCS_BASE::parse_label(CS& cmd, CARD* x)
 
 	std::string my_name;
 	cmd >> my_name;
-	trace1("LANG_QUCS_BASE::parse_label LABELNAME  ",my_name);
+	trace1("LANG_QUCSATOR::parse_label LABELNAME  ",my_name);
 	x->set_label(my_name);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-DEV_COMMENT* LANG_QUCS_BASE::parse_comment(CS& cmd, DEV_COMMENT* x)
+DEV_COMMENT* LANG_QUCSATOR::parse_comment(CS& cmd, DEV_COMMENT* x)
 {
 	assert(x);
 	x->set(cmd.fullstring());
 	return x;
 }
 /*--------------------------------------------------------------------------*/
-DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
+DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 {
 	assert(x);
 	x->set(cmd.fullstring());
@@ -495,7 +495,7 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 	} else {
 		cmd >> id_string;
 	}
-	trace1("LANG_QUCS_BASE::parse_command", id_string);
+	trace1("LANG_QUCSATOR::parse_command", id_string);
 	cmd.reset(here);
 	if (!command_dispatcher[id_string]) {
 		// there's just a DOT in the way. duh
@@ -511,7 +511,7 @@ DEV_DOT* LANG_QUCS_BASE::parse_command(CS& cmd, DEV_DOT* x)
 	return NULL;
 }
 /*--------------------------------------------------------------------------*/
-MODEL_CARD* LANG_QUCS_BASE::parse_paramset(CS& cmd, MODEL_CARD* x)
+MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
 { untested();
 	assert(x);
 	cmd.reset();
@@ -523,9 +523,9 @@ MODEL_CARD* LANG_QUCS_BASE::parse_paramset(CS& cmd, MODEL_CARD* x)
 	return x;
 }
 /*--------------------------------------------------------------------------*/
-BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
+BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 {
-	trace0(("LANG_QUCS_BASE::parse_module " + cmd.tail()) );
+	trace0(("LANG_QUCSATOR::parse_module " + cmd.tail()) );
 	assert(x);
 
 	// header
@@ -534,11 +534,11 @@ BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 	parse_label(cmd, x);
 	{
 		unsigned here = cmd.cursor();
-		trace2("LANG_QUCS_BASE::parse_module ", x->min_nodes(), x->max_nodes() );
+		trace2("LANG_QUCSATOR::parse_module ", x->min_nodes(), x->max_nodes() );
 		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(),
 				0/*no unnamed par*/, 0/*start*/);
 
-		trace1("LANG_QUCS_BASE::parse_module ", num_nodes );
+		trace1("LANG_QUCSATOR::parse_module ", num_nodes );
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, true/*all new*/);
 	}
@@ -546,11 +546,11 @@ BASE_SUBCKT* LANG_QUCS_BASE::parse_module(CS& cmd, BASE_SUBCKT* x)
 
 	// body
 	parse_module_body(cmd, x, x->subckt(), name() + "-subckt>", NO_EXIT_ON_BLANK, ".Def:End ");
-	trace0("LANG_QUCS_BASE::parse_module done " );
+	trace0("LANG_QUCSATOR::parse_module done " );
 	return x;
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
+void LANG_QUCSATOR::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 		const std::string& prompt, EOB exit_on_blank, const std::string& exit_key)
 {
 	try {
@@ -561,7 +561,7 @@ void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope
 					|| cmd.umatch(exit_key)) {
 				break;
 			}else{
-				trace2("LANG_QUCS_BASE::parse_module_body ", cmd.fullstring(), OPT::language);
+				trace2("LANG_QUCSATOR::parse_module_body ", cmd.fullstring(), OPT::language);
 				skip_pre_stuff(cmd);
 				new__instance(cmd, x, Scope);
 			}
@@ -570,7 +570,7 @@ void LANG_QUCS_BASE::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope
 	}
 }
 /*--------------------------------------------------------------------------*/
-COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
+COMPONENT* LANG_QUCSATOR::parse_instance(CS& cmd, COMPONENT* x)
 {
 	assert(x);
 	cmd.reset().umatch(QUCS_ANTI_COMMENT);
@@ -590,20 +590,20 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 		//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, false);
-		trace0(("LANG_QUCS_BASE::parse_instance parsed ports " + (std::string) cmd.tail()).c_str() );
+		trace0(("LANG_QUCSATOR::parse_instance parsed ports " + (std::string) cmd.tail()).c_str() );
 
 	}
 
 	try {
 
 		if (x->print_type_in_spice()) {
-			trace0(("LANG_QUCS_BASE::parse_instance ptis " + (std::string) cmd.tail()).c_str() );
+			trace0(("LANG_QUCSATOR::parse_instance ptis " + (std::string) cmd.tail()).c_str() );
 			// parse_type(cmd, x);
 		}else{
 		}
 
 		if (c) { untested();
-			trace2("LANG_QUCS_BASE::parse_instance", c, x->long_label());
+			trace2("LANG_QUCSATOR::parse_instance", c, x->long_label());
 			x->attach_common(c);    
 			parse_args(cmd, x);
 
@@ -631,7 +631,7 @@ COMPONENT* LANG_QUCS_BASE::parse_instance(CS& cmd, COMPONENT* x)
 
 
 /*--------------------------------------------------------------------------*/
-std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
+std::string LANG_QUCSATOR::find_type_in_string(CS& cmd) GCUF_CONST
 {
 	cmd.umatch(QUCS_ANTI_COMMENT);
 
@@ -639,7 +639,7 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 	std::string id_string;
 
 	char first_letter = cmd.peek();
-	trace2("LANG_QUCS_BASE::find_type_in_string", first_letter, cmd.tail());
+	trace2("LANG_QUCSATOR::find_type_in_string", first_letter, cmd.tail());
 
 	assert(!OPT::case_insensitive);
 
@@ -648,18 +648,18 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 		if(cmd.scan(":")){
 			cmd.reset(here+1); // cut the dot again
 			id_string = cmd.get_to(":");
-			trace1("LANG_QUCS_BASE::parse_instance colon", id_string);
+			trace1("LANG_QUCSATOR::parse_instance colon", id_string);
 		}else {
 			cmd >> id_string;
 		}
-		trace1("LANG_QUCS_BASE::find_type_in_string found leading dot. assuming command",id_string);
+		trace1("LANG_QUCSATOR::find_type_in_string found leading dot. assuming command",id_string);
 		if (!command_dispatcher[id_string]) { untested();
 			cmd.skip();
 			++here;
 			id_string = id_string.substr(1);
 		}else{
 		}
-		trace1("LANG_QUCS_BASE::find_type_in_string found command", id_string);
+		trace1("LANG_QUCSATOR::find_type_in_string found command", id_string);
 		return id_string;
 	}else if (!cmd.scan(":")){
 		cmd >> id_string;
@@ -674,14 +674,14 @@ std::string LANG_QUCS_BASE::find_type_in_string(CS& cmd) GCUF_CONST
 		}else{
 		}
 	}
-	trace2("LANG_QUCS_BASE::find_type_in_string", cmd.fullstring(), id_string);
+	trace2("LANG_QUCSATOR::find_type_in_string", cmd.fullstring(), id_string);
 	return id_string;
 }
 /*--------------------------------------------------------------------------*/
 // cloning from c__cmd.cc for now
-void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
+void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 {
-	trace1("LANG_QUCS_BASE::cmdproc", cmd.fullstring());
+	trace1("LANG_QUCSATOR::cmdproc", cmd.fullstring());
 	bool get_timer_was_running = ::status.get.is_running();
 	::status.get.stop();
 
@@ -702,7 +702,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 	unsigned here = cmd.cursor();
 	std::string id_string;
 	std::string cmdname;
-	trace1("LANG_QUCS_BASE::cmdproc", cmd.tail());
+	trace1("LANG_QUCSATOR::cmdproc", cmd.tail());
 	if(cmd.scan(":")){
 		cmd.reset(here);
 		id_string = cmd.get_to(":");
@@ -712,7 +712,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 		cmd >> id_string;
 	}
 
-	trace2("LANG_QUCS_BASE::cmdproc", id_string, cmdname);
+	trace2("LANG_QUCSATOR::cmdproc", id_string, cmdname);
 	if (cmd.umatch("'|*|#|//|\"")) { untested();
 		unreachable();
 	}else if (id_string != "") {
@@ -721,7 +721,7 @@ void LANG_QUCS_BASE::cmdproc(CS& cmd, CARD_LIST* scope)
 			c->set_label(cmdname);
 
 			c->do_it(cmd, scope);
-			trace1("LANG_QUCS_BASE::cmdproc",c->short_label());
+			trace1("LANG_QUCSATOR::cmdproc",c->short_label());
 			didsomething = true;
 		}else{itested();
 			cmd.warn(bWARNING, here, "cmd: what's this?");
@@ -761,7 +761,7 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
+void LANG_QUCSATOR::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 {
 	assert(x);
 	o << ".model " << x->short_label() << ' ' << x->dev_type() << " (";
@@ -769,7 +769,7 @@ void LANG_QUCS_BASE::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 	o << ")\n";
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
+void LANG_QUCSATOR::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 {
 	assert(x);
 	assert(x->subckt());
@@ -786,7 +786,7 @@ void LANG_QUCS_BASE::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 	o << ".Def:End\n";
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
+void LANG_QUCSATOR::print_instance(OMSTREAM& o, const COMPONENT* x)
 {
 	print_type(o, x);
 	o << ":";
@@ -796,7 +796,7 @@ void LANG_QUCS_BASE::print_instance(OMSTREAM& o, const COMPONENT* x)
 	o << '\n';
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
+void LANG_QUCSATOR::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 {
 	assert(x);
 	if (x->comment()[1] != '+') {
@@ -807,14 +807,14 @@ void LANG_QUCS_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 	// These are generated as a way to display calculated values.
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
+void LANG_QUCSATOR::print_command(OMSTREAM& o, const DEV_DOT* x)
 { untested();
 	assert(x);
 	o << x->s() << '\n';
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_args(OMSTREAM& o, const MODEL_CARD* x)
+void LANG_QUCSATOR::print_args(OMSTREAM& o, const MODEL_CARD* x)
 {
 	assert(x);
 	for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
@@ -826,13 +826,13 @@ void LANG_QUCS_BASE::print_args(OMSTREAM& o, const MODEL_CARD* x)
 	}
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_type(OMSTREAM& o, const COMPONENT* x)
+void LANG_QUCSATOR::print_type(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 	o << "  " << x->dev_type();
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_args(OMSTREAM& o, const COMPONENT* x)
+void LANG_QUCSATOR::print_args(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 	o << ' ';
@@ -849,14 +849,14 @@ void LANG_QUCS_BASE::print_args(OMSTREAM& o, const COMPONENT* x)
 		}
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_label(OMSTREAM& o, const COMPONENT* x)
+void LANG_QUCSATOR::print_label(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 	std::string label = x->short_label();
 	o << label;
 }
 /*--------------------------------------------------------------------------*/
-void LANG_QUCS_BASE::print_ports(OMSTREAM& o, const COMPONENT* x)
+void LANG_QUCSATOR::print_ports(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 
