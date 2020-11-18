@@ -429,7 +429,13 @@ void msline::analyseLoss (nr_double_t W, nr_double_t t, nr_double_t er,
 
     // dielectric losses
     l0 = C0 / frequency;
+	 assert(ErEff==ErEff);
+	 assert(ErEff>0);
+	 assert(er == er);
+	 assert(l0 == l0);
+	 assert(tand == tand);
     ad = pi * er / (er - 1) * (ErEff - 1) / qucs::sqrt (ErEff) * tand / l0;
+	 assert(ad==ad);
   }
 }
 

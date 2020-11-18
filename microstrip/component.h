@@ -7,6 +7,7 @@
 #include <gnucap/io_trace.h>
 #include <gnucap/e_compon.h>
 #include <gnucap/e_node.h>
+#include <gnucap/l_denoise.h> // dn_diff
 #include <cmath>
 #include <complex>
 #include <string.h>
@@ -26,6 +27,44 @@ typedef std::complex<double> nr_complex_t;
 #undef node_t
 
 // struct property_t required;
+#include "substrate.h" // BUG
+
+#define CREATOR(a) \
+public: \
+	static define_t cirdef; \
+	define_t* cd() const override {untested(); return &cirdef;} \
+	a(); \
+	a( const a& p) : circuit(p){incomplete();} \
+	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
+
+class mystring : public std::string{
+public:
+	mystring() : std::string() {}
+	mystring(const char* c) : std::string(c) {}
+
+	bool operator!=(const double& d) const{
+		return !operator==(d);
+	}
+	bool operator==(const double& d) const{
+		if(d==NOT_VALID){
+			return std::string(*this) == "invalid";
+		}else if(d==NOT_INPUT){
+			return std::string(*this) == "not_input";
+		}else{
+			unreachable();
+			return false;
+		}
+	}
+
+	void parse(CS& a){
+		incomplete();
+		trace1("mystring parse", a.tail());
+	}
+};
+
+inline std::string to_string(mystring const& a){
+	return std::string(a);
+}
 
 namespace qucs{
 
@@ -33,13 +72,6 @@ static const int CIR_MSCOUPLED = 3;
 static const int CIR_MSLINE = 2;
 static const nr_double_t z0 = 50.0; // yikes.
 
-#if 0
-static const double euler = 2.7182818284590452353602874713526625;
-static const double pi = M_PI;
-static const double one_over_pi = 1./pi;
-static const double two_over_pi = 2./pi;
-static const double pi_over_2 = pi*.5;
-#endif
 
 typedef enum {
 	NODE_1 = 0,
@@ -49,168 +81,71 @@ typedef enum {
 
 typedef enum { VSRC_1 = 0, VSRC_2 = 1} vsrc_number;
 
-// some other header?
-inline double sin(double y)
-{
-	return ::sin(y);
-}
-inline double exp(double y)
-{
-	return ::exp(y);
-}
-inline double pow(double x, double y)
-{
-	return ::pow(x, y);
-}
-inline double log(double x)
-{
-	return ::log(x);
-}
-inline double coth(double x)
-{
-	return 1./::tanh(x);
-}
-inline nr_complex_t coth (const nr_complex_t z)
-{
-    nr_double_t r = 2.0 * std::real (z);
-    nr_double_t i = 2.0 * std::imag (z);
-    return 1.0 + 2.0 / (std::polar (std::exp (r), i) - 1.0);
-}
-inline double quadr(double x)
-{
-	incomplete();
-	return 0.;
-}
-inline double log10(double x)
-{
-	return std::log10(x);
-}
-inline double cosh(double x)
-{
-	return ::cosh(x);
-}
-inline double atan(double x)
-{
-	return ::atan(x);
-}
-inline double sinh(double x)
-{
-	return ::sinh(x);
-}
-inline nr_complex_t sinh(nr_complex_t x)
-{
-	return std::sinh(x);
-}
-inline nr_complex_t cosech (const nr_complex_t z)
-{
-    return (1.0 / std::sinh(z));
-}
-inline nr_complex_t cosh (const nr_complex_t z)
-{
-    return std::cosh(z);
-}
-inline double sqrt(double x)
-{
-	return ::sqrt(x);
-}
-inline double sqr(double x)
-{
-	return x*x;
-}
-// inline matrix operator*(double, matrix)
-// {
-// 	incomplete();
-// 	return matrix();
-// }
-// inline matrix::matrix()
-// {
-// 	incomplete();
-// }
-// inline matrix::matrix(matrix const&)
-// {
-// 	incomplete();
-// }
-// inline matrix::~matrix()
-// {
-// 	incomplete();
-// }
-// inline matrix conj(matrix)
-// {
-// 	incomplete();
-// 	return matrix();
-// }
-
-struct substrate{
-	double getPropertyDouble(std::string const&){
-		incomplete();
-		return 0.;
-	}
-	const char* getPropertyString(std::string const&){
-		incomplete();
-		return nullptr;
-	}
-};
-
 class circuit : public COMPONENT{
 protected:
-	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){
+	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){ untested();
 		assert(_num_ports);
+		assert(!_n);
 		// init();
 	};
 public:
-	circuit(int n) :  COMPONENT(), _num_ports(n) {
+	circuit(int n) : COMPONENT(), _num_ports(n) { untested();
+		assert(!_n);
 		assert(n);
 	}
-	~circuit() {
+	~circuit() { untested();
 		incomplete();
 		for(auto i : _p){
 			delete i;
 		}
-		// delete _n;
+		delete _matrix;
+		delete [] _n;
 	}
 private:
 	virtual define_t* cd() const = 0;
 public:
-	void init(){ untested();
-		_n = new node_t[_num_ports];
-		unsigned i=0;
-		for(;;++i){ untested();
-			if(char const* k=cd()->required[i].key){
-				_p.push_back(new PARAMETER<double>);
-				_pnames.push_back(k);
-				_pn[k] = _p.back();
-			}else{
-				break;
-			}
-		}
-		unsigned j=0;
-		for(;;++j){ untested();
-			if(char const* k=cd()->optional[j].key){
-				_p.push_back(new PARAMETER<double>);
-				_pnames.push_back(k);
-				_pn[k] = _p.back();
-			}else{
-				break;
-			}
-		}
-		trace2("circuit::init params", i, j);
-	}
+	void init();
 protected: // qucsator globals
-
-	double getPropertyDouble(std::string const&){
-		incomplete();
-		return 0.;
+	double getPropertyDouble(std::string const& s){
+		trace1("getPropertyDouble", s);
+		auto i = _pn.find(s);
+		if(i == _pn.end()){ untested();
+			assert(false);
+			return 0.;
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
+			assert(*ps == *ps);
+			assert(ps->has_good_value());
+			return *ps;
+		}else{
+			assert(false);
+			return 0;
+		}
 	}
-	const char* getPropertyString(std::string const&){
-		incomplete();
-		return nullptr;
+	const char* getPropertyString(std::string const& s){
+		trace2("prop string", s, short_label());
+		auto i = _pn.find(s);
+		if(i == _pn.end()){ untested();
+			assert(false);
+			return "";
+		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(i->second)){ untested();
+			trace2("got prop string", s, ps->string());
+			return ps->string().c_str();
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
+			assert(false);
+			return ps->string().c_str();
+		}else{
+			assert(false);
+			return "";
+		}
 	}
 	void setCharacteristic (std::string const& name, double const& value){
 		incomplete();
 	}
 	substrate /*const*/ * getSubstrate(){
-		incomplete();
-		return nullptr;
+		trace1("getSubstrate", _pn["Subst"]);
+		trace1("getSubstrate", getPropertyString("Subst"));
+
+		return _substrate;
 	}
    void setVoltageSources(double) {incomplete();}
    void setInternalVoltageSource(double) {incomplete();}
@@ -225,18 +160,118 @@ protected: // qucsator globals
 	void setS (node_number, node_number, nr_complex_t){ incomplete(); }
 	void setD (vsrc_number, vsrc_number, nr_complex_t){ incomplete(); }
 // acrhs?
-	void setY (node_number, node_number, nr_complex_t){ incomplete(); }
+	void setY (node_number ii, node_number jj, nr_complex_t x){ untested();
+		DPAIR& dp = _matrix[ii*_num_ports+jj];
+		assert(x==x);
+		dp.first = x.real();
+		dp.second = x.imag();
+	}
    void voltageSource (vsrc_number, node_number, node_number){ incomplete(); }
 
+
+private: // "circuit"
+	virtual void calcAC (nr_double_t){ unreachable(); }
+
 private: // COMPONENT
+	void precalc_first() override{
+		CARD_LIST* Scope=scope();
+		COMPONENT::precalc_first();
+
+		for(unsigned s=0; s<_p.size(); ++s){
+			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){ untested();
+				ps->e_val(NOT_VALID, Scope);
+				trace3("param", s, ps->string(), *ps);
+			}else{
+			}
+		}
+
+		std::string s = getPropertyString("Subst");
+    	_substrate = dynamic_cast<substrate*>(find_in_my_scope(s));
+		assert(_substrate); // for now.. TODO
+	}
+	void expand() override{
+		incomplete();
+		COMPONENT::expand();
+	}
+	void precalc_last() override{
+		incomplete();
+		COMPONENT::precalc_last();
+	}
+	void tr_iwant_matrix() override {tr_iwant_matrix_extended();}
+	void ac_iwant_matrix() override {ac_iwant_matrix_extended();}
+	void tr_iwant_matrix_extended() { untested();
+		assert(is_device());
+		assert(!subckt());
+		trace3("iwant", ext_nodes(), int_nodes(), matrix_nodes());
+		assert(ext_nodes() + int_nodes() == matrix_nodes());
+
+		for (int ii = 0;  ii < matrix_nodes();  ++ii) {
+			if (_n[ii].m_() >= 0) {
+				for (int jj = 0;  jj < ii ;  ++jj) {
+					_sim->_aa.iwant(_n[ii].m_(),_n[jj].m_());
+					_sim->_lu.iwant(_n[ii].m_(),_n[jj].m_());
+				}
+			}else{itested();
+				// node 1 is grounded or invalid
+			}
+		}
+	}
+	void ac_iwant_matrix_extended() { untested();
+		assert(is_device());
+		assert(!subckt());
+		trace3("iwant", ext_nodes(), int_nodes(), matrix_nodes());
+		assert(ext_nodes() + int_nodes() == matrix_nodes());
+
+		for (int ii = 0;  ii < matrix_nodes();  ++ii) {
+			if (_n[ii].m_() >= 0) {
+				for (int jj = 0;  jj < ii ;  ++jj) {
+					_sim->_acx.iwant(_n[ii].m_(),_n[jj].m_());
+				}
+			}else{itested();
+				// node 1 is grounded or invalid
+			}
+		}
+	}
+	bool do_tr() override{
+		incomplete();
+		return true;
+	}
+	void tr_load() override{
+		incomplete();
+	}
+	void ac_load() override{
+		for (int ii=0; ii < matrix_nodes(); ++ii) {
+			//		ac_load_source_point(_n[ii], COMPLEX(_i0[ni], _i1[ni])); // TODO
+			for (int jj = 0; jj < matrix_nodes(); ++jj) {
+				DPAIR& dp = _matrix[ii*_num_ports+jj];
+				trace4("ac_load", ii, jj, dp.first, dp.second);
+				ac_load_point(_n[ii], _n[jj], COMPLEX(dp.first, dp.second));
+			}
+		}
+	}
+   void tr_begin() override{
+		incomplete();
+	}
+   void do_ac() override{ untested();
+		double freq = _sim->_jomega.imag() / M_2_PI;
+		trace1("circuit::do_ac", freq);
+		calcAC (freq);
+	}
    int param_count()const override{
 		trace1("circuit::param_count", _p.size());
 		return COMPONENT::param_count() + _p.size();
 	}
-   bool param_is_printable(int)const override{ return true; } // {COMPONENT::param_count() + _p.size();}
+   bool param_is_printable(int i)const override{
+		int s = circuit::param_count() - 1 - i;
+		if(s < _p.size()){
+			return true;
+		}else{
+			return COMPONENT::param_is_printable(i);
+		}
+	}
 	void set_param_by_index(int i, std::string& b, int j) override{
 		trace3("circuit::set_param_by_index", i, b, j);
-		int s = _p.size() - 1 - i;
+		int s = circuit::param_count() - 1 - i;
 		if(s < _p.size()){
 			*_p[s] = b;
 		}else{
@@ -254,15 +289,15 @@ private: // COMPONENT
 		trace2("spbn", a, b);
 	}
 	std::string param_name(int i)const{
-		int s = _p.size() - 1 - i;
+		int s = circuit::param_count() - 1 - i;
 		if(s < _p.size()){
-			assert(i<_pnames.size());
-			return _pnames[i];
+			assert(s<_pnames.size());
+			return *_pnames[s];
 		}else{ untested();
 			return COMPONENT::param_name(i);
 		}
 	}
-	std::string param_name(int i,int j)const{
+	std::string param_name(int i,int j)const{ untested();
 		if(j==0){
 			return param_name(i);
 		}else{
@@ -270,28 +305,31 @@ private: // COMPONENT
 			return "dunno";
 		}
 	}
-	std::string param_value(int i)const override{
-		int s = _p.size() - 1 - i;
+	std::string param_value(int i)const override{ untested();
+		int s = circuit::param_count() - 1 - i;
 		if(s >= _p.size()){
 			return COMPONENT::param_name(i);
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[i])){ untested();
-			assert(i<_p.size());
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){ untested();
+			assert(s<_p.size());
 			return ps->string();
-		}else{ untested();
+		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(_p[s])){ untested();
+			assert(s<_p.size());
+			return ps->string();
+		}else{
 			return "unreachable";
 		}
 	}
 
-	std::string value_name()const override{incomplete(); return "incomplete";}
+	std::string value_name()const override{incomplete(); return "value_name_incomplete";}
 	std::string port_name(int i)const override{ untested();
 		return "p"+to_string(i);
 	}
 	bool print_type_in_spice()const override{ untested(); return false;}
 //	void set_port_by_index(int a, std::string& b) override { incomplete();}
 //	bool node_is_connected(int a) const override { incomplete(); return false; }
-	std::string dev_type()const override {return "some_ms";}
+	std::string dev_type()const override {return cd()->type;}
 	const std::string port_value(int i)const 
-	{
+	{ untested();
 		/// ????
 		assert(_n);
 		assert(i >= 0);
@@ -305,26 +343,88 @@ private: // COMPONENT
 	int net_nodes()const override{ untested();
 		return getSize();
 	}
+	int matrix_nodes()const override{ untested();
+		return getSize();
+	}
+	int int_nodes()const override{ untested();
+		return 0; // really?
+	}
 	int min_nodes()const override{ untested();
 		return getSize();
 	}
+
+private: // should probably use ELEMENT
+	double dampdiff(double* v0, const double& v1) {
+		//double diff = v0 - v1;
+		assert(v0);
+		assert(*v0 == *v0);
+		assert(v1 == v1);
+		double diff = dn_diff(*v0, v1);
+		assert(diff == diff);
+		if (!_sim->is_advance_or_first_iteration()) {
+			diff *= _sim->_damp;
+			*v0 = v1 + diff;
+		}else{
+		}
+		return mfactor() * ((_sim->is_inc_mode()) ? diff : *v0);
+	}
+	void tr_load_point(const node_t& no1, const node_t& no2,
+	                   double* new_value, double* old_value){
+		double d = dampdiff(new_value, *old_value);
+		if (d != 0.) {
+			_sim->_aa.load_point(no1.m_(), no2.m_(), d);
+		}else{
+		}
+		*old_value = *new_value;
+	}
+	void ac_load_point(const node_t& no1, const node_t& no2, COMPLEX value){
+		_sim->_acx.load_point(no1.m_(), no2.m_(), mfactor() * value);
+	}
+
 protected: // qucsator globals
 	int type;
 //	static double C0; // ??
 private:
+	DPAIR* _matrix;
 	int _num_ports;
 	std::vector<PARA_BASE*> _p;
-	std::vector<std::string> _pnames;
+	std::vector<std::string const*> _pnames;
 	std::map<std::string, PARA_BASE*> _pn;
-};
+	substrate* _substrate;
+}; // circuit
+
+inline void circuit::init()
+{ untested();
+	_n = new node_t[_num_ports];
+	_matrix = new DPAIR[_num_ports*_num_ports];
+	unsigned i=0;
+	for(; cd()->required[i].key; ++i){ untested();
+		auto p = cd()->required[i];
+		auto k = p.key;
+
+		if(p.type == PROP_REAL){
+			_p.push_back(new PARAMETER<double>);
+			auto pp = _pn.insert(std::make_pair(k, _p.back()));
+			_pnames.push_back(&pp.first->first);
+		}else if(p.type == PROP_STR){
+			_p.push_back(new PARAMETER<mystring>(mystring("invalid")));
+			auto pp = _pn.insert(std::make_pair(k, _p.back()));
+			_pnames.push_back(&pp.first->first);
+		}else{
+			incomplete();
+		}
+	}
+	unsigned j=0;
+	for(;;++j){ untested();
+		if(char const* k=cd()->optional[j].key){
+			_p.push_back(new PARAMETER<double>);
+			auto p = _pn.insert(std::make_pair(k, _p.back()));
+			_pnames.push_back(&p.first->first);
+		}else{
+			break;
+		}
+	}
+	trace2("circuit::init params", i, j);
 }
-
-#define CREATOR(a) \
-public: \
-	static define_t cirdef; \
-	define_t* cd() const override {untested(); return &cirdef;} \
-	a(); \
-	a( const a& p) : circuit(p){incomplete();} \
-	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
-
+} // namespace qucs
 #endif

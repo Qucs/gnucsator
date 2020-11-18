@@ -56,7 +56,7 @@ struct subckt_alias{
 	subckt_alias(){
 		CARD* x=device_dispatcher["subckt"];
 		assert(x);
-		_d=new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", x);
+		_d = new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", x);
 	}
 	~subckt_alias(){
 		delete _d;
@@ -358,7 +358,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 	assert(x);
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
-		COMMON_COMPONENT* cc = xx->mutable_common();
+		COMMON_COMPONENT* cc = xx->mutable_common(); // probably bug. clone and reattach
 		size_t here = cmd.cursor();
 		for (size_t i=0; ; ++i) {
 			if (!cmd.more()) {
@@ -425,12 +425,25 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 		}
 		xx->attach_common(cc);
 
-	}else if (dynamic_cast<MODEL_CARD*>(x)) { untested();
+	}else if (auto mm = dynamic_cast<MODEL_CARD*>(x)) { untested();
 		unreachable(); // used only for "table"
+		trace2("model parse", cmd.tail(), cmd.fullstring());
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
-		for (;;) { untested();
+		for (size_t i=0; ; ++i) {
 			size_t here = cmd.cursor();
+
+			if (!cmd.more()) {
+				break;
+			}else{
+				std::string Name  = cmd.ctos("=", "", "");
+				cmd >> '=';
+				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
+				trace2("model parse", Name, value);
+				mm->set_param_by_name(Name,value);
+			}
+
+
 			// pp->parse_params_obsolete_callback(cmd);  //BUG//callback//
 			if (!cmd.more()) { untested();
 				break;
@@ -455,12 +468,13 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 /*--------------------------------------------------------------------------*/
 void LANG_QUCSATOR::parse_label(CS& cmd, CARD* x)
 {
-	trace0(("LANG_QUCSATOR::parse_label " + cmd.tail()).c_str() );
+	trace1("LANG_QUCSATOR", cmd.tail());
 	assert(x);
 
 	if (cmd.skip1b(":") != true){ untested();
 		cmd.reset(0);
 		throw Exception("missing colon. device name not recognized: " + cmd.fullstring());
+	}else{
 	}
 
 	std::string my_name;
@@ -515,9 +529,13 @@ MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
 { untested();
 	assert(x);
 	cmd.reset();
-	cmd >> ".model ";
-	parse_label(cmd, x);
+
+//	cmd >> ".model ";
+	//parse_type(cmd, x);
+	//string id_string = cmd.get_to(":");
+
 	parse_type(cmd, x);
+	parse_label(cmd, x);
 	parse_args(cmd, x);
 	cmd.check(bWARNING, "parse:paramset: what's this?");
 	return x;
@@ -764,9 +782,9 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 void LANG_QUCSATOR::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
 {
 	assert(x);
-	o << ".model " << x->short_label() << ' ' << x->dev_type() << " (";
+	o << x->dev_type() << ":" << x->short_label() << ' ';
 	print_args(o, x);
-	o << ")\n";
+	o << "\n";
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCSATOR::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
@@ -819,8 +837,8 @@ void LANG_QUCSATOR::print_args(OMSTREAM& o, const MODEL_CARD* x)
 	assert(x);
 	for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
 		if (x->param_is_printable(ii)) {
-			std::string arg = " " + x->param_name(ii) + "=" + x->param_value(ii);
-			o << arg;
+			o << " " << x->param_name(ii) <<"=\""<<x->param_value(ii);
+			o << "\"";
 		}else{ untested();
 		}
 	}

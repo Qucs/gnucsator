@@ -48,6 +48,7 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
   // fetch substrate properties
   substrate * subst = getSubstrate ();
   nr_double_t er    = subst->getPropertyDouble ("er");
+  assert(er>0);
   nr_double_t h     = subst->getPropertyDouble ("h");
   nr_double_t t     = subst->getPropertyDouble ("t");
   nr_double_t tand  = subst->getPropertyDouble ("tand");
@@ -57,6 +58,7 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
   // quasi-static analysis
   nr_double_t Zle, ErEffe, Zlo, ErEffo;
   analysQuasiStatic (W, h, s, t, er, SModel, Zle, Zlo, ErEffe, ErEffo);
+  assert(ErEffe>0);
 
   // analyse dispersion of Zl and Er
   nr_double_t ZleFreq, ErEffeFreq, ZloFreq, ErEffoFreq;
@@ -65,6 +67,7 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
 
   // analyse losses of line
   nr_double_t ace, aco, ade, ado;
+  assert(ErEffe>0);
   msline::analyseLoss (W, t, er, rho, D, tand, Zle, Zlo, ErEffe,
 		       frequency, "Hammerstad", ace, ade);
   msline::analyseLoss (W, t, er, rho, D, tand, Zlo, Zle, ErEffo,
@@ -72,7 +75,10 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
 
   // compute propagation constants for even and odd mode
   nr_double_t k0 = 2 * pi * frequency / C0;
+  assert(ace==ace);
+  assert(ade==ade);
   ae = ace + ade;
+  assert(ae==ae);
   ao = aco + ado;
   be = qucs::sqrt (ErEffeFreq) * k0;
   bo = qucs::sqrt (ErEffoFreq) * k0;
@@ -142,6 +148,7 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
 				   nr_double_t& ErEffo) {
   // initialize default return values
   ErEffe = ErEffo = er;
+  assert(ErEffe>0);
   Zlo = 42.2; Zle = 55.7;
 
   // normalized width and gap
@@ -431,9 +438,12 @@ void mscoupled::calcAC (nr_double_t frequency) {
   nr_double_t l = getPropertyDouble ("L");
 
   // compute propagation constants for even and odd mode
+  assert(frequency==frequency);
   calcPropagation (frequency);
   nr_complex_t ge = nr_complex_t (ae, be);
+  assert(ge==ge);
   nr_complex_t go = nr_complex_t (ao, bo);
+  assert(go==go);
 
   // compute abbreviations
   nr_complex_t De, Do, y1, y2, y3, y4;
