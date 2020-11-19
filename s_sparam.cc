@@ -478,9 +478,9 @@ void SPARAM::flush()
     unsigned b=(i-1)%_ports.size();
     a = _ports[a]->num();
     b = _ports[b]->num();
-    _out << "<indep S[" << a << "," << b << "] " << _data[0].size() << ">\n";
+    _out << "<dep S[" << a << "," << b << "] frequency" << ">\n";
     qfl(_data[i], _out, size);
-    _out << "</indep>\n";
+    _out << "</dep>\n";
   }
 
 }

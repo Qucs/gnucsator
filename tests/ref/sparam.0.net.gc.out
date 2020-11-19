@@ -13,63 +13,52 @@ stashing as L:0
 .SP:SPTC1 Type= ... p="1e10" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 Gnucap   System status
-iterations: op=3, dc=0, tran=0, fourier=0, total=9
+iterations: op=3, dc=0, tran=0, fourier=0, total=7
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=3, model=0, total=6
 dctran density=66.7%, ac density=66.7%
 
-<indep frequency 3>
+<indep frequency 2>
  100.E+6
- 5.05E+9
  10.E+9
 </indep>
-<indep S[1,1] 3>
+<dep S[1,1] frequency>
  0.3333333+ 0.* i
  0.3333333+ 0.* i
- 0.3333333+ 0.* i
-</indep>
-<indep S[1,2] 3>
+</dep>
+<dep S[1,2] frequency>
  0.+ 0.* i
  0.+ 0.* i
- 0.+ 0.* i
-</indep>
-<indep S[1,3] 3>
- 0.+ 0.* i
+</dep>
+<dep S[1,3] frequency>
  0.+ 0.* i
  0.+ 0.* i
-</indep>
-<indep S[2,1] 3>
+</dep>
+<dep S[2,1] frequency>
  0.+ 0.* i
  0.+ 0.* i
- 0.+ 0.* i
-</indep>
-<indep S[2,2] 3>
+</dep>
+<dep S[2,2] frequency>
  0.3333333+ 0.* i
  0.3333333+ 0.* i
- 0.3333333+ 0.* i
-</indep>
-<indep S[2,3] 3>
+</dep>
+<dep S[2,3] frequency>
  0.+ 0.* i
  0.+ 0.* i
- 0.+ 0.* i
-</indep>
-<indep S[3,1] 3>
- 0.+ 0.* i
+</dep>
+<dep S[3,1] frequency>
  0.+ 0.* i
  0.+ 0.* i
-</indep>
-<indep S[3,2] 3>
+</dep>
+<dep S[3,2] frequency>
  0.+ 0.* i
  0.+ 0.* i
- 0.+ 0.* i
-</indep>
-<indep S[3,3] 3>
+</dep>
+<dep S[3,3] frequency>
  0.6+ 0.* i
  0.6+ 0.* i
- 0.6+ 0.* i
-</indep>
+</dep>
 #Freq                      v(_net0)                  v(_net1)                  v(_net2)                 
  10.                       13.333333330746324207     42.163702133195615218     159.99999994412064552    
- 5.00000000500000219E+9    13.333333330746324207     42.163702133195615218     159.99999994412064552    
- 10.00000000000000444E+9   13.333333330746324207     42.163702133195615218     159.99999994412064552    
+ 10.000000000000006661E+9  13.333333330746324207     42.163702133195615218     159.99999994412064552    

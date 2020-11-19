@@ -70,7 +70,8 @@ private:
 
 		if (_type == tLin) {
 			double range = _stop - _start;
-			double step = range / _points;
+			assert(_points>1);
+			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
 		}else{
@@ -181,7 +182,8 @@ private:
 
 		if (_type == tLin) {
 			double range = _stop - _start;
-			double step = range / _points;
+			assert(_points>1);
+			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
 		}else{
