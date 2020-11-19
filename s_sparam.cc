@@ -85,23 +85,23 @@ private: // override virtual
     return names[i];
   }
 private:
-  void set_param_by_name(std::string a, std::string b) override{ untested();
+  void set_param_by_name(std::string a, std::string b) override{
     trace2("PAC::set_param_by_name", a, b);
-    if(a=="Z"){ untested();
+    if(a=="Z"){
       set_value(b);
-    }else if(a=="P"){ untested();
+    }else if(a=="P"){
       _pwr = b;
-    }else if(a=="Num"){ untested();
+    }else if(a=="Num"){
       _num = b;
     }else{ untested();
     }
   }
 public:
-  unsigned num() const{ untested();
+  unsigned num() const{
     return _num;
   }
   COMPLEX  ac_involts()const	{return -ac_outvolts();}
-  void stamp_rhs(){ untested();
+  void stamp_rhs(){
     _acg = 1;
     ac_load_source();
   }
@@ -122,7 +122,7 @@ public:
 //    Iac #(.I(I)) .. (n, p);
 //    R #(.r({Z})) R1(i 2);
   }
-  double impedance() const{ untested();
+  double impedance() const{
     trace1("imped", value());
     return value();
   }
@@ -134,14 +134,14 @@ static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void PAC::precalc_last()
-{ untested();
+{
   ELEMENT::precalc_last();
   set_constant(true);
   set_converged();
   if(value()<=0){ untested();
     error(bPICKY, long_label()+": setting default impedance, 50Ohm\n");
     set_value(50);
-  }else{ untested();
+  }else{
     trace0("have value");
   }
   _num.e_val(0., scope());
@@ -221,7 +221,7 @@ private:
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
-{ untested();
+{
   _scope = Scope;
   _sim->set_command_ac();
   reset_timers();
@@ -242,7 +242,7 @@ void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
   case rPRESET:		/*nothing*/	break;
   }
 
-  if(_Z){ untested();
+  if(_Z){
     gsl_matrix_complex_free(_Z);
     _Z = NULL;
   }else{ untested();
@@ -257,14 +257,14 @@ void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 static int needslinfix;	// flag: lin option needs patch later (spice compat)
 /*--------------------------------------------------------------------------*/
-void SPARAM::hack_findall( CARD_LIST* scope){ untested();
-  for (CARD_LIST::iterator i = scope->begin(); i != scope->end(); ++i) { untested();
-    if ( PAC* c = dynamic_cast< PAC*>(*i) ) { untested();
+void SPARAM::hack_findall( CARD_LIST* scope){
+  for (CARD_LIST::iterator i = scope->begin(); i != scope->end(); ++i) {
+    if ( PAC* c = dynamic_cast< PAC*>(*i) ) {
       trace1("found port", c->long_label());
       _ports.push_back( c );
-    }else if (!(*i)->is_device()){ untested();
+    }else if (!(*i)->is_device()){
         // model, perhaps
-    } else if ( BASE_SUBCKT* s = dynamic_cast< BASE_SUBCKT*>(*i) ) { untested();
+    } else if ( BASE_SUBCKT* s = dynamic_cast< BASE_SUBCKT*>(*i) ) {
       trace1("going down", s->long_label());
       hack_findall( s->subckt() );
     }
@@ -272,7 +272,7 @@ void SPARAM::hack_findall( CARD_LIST* scope){ untested();
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::setup(CS& Cmd)
-{ untested();
+{
   _out = IO::mstdout;
   _out.reset(); //BUG// don't know why this is needed
   _ports.clear();
@@ -282,11 +282,11 @@ void SPARAM::setup(CS& Cmd)
   std::string output;
 
   size_t here = Cmd.cursor();
-  do{ untested();
-    if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
+  do{
+    if (Cmd.match1("'\"({") || Cmd.is_float()) {
       Cmd >> _start;
       trace1("SPARAM got start", _start);
-      if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
+      if (Cmd.match1("'\"({") || Cmd.is_float()) {
         Cmd >> _stop;
       }else{ untested();
         _stop = _start;
@@ -296,14 +296,14 @@ void SPARAM::setup(CS& Cmd)
         _stepmode = LIN_STEP;
         Cmd >> _step_in;
         trace1("SPARAM got step", _step);
-      }else{ untested();
+      }else{
       }
-    }else{ untested();
+    }else{
       incomplete();
     }
 
     std::string port;
-    if (Cmd.umatch("port")){ untested();
+    if (Cmd.umatch("port")){
       trace2("findbranch", port, Cmd.tail());
       unsigned arg1=Cmd.cursor();
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
@@ -334,7 +334,7 @@ void SPARAM::setup(CS& Cmd)
       }
 #endif
       trace2("done ports", Cmd.tail(), _ports.size());
-    }else{ untested();
+    }else{
 
     }
     //try{ untested();
@@ -398,7 +398,7 @@ void SPARAM::setup(CS& Cmd)
   if (_step==0.) { untested();
     _step = _stop - _start;
     _linswp = true;
-  }else{ untested();
+  }else{
   }
 
   incomplete();
@@ -411,7 +411,7 @@ void SPARAM::setup(CS& Cmd)
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::solve()
-{ untested();
+{
   _sim->_acx.zero();
   std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0.);
 
@@ -425,7 +425,7 @@ void SPARAM::solve()
     _out.setfloatwidth(0,0);
     incomplete();
     // _out << _sim->_acx << "\n" ;
-  }else{ untested();
+  }else{
   }
   ::status.lud.start();
   _sim->_acx.lu_decomp();
@@ -435,16 +435,16 @@ void SPARAM::solve()
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::outdata(double x)
-{ untested();
+{
   store_results(x);
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::store_results(double x)
-{ untested();
+{
   unsigned n=1;
   _data[0].push_back(x);
-  for(unsigned i=0; i< _Z->size1; ++i){ untested();
-    for(unsigned j=0; j< _Z->size2; ++j){ untested();
+  for(unsigned i=0; i< _Z->size1; ++i){
+    for(unsigned j=0; j< _Z->size2; ++j){
       assert(n<_data.size());
       gsl_complex vv=gsl_matrix_complex_get(_Z, i, j);
       COMPLEX v=COMPLEX(GSL_REAL(vv), GSL_IMAG(vv));
@@ -456,24 +456,24 @@ void SPARAM::store_results(double x)
 }
 /*--------------------------------------------------------------------------*/
 template<class T, class O>
-void qfl(T const& t, O& o, unsigned n){ untested();
-  for( auto i : t){ untested();
+void qfl(T const& t, O& o, unsigned n){
+  for( auto i : t){
     o << i << "\n";
   }
 }
 /*--------------------------------------------------------------------------*/
 
 void SPARAM::flush()
-{ untested();
+{
   trace1("flush", _data.size());
   _out << "<indep frequency " << _data[0].size() << ">\n";
-  for( auto i : _data[0]){ untested();
+  for( auto i : _data[0]){
     _out << i.real() << "\n";
   }
   _out << "</indep>\n";
   size_t size=_ports.size();
 
-  for(unsigned i=1; i<_data.size(); ++i) { untested();
+  for(unsigned i=1; i<_data.size(); ++i) {
     unsigned a=(i-1)/_ports.size();
     unsigned b=(i-1)%_ports.size();
     a = _ports[a]->num();
@@ -498,9 +498,9 @@ void SPARAM::outmatrix(gsl_matrix_complex const* M)
 }
 /*--------------------------------------------------------------------------*/
 static void mul_rows(gsl_matrix_complex* M, double const* s)
-{ untested();
-  for(unsigned i=0; i< M->size1; ++i){ untested();
-    for(unsigned j=0; j< M->size2; ++j){ untested();
+{
+  for(unsigned i=0; i< M->size1; ++i){
+    for(unsigned j=0; j< M->size2; ++j){
       gsl_complex vv=gsl_matrix_complex_get(M, i, j);
       vv = gsl_complex_mul_real(vv, s[i]);
       gsl_matrix_complex_set(M, i, j, vv);
@@ -509,9 +509,9 @@ static void mul_rows(gsl_matrix_complex* M, double const* s)
 }
 /*--------------------------------------------------------------------------*/
 static void mul_cols(gsl_matrix_complex* M, double const* s)
-{ untested();
-  for(unsigned i=0; i< M->size1; ++i){ untested();
-    for(unsigned j=0; j< M->size2; ++j){ untested();
+{
+  for(unsigned i=0; i< M->size1; ++i){
+    for(unsigned j=0; j< M->size2; ++j){
       gsl_complex vv=gsl_matrix_complex_get(M, i, j);
       vv = gsl_complex_mul_real(vv, s[j]);
       gsl_matrix_complex_set(M, i, j, vv);
@@ -520,8 +520,8 @@ static void mul_cols(gsl_matrix_complex* M, double const* s)
 }
 /*--------------------------------------------------------------------------*/
 static void add_dia(gsl_matrix_complex* M, double const s)
-{ untested();
-  for(unsigned i=0; i< M->size1; ++i){ untested();
+{
+  for(unsigned i=0; i< M->size1; ++i){
     gsl_complex vv=gsl_matrix_complex_get(M, i, i);
     vv = gsl_complex_add_real(vv, s);
     gsl_matrix_complex_set(M, i, i, vv);
@@ -529,7 +529,7 @@ static void add_dia(gsl_matrix_complex* M, double const s)
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::sweep()
-{ untested();
+{
   int width = std::min(OPT::numdgt+5, BIGBUFLEN-10);
   char format[20];
   //sprintf(format, "%%c%%-%u.%us", width, width);
@@ -542,14 +542,14 @@ void SPARAM::sweep()
   trace3("eval done", _start, _stop, _sim->_freq);
   CARD_LIST::card_list.ac_begin();
 
-  do { untested();
+  do {
 //    _out << "...." << _sim->_freq << "\n";
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     hack_no_load = true;
     solve();
     hack_no_load = false;
     unsigned i=0;
-    for(auto& in : _ports){ untested();
+    for(auto& in : _ports){
       std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0.);
       in->stamp_rhs();
 
@@ -558,20 +558,20 @@ void SPARAM::sweep()
       ::status.back.stop();
 
       unsigned j=0;
-      for(auto const& out: _ports){ untested();
+      for(auto const& out: _ports){
         COMPLEX v=out->ac_involts();
         gsl_complex vv;
         GSL_SET_COMPLEX(&vv, v.real(), v.imag());
         gsl_matrix_complex_set(_Z, i, j, vv);
         if(_type==tZ){ untested();
           _out << v << " ";
-        }else{ untested();
+        }else{
         }
         ++j;
       }
       if(_type==tZ){ untested();
         std::cout << "\n";
-      }else{ untested();
+      }else{
       }
       ++i;
     }
@@ -591,12 +591,12 @@ void SPARAM::sweep()
       gsl_matrix_complex_free(Y);
       gsl_permutation_free(p);
 
-    }else if(_type==tS){ untested();
+    }else if(_type==tS){
       size_t size=_ports.size();
       trace1("S", size);
       std::vector<double> sy0(size);
       unsigned i=0;
-      for(auto p : _ports){ untested();
+      for(auto p : _ports){
         assert(p->impedance());
         double yy = 1./p->impedance();
         assert(yy>0);
@@ -625,7 +625,7 @@ void SPARAM::sweep()
 
       gsl_matrix_complex* S=_Z;
 
-      for(unsigned i=0; i< _Z->size1; ++i){ untested();
+      for(unsigned i=0; i< _Z->size1; ++i){
         gsl_vector_complex_const_view b = gsl_matrix_complex_const_column(B, i);
         gsl_vector_complex_view s = gsl_matrix_complex_row(S, i);
         gsl_linalg_complex_LU_solve (A, p, &b.vector, &s.vector); // FIXME. compute row by row.
@@ -642,19 +642,19 @@ void SPARAM::sweep()
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::first()
-{ untested();
+{
   trace1("SPARAM::first", _start);
   _sim->_freq = _start;
 }
 /*--------------------------------------------------------------------------*/
 bool SPARAM::next_freq()
-{ untested();
+{
   double realstop = (_linswp)
     ? _stop - _step/100.
     : _stop / pow(_step,.01);
-  if (!in_order(double(_start), _sim->_freq, realstop)) { untested();
+  if (!in_order(double(_start), _sim->_freq, realstop)) {
     return false;
-  }else{ untested();
+  }else{
   }
 
   _sim->_freq = (_linswp)
@@ -664,7 +664,7 @@ bool SPARAM::next_freq()
   trace2("SPARAM::next_freq", _sim->_freq, _linswp);
   if (in_order(_sim->_freq, double(_start), double(_stop))) { untested();
     return false;
-  }else{ untested();
+  }else{
     return true;
   }
 }

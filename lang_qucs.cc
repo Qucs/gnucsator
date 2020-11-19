@@ -425,7 +425,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 		}
 //		xx->attach_common(cc);
 
-	}else if (auto mm = dynamic_cast<MODEL_CARD*>(x)) { untested();
+	}else if (auto mm = dynamic_cast<MODEL_CARD*>(x)) {
 		unreachable(); // used only for "table"
 		trace2("model parse", cmd.tail(), cmd.fullstring());
 		int paren = cmd.skip1b('(');
@@ -445,7 +445,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 
 
 			// pp->parse_params_obsolete_callback(cmd);  //BUG//callback//
-			if (!cmd.more()) { untested();
+			if (!cmd.more()) {
 				break;
 			}else if (paren && cmd.skip1b(')')) {untested();
 				break;
@@ -459,7 +459,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 					cmd.skiparg().skip1b("=");
 					in_error = true;
 				}
-			}else{ untested();
+			}else{
 				in_error = false;
 			}
 		}
@@ -526,7 +526,7 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 }
 /*--------------------------------------------------------------------------*/
 MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
-{ untested();
+{
 	assert(x);
 	cmd.reset();
 
