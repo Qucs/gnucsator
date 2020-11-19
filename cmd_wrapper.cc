@@ -68,12 +68,19 @@ private:
 		t._start = _start;
 		t._stop = _stop;
 
-		if (_type == tLin) {
+		if(_points<2){
+			incomplete();
+		}else if (_type == tLin) {
 			double range = _stop - _start;
-			assert(_points>1);
 			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
+		}else if (_type == tLog) { untested();
+			double range = _stop / _start;
+			double step = exp ( log(range)  / (_points-1));
+
+			// log b = log( stop / start ) / points
+			t._args = "* " + to_string(step) + " ";
 		}else{
 			incomplete();
 		}
@@ -180,12 +187,15 @@ private:
 		t._start = _start;
 		t._stop = _stop;
 
+		double range = _stop - _start;
 		if (_type == tLin) {
-			double range = _stop - _start;
 			assert(_points>1);
 			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
+		}else if (_type == tLog) { untested();
+			double step = log(range / (_points-1));
+			t._args = "* " + to_string(step) + " ";
 		}else{
 			incomplete();
 		}
@@ -323,7 +333,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
 			CMD::command("print op v(nodes)", &CARD_LIST::card_list);
-			CMD::command("print ac v(nodes)", &CARD_LIST::card_list);
+			CMD::command("print ac vr(nodes) vi(nodes)", &CARD_LIST::card_list);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;

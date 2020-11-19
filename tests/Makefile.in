@@ -20,6 +20,7 @@ COMMON_TESTS = \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	mscoupler.1.net \
+	notch.1.net \
 	MUT.net \
 	pac.net \
 	rc.net \
