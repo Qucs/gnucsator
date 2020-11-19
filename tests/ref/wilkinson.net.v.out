@@ -1,0 +1,8 @@
+
+Pac #(.Num(1),.P(1),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
+TLIN #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.a(_net0),.b(_net1));
+TLIN #(.Alpha(0),.L(75m),.Temp(26.85),.Z(70.7)) Line2 (.a(_net1),.b(_net2));
+TLIN #(.Alpha(0),.L(75m),.Temp(26.85),.Z(70.7)) Line3 (.a(_net1),.b(_net3));
+Pac #(.Num(2),.P(1),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net2),.2(0));
+Pac #(.Num(3),.P(1),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(_net3),.2(0));
+R #(.R(100),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net3),.n(_net2));

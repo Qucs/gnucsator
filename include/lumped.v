@@ -42,6 +42,18 @@ module Amp(1 2);
 	vcvs #(.gain(G)) vs1(2i 0 1 0);
 endmodule
 
+// is it lumped?
+// TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
+module TLIN (a, b)
+parameter Z=50
+parameter L=100m
+parameter Alpha=1
+parameter Temp=26.85
+
+* local??
+parameter c0=299792458.0
+tline #(.z(Z), .f(c0), .nl(L) t(a 0 b 0);
+endmodule
 
 
 simulator lang=spice
@@ -72,4 +84,5 @@ Ll1 (a1 a2) {L1}
 Ll2 (b1 b2) {L2}
 Ll3 (c1 c2) {L3}
 .ends
+
 .verilog

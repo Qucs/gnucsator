@@ -73,7 +73,7 @@ COMPONENTS (table ripped from [1])
 │ current probe   │  IProbe         │  C             │ TE   │                │
 │ voltage probe   │  VProbe         │  C             │ T    │                │
 │ power probe     │  WProbe         │                │      │                │
-│ ideal transline │                 │                │      │                │
+│ ideal transline │  TLIN           │  U             │ TE   │different model?│
 │ 4-term tline    │                 │                │      │                │
 │ tpair line      │                 │                │      │                │
 │ coaxial line    │                 │                │      │                │

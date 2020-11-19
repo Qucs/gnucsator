@@ -31,6 +31,7 @@ COMMON_TESTS = \
 	sub.1.net \
 	sub.2.net \
 	Switch.0.net \
+	wilkinson.net \
 	Vrect.1.net \
 	Vrect.2.net
 
