@@ -103,6 +103,7 @@ static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name)
   for(PARAM_LIST::iterator i=list.begin(); i!=list.end(); ++i){
     if(i->first == name){
       return i;
+    }else{
     }
   }
 #endif

@@ -106,7 +106,7 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/360.-10)/f}
 * only admit in dc and tr
 .subckt y_dctr 1 2
 .parameter y
-Y1 1 2 ac 0 dc {y} tran {y}
+Y1 1 2 ac {0} dc {y} tran {y}
 .ends
 
 
@@ -117,11 +117,12 @@ parameter Z=50
 parameter P=1
 parameter f=1
 parameter Num=1
-// local!
-parameter U={sqrt(8 * P / Z)}
+
+// U is local...
+parameter U={sqrt(8 * P * Z)}
 Vac #(.U(U) .f(f)) sine(1, i);
 y_dctr #(.y({1/Z})) Y1(i 2);
-pac_ #(.Num(Num) .Z(Z) .P(P) .amplitude(U) .frequency(f)) sp(1, 2);
+pac_ #(.Num(Num) .Z(Z) .P(P)) sp(1, 2);
 endmodule
 
 `ifdef GNUCAP

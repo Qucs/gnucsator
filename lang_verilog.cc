@@ -369,13 +369,13 @@ void LANG_VERILOG::parse_top_item(CS& cmd, CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::print_args(OMSTREAM& o, const MODEL_CARD* x)
-{ untested();
+{
   assert(x);
   if (x->use_obsolete_callback_print()) {untested();
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
-  }else{ untested();
-    for (int ii = x->param_count() - 1;  ii >= 0;  --ii) { untested();
-      if (x->param_is_printable(ii)) { untested();
+  }else{
+    for (int ii = x->param_count() - 1;  ii >= 0;  --ii) {
+      if (x->param_is_printable(ii)) {
 	std::string arg = " ." + x->param_name(ii) + "=" + x->param_value(ii) + ";";
 	o << arg;
       }else{ untested();
@@ -455,7 +455,7 @@ static void print_ports_short(OMSTREAM& o, const COMPONENT* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::print_paramset(OMSTREAM& o, const MODEL_CARD* x)
-{ untested();
+{
   assert(x);
   _mode = mPARAMSET;
   o << "paramset " << x->short_label() << ' ' << x->dev_type() << ";\\\n";

@@ -39,6 +39,7 @@ typedef unsigned needed_t;
 #include <gsl/gsl_linalg.h>
 // #include "io.h"
 
+static bool hack_no_load=false;
 /*--------------------------------------------------------------------------*/
 #ifndef HAVE_UINT_T
 typedef int uint_t;
@@ -59,8 +60,7 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class PAC : public ELEMENT {
 private:
-  explicit PAC(const PAC& p) :ELEMENT(p),
- _num(p._num) {}
+  explicit PAC(const PAC& p) : ELEMENT(p), _pwr(p._pwr), _num(p._num) {}
 public:
   explicit PAC()		:ELEMENT(), _num(-1u) {}
 private: // override virtual
@@ -79,19 +79,21 @@ private: // override virtual
   double   tr_involts_limited()const {return tr_involts();}
   double   tr_probe_num(const std::string&)const;
 
-  std::string port_name(uint_t i)const {
+  std::string port_name(uint_t i)const { untested();
     assert(i < 2);
     static std::string names[] = {"p", "n"};
     return names[i];
   }
 private:
-  void set_param_by_name(std::string a, std::string b){
-    trace2("set_param_by_name", a, b);
+  void set_param_by_name(std::string a, std::string b) override{
+    trace2("PAC::set_param_by_name", a, b);
     if(a=="Z"){
       set_value(b);
+    }else if(a=="P"){
+      _pwr = b;
     }else if(a=="Num"){
       _num = b;
-    }else{
+    }else{ untested();
     }
   }
 public:
@@ -103,11 +105,29 @@ public:
     _acg = 1;
     ac_load_source();
   }
+
+  void ac_load() override{
+    double Z = value();
+    double g = 1/Z;
+    double I = std::sqrt(8 * _pwr / Z);
+    trace3("PAC::ac_load", I, g, _pwr);
+    _acg = I;
+    ac_load_source();
+    _acg = g;
+
+    if(hack_no_load){
+    }else{
+      ac_load_passive();
+    }
+//    Iac #(.I(I)) .. (n, p);
+//    R #(.r({Z})) R1(i 2);
+  }
   double impedance() const{
     trace1("imped", value());
     return value();
   }
 private:
+  PARAMETER<double> _pwr;
   PARAMETER<unsigned> _num;
 }pp;
 static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
@@ -124,15 +144,17 @@ void PAC::precalc_last()
   }else{
     trace0("have value");
   }
-  _num.e_val(0, scope());
+  _num.e_val(0., scope());
+  _pwr.e_val(1., scope());
+  trace1("PAC::precalc_last", _pwr);
   assert(_num!=-1u);
 }
 /*--------------------------------------------------------------------------*/
 double PAC::tr_probe_num(const std::string& x)const
-{
-  if (Umatch(x, "gain ")) {
+{ untested();
+  if (Umatch(x, "gain ")) { untested();
     return tr_outvolts() / tr_involts();
-  }else{
+  }else{ untested();
     return ELEMENT::tr_probe_num(x);
   }
 }
@@ -170,7 +192,7 @@ private:
   bool next_freq();
   void solve();
   void clear();
-void hack_findall( CARD_LIST* scope);
+  void hack_findall( CARD_LIST* scope);
   void setup(CS&);
   void outmatrix(gsl_matrix_complex const* M);
   void outdata(double);
@@ -223,7 +245,7 @@ void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
   if(_Z){
     gsl_matrix_complex_free(_Z);
     _Z = NULL;
-  }else{
+  }else{ untested();
   }
   _sim->_acx.unallocate();
   _sim->unalloc_vectors();
@@ -263,15 +285,17 @@ void SPARAM::setup(CS& Cmd)
   do{
     if (Cmd.match1("'\"({") || Cmd.is_float()) {
       Cmd >> _start;
-      trace1("got start", _start);
+      trace1("SPARAM got start", _start);
       if (Cmd.match1("'\"({") || Cmd.is_float()) {
         Cmd >> _stop;
       }else{ untested();
         _stop = _start;
+        trace1("SPARAM got stop", _stop);
       }
       if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
         _stepmode = LIN_STEP;
         Cmd >> _step_in;
+        trace1("SPARAM got step", _step);
       }else{
       }
     }else{
@@ -285,6 +309,7 @@ void SPARAM::setup(CS& Cmd)
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
 #if 1
       hack_findall(&CARD_LIST::card_list);
+      assert(_ports.size());
       (void) arg1;
       (void) ci;
 #else
@@ -295,10 +320,10 @@ void SPARAM::setup(CS& Cmd)
         unsigned next = Cmd.cursor();
         for(;!ci.is_end();){ untested();
           trace1("have", (*ci)->long_label());
-          if(PAC* P=dynamic_cast<PAC*>(*ci)){
+          if(PAC* P=dynamic_cast<PAC*>(*ci)){ untested();
             error(bDANGER, (*ci)->long_label() + " is a port\n");
             _ports.push_back(P);
-          }else{
+          }else{ untested();
             error(bDANGER, (*ci)->long_label() + " is not a port, skipping\n");
           }
 
@@ -312,7 +337,7 @@ void SPARAM::setup(CS& Cmd)
     }else{
 
     }
-    //try{
+    //try{ untested();
     //  _output.add_list(Cmd);
     //}
     //catch(Exception_Cant_Find)
@@ -342,6 +367,16 @@ void SPARAM::setup(CS& Cmd)
   }while (Cmd.more() && !Cmd.stuck(&here));
   Cmd.check(bWARNING, "what's this??");
 
+  switch (_stepmode) {
+  case ONE_PT:
+  case LIN_STEP:
+    needslinfix = false;
+    _linswp = true;
+    break;
+  default:
+    break;
+  }
+
   size_t size=_ports.size();
   assert(!_Z);
   _Z = gsl_matrix_complex_alloc(size, size);
@@ -360,7 +395,7 @@ void SPARAM::setup(CS& Cmd)
     needslinfix = false;		// but step must be read first
   }else{			// for Spice compatibility
   }		
-  if (_step==0.) {
+  if (_step==0.) { untested();
     _step = _stop - _start;
     _linswp = true;
   }else{
@@ -369,7 +404,7 @@ void SPARAM::setup(CS& Cmd)
   incomplete();
 //  initio(_out);
 
-//  if(!_output.size()){
+//  if(!_output.size()){ untested();
 //    throw(Exception("no output specified"));
 //  }
   trace2("eval done", _start, _stop);
@@ -386,7 +421,7 @@ void SPARAM::solve()
   CARD_LIST::card_list.ac_load();
   ::status.load.stop();
 
-  if (_dump_matrix){
+  if (_dump_matrix){ untested();
     _out.setfloatwidth(0,0);
     incomplete();
     // _out << _sim->_acx << "\n" ;
@@ -451,9 +486,9 @@ void SPARAM::flush()
 }
 /*--------------------------------------------------------------------------*/
 void SPARAM::outmatrix(gsl_matrix_complex const* M)
-{
-  for(unsigned i=0; i< M->size1; ++i){
-    for(unsigned j=0; j< M->size2; ++j){
+{ untested();
+  for(unsigned i=0; i< M->size1; ++i){ untested();
+    for(unsigned j=0; j< M->size2; ++j){ untested();
       gsl_complex vv=gsl_matrix_complex_get(M, i, j);
       COMPLEX x=COMPLEX(GSL_REAL(vv), GSL_IMAG(vv));
       _out << x << " ";
@@ -503,17 +538,19 @@ void SPARAM::sweep()
 //  _out.form(format, '*', "param");
   sprintf(format, "%%-%us", width);
   head(_start, _stop, "@freq");
-  trace2("eval done", _start, _stop);
   first();
+  trace3("eval done", _start, _stop, _sim->_freq);
   CARD_LIST::card_list.ac_begin();
 
   do {
 //    _out << "...." << _sim->_freq << "\n";
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
+    hack_no_load = true;
     solve();
+    hack_no_load = false;
     unsigned i=0;
     for(auto& in : _ports){
-      std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0);
+      std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0.);
       in->stamp_rhs();
 
       ::status.back.start();
@@ -525,8 +562,8 @@ void SPARAM::sweep()
         COMPLEX v=out->ac_involts();
         gsl_complex vv;
         GSL_SET_COMPLEX(&vv, v.real(), v.imag());
-        gsl_matrix_complex_set(_Z, i, j, vv); // <= TODO: check i<->j
-        if(_type==tZ){
+        gsl_matrix_complex_set(_Z, i, j, vv);
+        if(_type==tZ){ untested();
           _out << v << " ";
         }else{
         }
@@ -606,6 +643,7 @@ void SPARAM::sweep()
 /*--------------------------------------------------------------------------*/
 void SPARAM::first()
 {
+  trace1("SPARAM::first", _start);
   _sim->_freq = _start;
 }
 /*--------------------------------------------------------------------------*/
@@ -622,6 +660,8 @@ bool SPARAM::next_freq()
   _sim->_freq = (_linswp)
     ? _sim->_freq + _step
     : _sim->_freq * _step;
+
+  trace2("SPARAM::next_freq", _sim->_freq, _linswp);
   if (in_order(_sim->_freq, double(_start), double(_stop))) { untested();
     return false;
   }else{

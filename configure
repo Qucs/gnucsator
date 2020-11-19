@@ -64,6 +64,7 @@ fill_template() {
 fill_template config.h
 fill_template Makefile
 fill_template tests/Makefile
+fill_template qucsator/Makefile
 fill_template gnucsator.rc
 
 echo -n '# ' > config.log

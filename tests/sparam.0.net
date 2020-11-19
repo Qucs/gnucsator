@@ -1,0 +1,10 @@
+# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_mscoupler_prj/mscoupler.sch
+
+Pac:P1 _net0 gnd Num="1" Z="50 Ohm" P="1" f="1 GHz" Temp="26.85"
+Pac:P2 _net1 gnd Num="2" Z="50 Ohm" P="10" f="1 GHz" Temp="26.85"
+Pac:P3 _net2 gnd Num="3" Z="50 Ohm" P="100" f="1 GHz" Temp="26.85"
+R:R1 _net0 gnd R=100
+R:R2 _net1 gnd R=100
+R:R3 _net2 gnd R=200
+.AC:SPTC1 Type="lin" Start="1e1" Stop="1e10" Points="2"
+.SP:SPTC1 Type="lin" Start="1e8" Stop="1e10" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"

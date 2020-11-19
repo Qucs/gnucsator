@@ -6,10 +6,10 @@ GNUCAP = gnucap$(SUFFIX)
 
 DIFF = diff -w -u
 NUMDIFF = numdiff -r1.e-6 -a1.e-8
-REF=ref
+REF = ref
 
-SHELL=/bin/bash
-LN_S=ln -s
+SHELL = /bin/bash
+LN_S = ln -s
 
 all: gc qucs
 
@@ -19,12 +19,15 @@ COMMON_TESTS = \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
+	mscoupler.1.net \
 	MUT.net \
 	pac.net \
 	rc.net \
 	resonance_ac.net \
 	rr.net \
 	sparam_e.net \
+	sparam.0.net \
+	sparam.1.net \
 	sub.1.net \
 	sub.2.net \
 	Switch.0.net \
@@ -37,11 +40,15 @@ GC_TESTS = \
 	c_hide.2.gc \
 	IProbe.1.gc \
 	d_eqn.1.gc \
+	mscoupler.1.gc \
 	qucs.gc \
 	list.1.gc \
 	wrap.gc \
 	wrap.bad.gc \
 	rect.gc
+
+NOTYET_GC_TESTS = \
+	mscoupler.1.gc
 
 check: diff
 

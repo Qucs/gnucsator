@@ -64,12 +64,13 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
   return ret;
 }
 
-bool QucsGuessParam(std::string& p)
+bool QucsGuessParam(std::string& s)
 {
+  char const* p = s.c_str();
   std::string temp;
   for (unsigned i = 0; p[i] != '\0'; i++){
     if (p[i] != ' '){
-      temp.append(1,p[i]);
+      temp.append(1, p[i]);
     }else if(!p[++i]){ untested();
       // end after blank (strange)
       break;
@@ -87,27 +88,30 @@ bool QucsGuessParam(std::string& p)
 	   || p[i] == 'T' // 12
 	   ){
       // pass through
-      temp.append(1,p[i]);
+      temp.append(1, p[i]);
       break;
     }else if( p[i] == 'A' ){
       // this could be "Ampere". ignore.
+    }else if( p[i] == 'd' && p[i+1] == 'B' && p[i+2] == 'm' ){
+      // dBm? need to substitute x for 10*log_10(x * 1000) (or so).
+      incomplete();
+      temp = s.substr(0,i); // ??
+      break;
     }else if( ONE_OF
-	   || p[i] == 'd' // -1
 	   || p[i] == 'D' // 1
 	   || p[i] == 'h' // 2
 	   || p[i] == 'P' // 15
 	   || p[i] == 'E' // 18
 	   ){
       incomplete();
-      // dBm? need to substitute x for 10*log_10(x * 1000) (or so).
-      error(bDANGER, "what is %s?\n", p.c_str());
+      error(bDANGER, "what is %s?\n", p);
       break;
     }else{
       break;
     }
   }
   trace2("p", p, temp);
-  p.swap(temp);
+  s.swap(temp);
 
   bool ok=true; // incomplete.
   return ok;

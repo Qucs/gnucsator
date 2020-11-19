@@ -30,6 +30,8 @@ PLUGIN_CC = \
 	bm_trivial.cc \
 	bm_wrapper.cc \
 	cmd_wrapper.cc \
+	mscoupled_wrap.cc \
+	subst_wrap.cc \
 	s_tr.cc \
 	s_dc.cc \
 	s_sparam.cc

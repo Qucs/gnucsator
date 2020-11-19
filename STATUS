@@ -1,9 +1,10 @@
 SIMULATION COMMANDS
 
 - implementation column
-    U  upstream
+    U  gnucap upstream
     M  modified upstream plugin
     C  custom plugin
+    Q  qucsator code (wrapped)
     S  postprocessor script
 
 - test column
@@ -17,7 +18,7 @@ SIMULATION COMMANDS
 │ operating point │  DC             │   M            │ TEI  │                │
 │ transient       │  TR             │   US           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
-│ ac analysis     │  AC             │   M            │      │ needs hack     │
+│ ac analysis     │  AC             │   M            │ TEI  │ needs output   │
 │ pz              │  ?              │   C            │      │ gnucap-python  │
 │ sensitivity     │  ?              │                │      │ gnucap-uf..    │
 │ noise           │  ?              │                │      │ gnucap-uf..    │
@@ -85,7 +86,7 @@ COMPONENTS (table ripped from [1])
 │ microstrip tee  │                 │                │      │                │
 │ mstrip corner   │                 │                │      │                │
 │ microstrip gap  │                 │                │      │                │
-│ cpld mstrip line│                 │                │      │                │
+│ cpld mstrip line│ MCOUPLED        │  Q             │ TE   │ needs checking │
 │ microstrip via  │                 │                │      │                │
 │ mstrip rad stub │                 │                │      │                │
 │ coplanar line   │                 │                │      │                │

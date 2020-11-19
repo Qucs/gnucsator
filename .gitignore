@@ -11,6 +11,8 @@ gnucsator.rc
 *.dat
 *~
 
+!tests/ref/*.out
+
 tests/*.diff
 tests/qucs
 

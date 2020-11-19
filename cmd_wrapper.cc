@@ -156,6 +156,7 @@ public:
 	typedef struct{
 		double _start;
 		double _stop;
+		std::string _args;
 	} data_t;
 private:
 	double _start;
@@ -177,6 +178,16 @@ private:
 		data_t t;
 		t._start = _start;
 		t._stop = _stop;
+
+		if (_type == tLin) {
+			double range = _stop - _start;
+			double step = range / _points;
+			incomplete();
+			t._args = "step " + to_string(step) + " ";
+		}else{
+			incomplete();
+		}
+
 		_stash[short_label()] = t;
 	}
 public: // GO
@@ -325,9 +336,10 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				exit(1);
 			}
 
-			if(!c){
+			if(!c){ untested();
 				error(bDANGER, "transient command missing, load plugin?\n");
 				exit(1);
+			}else{
 			}
 
 			// what happens if there are multiple trans?
@@ -342,6 +354,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			if(TRAN_WRAP::_stash.empty()){
 				CS wcmd(CS::_STRING, " >/dev/null");
 				o->do_it(wcmd, cl);
+			}else{
 			}
 			for(auto const&i : DC_WRAP::_stash){
 				incomplete();
@@ -365,9 +378,9 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			for(auto&i : SP_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
-				x << "port * " << j._start << " " << j._stop
+				x << "port * " << j._start << " " << j._stop << " " <<  j._args
 				  << " > " << _outfile << ".sp";
-				trace1("running", x.str());
+				trace1("SP_WRAP running", x.str());
 				CS wcmd(CS::_STRING, x.str());
 				s->do_it(wcmd, cl);
 			}
@@ -384,10 +397,10 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 		// quit is invoked from main()
 		// exit is an alias, we overload quit and call exit.
 		void quit(CARD_LIST* cl)
-		{
+		{ untested();
 			trace0("exiting...");
 			CMD* c = NULL;
-			try {
+			try { untested();
 				c = command_dispatcher["exit"];
 			}catch(Exception const&){ incomplete();
 			}
