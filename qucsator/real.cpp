@@ -106,7 +106,9 @@ nr_double_t  atan2 (const nr_double_t x, const nr_double_t y) {
     \return hyperbolic cosine of z
 */
 nr_double_t  cosh (const nr_double_t arg) {
-  return std::cosh (arg);
+  double r = std::cosh (arg);
+  assert(r==r);
+  return r;
 }
 
 /*! \brief Compute hyperbolic sine

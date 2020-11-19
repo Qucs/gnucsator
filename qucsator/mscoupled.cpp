@@ -31,13 +31,15 @@
 #include "msline.h"
 #include "mscoupled.h"
 
+#include <gnucap/io_trace.h>
+
 using namespace qucs;
 
 mscoupled::mscoupled () : circuit (4) {
   type = CIR_MSCOUPLED;
 }
 
-void mscoupled::calcPropagation (nr_double_t frequency) {
+void mscoupled::calcPropagation (nr_double_t frequency) { untested();
 
   // fetch line properties
   nr_double_t W = getPropertyDouble ("W");
@@ -54,6 +56,9 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
   nr_double_t tand  = subst->getPropertyDouble ("tand");
   nr_double_t rho   = subst->getPropertyDouble ("rho");
   nr_double_t D     = subst->getPropertyDouble ("D");
+
+  trace4("calcPropagation", er, h, t, tand);
+  trace4("calcPropagation", W, s, D, frequency);
 
   // quasi-static analysis
   nr_double_t Zle, ErEffe, Zlo, ErEffo;
@@ -75,6 +80,9 @@ void mscoupled::calcPropagation (nr_double_t frequency) {
 
   // compute propagation constants for even and odd mode
   nr_double_t k0 = 2 * pi * frequency / C0;
+  trace1("mscoupled", C0);
+  assert(k0==k0);
+  assert(k0);
   assert(ace==ace);
   assert(ade==ade);
   ae = ace + ade;
@@ -145,7 +153,7 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
 				   nr_double_t t, nr_double_t er,
 				   const char * const SModel, nr_double_t& Zle,
 				   nr_double_t& Zlo, nr_double_t& ErEffe,
-				   nr_double_t& ErEffo) {
+				   nr_double_t& ErEffo) { untested();
   // initialize default return values
   ErEffe = ErEffo = er;
   assert(ErEffe>0);
@@ -411,12 +419,14 @@ void mscoupled::initDC (void) {
     nr_double_t g = t * W / rho / l;
     setVoltageSources (0);
     allocMatrixMNA ();
+	 assert(g==g);
     setY (NODE_1, NODE_1, +g); setY (NODE_2, NODE_2, +g);
     setY (NODE_1, NODE_2, -g); setY (NODE_2, NODE_1, -g);
     setY (NODE_3, NODE_3, +g); setY (NODE_4, NODE_4, +g);
     setY (NODE_3, NODE_4, -g); setY (NODE_4, NODE_3, -g);
   }
   else {
+	  assert(false);
     // DC shorts (voltage sources V = 0 volts)
     setVoltageSources (2);
     setInternalVoltageSource (1);
@@ -433,7 +443,9 @@ void mscoupled::initAC (void) {
   allocMatrixMNA ();
 }
 
-void mscoupled::calcAC (nr_double_t frequency) {
+void mscoupled::calcAC (nr_double_t frequency) { untested();
+	trace1("mscoupled::calcAC", frequency);
+	assert(frequency);
   // fetch line properties
   nr_double_t l = getPropertyDouble ("L");
 
@@ -447,14 +459,29 @@ void mscoupled::calcAC (nr_double_t frequency) {
 
   // compute abbreviations
   nr_complex_t De, Do, y1, y2, y3, y4;
+  assert(ze==ze);
+  assert(ze);
+  assert(l==l);
+  assert(ge==ge);
   De = 0.5 / (ze * qucs::sinh (ge * l));
+  assert(De==De);
   Do = 0.5 / (zo * qucs::sinh (go * l));
+  assert(Do==Do);
   y2 = -De - Do;
+  assert(y2==y2);
   y3 = -De + Do;
+  assert(y3==y3);
+  assert(De==De);
+  trace3("DE??", ge, l, ge*l);
+  trace1("...", cosh (ge * l));
   De *= cosh (ge * l);
+  assert(De==De);
   Do *= cosh (go * l);
   y1 = De + Do;
+  assert(Do==Do);
+  assert(y1==y1);
   y4 = De - Do;
+  assert(y4==y4);
 
   // store Y-parameters
   setY (NODE_1, NODE_1, y1); setY (NODE_2, NODE_2, y1);

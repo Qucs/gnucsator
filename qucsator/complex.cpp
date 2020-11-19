@@ -43,6 +43,8 @@
 #include "consts.h"
 #include "fspecial.h"
 
+#include <gnucap/io_trace.h>
+
 
 namespace qucs {
 
@@ -132,7 +134,7 @@ nr_complex_t atan (const nr_complex_t z) {
     \param[in] z complex arc
     \return hyperbolic cosine of z
 */
-nr_complex_t cosh (const nr_complex_t z) {
+nr_complex_t cosh (const nr_complex_t z) { untested();
     return std::cosh (z);
 }
 
@@ -141,7 +143,7 @@ nr_complex_t cosh (const nr_complex_t z) {
     \param[in] z complex arc
     \return hyperbolic sine of z
 */
-nr_complex_t sinh (const nr_complex_t z) {
+nr_complex_t sinh (const nr_complex_t z) { untested();
     return std::sinh (z);
 }
 

@@ -255,6 +255,7 @@ void AC::sweep()
   first();
   CARD_LIST::card_list.ac_begin();
   do {
+    trace1("AC::sweep", _sim->_freq);
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     solve();
 //    outdata(_sim->_freq, ofPRINT | ofSTORE);

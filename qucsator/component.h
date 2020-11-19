@@ -42,27 +42,27 @@ public:
 	mystring() : std::string() {}
 	mystring(const char* c) : std::string(c) {}
 
-	bool operator!=(const double& d) const{
+	bool operator!=(const double& d) const{ untested();
 		return !operator==(d);
 	}
-	bool operator==(const double& d) const{
-		if(d==NOT_VALID){
+	bool operator==(const double& d) const{ untested();
+		if(d==NOT_VALID){ untested();
 			return std::string(*this) == "invalid";
-		}else if(d==NOT_INPUT){
+		}else if(d==NOT_INPUT){ untested();
 			return std::string(*this) == "not_input";
-		}else{
+		}else{ untested();
 			unreachable();
 			return false;
 		}
 	}
 
-	void parse(CS& a){
+	void parse(CS& a){ untested();
 		incomplete();
 		trace1("mystring parse", a.tail());
 	}
 };
 
-inline std::string to_string(mystring const& a){
+inline std::string to_string(mystring const& a){ untested();
 	return std::string(a);
 }
 
@@ -95,7 +95,7 @@ public:
 	}
 	~circuit() { untested();
 		incomplete();
-		for(auto i : _p){
+		for(auto i : _p){ untested();
 			delete i;
 		}
 		delete _matrix;
@@ -106,7 +106,7 @@ private:
 public:
 	void init();
 protected: // qucsator globals
-	double getPropertyDouble(std::string const& s){
+	double getPropertyDouble(std::string const& s){ untested();
 		trace1("getPropertyDouble", s);
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
@@ -116,12 +116,13 @@ protected: // qucsator globals
 			assert(*ps == *ps);
 			assert(ps->has_good_value());
 			return *ps;
-		}else{
+			trace1("getPropertyDouble", *ps);
+		}else{ untested();
 			assert(false);
 			return 0;
 		}
 	}
-	const char* getPropertyString(std::string const& s){
+	const char* getPropertyString(std::string const& s){ untested();
 		trace2("prop string", s, short_label());
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
@@ -129,22 +130,20 @@ protected: // qucsator globals
 			return "";
 		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(i->second)){ untested();
 			trace2("got prop string", s, ps->string());
+			trace0("got prop string...");
 			return ps->string().c_str();
 		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
 			assert(false);
 			return ps->string().c_str();
-		}else{
+		}else{ untested();
 			assert(false);
 			return "";
 		}
 	}
-	void setCharacteristic (std::string const& name, double const& value){
+	void setCharacteristic (std::string const& name, double const& value){ untested();
 		incomplete();
 	}
-	substrate /*const*/ * getSubstrate(){
-		trace1("getSubstrate", _pn["Subst"]);
-		trace1("getSubstrate", getPropertyString("Subst"));
-
+	substrate /*const*/ * getSubstrate(){ untested();
 		return _substrate;
 	}
    void setVoltageSources(double) {incomplete();}
@@ -170,18 +169,19 @@ protected: // qucsator globals
 
 
 private: // "circuit"
-	virtual void calcAC (nr_double_t){ unreachable(); }
+	virtual void calcAC(nr_double_t){ unreachable(); }
+	virtual void initDC(){ unreachable(); }
 
 private: // COMPONENT
-	void precalc_first() override{
+	void precalc_first() override{ untested();
 		CARD_LIST* Scope=scope();
 		COMPONENT::precalc_first();
 
-		for(unsigned s=0; s<_p.size(); ++s){
+		for(unsigned s=0; s<_p.size(); ++s){ untested();
 			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){ untested();
 				ps->e_val(NOT_VALID, Scope);
 				trace3("param", s, ps->string(), *ps);
-			}else{
+			}else{ untested();
 			}
 		}
 
@@ -189,12 +189,11 @@ private: // COMPONENT
     	_substrate = dynamic_cast<substrate*>(find_in_my_scope(s));
 		assert(_substrate); // for now.. TODO
 	}
-	void expand() override{
+	void expand() override{ untested();
 		incomplete();
 		COMPONENT::expand();
 	}
-	void precalc_last() override{
-		incomplete();
+	void precalc_last() override{ untested();
 		COMPONENT::precalc_last();
 	}
 	void tr_iwant_matrix() override {tr_iwant_matrix_extended();}
@@ -205,9 +204,9 @@ private: // COMPONENT
 		trace3("iwant", ext_nodes(), int_nodes(), matrix_nodes());
 		assert(ext_nodes() + int_nodes() == matrix_nodes());
 
-		for (int ii = 0;  ii < matrix_nodes();  ++ii) {
-			if (_n[ii].m_() >= 0) {
-				for (int jj = 0;  jj < ii ;  ++jj) {
+		for (int ii = 0;  ii < matrix_nodes();  ++ii) { untested();
+			if (_n[ii].m_() >= 0) { untested();
+				for (int jj = 0;  jj < ii ;  ++jj) { untested();
 					_sim->_aa.iwant(_n[ii].m_(),_n[jj].m_());
 					_sim->_lu.iwant(_n[ii].m_(),_n[jj].m_());
 				}
@@ -222,9 +221,9 @@ private: // COMPONENT
 		trace3("iwant", ext_nodes(), int_nodes(), matrix_nodes());
 		assert(ext_nodes() + int_nodes() == matrix_nodes());
 
-		for (int ii = 0;  ii < matrix_nodes();  ++ii) {
-			if (_n[ii].m_() >= 0) {
-				for (int jj = 0;  jj < ii ;  ++jj) {
+		for (int ii = 0;  ii < matrix_nodes();  ++ii) { untested();
+			if (_n[ii].m_() >= 0) { untested();
+				for (int jj = 0;  jj < ii ;  ++jj) { untested();
 					_sim->_acx.iwant(_n[ii].m_(),_n[jj].m_());
 				}
 			}else{itested();
@@ -232,90 +231,98 @@ private: // COMPONENT
 			}
 		}
 	}
-	bool do_tr() override{
+	bool do_tr() override{ untested();
 		incomplete();
 		return true;
 	}
-	void tr_load() override{
+	void tr_load() override{ untested();
 		incomplete();
 	}
-	void ac_load() override{
-		for (int ii=0; ii < matrix_nodes(); ++ii) {
+	void ac_load() override{ untested();
+		for (int ii=0; ii < matrix_nodes(); ++ii) { untested();
 			//		ac_load_source_point(_n[ii], COMPLEX(_i0[ni], _i1[ni])); // TODO
-			for (int jj = 0; jj < matrix_nodes(); ++jj) {
+			for (int jj = 0; jj < matrix_nodes(); ++jj) { untested();
 				DPAIR& dp = _matrix[ii*_num_ports+jj];
 				trace4("ac_load", ii, jj, dp.first, dp.second);
 				ac_load_point(_n[ii], _n[jj], COMPLEX(dp.first, dp.second));
 			}
 		}
 	}
-   void tr_begin() override{
+   void ac_begin() override{ untested();
+		trace1("circuit::ac_begin", _sim->_jomega.imag());
+		trace1("circuit::ac_begin", _sim->_jomega.real());
+		incomplete();
+	}
+   void tr_begin() override{ untested();
+		initDC();
 		incomplete();
 	}
    void do_ac() override{ untested();
-		double freq = _sim->_jomega.imag() / M_2_PI;
-		trace1("circuit::do_ac", freq);
+		double freq = _sim->_jomega.imag() / M_TWO_PI;
+		trace1("circuit::do_ac", _sim->_jomega.imag());
+		trace2("circuit::do_ac", _sim->_freq, freq);
+		trace1("circuit::do_ac", _sim->_jomega.real());
 		calcAC (freq);
 	}
-   int param_count()const override{
+   int param_count()const override{ untested();
 		trace1("circuit::param_count", _p.size());
 		return COMPONENT::param_count() + _p.size();
 	}
-   bool param_is_printable(int i)const override{
+   bool param_is_printable(int i)const override{ untested();
 		int s = circuit::param_count() - 1 - i;
-		if(s < _p.size()){
+		if(s < int(_p.size())){ untested();
 			return true;
-		}else{
+		}else{ untested();
 			return COMPONENT::param_is_printable(i);
 		}
 	}
-	void set_param_by_index(int i, std::string& b, int j) override{
+	void set_param_by_index(int i, std::string& b, int j) override{ untested();
 		trace3("circuit::set_param_by_index", i, b, j);
 		int s = circuit::param_count() - 1 - i;
-		if(s < _p.size()){
+		if(s < int(_p.size())){ untested();
 			*_p[s] = b;
-		}else{
+		}else{ untested();
 			COMPONENT::set_param_by_index(i, b, j);
 		}
 	}
-	void set_param_by_name(std::string a, std::string b) override{
+	void set_param_by_name(std::string a, std::string b) override{ untested();
 		trace2("circuit::set_param_by_name", a, b);
 		auto i = _pn.find(a);
-		if(i == _pn.end()){
+		if(i == _pn.end()){ untested();
 			incomplete();
-		}else{
+		}else{ untested();
 			*i->second = b;
 		}
 		trace2("spbn", a, b);
 	}
-	std::string param_name(int i)const{
+	std::string param_name(int i)const{ untested();
 		int s = circuit::param_count() - 1 - i;
-		if(s < _p.size()){
-			assert(s<_pnames.size());
+		if(s < int(_p.size())){ untested();
+			assert(s < int(_pnames.size()));
 			return *_pnames[s];
 		}else{ untested();
 			return COMPONENT::param_name(i);
 		}
 	}
 	std::string param_name(int i,int j)const{ untested();
-		if(j==0){
+		if(j==0){ untested();
 			return param_name(i);
-		}else{
+		}else{ untested();
 			incomplete();
 			return "dunno";
 		}
 	}
 	std::string param_value(int i)const override{ untested();
 		int s = circuit::param_count() - 1 - i;
-		if(s >= _p.size()){
+		if(s >= int(_p.size())){ untested();
 			return COMPONENT::param_name(i);
 		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){ untested();
-			assert(s<_p.size());
+			assert(s < int(_p.size()));
 			return ps->string();
 		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(_p[s])){ untested();
-			assert(s<_p.size());
+			assert(s < int(_p.size()));
 			return ps->string();
-		}else{
+		}else{ untested();
 			return "unreachable";
 		}
 	}
@@ -354,30 +361,30 @@ private: // COMPONENT
 	}
 
 private: // should probably use ELEMENT
-	double dampdiff(double* v0, const double& v1) {
+	double dampdiff(double* v0, const double& v1) { untested();
 		//double diff = v0 - v1;
 		assert(v0);
 		assert(*v0 == *v0);
 		assert(v1 == v1);
 		double diff = dn_diff(*v0, v1);
 		assert(diff == diff);
-		if (!_sim->is_advance_or_first_iteration()) {
+		if (!_sim->is_advance_or_first_iteration()) { untested();
 			diff *= _sim->_damp;
 			*v0 = v1 + diff;
-		}else{
+		}else{ untested();
 		}
 		return mfactor() * ((_sim->is_inc_mode()) ? diff : *v0);
 	}
 	void tr_load_point(const node_t& no1, const node_t& no2,
-	                   double* new_value, double* old_value){
+	                   double* new_value, double* old_value){ untested();
 		double d = dampdiff(new_value, *old_value);
-		if (d != 0.) {
+		if (d != 0.) { untested();
 			_sim->_aa.load_point(no1.m_(), no2.m_(), d);
-		}else{
+		}else{ untested();
 		}
 		*old_value = *new_value;
 	}
-	void ac_load_point(const node_t& no1, const node_t& no2, COMPLEX value){
+	void ac_load_point(const node_t& no1, const node_t& no2, COMPLEX value){ untested();
 		_sim->_acx.load_point(no1.m_(), no2.m_(), mfactor() * value);
 	}
 
@@ -402,25 +409,25 @@ inline void circuit::init()
 		auto p = cd()->required[i];
 		auto k = p.key;
 
-		if(p.type == PROP_REAL){
+		if(p.type == PROP_REAL){ untested();
 			_p.push_back(new PARAMETER<double>);
 			auto pp = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&pp.first->first);
-		}else if(p.type == PROP_STR){
+		}else if(p.type == PROP_STR){ untested();
 			_p.push_back(new PARAMETER<mystring>(mystring("invalid")));
 			auto pp = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&pp.first->first);
-		}else{
+		}else{ untested();
 			incomplete();
 		}
 	}
 	unsigned j=0;
 	for(;;++j){ untested();
-		if(char const* k=cd()->optional[j].key){
+		if(char const* k=cd()->optional[j].key){ untested();
 			_p.push_back(new PARAMETER<double>);
 			auto p = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&p.first->first);
-		}else{
+		}else{ untested();
 			break;
 		}
 	}

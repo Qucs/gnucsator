@@ -1,0 +1,90 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+L: already installed, replacing
+stashing as L:0
+R:RR gnd _net1 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
+                         ^ ? RR: Temp has no value?
+.SP:SP1 Type="l ... p="1e1" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s
+                                        ^ ? what's this (incomplete)?
+R:RR1 _net0 _net3 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
+                            ^ ? RR1: Temp has no value?
+Gnucap   System status
+iterations: op=3, dc=0, tran=0, fourier=0, total=14
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=4, subckt=2, model=0, total=6
+dctran density=61.1%, ac density=61.1%
+
+<indep frequency 11>
+ 1.
+ 1.9
+ 2.8
+ 3.7
+ 4.6
+ 5.5
+ 6.4
+ 7.3
+ 8.2
+ 9.1
+ 10.
+</indep>
+<indep S[2,2] 11>
+-0.9614256+ 138.4424E-6* i
+-0.9613249+ 145.1003E-6* i
+-0.9612687+ 115.3703E-6* i
+-0.9612401+ 83.45376E-6* i
+-0.9612254+ 55.61869E-6* i
+-0.961218+ 31.94619E-6* i
+-0.9612148+ 11.6076E-6* i
+-0.9612142- 6.149317E-6* i
+-0.9612154- 21.88008E-6* i
+-0.9612178- 35.97775E-6* i
+-0.9612212- 48.72034E-6* i
+</indep>
+<indep S[2,1] 11>
+ 0.06486477- 0.01614152* i
+ 0.05389931- 0.01794345* i
+ 0.04768211- 0.01581014* i
+ 0.04437824- 0.0134252* i
+ 0.04251664- 0.01145992* i
+ 0.0413906- 0.009918659* i
+ 0.04066594- 0.008708043* i
+ 0.0401752- 0.007743338* i
+ 0.03982878- 0.006961475* i
+ 0.03957575- 0.006317373* i
+ 0.03938563- 0.005778837* i
+</indep>
+<indep S[1,2] 11>
+ 0.01883797+ 830.0557E-6* i
+ 0.01904056+ 0.001396326* i
+ 0.0192069+ 0.001902168* i
+ 0.01936188+ 0.002396593* i
+ 0.01952504+ 0.002886642* i
+ 0.01970503+ 0.003370187* i
+ 0.01990504+ 0.003843919* i
+ 0.0201258+ 0.004304855* i
+ 0.02036676+ 0.004750538* i
+ 0.02062675+ 0.005178995* i
+ 0.02090422+ 0.005588671* i
+</indep>
+<indep S[1,1] 11>
+-0.9203348- 0.02437192* i
+-0.9368649- 0.02712732* i
+-0.946241- 0.02395133* i
+-0.9512284- 0.02039553* i
+-0.9540441- 0.01747146* i
+-0.9557533- 0.01518555* i
+-0.9568593- 0.01339691* i
+-0.9576146- 0.0119777* i
+-0.958154- 0.01083276* i
+-0.9585542- 0.00989404* i
+-0.9588608- 0.009112942* i
+</indep>

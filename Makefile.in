@@ -62,7 +62,7 @@ main.o: gnucsator.cc
 main.o: config.h
 
 gnucsator: main.o
-	$(CXX) $(GNUCSATOR_CXXFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) ${GNUCAP_LIBS}
+	$(CXX) $(GNUCSATOR_CXXFLAGS) -o $@ $< $(GNUCAP_LDFLAGS) ${GNUCAP_LIBS} # 1
 
 # QUCS_DEVS = opamp cccs
 # QUCS_DEVS_SO = $(QUCS_DEVS:%=d_qucs_%.so)
@@ -76,8 +76,25 @@ GNUCSATOR_CPPFLAGS+= -DDEFAULT_PLUGINS=\"gnucap-default-plugins.so\"
 GNUCSATOR_CPPFLAGS+= -DDEFAULT_LANGUAGE=\"acs\"
 
 QUCS_PLUGINS = ${PLUGIN_CC:%.cc=%.so}
+QUCSATOR_OBJS = \
+	qucsator/fspecial.o \
+	qucsator/complex.o \
+	qucsator/matrix.o \
+	qucsator/real.o \
+	qucsator/vector.o
 
-all: $(QUCS_PLUGINS) ${EXECUTABLES}
+# todo
+MY_CPPFLAGS =
+mscoupled_wrap.so: MY_CPPFLAGS=-Iqucsator
+mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o $(QUCSATOR_OBJS)
+mscoupled_wrap.so: qucsator/mscoupled.o qucsator/msline.o $(QUCSATOR_OBJS)
+subst_wrap.so: CPPFLAGS=-Iqucsator
+subst_wrap.so: OBJS = qucsator/substrate.o $(QUCSATOR_OBJS)
+
+all-recursive:
+	$(MAKE) -C qucsator
+
+all: all-recursive $(QUCS_PLUGINS) ${EXECUTABLES}
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~
 
@@ -91,12 +108,12 @@ dbg:
 
 $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 	$(CXX) $(GNUCSATOR_CXXFLAGS) $(GNUCAP_CXXFLAGS) -DQUCS_DEVICE=$* \
-		$(CPPFLAGS) $(QUCS_CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ \
+		$(CPPFLAGS) $(QUCSATOR_CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ \
 		$< $(QUCS_LDFLAGS) $(QUCS_LIBS) \
 	$(LDLIBS)
 
 %.so : %.cc
-	$(CXX) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) -shared
+	$(CXX) $(MY_CPPFLAGS) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # 2
 
 ${QUCS_PLUGINS}: %.so: %.cc
 
@@ -106,7 +123,7 @@ gncp: main.o config.h
 s_sparam.so: LDLIBS=${GSL_LIBS}
 
 QUCS_INCLUDEDIR = $(QUCS_PREFIX)/include
-QUCS_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
+QUCSATOR_CPPFLAGS = -I$(QUCS_INCLUDEDIR) -I$(QUCS_INCLUDEDIR)/qucs-core
 QUCS_LDFLAGS = -L$(QUCS_PREFIX)/lib
 QUCS_LIBS = -lqucs
 
@@ -166,3 +183,5 @@ DIST_FILES = \
 dist:
 	tar --transform "s|^|${PACKAGE_NAME}-${PACKAGE_VERSION}/|" \
 		-cjf ${PACKAGE_NAME}-${PACKAGE_VERSION}.bz2 ${DIST_FILES}
+
+.PHONY: all-recursive

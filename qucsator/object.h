@@ -8,7 +8,7 @@ struct object : public MODEL_CARD{
 	object() : MODEL_CARD(nullptr) {}
 	object(std::string const& x) : MODEL_CARD(nullptr) {}
 	std::string getName() const{return "noname";}
-	double getPropertyDouble(std::string const& s){
+	double getPropertyDouble(std::string const& s){ untested();
 		trace1("getPropertyDouble", s);
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
@@ -23,7 +23,7 @@ struct object : public MODEL_CARD{
 			return 0;
 		}
 	}
-	const char* getPropertyString(std::string const&){
+	const char* getPropertyString(std::string const&){ untested();
 		incomplete();
 		return nullptr;
 	}
@@ -42,8 +42,8 @@ struct object : public MODEL_CARD{
 	}
 	std::string param_name(int i)const{
 		int s = object::param_count() - 1 - i;
-		if(s < _p.size()){
-			assert(s<_pnames.size());
+		if(s < int(_p.size())){
+			assert(s<int(_pnames.size()));
 			return *_pnames[s];
 		}else{ untested();
 			return MODEL_CARD::param_name(i);
@@ -51,10 +51,10 @@ struct object : public MODEL_CARD{
 	}
 	std::string param_value(int i)const override{
 		int s = object::param_count() - 1 - i;
-		if(s >= _p.size()){
+		if(s >= int(_p.size())){
 			return MODEL_CARD::param_name(i);
 		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){ untested();
-			assert(s<_p.size());
+			assert(s<int(_p.size()));
 			return ps->string();
 		}else{ untested();
 			return "unreachable";
@@ -62,7 +62,7 @@ struct object : public MODEL_CARD{
 	}
    bool param_is_printable(int i)const override{
 		int s = object::param_count() - 1 - i;
-		if(s < _p.size()){
+		if(s < int(_p.size())){
 			return true;
 		}else{
 			return MODEL_CARD::param_is_printable(i);

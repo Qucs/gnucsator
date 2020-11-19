@@ -19,12 +19,15 @@ COMMON_TESTS = \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
+	mscoupler.1.net \
 	MUT.net \
 	pac.net \
 	rc.net \
 	resonance_ac.net \
 	rr.net \
 	sparam_e.net \
+	sparam.0.net \
+	sparam.1.net \
 	sub.1.net \
 	sub.2.net \
 	Switch.0.net \
@@ -37,6 +40,7 @@ GC_TESTS = \
 	c_hide.2.gc \
 	IProbe.1.gc \
 	d_eqn.1.gc \
+	mscoupler.1.gc \
 	qucs.gc \
 	list.1.gc \
 	wrap.gc \
@@ -65,7 +69,7 @@ qucs:
 	[ -e qucs ] || ${LN_S} .. qucs
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=.:..:../microstrip:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
+	GNUCAP_PLUGPATH=.:..:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
 	QUCSATOR_PKGINCLUDEDIR=../include \
 	GNUCAP_INCLUDEPATH=../include:.${GNUCAP_INCLUDEPATH:%=:%} \
 	GNUCAP_SYSCONFDIR=qucs \

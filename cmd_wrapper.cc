@@ -61,7 +61,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl) { untested();
 		assert(cl);
 		options(cmd);
 		data_t t;
@@ -135,7 +135,7 @@ private:
 	double _vntol;
 
 //	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl) { untested();
 		assert(cl);
 //		options(cmd);
 		data_t t;
@@ -156,6 +156,7 @@ public:
 	typedef struct{
 		double _start;
 		double _stop;
+		std::string _args;
 	} data_t;
 private:
 	double _start;
@@ -171,12 +172,22 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl) { untested();
 		assert(cl);
 		options(cmd);
 		data_t t;
 		t._start = _start;
 		t._stop = _stop;
+
+		if (_type == tLin) {
+			double range = _stop - _start;
+			double step = range / _points;
+			incomplete();
+			t._args = "step " + to_string(step) + " ";
+		}else{
+			incomplete();
+		}
+
 		_stash[short_label()] = t;
 	}
 public: // GO
@@ -188,7 +199,7 @@ std::map<string, SP_WRAP::data_t> SP_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL dsp(&command_dispatcher, "SP", &psp);
 /*--------------------------------------------------------------------------*/
 void SP_WRAP::options(CS& cmd)
-{
+{ untested();
 	_order = -1;
 	_points = 0;
 	_dtmin = 0.;
@@ -199,7 +210,7 @@ void SP_WRAP::options(CS& cmd)
 	size_t here = cmd.cursor();
 
 	// .SP:SP1 Type="lin" Start="1" Stop="2" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
-	do{
+	do{ untested();
 		trace1("options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
@@ -241,7 +252,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl){
+	void do_it(CS&cmd, CARD_LIST* cl){ untested();
 		assert(cl);
 		options(cmd);
 		tran_t t;
@@ -254,7 +265,7 @@ private:
 std::map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
 /*--------------------------------------------------------------------------*/
 void TRAN_WRAP::options(CS& cmd)
-{
+{ untested();
 	_order = -1;
 	_points = 0;
 	_dtmin = 0.;
@@ -264,7 +275,7 @@ void TRAN_WRAP::options(CS& cmd)
 	_vntol = -1.;
 	double _whatever; // incomplete
 	size_t here = cmd.cursor();
-	do{
+	do{ untested();
 		trace1("options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
@@ -305,7 +316,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 // BUG // that's what 'end' is supposed to do.
 	class GO : public CMD {
 		void do_it(CS&cmd, CARD_LIST*cl)
-		{
+		{ untested();
 			cmd >> _outfile;
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
@@ -315,7 +326,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			CMD* s = NULL;
 			CMD* o = NULL;
 			CMD* a = NULL;
-			try {
+			try { untested();
 				c = command_dispatcher["transient"];
 				s = command_dispatcher["sp"];
 				o = command_dispatcher["op"];
@@ -325,13 +336,14 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				exit(1);
 			}
 
-			if(!c){
+			if(!c){ untested();
 				error(bDANGER, "transient command missing, load plugin?\n");
 				exit(1);
+			}else{ untested();
 			}
 
 			// what happens if there are multiple trans?
-			for(auto const&i : TRAN_WRAP::_stash){
+			for(auto const&i : TRAN_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " " << j._stop
@@ -339,11 +351,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
-			if(TRAN_WRAP::_stash.empty()){
+			if(TRAN_WRAP::_stash.empty()){ untested();
 				CS wcmd(CS::_STRING, " >/dev/null");
 				o->do_it(wcmd, cl);
+			}else{ untested();
 			}
-			for(auto const&i : DC_WRAP::_stash){
+			for(auto const&i : DC_WRAP::_stash){ untested();
 				incomplete();
 				(void) i;
 				stringstream x;
@@ -351,7 +364,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				CS wcmd(CS::_STRING, x.str());
 				o->do_it(wcmd, cl);
 			}
-			for(auto const&i : AC_WRAP::_stash){
+			for(auto const&i : AC_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " ";
@@ -362,12 +375,12 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				trace1("run ac", wcmd.fullstring());
 				a->do_it(wcmd, cl);
 			}
-			for(auto&i : SP_WRAP::_stash){
+			for(auto&i : SP_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
-				x << "port * " << j._start << " " << j._stop
+				x << "port * " << j._start << " " << j._stop << " " <<  j._args
 				  << " > " << _outfile << ".sp";
-				trace1("running", x.str());
+				trace1("SP_WRAP running", x.str());
 				CS wcmd(CS::_STRING, x.str());
 				s->do_it(wcmd, cl);
 			}
@@ -384,10 +397,10 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 		// quit is invoked from main()
 		// exit is an alias, we overload quit and call exit.
 		void quit(CARD_LIST* cl)
-		{
+		{ untested();
 			trace0("exiting...");
 			CMD* c = NULL;
-			try {
+			try { untested();
 				c = command_dispatcher["exit"];
 			}catch(Exception const&){ incomplete();
 			}
