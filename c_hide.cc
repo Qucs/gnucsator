@@ -29,16 +29,6 @@
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
-// this is necessary, as subcircuit models are not stored in COMMON yet.
-class HACK_CARDLIST{
-  void* _parent;
-  void* _nm;
-  void* _params;
-  std::list<CARD*> _cl;
-public:
-  std::list<CARD*>& cl(){ return _cl; }
-};
-/*--------------------------------------------------------------------------*/
 class CMD_HIDE : public CMD {
 public:
   typedef DISPATCHER<CARD>::INSTALL installer;
@@ -78,10 +68,9 @@ public:
 	    auto sl=(*i)->short_label();
 
 	    // take it out of the cardlist.
-///	    ((HACK_CARDLIST*)(Scope))->cl().erase(i);
-	    auto& CL=reinterpret_cast<HACK_CARDLIST*>(i.list())->cl();
+	    std::vector<CARD*> items; // store iterator instead?
 	    auto j=i.iter();
-	    if(j!=CL.end()){
+	    if(j!=Scope->end()){
 	      assert(*j==*i);
 	      trace2("gotit", cmd.tail(), (*j)->short_label());
 	      auto I=new installer(&device_dispatcher, sl, *j);
@@ -90,10 +79,14 @@ public:
 	      auto P=std::make_pair(I, *j);
 	      _hidden.push_back(P);
 	      i = findbranch(cmd, ++i); // next match
-	      CL.erase(j);
+	      items.push_back(*j);
 	    }else{
 	      i = findbranch(cmd, ++i); // next match
 	      unreachable(); // for now.
+	    }
+
+	    for(auto j : items){ untested();
+	      Scope->erase(j);
 	    }
 
 	//    break;
