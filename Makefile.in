@@ -86,10 +86,9 @@ QUCSATOR_OBJS = \
 # todo
 MY_CPPFLAGS =
 mscoupled_wrap.so: MY_CPPFLAGS=-Iqucsator
-mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o $(QUCSATOR_OBJS)
-mscoupled_wrap.so: qucsator/mscoupled.o qucsator/msline.o $(QUCSATOR_OBJS)
+mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
 subst_wrap.so: CPPFLAGS=-Iqucsator
-subst_wrap.so: OBJS = qucsator/substrate.o $(QUCSATOR_OBJS)
+subst_wrap.so: OBJS = qucsator/substrate.o ${QUCSATOR_OBJS}
 
 all-recursive:
 	$(MAKE) -C qucsator
