@@ -4,27 +4,6 @@
 #include <io_trace.h>
 #include <libgen.h> // basename
 #include <l_lib.h>
-
-static char const* systemstartfile(char const* x)
-{
-	static char buf[512];
-	x = basename((char*) x);
-
-	sprintf(buf, "%s.rc", x);
-	trace1("systemstartfile", buf);
-	return buf;
-}
-
-static char const* systemstartpath()
-{
-	if(const char* x=getenv("GNUCAP_SYSCONFDIR")){
-		trace1("systemstartpath from env", x);
-		return x;
-	}else{
-		trace1("systemstartpath default", DEFAULT_SYSTEMSTARTPATH);
-		return DEFAULT_SYSTEMSTARTPATH;
-	}
-}
 /* configuration */
 #define GNUCAP_PLUGPATH "@plugpath@"
 /*--------------------------------------------------------------------------*/
@@ -71,5 +50,24 @@ static char const* systemstartpath()
 #endif
 #endif
 /*--------------------------------------------------------------------------*/
+static char const* systemstartfile(char const* x)
+{
+	static char buf[512];
+	x = basename((char*) x);
 
+	sprintf(buf, "%s.rc", x);
+	trace1("systemstartfile", buf);
+	return buf;
+}
+static char const* systemstartpath()
+{
+	if(const char* x=getenv("GNUCAP_SYSCONFDIR")){
+		trace1("systemstartpath from env", x);
+		return x;
+	}else{
+		trace1("systemstartpath default", DEFAULT_SYSTEMSTARTPATH);
+		return DEFAULT_SYSTEMSTARTPATH;
+	}
+}
+/*--------------------------------------------------------------------------*/
 #endif
