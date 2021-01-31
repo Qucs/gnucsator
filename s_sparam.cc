@@ -27,6 +27,7 @@
 #include "io.h"
 #include "globals.h"
 #include "e_subckt.h"
+#include "s__init.cc"
 
 typedef unsigned needed_t;
 
@@ -53,8 +54,8 @@ void SIM::store_results(double) {}
 //void SIM::plot_results(double) {}
 void SIM::setup(CS&){}
 //void SIM::sweep(){}
-void SIM::reset_timers(){}
-SIM::~SIM(){}
+//void SIM::reset_timers(){}
+// SIM::~SIM(){}
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
@@ -227,7 +228,7 @@ void SPARAM::do_it(CS& Cmd, CARD_LIST* Scope)
   reset_timers();
   ::status.ac.reset().start();
 
-  _sim->init();
+  _sim->init(_scope);
   _sim->alloc_vectors();
   _sim->_acx.reallocate();
   _sim->_acx.set_min_pivot(OPT::pivtol);

@@ -84,7 +84,7 @@ QUCSATOR_OBJS = \
 	qucsator/vector.o
 
 # todo
-MY_CPPFLAGS =
+MY_CPPFLAGS = -I.
 mscoupled_wrap.so: MY_CPPFLAGS=-Iqucsator
 mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
 subst_wrap.so: CPPFLAGS=-Iqucsator

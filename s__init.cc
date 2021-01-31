@@ -22,9 +22,9 @@
  * initialization (allocation, node mapping, etc)
  */
 //testing=obsolete
+#include "u_sim_data.h"
 #include "e_cardlist.h"
 #include "u_status.h"
-#include "u_sim_data.h"
 #include "s__.h"
 /*--------------------------------------------------------------------------*/
 void SIM::command_base(CS& cmd)
@@ -36,7 +36,7 @@ void SIM::command_base(CS& cmd)
 
   try {
     setup(cmd);
-    _sim->init();
+    _sim->init(_scope);
     CARD_LIST::card_list.precalc_last();
 
     _sim->alloc_vectors();
@@ -93,6 +93,31 @@ void SIM::reset_timers()
   ::status.aux3.reset();
   ::status.set_up.reset().start();
   ::status.total.reset().start();
+}
+/*--------------------------------------------------------------------------*/
+#include "u_nodemap.h"
+void SIM_DATA::init(CARD_LIST* scope)
+{
+  assert(scope);
+  if(scope == &CARD_LIST::card_list){
+  }else{untested();
+  }
+  if (is_first_expand()) {
+    uninit();
+    init_node_count(scope->nodes()->how_many(), 0, 0);
+    scope->expand();
+    map__nodes();
+    scope->map_nodes();
+    alloc_hold_vectors();
+    _aa.reinit(_total_nodes);
+    _lu.reinit(_total_nodes);
+    _acx.reinit(_total_nodes);
+    scope->tr_iwant_matrix();
+    scope->ac_iwant_matrix();
+    _last_time = 0;
+  }else{
+    scope->precalc_first();
+  }
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

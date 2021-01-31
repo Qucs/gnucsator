@@ -40,7 +40,8 @@ noinst_HEADERS = \
 	io.h \
 	l_qucs.h \
 	m_mvpoly.h \
-	u_parameter_uf.h
+	u_parameter_uf.h \
+	u_sim_data.h
 
 EXTRA_DIST = \
 	${OBSOLETE_EXTRA_DIST} \

@@ -22,6 +22,7 @@
  * dc analysis top
  */
 //testing=script 2016.03.25
+#include "u_sim_data.h"
 #include "globals.h"
 #include "u_status.h"
 #include "u_prblst.h"
