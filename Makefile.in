@@ -26,15 +26,16 @@ ifneq ($(GNUCAP_CONF),)
 	GNUCAP_LDFLAGS  = $(shell $(GNUCAP_CONF) --ldflags)
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
 
-	GNUCAP_LIBS        = @libs@
-	GNUCAP_PLUGPATH    = @plugpath@
-	GNUCAP_EXEC_PREFIX = @prefix@
-	GNUCAP_PKGLIBDIR   = @pkglibdir@
-	GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
-	GNUCAP_SYSCONFDIR  = @sysconfdir@
 else
     $(error no gnucap-conf, this will not work)
 endif
+
+GNUCAP_LIBS        = @libs@
+GNUCAP_PLUGPATH    = @plugpath@
+GNUCAP_EXEC_PREFIX = @prefix@
+GNUCAP_PKGLIBDIR   = @pkglibdir@
+GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
+GNUCAP_SYSCONFDIR  = @sysconfdir@
 
 ifneq ($(PREFIX),)
     $(info prefix is ${PREFIX}. overriding some)
@@ -87,7 +88,7 @@ QUCSATOR_OBJS = \
 MY_CPPFLAGS = -I.
 mscoupled_wrap.so: MY_CPPFLAGS=-Iqucsator
 mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
-subst_wrap.so: CPPFLAGS=-Iqucsator
+subst_wrap.so: MY_CPPFLAGS=-Iqucsator
 subst_wrap.so: OBJS = qucsator/substrate.o ${QUCSATOR_OBJS}
 
 all-recursive:

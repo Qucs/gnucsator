@@ -61,18 +61,18 @@ void SIM::outdata(double x, int outflags)
   ::status.output.start();
   if (outflags & ofKEEP) {
     _sim->keep_voltages();
-  }else{
+  }else{ untested();
   }
   if (outflags & ofPRINT) {
     store_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
-  }else{
+  }else{ untested();
     ++::status.hidden_steps;
   }
   if (outflags & ofSTORE) {
 //    store_results(x);
-  }else{
+  }else{ untested();
   }
   ::status.output.stop();
 }
@@ -132,7 +132,9 @@ void finish_hack(SIM* s)
   // TODO: move to output plugin
   auto& PL = SIM::_probe_lists->print[s_TRAN];
   unsigned number_of_probes = PL.size();
+  trace1("finish_hack", number_of_probes);
 
+  assert(out_hack);
   auto& outFile = *out_hack;
   if(number_of_probes){
     unsigned n = 0;
@@ -144,7 +146,7 @@ void finish_hack(SIM* s)
       outFile << d.first << "\n";
     }
     outFile << "</indep>\n";
-  }else{
+  }else{ untested();
   }
   std::vector<std::string> names;
 

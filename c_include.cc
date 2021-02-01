@@ -45,7 +45,7 @@ DISPATCHER<CMD>::INSTALL d2(&command_dispatcher, "set_includepath", &p2);
 /*--------------------------------------------------------------------------*/
 class CMD_AI : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope) {
+  void do_it(CS& cmd, CARD_LIST* Scope) { untested();
     std::string optarg;
     cmd >> optarg;
     trace1("CMD_AI::do_it", optarg);

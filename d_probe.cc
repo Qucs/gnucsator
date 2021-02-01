@@ -32,6 +32,8 @@
 typedef int uint_t;
 #endif
 
+#include "u_prblst.cc"
+
 using std::string;
 /*--------------------------------------------------------------------------*/
 namespace {
@@ -109,7 +111,8 @@ void DEV_PROBE::precalc_last()
   }else{
     trace2("adding probe", prb, long_label());
     CS p(CS::_STRING, prb+"("+long_label()+")");
-    _probe_lists->print[_sim->_mode].add_list(p);
+    assert(scope());
+    _probe_lists->print[_sim->_mode].add_list(p, scope());
     _reg = true;
   }
 }

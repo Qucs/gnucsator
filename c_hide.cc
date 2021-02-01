@@ -53,7 +53,6 @@ public:
 public:
   void do_it(CS& cmd, CARD_LIST* Scope)
   {
-
     // only operate on top level, for now.
     if(Scope!=&CARD_LIST::card_list){ untested();
       incomplete();
