@@ -1,6 +1,6 @@
 # Makefile for Qucs plugin
 # (c) 2020 Felix Salfelder
-#GPLv3+
+# GPLv3+
 
 GNUCAP_CONF = $(shell which gnucap-conf)
 QUCS_CONF = $(shell which qucs-conf)

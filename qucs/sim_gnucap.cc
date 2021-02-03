@@ -17,9 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * Gnucap driver for Qucs. Kludge: use Qucsator models.
+ * Gnucap driver for Qucs.
  */
 
+// Kludge
+//  - use Qucsator models
+//  - stick to "dat" for now.
 // TODO
 //  - model selection
 //  - run in separate thread
@@ -53,6 +56,7 @@
 
 // #include <boost/thread/thread.hpp> later.
 
+#include "shared_data.h"
 /* -------------------------------------------------------------------------------- */
 namespace{
 /* -------------------------------------------------------------------------------- */
@@ -120,8 +124,10 @@ private:
 	Gnucap(Gnucap const& s);
 public:
 	explicit Gnucap();
-
-	~Gnucap(){}
+	~Gnucap() {
+		delete _data;
+		_data = nullptr;
+	}
 
 private: // Element
   Simulator* clone() const override{ return new Gnucap(*this); }
@@ -145,6 +151,8 @@ private:
   BASE_SUBCKT* _main;
   SIM_DATA _sim_data; // for now.
   PROBE_LISTS _probe_lists; // for now
+
+  Data* _data{nullptr};
 } g;
 static Dispatcher<Data>::INSTALL d0(&dataDispatcher, "gnucap", &g);
 /* -------------------------------------------------------------------------------- */
@@ -299,8 +307,20 @@ void Gnucap::do_it(istream_t& cs, SchematicModel const* ctx)
 //	_sim_data.uninit();
 	trace1("===================================", _sim_data.is_first_expand());
 	command("go FILE", _main);
-	trace0("==============DONE=====================");
+	trace0("============== DONE ===============");
 	command("status notime", _main);
+
+	delete _data;
+	_data = nullptr;
+
+	_data = dataDispatcher.clone("datfile");
+	auto lang = languageDispatcher["qucsator"];
+	assert(lang);
+
+	istream_t stream(istream_t::_WHOLE_FILE, "FILE.tr");
+	lang->parseItem(stream, _data);
+
+	attach(_data->common());
 }
 /* -------------------------------------------------------------------------------- */
 }

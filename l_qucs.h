@@ -32,7 +32,7 @@ template <class T>
 inline bool QucsGet(CS& cmd, const std::string& key, T* val)
 {
   if(OPT::language->name() == "qucs") {
-  }else{ untested();
+  }else{
   }
   if (cmd.umatch(key + " {=}")){
     // only qucs??

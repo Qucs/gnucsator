@@ -101,7 +101,7 @@ void SIM_DATA::init(CARD_LIST* scope)
   trace2("SIM_DATA::init", this, is_first_expand());
   assert(scope);
   if(scope == &CARD_LIST::card_list){
-  }else{untested();
+  }else{
   }
   if (is_first_expand()) {
     uninit();

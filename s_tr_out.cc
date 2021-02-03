@@ -61,18 +61,18 @@ void SIM::outdata(double x, int outflags)
   ::status.output.start();
   if (outflags & ofKEEP) {
     _sim->keep_voltages();
-  }else{ untested();
+  }else{
   }
   if (outflags & ofPRINT) {
     store_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
-  }else{ untested();
+  }else{
     ++::status.hidden_steps;
   }
   if (outflags & ofSTORE) {
 //    store_results(x);
-  }else{ untested();
+  }else{
   }
   ::status.output.stop();
 }
