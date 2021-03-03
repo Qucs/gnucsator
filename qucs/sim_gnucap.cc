@@ -30,6 +30,7 @@
 
 // Gnucap
 #include <md.h>
+#include <e_base.h>
 #include <e_cardlist.h>
 #include <e_subckt.h>
 #include <io_error.h>
@@ -41,11 +42,13 @@
 
 // Qucs
 #undef AP_H
+#include <command.h>
 #include <simulator.h>
 #include <qucs_globals.h>
 #include <settings.h>
 #include <qio.h>
 #include <sckt_base.h>
+#include <element_list.h>
 #undef CMD
 #undef OPT
 #undef DISPATCHER
@@ -56,9 +59,12 @@
 
 // #include <boost/thread/thread.hpp> later.
 
-#include "shared_data.h"
-/* -------------------------------------------------------------------------------- */
 namespace{
+/* -------------------------------------------------------------------------------- */
+using qucs::Simulator;
+using qucs::SimCtrl;
+using qucs::ElementList;
+using qucs::TaskElement;
 /* -------------------------------------------------------------------------------- */
 // omit this hack.
 class CMD_HIDE : public CMD {
@@ -136,12 +142,12 @@ private: // Simulator
   virtual void init() override{ incomplete();}
   void run(istream_t& cs, SimCtrl* ctx) override {incomplete();}
   void join() override {incomplete();}
-  void do_it(istream_t& cs, SchematicModel const* ctx) override;
+  void do_it(istream_t& cs, ElementList const* ctx) override;
   std::string errorString() const override {incomplete(); return "..";}
   void kill() override {incomplete();}
 
 private: // internal
-	void load_circuit(SchematicModel const* ctx, BASE_SUBCKT* model);
+	void load_circuit(ElementList const* ctx, BASE_SUBCKT* model);
 	void load_symbol(Symbol const* i, BASE_SUBCKT* model);
 	void load_task(TaskElement const* i, BASE_SUBCKT* model);
 	void copy_param_values(Symbol const* sym, COMPONENT* model);
@@ -154,11 +160,11 @@ private:
 
   Data* _data{nullptr};
 } g;
-static Dispatcher<Data>::INSTALL d0(&dataDispatcher, "gnucap", &g);
+static Dispatcher<Data>::INSTALL d0(&qucs::data_dispatcher, "gnucap", &g);
 /* -------------------------------------------------------------------------------- */
 Gnucap::Gnucap() : Simulator(), _main(nullptr)
 {
-	setLabel("gnucap");
+	set_label("gnucap");
 	trace1("Gnucap::Gnucap", &_sim_data);
 	CKT_BASE::_sim = &_sim_data;
 	CKT_BASE::_probe_lists = &_probe_lists;
@@ -203,7 +209,7 @@ void Gnucap::copy_param_values(Symbol const* sym, COMPONENT* model)
 			try{
 				model->set_param_by_name(name, value);
 			}catch(Exception_No_Match const&){
-				message(QucsMsgWarning, "cannot set " + name + " in " + model->short_label());
+				message(qucs::MsgWarning, "cannot set " + name + " in " + model->short_label());
 			}
 		}
 	}
@@ -269,7 +275,7 @@ void Gnucap::load_symbol(Symbol const* i, BASE_SUBCKT* model)
 	}
 }
 /* -------------------------------------------------------------------------------- */
-void Gnucap::load_circuit(SchematicModel const* ctx, BASE_SUBCKT* model)
+void Gnucap::load_circuit(ElementList const* ctx, BASE_SUBCKT* model)
 {
 	assert(model->scope());
 	for(auto i : *ctx){
@@ -282,7 +288,7 @@ void Gnucap::load_circuit(SchematicModel const* ctx, BASE_SUBCKT* model)
 	}
 }
 /* -------------------------------------------------------------------------------- */
-void Gnucap::do_it(istream_t& cs, SchematicModel const* ctx)
+void Gnucap::do_it(istream_t& cs, ElementList const* ctx)
 {
 	trace1("Gnucap::do_it", cs.fullstring());
 	assert(_main->scope());
@@ -291,7 +297,7 @@ void Gnucap::do_it(istream_t& cs, SchematicModel const* ctx)
 	auto i = ctx->find_("main");
 
 	if (i==ctx->end()){ untested();
-		message(QucsMsgWarning, "cannot find main");
+		message(qucs::MsgWarning, "cannot find main");
 		return;
 	}else if((*i)->scope()){
 		load_circuit((*i)->scope(), _main);
@@ -313,8 +319,8 @@ void Gnucap::do_it(istream_t& cs, SchematicModel const* ctx)
 	delete _data;
 	_data = nullptr;
 
-	_data = dataDispatcher.clone("datfile");
-	auto lang = languageDispatcher["qucsator"];
+	_data = qucs::data_dispatcher.clone("datfile");
+	auto lang = qucs::language_dispatcher["qucsator"];
 	assert(lang);
 
 	istream_t stream(istream_t::_WHOLE_FILE, "FILE.tr");

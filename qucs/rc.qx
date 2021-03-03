@@ -35,6 +35,6 @@ load public ./sim_gnucap
   <330 190 370 190 "" 0 0 0 "">
 </Wires>
 
-
+list main
 simulate
 list lang=dat gnucap
