@@ -63,6 +63,8 @@ namespace{
 /* -------------------------------------------------------------------------------- */
 using qucs::Simulator;
 using qucs::SimCtrl;
+using qucs::Symbol;
+using qucs::SubcktBase;
 using qucs::ElementList;
 using qucs::TaskElement;
 /* -------------------------------------------------------------------------------- */
