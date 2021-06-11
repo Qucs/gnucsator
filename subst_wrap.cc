@@ -13,7 +13,7 @@ qucs::substrate c0;
 DISPATCHER<MODEL_CARD>::INSTALL d0(&model_dispatcher, "SUBST", &c0);
 
 class SUBST : public CMD {
-	void do_it(CS& cmd, CARD_LIST* scope) override{ untested();
+	void do_it(CS& cmd, CARD_LIST* scope) override{
 		assert(scope);
 		auto x = model_dispatcher.clone("SUBST");
 		assert(x);

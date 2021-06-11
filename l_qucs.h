@@ -31,7 +31,11 @@
 template <class T>
 inline bool QucsGet(CS& cmd, const std::string& key, T* val)
 {
-  if (cmd.umatch(key + " {=}") and OPT::language->name() == "qucs") {
+  if(OPT::language->name() == "qucs") {
+  }else{
+  }
+  if (cmd.umatch(key + " {=}")){
+    // only qucs??
     CS value (CS::_STRING, cmd.ctos(",=;)", "\"'{(", "\"'})"));
     std::string newvalue(value.ctos());
     newvalue += value.ctos();
@@ -57,7 +61,7 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
 
     CS newcmd (CS::_STRING, s);
     ret = Set(newcmd, key, val, x);
-    if(!ret){untested();
+    if(!ret){
       cmd.reset(here);
     }
   }

@@ -20,6 +20,7 @@ PLUGIN_CC = \
 	c_uninst.cc \
 	c_vpp.cc \
 	c_include.cc \
+	c_prbcmd.cc \
 	d_eqn.cc \
 	d_poly_g_uf.cc \
 	bm_poly.cc \
@@ -35,6 +36,7 @@ PLUGIN_CC = \
 	s_tr.cc \
 	s_dc.cc \
 	s_sparam.cc
+
 
 noinst_HEADERS = \
 	io.h \

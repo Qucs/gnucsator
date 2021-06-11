@@ -68,7 +68,7 @@ fill_template qucsator/Makefile
 fill_template gnucsator.rc
 
 echo -n '# ' > config.log
-date > config.log
+date >> config.log
 echo $0 "$@" >> config.log
 
 echo prefix:     $prefix

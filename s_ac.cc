@@ -79,7 +79,7 @@ void AC::do_it(CS& Cmd, CARD_LIST* Scope)
   try {
     setup(Cmd);
     _sim->init();
-    CARD_LIST::card_list.precalc_last();
+    _scope->precalc_last();
 
     _sim->alloc_vectors();
     _sim->_acx.reallocate();
@@ -236,8 +236,8 @@ void AC::solve()
 
   ::status.load.start();
   _sim->count_iterations(iTOTAL);
-  CARD_LIST::card_list.do_ac();
-  CARD_LIST::card_list.ac_load();
+  _scope->do_ac();
+  _scope->ac_load();
   ::status.load.stop();
 
   ::status.lud.start();
@@ -253,7 +253,7 @@ void AC::sweep()
 {
   head(_start, _stop, "Freq");
   first();
-  CARD_LIST::card_list.ac_begin();
+  _scope->ac_begin();
   do {
     trace1("AC::sweep", _sim->_freq);
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);

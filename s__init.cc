@@ -28,7 +28,7 @@
 #include "s__.h"
 /*--------------------------------------------------------------------------*/
 void SIM::command_base(CS& cmd)
-{  
+{  untested();
   assert(_sim);
   reset_timers();
   _sim->reset_iteration_counter(_sim->_mode);
@@ -37,7 +37,7 @@ void SIM::command_base(CS& cmd)
   try {
     setup(cmd);
     _sim->init(_scope);
-    CARD_LIST::card_list.precalc_last();
+    _scope->precalc_last();
 
     _sim->alloc_vectors();
     _sim->_aa.reallocate();
@@ -56,7 +56,7 @@ void SIM::command_base(CS& cmd)
     case rSCRIPT:	sweep();	break;
     case rPRESET:	/*nothing*/	break;
     }
-  }catch (Exception& e) {
+  }catch (Exception& e) { untested();
     error(bDANGER, e.message() + '\n');
     _sim->count_iterations(iTOTAL);
     _sim->_lu.unallocate();
@@ -98,9 +98,10 @@ void SIM::reset_timers()
 #include "u_nodemap.h"
 void SIM_DATA::init(CARD_LIST* scope)
 {
+  trace2("SIM_DATA::init", this, is_first_expand());
   assert(scope);
   if(scope == &CARD_LIST::card_list){
-  }else{untested();
+  }else{
   }
   if (is_first_expand()) {
     uninit();

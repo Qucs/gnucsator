@@ -19,13 +19,14 @@
  *------------------------------------------------------------------
  * qucs commands to gnucap
  * this is essentially the gnucap driver.
- * remember: qucs does not support simulator drivers (yet?!).
+ * remember: qucs simulator drivers under consruction. see qucs/
  */
 #include "globals.h"
 #include "u_lang.h"
 #include "c_comand.h"
 #include "l_qucs.h"
 #include "u_prblst.h"
+#include "u_sim_data.h"
 #include "e_cardlist.h"
 
 using std::string;
@@ -68,20 +69,20 @@ private:
 		t._start = _start;
 		t._stop = _stop;
 
-		if(_points<2){
+		if(_points<2){ untested();
 			incomplete();
 		}else if (_type == tLin) {
 			double range = _stop - _start;
 			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
-		}else if (_type == tLog) { untested();
+		}else if (_type == tLog) {
 			double range = _stop / _start;
 			double step = exp ( log(range)  / (_points-1));
 
 			// log b = log( stop / start ) / points
 			t._args = "* " + to_string(step) + " ";
-		}else{
+		}else{ untested();
 			incomplete();
 		}
 
@@ -196,7 +197,7 @@ private:
 		}else if (_type == tLog) { untested();
 			double step = log(range / (_points-1));
 			t._args = "* " + to_string(step) + " ";
-		}else{
+		}else{ untested();
 			incomplete();
 		}
 
@@ -265,6 +266,7 @@ private:
 
 	void options(CS&);
 	void do_it(CS&cmd, CARD_LIST* cl){
+		trace1("tran_wrap", cmd.fullstring());
 		assert(cl);
 		options(cmd);
 		tran_t t;
@@ -286,13 +288,15 @@ void TRAN_WRAP::options(CS& cmd)
 	_abstol = -1.;
 	_vntol = -1.;
 	double _whatever; // incomplete
+	string type; // incomplete();
 	size_t here = cmd.cursor();
 	do{
-		trace1("options", cmd.tail());
+		trace1("tran_wrap options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
 			|| QucsGet(cmd, "Stop",		   &_stop)
 			|| QucsGet(cmd, "Points",	   &_points)
+			|| QucsGet(cmd, "Type",	   &type)
 			|| (cmd.umatch( "IntegrationMethod") &&
 					(ONE_OF
 					 || QucsSet(cmd, "Trapezoidal",   &_integration, meTRAP)
@@ -315,7 +319,6 @@ void TRAN_WRAP::options(CS& cmd)
 			|| QucsGet(cmd, "relaxTSR",   &_whatever)
 			|| QucsGet(cmd, "initialDC",  &_whatever)
 			|| QucsGet(cmd, "MaxStep",    &_whatever)
-			|| QucsGet(cmd, "Type",       &_whatever)
 			;
 	}while (cmd.more() && !cmd.stuck(&here));
 	cmd.check(bWARNING, "what's this (incomplete)?");
@@ -327,13 +330,14 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 // go. run commands that are scattered
 // BUG // that's what 'end' is supposed to do.
 	class GO : public CMD {
-		void do_it(CS&cmd, CARD_LIST*cl)
-		{
+		void do_it(CS&cmd, CARD_LIST*cl) {
+			trace2("GO", _sim->is_first_expand(), _sim);
+			assert(cl);
 			cmd >> _outfile;
 			// std::string tail=cmd.tail();
-			CMD::command("print tran +v(nodes)", &CARD_LIST::card_list);
-			CMD::command("print op v(nodes)", &CARD_LIST::card_list);
-			CMD::command("print ac vr(nodes) vi(nodes)", &CARD_LIST::card_list);
+			CMD::command("print tran +v(nodes)", cl);
+			CMD::command("print op v(nodes)", cl);
+			CMD::command("print ac vr(nodes) vi(nodes)", cl);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
@@ -354,21 +358,24 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			}else{
 			}
 
+			trace2("GO2", _sim->is_first_expand(), _sim);
+
 			// what happens if there are multiple trans?
 			for(auto const&i : TRAN_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " " << j._stop
 				  << " trace=a basic > " << _outfile << ".tr";
+				trace1("tran_wrap", x.str());
 				CS wcmd(CS::_STRING, x.str());
 				c->do_it(wcmd, cl);
 			}
-			if(TRAN_WRAP::_stash.empty()){
+			if(TRAN_WRAP::_stash.empty()){ untested();
 				CS wcmd(CS::_STRING, " >/dev/null");
 				o->do_it(wcmd, cl);
 			}else{
 			}
-			for(auto const&i : DC_WRAP::_stash){
+			for(auto const&i : DC_WRAP::_stash){ untested();
 				incomplete();
 				(void) i;
 				stringstream x;
@@ -376,7 +383,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				CS wcmd(CS::_STRING, x.str());
 				o->do_it(wcmd, cl);
 			}
-			for(auto const&i : AC_WRAP::_stash){
+			for(auto const&i : AC_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " ";
@@ -387,7 +394,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				trace1("run ac", wcmd.fullstring());
 				a->do_it(wcmd, cl);
 			}
-			for(auto&i : SP_WRAP::_stash){
+			for(auto&i : SP_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << "port * " << j._start << " " << j._stop << " " <<  j._args

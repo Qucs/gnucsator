@@ -39,6 +39,7 @@
 #ifdef HAVE_CONFIG
 # include "config.h"
 #endif
+#include "env.h"
 /*--------------------------------------------------------------------------*/
 #ifdef HAVE_LIBREADLINE
 // static bool use_readline=true;
@@ -67,25 +68,11 @@ struct JMP_BUF{
 } env;
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-static void prepare_env()
-{
-  static const char* plugpath="PLUGPATH=" GNUCAP_PLUGPATH
-                              "\0         (reserved space)                 ";
-
-  std::string ldlpath = OS::getenv("LD_LIBRARY_PATH");
-  if (ldlpath != "") {
-    ldlpath += ":";
-  }else{
-  }
-  assert(strlen("PLUGPATH=") == 9);
-  trace1("plugpath", ldlpath + (plugpath+9));
-  OS::setenv("GNUCAP_PLUGPATH", ldlpath + (plugpath+9), false);
-}
-/*--------------------------------------------------------------------------*/
 static void read_startup_files(char *const* argv)
 {
   {
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
+    trace2("read_startup_files", SYSTEMSTARTFILE, SYSTEMSTARTPATH);
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
     if (name != "") {
       trace2("", name, &CARD_LIST::card_list);

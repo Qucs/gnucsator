@@ -113,7 +113,7 @@ static void parse_args_paramset(CS& cmd, MODEL_CARD* x)
     try{
       cmd >> name >> '=' >> value >> ';';
       x->set_param_by_name(name, value);
-    }catch (Exception_No_Match&) {
+    }catch (Exception_No_Match&) { untested();
       cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + name + " ignored");
     }
   }
@@ -137,7 +137,7 @@ static void parse_args_instance(CS& cmd, CARD* x)
 	  cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + name + " ignored");
 	}
       }
-    }else{
+    }else{ untested();
       // by order
       int index = 1;
       while (cmd.is_alnum() || cmd.match1("+-.")) { untested();
@@ -162,7 +162,7 @@ static void parse_label(CS& cmd, CARD* x)
   std::string my_name;
   if (cmd >> my_name) {
     x->set_label(my_name);
-  }else{
+  }else{ untested();
     x->set_label(x->id_letter() + std::string("_unnamed")); //BUG// not unique
     cmd.warn(bDANGER, "label required");
   }
@@ -183,9 +183,9 @@ static void parse_ports(CS& cmd, COMPONENT* x, bool all_new)
 	  cmd >> value;
 	  x->set_port_by_index(index, value);
 	  if (all_new) {
-	    if (x->node_is_grounded(index)) {
+	    if (x->node_is_grounded(index)) { untested();
 	      cmd.warn(bDANGER, here, "node 0 not allowed here");
-	    }else if (x->subckt() && x->subckt()->nodes()->how_many() != index+1) {
+	    }else if (x->subckt() && x->subckt()->nodes()->how_many() != index+1) { untested();
 	      cmd.warn(bDANGER, here, "duplicate port name, skipping");
 	    }else{
 	      ++index;
@@ -216,22 +216,22 @@ static void parse_ports(CS& cmd, COMPONENT* x, bool all_new)
 	  cmd.warn(bDANGER, here, "mismatch, ignored");
 	}
       }
-      for (int iii = 0;  iii < x->min_nodes();  ++iii) {
+      for (int iii = 0;  iii < x->min_nodes();  ++iii) { untested();
 	if (!(x->node_is_connected(iii))) {untested();
 	  cmd.warn(bDANGER, x->port_name(iii) + ": port unconnected, grounding");
 	  x->set_port_to_ground(iii);
-	}else{
+	}else{ untested();
 	}
       }
     }
     cmd >> ')';
-  }else{
+  }else{ untested();
     cmd.warn(bDANGER, "'(' required (parse ports) (grounding)");
-    for (int iii = 0;  iii < x->min_nodes();  ++iii) {
-      if (!(x->node_is_connected(iii))) {
+    for (int iii = 0;  iii < x->min_nodes();  ++iii) { untested();
+      if (!(x->node_is_connected(iii))) { untested();
 	cmd.warn(bDANGER, x->port_name(iii) + ": port unconnected, grounding");
 	x->set_port_to_ground(iii);
-      }else{
+      }else{ untested();
 	unreachable();
       }
     }

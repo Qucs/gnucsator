@@ -3,7 +3,6 @@
 /*--------------------------------------------------------------------------*/
 #include <io_trace.h>
 #include <libgen.h> // basename
-#include <l_lib.h>
 /* configuration */
 #define GNUCAP_PLUGPATH "@plugpath@"
 /*--------------------------------------------------------------------------*/
@@ -50,6 +49,7 @@
 #endif
 #endif
 /*--------------------------------------------------------------------------*/
+#include <l_lib.h>
 static char const* systemstartfile(char const* x)
 {
 	static char buf[512];

@@ -132,7 +132,9 @@ void finish_hack(SIM* s)
   // TODO: move to output plugin
   auto& PL = SIM::_probe_lists->print[s_TRAN];
   unsigned number_of_probes = PL.size();
+  trace1("finish_hack", number_of_probes);
 
+  assert(out_hack);
   auto& outFile = *out_hack;
   if(number_of_probes){
     unsigned n = 0;
@@ -144,7 +146,7 @@ void finish_hack(SIM* s)
       outFile << d.first << "\n";
     }
     outFile << "</indep>\n";
-  }else{
+  }else{ untested();
   }
   std::vector<std::string> names;
 

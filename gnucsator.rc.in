@@ -40,6 +40,7 @@ load qucs/s_dc.so
 load qucs/s_tr.so
 load qucs/s_sparam.so
 load qucs/c_include.so
+load qucs/c_prbcmd.so
 
 load public qucs/subst_wrap.so
 load qucs/mscoupled_wrap.so
