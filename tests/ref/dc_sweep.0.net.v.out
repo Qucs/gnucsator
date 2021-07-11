@@ -1,0 +1,3 @@
+
+Idc #(.I(1)) I1 (.1(_net0),.2(0));
+R #(.R(R1),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R1 (.p(_net0),.n(0));

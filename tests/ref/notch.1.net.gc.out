@@ -8,6 +8,20 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
 L: already installed, replacing
 stashing as L:0
 ## declarations end 
@@ -21,7 +35,7 @@ Eqn:Eqn1 Gain="dB(Out.v/In.v)" Export="yes"
 .AC:AC1 Type="l ... p="500" Points="10" Noise="no" 
                                         ^ ? what's this (incomplete)?
 Gnucap   System status
-iterations: op=3, dc=0, tran=0, fourier=0, total=16
+iterations: op=3, dc=3, tran=0, fourier=0, total=16
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=7, subckt=0, model=0, total=7

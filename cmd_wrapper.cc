@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * qucs commands to gnucap
+ * "order" and translate qucs commands
  * this is essentially the gnucap driver.
- * remember: qucs simulator drivers under consruction. see qucs/
+ * remember: qucs simulator drivers under construction. see qucs/
  */
 #include "globals.h"
 #include "u_lang.h"
@@ -28,6 +28,7 @@
 #include "u_prblst.h"
 #include "u_sim_data.h"
 #include "e_cardlist.h"
+#include "u_parameter.h"
 
 using std::string;
 using std::stringstream;
@@ -122,9 +123,12 @@ void AC_WRAP::options(CS& cmd)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-class DC_WRAP : public CMD {
+class DC_WRAP : public CARD, public CMD {
 public:
 	DC_WRAP(): CMD() {}
+private:
+	DC_WRAP* clone() const {return new DC_WRAP(*this);}
+	std::string value_name()const {unreachable(); return "";}
 public:
 	typedef struct{
 		double _start;
@@ -143,20 +147,43 @@ private:
 	double _abstol;
 	double _vntol;
 
-//	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
-		assert(cl);
-//		options(cmd);
-		data_t t;
-		t._start = _start;
-		t._stop = _stop;
-		_stash[short_label()] = t;
+	void options(CS&){
+		incomplete();
+	}
+	void do_it(CS&cmd, CARD_LIST* Scope) {
+		assert(Scope);
+		if(cmd >> "go"){
+			trace1("DC_WRAP go", cmd.fullstring());
+			stringstream x;
+			std::string outfile;
+			Get(cmd, "outfile", &outfile);
+			x << cmd.tail();
+			x << " trace=n basic > " << outfile << ".dc";
+
+			CS wcmd(CS::_STRING, x.str());
+			auto o = command_dispatcher["dc"];
+//			auto o = command_dispatcher["op"];
+			assert(o);
+			error(bTRACE, "calling op: " + wcmd.fullstring());
+			o->do_it(wcmd, Scope);
+
+		}else{
+			data_t t;
+			t._start = _start;
+			t._stop = _stop;
+
+			auto cl = clone();
+			cl->options(cmd);
+			// cl->options(cmd);
+			cl->CARD::set_label(CMD::short_label());
+			Scope->push_back(cl);
+		}
 	}
 public: // GO
 	static std::map<string, data_t> _stash;
 } pdc;
 std::map<string, DC_WRAP::data_t> DC_WRAP::_stash;
-DISPATCHER<CMD>::INSTALL dac(&command_dispatcher, "DC", &pdc);
+DISPATCHER<CMD>::INSTALL dac(&command_dispatcher, "DC", (CMD*)&pdc);
 /*--------------------------------------------------------------------------*/
 class SP_WRAP : public CMD {
 public:
@@ -337,28 +364,34 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", cl);
 			CMD::command("print op v(nodes)", cl);
+			CMD::command("print dc v(nodes)", cl);
 			CMD::command("print ac vr(nodes) vi(nodes)", cl);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
 			CMD* a = NULL;
-			try {
-				c = command_dispatcher["transient"];
-				s = command_dispatcher["sp"];
-				o = command_dispatcher["op"];
-				a = command_dispatcher["ac"];
-			}catch(Exception const&){ untested();
-				error(bDANGER, "some commands are missing, load plugin?\n");
-				exit(1);
-			}
+
+			c = command_dispatcher["transient"];
+			s = command_dispatcher["sp"];
+			o = command_dispatcher["op"];
+			a = command_dispatcher["ac"];
 
 			if(!c){ untested();
 				error(bDANGER, "transient command missing, load plugin?\n");
-				exit(1);
 			}else{
 			}
-
-			trace2("GO2", _sim->is_first_expand(), _sim);
+			if(!s){ untested();
+				error(bDANGER, "sp command missing, load plugin?\n");
+			}else{
+			}
+			if(!o){ untested();
+				error(bDANGER, "op command missing, load plugin?\n");
+			}else{
+			}
+			if(!a){ untested();
+				error(bDANGER, "ac command missing, load plugin?\n");
+			}else{
+			}
 
 			// what happens if there are multiple trans?
 			for(auto const&i : TRAN_WRAP::_stash){
@@ -368,22 +401,32 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				  << " trace=a basic > " << _outfile << ".tr";
 				trace1("tran_wrap", x.str());
 				CS wcmd(CS::_STRING, x.str());
+				assert(c);
 				c->do_it(wcmd, cl);
 			}
-			if(TRAN_WRAP::_stash.empty()){ untested();
+			if(TRAN_WRAP::_stash.empty()){
 				CS wcmd(CS::_STRING, " >/dev/null");
+				assert(o);
 				o->do_it(wcmd, cl);
 			}else{
 			}
-			for(auto const&i : DC_WRAP::_stash){ untested();
-				incomplete();
-				(void) i;
-				stringstream x;
-				x << " trace=n basic > " << _outfile << ".dc";
-				CS wcmd(CS::_STRING, x.str());
-				o->do_it(wcmd, cl);
+
+			PARAM_LIST* pl = cl->params();
+			assert(pl);
+			for(auto c : *cl){
+				if(auto cmd=dynamic_cast<CMD*>(c)){
+					auto l = cmd->short_label();
+					auto omit = pl->deep_lookup("__omit_"+l);
+					if(omit.has_hard_value()){
+					}else{
+						CS go(CS::_STRING, "go outfile="+_outfile);
+						cmd->do_it(go, cl);
+					}
+				}else{
+				}
 			}
-			for(auto const&i : AC_WRAP::_stash){ untested();
+
+			for(auto const&i : AC_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " ";
@@ -392,15 +435,17 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				x << " basic > " << _outfile << ".ac";
 				CS wcmd(CS::_STRING, x.str());
 				trace1("run ac", wcmd.fullstring());
+				assert(a);
 				a->do_it(wcmd, cl);
 			}
-			for(auto&i : SP_WRAP::_stash){ untested();
+			for(auto&i : SP_WRAP::_stash){
 				stringstream x;
 				auto j = i.second;
 				x << "port * " << j._start << " " << j._stop << " " <<  j._args
 				  << " > " << _outfile << ".sp";
 				trace1("SP_WRAP running", x.str());
 				CS wcmd(CS::_STRING, x.str());
+				assert(s);
 				s->do_it(wcmd, cl);
 			}
 
@@ -424,6 +469,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 			}catch(Exception const&){ incomplete();
 			}
 			CS wcmd(CS::_STRING, "");
+			assert(c);
 			c->do_it(wcmd, cl);
 		}
 	private:

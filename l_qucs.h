@@ -27,6 +27,7 @@
 #include "ap.h"
 #include "io_error.h"
 #include "io_trace.h"
+#include "u_lang.h"
 
 template <class T>
 inline bool QucsGet(CS& cmd, const std::string& key, T* val)

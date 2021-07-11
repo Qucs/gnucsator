@@ -105,20 +105,26 @@ void DEV_PROBE::precalc_last()
   set_constant(true);
   set_converged(true);
 
-  string prb = string((_type==VOLTAGE)?"v":"i");
+ string prb = string((_type==VOLTAGE)?"v":"i");
 
-  if(_reg){
-  }else{
-    trace2("adding probe", prb, long_label());
-    CS p(CS::_STRING, prb+"("+long_label()+")");
-    assert(scope());
-    _probe_lists->print[_sim->_mode].add_list(p, scope());
-    _reg = true;
-  }
+ if(_reg){
+ }else{
+   trace3("adding probe", prb, _sim->_mode, long_label());
+   CS p(CS::_STRING, prb+"("+long_label()+")");
+   assert(scope());
+   // _probe_lists->print[_sim->_mode].add_list(p, scope());
+   _probe_lists->print[s_OP].add_list(p, scope());
+   p.reset();
+   _probe_lists->print[s_DC].add_list(p, scope());
+   p.reset();
+   _probe_lists->print[s_TRAN].add_list(p, scope());
+   _reg = true;
+ }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::expand()
 {
+  string prb = string((_type==VOLTAGE)?"v":"i");
   if(_sim->is_first_expand()){
   }else{untested();
   }

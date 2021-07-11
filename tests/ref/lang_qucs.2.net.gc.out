@@ -8,6 +8,20 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
 L: already installed, replacing
 stashing as L:0
 # .TR:mySim2 Start="0" Stop="1 ms" Points="5" IntegrationMethod="Trape

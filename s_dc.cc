@@ -29,10 +29,11 @@
 #include "u_cardst.h"
 #include "e_elemnt.h"
 #include "s__.h"
-#include "s__out.cc"
+#include "s_dc_out.cc"
 #include "s__init.cc"
 #include "s__solve.cc"
 /*--------------------------------------------------------------------------*/
+void finish_hack(SIM*);
 namespace {
 /*--------------------------------------------------------------------------*/
 class DCOP : public SIM {
@@ -92,14 +93,16 @@ private:
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void DC::do_it(CS& Cmd, CARD_LIST* Scope)
-{ untested();
+{
   assert(Scope);
   _scope = Scope;
   _sim->_time0 = 0.;
+  trace0("set_cmd_dc");
   _sim->set_command_dc();
   _sim->_phase = p_INIT_DC;
   ::status.dc.reset().start();
   command_base(Cmd);
+  finish_hack(this);
   _sim->_has_op = s_DC;
   _scope = NULL;
   ::status.dc.stop();
@@ -111,6 +114,7 @@ void OP::do_it(CS& Cmd, CARD_LIST* Scope)
   trace1("op", Cmd.fullstring());
   _scope = Scope;
   _sim->_time0 = 0.;
+  trace0("set_cmd_op");
   _sim->set_command_op();
   _sim->_phase = p_INIT_DC;
   ::status.op.reset().start();
@@ -196,8 +200,25 @@ void OP::setup(CS& Cmd)
   fix_args(0);
 }
 /*--------------------------------------------------------------------------*/
+static ELEMENT* find_sweep(CARD* c)
+{
+  assert(c);
+  if (ELEMENT* e = dynamic_cast<ELEMENT*>(c)) { untested();
+    return e;
+  }else if(c->subckt()){
+    auto d = c->subckt()->find_("dev");
+    if (d==c->subckt()->end()) { untested();
+    }else if(ELEMENT* e = dynamic_cast<ELEMENT*>(*d)) {
+      return e;
+    }else{
+    }
+  }else{
+  }
+  throw Exception("dc/op: can't sweep " + c->long_label() + '\n');
+}
+/*--------------------------------------------------------------------------*/
 void DC::setup(CS& Cmd)
-{ untested();
+{
   _sim->_temp_c = OPT::temp_c;
   _cont = false;
   _trace = tNONE;
@@ -205,18 +226,14 @@ void DC::setup(CS& Cmd)
   _out.reset(); //BUG// don't know why this is needed */
   bool ploton = IO::plotset  &&  plotlist().size() > 0;
 
-  if (Cmd.more()) { untested();
-    for (_n_sweeps = 0; Cmd.more() && _n_sweeps < DCNEST; ++_n_sweeps) { untested();
+  if (Cmd.more()) {
+    for (_n_sweeps = 0; Cmd.more() && _n_sweeps < DCNEST; ++_n_sweeps) {
       CARD_LIST::fat_iterator ci = findbranch(Cmd, _scope);
       if (!ci.is_end()) {			// sweep a component
-	if (ELEMENT* c = dynamic_cast<ELEMENT*>(*ci)) { untested();
-	  _zap[_n_sweeps] = c;
-	}else{untested();
-	  throw Exception("dc/op: can't sweep " + (**ci).long_label() + '\n');
-	}
+	_zap[_n_sweeps] = find_sweep(*ci);
       }else if (Cmd.is_float()) {		// sweep the generator
 	_zap[_n_sweeps] = NULL;
-      }else{ untested();
+      }else{
 	// leave as it was .. repeat Cmd with no args
       }
       
@@ -225,7 +242,7 @@ void DC::setup(CS& Cmd)
 	_stop[_n_sweeps] = "NA";
 	Cmd >> _start[_n_sweeps] >> _stop[_n_sweeps];
 	_step[_n_sweeps] = 0.;
-      }else{ untested();
+      }else{
 	// leave it as it was .. repeat Cmd with no args
       }
       
@@ -240,7 +257,7 @@ void DC::setup(CS& Cmd)
   initio(_out);
 
   assert(_n_sweeps > 0);
-  for (int ii = 0;  ii < _n_sweeps;  ++ii) { untested();
+  for (int ii = 0;  ii < _n_sweeps;  ++ii) {
     _start[ii].e_val(0., _scope);
     fix_args(ii);
 
@@ -303,7 +320,7 @@ void DCOP::fix_args(int Nest)
   if (_step[Nest] == 0.) {	// prohibit log sweep from 0
     _step[Nest] = _stop[Nest] - _start[Nest];
     _linswp[Nest] = true;
-  }else{ untested();
+  }else{
   }
 }
 /*--------------------------------------------------------------------------*/
@@ -347,7 +364,7 @@ void DCOP::options(CS& Cmd, int Nest)
 void DCOP::sweep()
 {
 //  _out << "===DC===;\n";
-  // head(_start[0], _stop[0], " ");
+  head(_start[0], _stop[0], " ");
   _sim->_bypass_ok = false;
   _sim->set_inc_mode_bad();
   if (_cont) {untested();
@@ -370,10 +387,11 @@ void DCOP::sweep_recursive(int Nest)
   
   first(Nest);
   do {
+    trace1("dcsweep", Nest);
     if (Nest == 0) {
       if (_sim->command_is_op()) {
 	_scope->precalc_last();
-      }else{ untested();
+      }else{
       }
       int converged = solve_with_homotopy(itl,_trace);
       if (!converged) {untested();
@@ -387,6 +405,11 @@ void DCOP::sweep_recursive(int Nest)
       _sim->_has_op = _sim->_mode;
       // outdata(*_sweepval[Nest], ofPRINT | ofSTORE | ofKEEP);
       {
+	outdata(*_sweepval[Nest], ofPRINT);
+      }
+      if(0)
+      { untested();
+	trace1("qucs output", _sim->_mode);
 //	qucsator style output hack
 	for(auto i: printlist()){
 	  _out << "<indep " << i.object()->short_label() <<
@@ -411,7 +434,7 @@ void DCOP::first(int Nest)
   assert(_sweepval);
   assert(_sweepval[Nest]);
 
-  if (ELEMENT* c = dynamic_cast<ELEMENT*>(_zap[Nest])) { untested();
+  if (ELEMENT* c = dynamic_cast<ELEMENT*>(_zap[Nest])) {
     c->set_constant(false); 
     // because of extra precalc_last could set constant to true
     // will be obsolete, once pointer hack is fixed
@@ -434,6 +457,7 @@ void DCOP::first(int Nest)
 /*--------------------------------------------------------------------------*/
 bool DCOP::next(int Nest)
 {
+  trace3("DCOP::next", _start[Nest], _stop[Nest], _step[Nest]);
   double sweepval = NOT_VALID;
   bool ok = false;
 
@@ -443,16 +467,16 @@ bool DCOP::next(int Nest)
       // not stepping
       assert(!ok);
       assert(sweepval == NOT_VALID);
-    }else{ untested();
+    }else{
       // stepping
-      if (!_reverse[Nest]) { untested();
+      if (!_reverse[Nest]) {
 	sweepval = *(_sweepval[Nest]) + _step[Nest];
 	fixzero(&sweepval, _step[Nest]);
 	ok = in_order(_start[Nest]-fudge, sweepval, _stop[Nest]+fudge);
 	if (!ok  &&  _loop[Nest]) { untested();
 	  // turn around
 	  _reverse[Nest] = true;
-	}else{ untested();
+	}else{
 	  // forward
 	}
       }else{ untested();
@@ -466,7 +490,7 @@ bool DCOP::next(int Nest)
 	sweepval = *(_sweepval[Nest]) - _step[Nest];
 	fixzero(&sweepval, _step[Nest]);
 	ok = in_order(_start[Nest]-fudge, sweepval, _stop[Nest]+fudge);
-      }else{ untested();
+      }else{
 	// not sure of status
       }
     }
@@ -503,8 +527,9 @@ bool DCOP::next(int Nest)
     }
   }
   _sim->_phase = p_DC_SWEEP;
-  if (ok) { untested();
+  if (ok) {
     assert(sweepval != NOT_VALID);
+    trace1("dc sweepval", sweepval);
     *(_sweepval[Nest]) = sweepval;
     return true;
   }else{
