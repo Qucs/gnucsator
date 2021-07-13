@@ -19,6 +19,7 @@ SIMULATION COMMANDS
 │ transient       │  TR             │   US           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
 │ ac analysis     │  AC             │   M            │ TEI  │ needs output   │
+│ sweep           │  SW             │   C            │ TEI  │ DC parameters  │
 │ pz              │  ?              │   C            │      │ gnucap-python  │
 │ sensitivity     │  ?              │                │      │ gnucap-uf..    │
 │ noise           │  ?              │                │      │ gnucap-uf..    │
