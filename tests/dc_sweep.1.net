@@ -1,7 +1,8 @@
 
 options trace
 
-Idc:I1 _net0 gnd I=".1"
-.SW:SW1 Sim="DC1" Type="lin" Param="R1" Start="10m" Stop="50m" Points="5"
+Idc:I1 _net0 gnd I="I1"
+.SW:SW1 Sim="DC1" Type="lin" Param="I1" Start="10m" Stop="20m" Points="2"
+.SW:SW2 Sim="SW1" Type="lin" Param="R1" Start="10" Stop="30" Points="3"
 .DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU"
 R:R1 _net0 gnd R="R1"

@@ -33,7 +33,6 @@
 #include "s__init.cc"
 #include "s__solve.cc"
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM*);
 namespace {
 /*--------------------------------------------------------------------------*/
 class DCOP : public SIM {
@@ -363,8 +362,18 @@ void DCOP::options(CS& Cmd, int Nest)
 /*--------------------------------------------------------------------------*/
 void DCOP::sweep()
 {
+  init_hack(this);
 //  _out << "===DC===;\n";
-  head(_start[0], _stop[0], " ");
+  for(int i=0; i<_n_sweeps; ++i){
+    std::string label="swp"+std::to_string(i);
+    if (!_zap[i]) {
+    }else if (_zap[i]->short_label()=="dev") {
+      label = _zap[i]->owner()->long_label();
+    }else{
+      label = _zap[i]->long_label();
+    }
+    head(_start[i], _stop[i], label);
+  }
   _sim->_bypass_ok = false;
   _sim->set_inc_mode_bad();
   if (_cont) {untested();
@@ -421,6 +430,7 @@ void DCOP::sweep_recursive(int Nest)
 
       itl = OPT::DCXFER;
     }else{ untested();
+      outdata(*_sweepval[Nest], ofKEY);
       sweep_recursive(Nest);
     }
   } while (next(Nest));

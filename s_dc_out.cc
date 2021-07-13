@@ -21,6 +21,9 @@
  * 02110-1301, USA.
  *------------------------------------------------------------------
  * qucs output functions (print dc only). to be moved to output plugin.
+ *
+ * this is hopeless, but maybe useful for testing.
+ * need sensible data container.
  */
 #include "u_sim_data.h"
 #include "u_status.h"
@@ -28,8 +31,14 @@
 #include "u_prblst.h"
 #include "declare.h"	/* plottr, plopen */
 #include "s__.h"
-
+/*--------------------------------------------------------------------------*/
+static const int ofKEY=2048;
 OMSTREAM* out_hack;
+std::vector<std::string> _labels;
+std::vector<double> _keys;
+std::vector<int> _counts;
+std::vector<std::vector<double>> _ctx;
+unsigned _count;
 /*--------------------------------------------------------------------------*/
 /* SIM::____list: access probe lists
  */
@@ -59,11 +68,26 @@ const PROBELIST& SIM::storelist()const
 void SIM::outdata(double x, int outflags)
 {
   ::status.output.start();
+  if (outflags & ofKEY){ untested();
+    if(_keys.size() == _labels.size()-1){
+      _counts.push_back(_count);
+      _keys.clear();
+      _count = 0;
+    }else{
+    }
+    _keys.push_back(x);
+  }else{ untested();
+  }
   if (outflags & ofKEEP) { untested();
     _sim->keep_voltages();
   }else{
   }
   if (outflags & ofPRINT) {
+    _ctx.push_back(_keys);
+    ++_count;
+    for(auto i : _keys){
+      _out << i;
+    }
     store_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
@@ -81,13 +105,19 @@ void SIM::outdata(double x, int outflags)
  */
 void SIM::head(double start, double stop, const std::string& col1)
 {
-  if (_sim->_waves) {
-    delete [] _sim->_waves;
+  if(_labels.size()){
   }else{
+    // init?
+    if (_sim->_waves) {
+      delete [] _sim->_waves;
+    }else{
+    }
   }
 
   _sim->_waves = new WAVE [printlist().size()];
   out_hack = &_out;
+
+  _labels.push_back(col1);
 }
 /*--------------------------------------------------------------------------*/
 /* SIM::print_results: print the list of results (text form) to _out
@@ -123,8 +153,18 @@ void SIM::store_results(double x)
   }
 }
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM* s)
+// "OUTPUT::init"
+void init_hack(SIM* s)
 {
+  _labels.clear();
+  _keys.clear();
+  _ctx.clear();
+  _counts.clear();
+  _count = 0;
+}
+/*--------------------------------------------------------------------------*/
+void finish_hack(SIM* s)
+{ untested();
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
   //
@@ -137,22 +177,58 @@ void finish_hack(SIM* s)
   assert(out_hack);
   auto& outFile = *out_hack;
   std::string dep, SW;
-  if(number_of_probes){
+
+//  for(auto i: _labels){ untested();
+//    outFile << "sweep " << i << "\n";
+//  }
+
+  if(number_of_probes){ untested();
     unsigned n = 0;
-    for(auto d : CKT_BASE::_sim->_waves[0]){
+    for(auto d : CKT_BASE::_sim->_waves[0]){ untested();
       ++n;
     }
+    // BUG: only works for <= 2 sweeps
+    if(_labels.size() > 1){ untested();
+      int cc = _counts[0];
+      outFile << "<indep " << _labels[0] << " " << n/cc << ">\n";
+      int i=0;
+      for(auto d : CKT_BASE::_sim->_waves[0]){
+	outFile << "  " << d.first << "\n";
+	i+= n/cc;
+	if(i>=n){
+	  break;
+	}
+      }
+      outFile << "</indep>\n";
+    }else{
+    }
+
     if(n==1){
       dep = "indep";
       SW = "1";
     }else{
       dep = "dep";
-      SW = "SW";
-      outFile << "<indep SW " << n << ">\n";
-      for(auto d : CKT_BASE::_sim->_waves[0]){
-	outFile << d.first << "\n";
+      SW = _labels[0];
+      if(_labels.size()>1){
+       	SW += " " + _labels[1];
       }
-      outFile << "</indep>\n";
+      // DUP
+      if(_labels.size()==1){
+	outFile << "<indep " << _labels.back() << " " << n << ">\n";
+	for(auto d : CKT_BASE::_sim->_waves[0]){
+	  outFile << d.first << "\n";
+	}
+	outFile << "</indep>\n";
+      }else if(_labels.size()==2){
+	outFile << "<indep " << _labels.back() << " " << n << ">\n";
+	for(unsigned i=0; i<n;){
+	  assert(_ctx[i].size());
+	  outFile << "  " << _ctx[i][0] << "\n";
+	  int cc = _counts[0];
+	  i+=cc;
+	}
+	outFile << "</indep>\n";
+      }
     }
   }else{ untested();
   }

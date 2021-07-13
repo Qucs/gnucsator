@@ -71,6 +71,7 @@ private:
 	void do_it(CS& cmd, CARD_LIST* Scope) {
 		assert(Scope);
 		if(cmd >> "go"){
+			error(bTRACE, "sweep " + cmd.fullstring() + "\n");
 			auto it = Scope->find_(_sim);
 			if(it==Scope->end()){
 				throw Exception_CS("unknown sim " + _sim, cmd);

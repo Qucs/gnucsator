@@ -28,7 +28,7 @@
 #include "s__.h"
 /*--------------------------------------------------------------------------*/
 void SIM::command_base(CS& cmd)
-{  untested();
+{
   assert(_sim);
   reset_timers();
   _sim->reset_iteration_counter(_sim->_mode);

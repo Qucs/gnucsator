@@ -8,7 +8,7 @@ simulator language=verilog
 
 module Idc(1 2);
 parameter I=1m
-isource #(.dc(I)) v(2 1);
+isource #(.dc(I)) dev(2 1);
 endmodule
 
 module Vdc(p n);

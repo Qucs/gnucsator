@@ -33,6 +33,7 @@ R1.dev: short circuit
 R1.dev: short circuit
 R1.dev: short circuit
 R1.dev: short circuit
+sweep go outfile=dc_sweep.0.net.tmp
 calling op: R1 0.01 0.05 0.01 trace=n basic > dc_sweep.0.net.tmp.dcR1.dev: short circuit
 parameter R1 not specified, using default
 >>>>>status notime 
@@ -43,17 +44,17 @@ transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
-<indep SW 5>
+<indep R1 5>
  0.01
  0.02
  0.03
  0.04
  0.05
 </indep>
-<dep _net0.V SW>
- 0.01
- 0.02
- 0.03
- 0.04
- 0.05
+<dep _net0.V R1>
+ 0.001
+ 0.002
+ 0.003
+ 0.004
+ 0.005
 </dep>
