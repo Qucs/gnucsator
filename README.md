@@ -29,7 +29,7 @@ configuration file (gnucsator.rc).
 - install gnucap (>=20171003)
   - official gnucap from savannah [1], or
   - apt install gnucap # (in debian>=buster)
-  - apt install libgnucap-dev
+  - apt install libgnucap-dev gnucap-default-plugins0
 - install some other dependencies
   - apt install libboost-all-dev # (this is a superset)
   - apt install libgsl-dev
