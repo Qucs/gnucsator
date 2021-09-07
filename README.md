@@ -28,9 +28,7 @@ configuration file (gnucsator.rc).
 - install qucs (the gui).
 - install gnucap (>=20171003)
   - official gnucap from savannah [1], or
-  - apt install gnucap # (in debian>=buster)
-  - apt install libgnucap-dev
-  - apt install gnucap-default-plugins0 # (will change)
+  - apt install gnucap libgnucap-dev # (in debian>=buster)
 - install some other dependencies
   - apt install libboost-all-dev # (this is a superset)
   - apt install libgsl-dev
