@@ -17,6 +17,16 @@ module L(p, n);
 	inductor #(.l(L)) L1(p, n);
 endmodule // C
 
+module R(p, n);
+	parameter R
+	parameter Temp
+	parameter Tc1
+	parameter Tc2
+	parameter Tnom
+
+	resistor #(.r(R)) dev(p, n);
+endmodule // R
+
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
 // Zref is some sparam hack.. ignore for now
 module Gyrator(1 2 3 4);
