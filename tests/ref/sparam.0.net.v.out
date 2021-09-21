@@ -2,6 +2,6 @@
 Pac #(.Num(1),.P(1),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
 Pac #(.Num(2),.P(10),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net1),.2(0));
 Pac #(.Num(3),.P(100),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(_net2),.2(0));
-R #(.R(100),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R1 (.p(_net0),.n(0));
-R #(.R(100),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R2 (.p(_net1),.n(0));
-R #(.R(200),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R3 (.p(_net2),.n(0));
+R #(.R(100)) R1 (.p(_net0),.n(0));
+R #(.R(100)) R2 (.p(_net1),.n(0));
+R #(.R(200)) R3 (.p(_net2),.n(0));

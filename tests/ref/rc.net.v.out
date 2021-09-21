@@ -1,5 +1,5 @@
 
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(_net1));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
 VProbe #() Pr1 (.p(_net1),.n(0));
 Vrect #(.U(1),.Td(0n),.Tr(1n),.Tf(1n),.TH(1m),.TL(1m)) V1 (.p(_net0),.n(0));
 C #(.C(1u)) C1 (.p(_net1),.n(0));

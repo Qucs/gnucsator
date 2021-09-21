@@ -24,8 +24,10 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 Gnucap   System status
-iterations: op=0, dc=0, tran=8, fourier=0, total=11
+iterations: op=0, dc=0, tran=6, fourier=0, total=9
 transient timesteps: accepted=3, rejected=0, total=3
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=0, model=0, total=3

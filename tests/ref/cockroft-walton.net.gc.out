@@ -24,6 +24,8 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 # Qucs 0.0.19  C:/Users/Andrea/.qucs/multiplier.sch 
 ^ ? # Qucs 0.0.19  C: no match
 C:C5 _net1 gnd C="1 nF" V="" 

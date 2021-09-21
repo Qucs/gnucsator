@@ -24,6 +24,8 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 .SP:SPTC1 Type= ... p="1e10" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 Gnucap   System status

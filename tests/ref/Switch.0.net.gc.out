@@ -24,6 +24,8 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 parameter spline not specified, using default
 parameter spline value is "NOT_INPUT"
 parameter spline not specified, using default
@@ -53,13 +55,13 @@ parameter spline value is "NOT_INPUT"
 parameter spline not specified, using default
 parameter spline value is "NOT_INPUT"
 Gnucap   System status
-iterations: op=0, dc=0, tran=94, fourier=0, total=128
-transient timesteps: accepted=28, rejected=6, total=34
+iterations: op=0, dc=0, tran=55, fourier=0, total=74
+transient timesteps: accepted=18, rejected=1, total=19
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=5, subckt=2, model=0, total=7
 dctran density=30.6%, ac density=30.6%
 
-<indep time 28>
+<indep time 18>
  0.
  10.E-6
  20.E-6
@@ -67,23 +69,13 @@ dctran density=30.6%, ac density=30.6%
  100.E-6
  100.E-6
  100.E-6
- 100.0006E-6
- 100.0007E-6
- 100.0007E-6
- 100.0008E-6
- 100.2832E-6
- 101.5593E-6
- 118.5111E-6
+ 147.3684E-6
+ 194.7368E-6
  200.E-6
  200.E-6
- 200.0499E-6
- 200.0501E-6
- 200.0501E-6
- 200.0501E-6
- 200.0512E-6
- 200.4722E-6
- 203.2678E-6
- 260.1772E-6
+ 223.5294E-6
+ 240.7843E-6
+ 258.0392E-6
  400.E-6
  600.E-6
  800.E-6
@@ -100,16 +92,6 @@ dctran density=30.6%, ac density=30.6%
  15.E-15
  15.E-15
  15.E-15
- 15.E-15
- 15.E-15
- 15.E-15
- 15.E-15
- 15.E-15
- 0.
- 0.
- 0.
- 0.
- 0.
  0.
  0.
  0.
@@ -130,36 +112,16 @@ dctran density=30.6%, ac density=30.6%
  31.E-15
  31.E-15
  31.E-15
- 31.E-15
- 31.E-15
- 31.E-15
- 31.E-15
- 31.E-15
  3.648339
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
+ 3.648339
+ 3.648339
+ 3.648339
+ 3.648339
  3.7
  3.7
  3.7
 </dep>
 <dep _net2.Vt time>
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
  3.7
  3.7
  3.7
@@ -190,36 +152,16 @@ dctran density=30.6%, ac density=30.6%
  1.85
  1.85
  1.85
- 1.85
- 1.85
- 1.85
- 1.85
- 1.85
  3.674169
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
+ 3.674169
+ 3.674169
+ 3.674169
+ 3.674169
  3.7
  3.7
  3.7
 </dep>
 <dep _net4.Vt time>
- 0.
- 0.
- 0.
- 0.
- 0.
- 0.
- 0.
- 0.
- 0.
- 0.
  0.
  0.
  0.
@@ -250,21 +192,11 @@ dctran density=30.6%, ac density=30.6%
  1.85
  1.85
  1.85
- 1.85
- 1.85
- 1.85
- 1.85
- 1.85
  3.674169
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
- 3.7
+ 3.674169
+ 3.674169
+ 3.674169
+ 3.674169
  3.7
  3.7
  3.7

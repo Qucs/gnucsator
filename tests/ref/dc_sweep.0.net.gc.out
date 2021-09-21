@@ -24,21 +24,42 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 >>>>>.SW:SW1 Sim="DC1" Type="lin" Param="R1" Start="10m" Stop="50m" Points="5" 
 >>>>>.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU" 
 >>>>>go dc_sweep.0.net.tmp 
 parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
 parameter R1 not specified, using default
-R1.dev: short circuit
-R1.dev: short circuit
-R1.dev: short circuit
-R1.dev: short circuit
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R value is "NOT_INPUT"
+new max = 1e+11, new limit = 1e+11
 sweep go outfile=dc_sweep.0.net.tmp
-calling op: R1 0.01 0.05 0.01 trace=n basic > dc_sweep.0.net.tmp.dcR1.dev: short circuit
+calling op: R1 0.01 0.05 0.01 trace=n basic > dc_sweep.0.net.tmp.dcparameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
 parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
 >>>>>status notime 
 Gnucap   System status
-iterations: op=4, dc=16, tran=0, fourier=0, total=20
+iterations: op=2, dc=16, tran=0, fourier=0, total=18
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
