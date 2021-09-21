@@ -55,7 +55,11 @@ GSL_LIBS = -lgsl -lblas -lgslcblas
 EXECUTABLES = \
   ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
 
-all:
+all: gnucsator.rc
+
+gnucsator.rc: gnucsator.rc.in
+	@echo "WARNING: gnucsator.rc may be outdated."
+	@echo "         rerun configure if needed."
 
 main.o: gnucsator.cc
 	$(CXX) $(GNUCSATOR_CXXFLAGS) -DHAVE_CONFIG $(CPPFLAGS) $(GNUCAP_CPPFLAGS) $(GNUCSATOR_CPPFLAGS) -fPIC -c -o $@ $<
