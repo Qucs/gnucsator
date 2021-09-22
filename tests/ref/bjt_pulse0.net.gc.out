@@ -1,0 +1,123 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
+L: already installed, replacing
+stashing as L:0
+R: already installed, replacing
+stashing as R:1
+Gnucap   System status
+iterations: op=0, dc=0, tran=77, fourier=0, total=96
+transient timesteps: accepted=16, rejected=3, total=19
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=3, subckt=0, model=1, total=4
+dctran density=100.0%, ac density=100.0%
+
+<indep time 16>
+ 0.
+ 15.E-6
+ 30.E-6
+ 54.5E-6
+ 100.E-6
+ 183.3333E-6
+ 246.0317E-6
+ 308.7302E-6
+ 417.0274E-6
+ 0.0011
+ 0.0012
+ 0.00120124
+ 0.001202226
+ 0.001202814
+ 0.001203181
+ 0.0015
+</indep>
+<dep c.Vt time>
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+</dep>
+<dep in.Vt time>
+ 0.
+ 0.45
+ 0.9
+ 1.635
+ 3.
+ 3.
+ 3.
+ 3.
+ 3.
+ 3.
+ 1.628E-12
+-1.626E-12
+ 1.624E-12
+-1.62E-12
+ 1.615E-12
+-1.615E-12
+</dep>
+<dep out.Vt time>
+ 1.096044E-9
+ 70.58199E-6
+ 0.2307674
+ 0.9240349
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+-11.12297E-6
+ 11.10905E-6
+-11.08655E-6
+ 11.05492E-6
+-10.99851E-6
+ 11.00069E-6
+</dep>

@@ -1,0 +1,5 @@
+
+BJT #(.Ab(1),.Af(1),.Area(1),.Bf(300),.Br(7.5),.Cjc(3.5e-12),.Cje(4.5e-12),.Cjs(0),.Eg(1.11),.Fb(1),.Fc(0.5),.Ffe(1),.Ikf(0.025),.Ikr(0),.Irb(0),.Is(1.4e-14),.Isc(0),.Ise(3e-13),.Itf(0),.Kb(0),.Kf(9e-16),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0),.Rb(0),.Rbm(0),.Rc(2.4),.Re(0),.Temp(26.85),.Tf(4e-10),.Tnom(26.85),.Tr(2.1e-08),.Type(npn),.Vaf(100),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtb(1.5),.Xtf(0),.Xti(3)) Q2N3904_1 (.b(in),.c(c),.e(out),.s(c));
+Vdc #(.U(5)) V1 (.p(c),.n(0));
+R #(.R(100),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(0),.n(out));
+Vpulse #(.U1(0),.U2(3),.T2(1m),.TL(NA( NA)),.Tr(.1m),.Tf(.1m),.T1(0)) V2 (.p(in),.n(0));

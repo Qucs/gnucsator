@@ -1,0 +1,139 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
+L: already installed, replacing
+stashing as L:0
+R: already installed, replacing
+stashing as R:1
+Gnucap   System status
+iterations: op=0, dc=0, tran=178, fourier=0, total=217
+transient timesteps: accepted=20, rejected=19, total=39
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=3, subckt=0, model=1, total=4
+dctran density=100.0%, ac density=100.0%
+
+<indep time 20>
+ 0.
+ 3.E-12
+ 70.46723E-6
+ 94.65169E-6
+ 94.66752E-6
+ 94.66752E-6
+ 100.E-6
+ 177.7778E-6
+ 219.0972E-6
+ 260.4167E-6
+ 329.2824E-6
+ 0.0011
+ 0.001175122
+ 0.001175122
+ 0.0012
+ 0.001200142
+ 0.001200284
+ 0.00120039
+ 0.001200495
+ 0.0015
+</indep>
+<dep c.Vt time>
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+</dep>
+<dep in.Vt time>
+ 0.
+ 89.99979E-9
+ 2.114017
+ 2.839551
+ 2.840026
+ 2.840026
+ 3.
+ 3.
+ 3.
+ 3.
+ 3.
+ 3.
+ 0.7463447
+ 0.7463446
+ 956.E-15
+-948.E-15
+ 941.E-15
+-931.E-15
+ 921.E-15
+-921.E-15
+</dep>
+<dep out.Vt time>
+ 1.096044E-9
+ 90.4993E-9
+ 1.38916
+ 2.099533
+ 2.1
+ 2.1
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+ 2.2572
+ 0.09999996
+ 0.0999999
+-5.933903E-6
+ 5.861375E-6
+-5.785342E-6
+ 5.689701E-6
+-5.591245E-6
+ 5.593454E-6
+</dep>
