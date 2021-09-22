@@ -38,6 +38,9 @@ PLUGIN_CC = \
 	s_sparam.cc \
 	s_sweep.cc
 
+PLUGIN_MODEL = \
+	d_diode.model \
+	d_bjt.model
 
 noinst_HEADERS = \
 	io.h \

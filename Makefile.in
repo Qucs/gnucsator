@@ -8,6 +8,7 @@ PACKAGE_NAME = gnucap-qucs
 PACKAGE_VERSION = 0.0.0
 
 GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
+GNUCAP_MODELGEN = gnucap-modelgen
 
 # BUG: use tests/MakeList
 TESTFILES_PAT = \
@@ -80,7 +81,7 @@ GNUCSATOR_CPPFLAGS+= -DUSERSTARTPATH=\".\"
 GNUCSATOR_CPPFLAGS+= -DDEFAULT_PLUGINS=\"gnucap-default-plugins.so\"
 GNUCSATOR_CPPFLAGS+= -DDEFAULT_LANGUAGE=\"acs\"
 
-QUCS_PLUGINS = ${PLUGIN_CC:%.cc=%.so}
+QUCS_PLUGINS = ${PLUGIN_CC:%.cc=%.so} ${PLUGIN_MODEL:%.model=%.so}
 QUCSATOR_OBJS = \
 	qucsator/fspecial.o \
 	qucsator/complex.o \
@@ -94,6 +95,11 @@ mscoupled_wrap.so: MY_CPPFLAGS=-Iqucsator
 mscoupled_wrap.so: OBJS = qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
 subst_wrap.so: MY_CPPFLAGS=-Iqucsator
 subst_wrap.so: OBJS = qucsator/substrate.o ${QUCSATOR_OBJS}
+
+d_bjt.cc: d_diode.cc
+%.cc %.h: %.model
+	$(AM_V_GEN)$(GNUCAP_MODELGEN) $<
+	@touch $*.cc
 
 all-recursive:
 	$(MAKE) -C qucsator

@@ -43,6 +43,9 @@ load qucs/s_sweep.so
 load qucs/c_include.so
 load qucs/c_prbcmd.so
 
+load public qucs/d_diode.so
+load qucs/d_bjt.so
+
 load public qucs/subst_wrap.so
 load qucs/mscoupled_wrap.so
 

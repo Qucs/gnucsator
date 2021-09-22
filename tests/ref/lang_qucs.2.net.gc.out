@@ -22,6 +22,22 @@ print: already installed, replacing
 stashing as print:0
 probe: already installed, replacing
 stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
 R: already installed, replacing

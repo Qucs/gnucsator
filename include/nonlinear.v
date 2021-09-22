@@ -239,8 +239,8 @@ module BJT(b, c, e, s);
 	//"ICVBE"
 	//"ICVCE"
 	// workaround: select one of them.
-	mynpn #(.area(Area*(1.+Type)*.5+1e-20) .temp(Temp)) p(c, b, e, s);
-	mypnp #(.area(Area*(1.-Type)*.5+1e-20) .temp(Temp)) p(c, b, e, s);
+	mynpn #(.area(Area*(1.+Type)*.5) .temp(Temp)) p(c, b, e, s);
+	mypnp #(.area(Area*(1.-Type)*.5) .temp(Temp)) p(c, b, e, s);
 endmodule // BJT
 
 // d'oh. in qucsator, "MOSFET" is both, nFET and pFET.
