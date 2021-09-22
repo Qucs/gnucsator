@@ -24,6 +24,8 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
 parameter TESTSUB not specified, using default

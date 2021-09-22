@@ -17,6 +17,19 @@ module L(p, n);
 	inductor #(.l(L)) L1(p, n);
 endmodule // C
 
+module R(p, n);
+	parameter R
+	parameter Temp=26.85
+	parameter Tnom=26.85
+	parameter Tc1=0
+	parameter Tc2=0
+
+	// local?
+	parameter dT={Temp-Tnom}
+
+	resistor #(.r(R * (1. + dT*(Tc1 + dT*Tc2)))) dev(p, n);
+endmodule // R
+
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
 // Zref is some sparam hack.. ignore for now
 module Gyrator(1 2 3 4);
@@ -55,9 +68,9 @@ parameter c0=299792458.0
 tline #(.z(Z), .f(c0), .nl(L) t(a 0 b 0);
 endmodule
 
-
 simulator lang=spice
 .options noinsensitive
+
 * MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9"
 .subckt MUT (a1 b1 b2 a2)
 .parameter k=.9

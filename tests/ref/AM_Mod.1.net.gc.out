@@ -24,8 +24,10 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 Gnucap   System status
-iterations: op=0, dc=0, tran=57, fourier=0, total=70
+iterations: op=0, dc=0, tran=52, fourier=0, total=65
 transient timesteps: accepted=13, rejected=0, total=13
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=2, model=0, total=5
@@ -37,13 +39,13 @@ dctran density=76.0%, ac density=76.0%
  0.02
  0.07444444
  0.1288889
- 0.2377778
- 0.3466667
+ 0.2740741
+ 0.3648148
  0.4555556
- 0.5644444
- 0.6733333
- 0.7822222
- 0.8911111
+ 0.5462963
+ 0.6597222
+ 0.7731481
+ 0.8865741
  1.
 </indep>
 <dep _net0.Vt time>
@@ -52,13 +54,13 @@ dctran density=76.0%, ac density=76.0%
  5.566853
  5.948727
  4.798373
--0.5954787
--5.415321
+-2.563748
+-5.776031
 -5.015087
- 0.2194206
- 5.242418
- 5.212008
- 0.1575035
+-0.8043551
+ 4.825991
+ 5.44685
+ 0.4137564
 -5.048826
 </dep>
 <dep _net1.Vt time>
@@ -67,13 +69,13 @@ dctran density=76.0%, ac density=76.0%
  5.566853
  5.948727
  4.798373
--0.5954787
--5.415321
+-2.563748
+-5.776031
 -5.015087
- 0.2194206
- 5.242418
- 5.212008
- 0.1575035
+-0.8043551
+ 4.825991
+ 5.44685
+ 0.4137564
 -5.048826
 </dep>
 <dep _net2.Vt time>
@@ -97,12 +99,12 @@ dctran density=76.0%, ac density=76.0%
  5.566853
  5.948727
  4.798373
--0.5954787
--5.415321
+-2.563748
+-5.776031
 -5.015087
- 0.2194206
- 5.242418
- 5.212008
- 0.1575035
+-0.8043551
+ 4.825991
+ 5.44685
+ 0.4137564
 -5.048826
 </dep>

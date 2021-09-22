@@ -24,12 +24,14 @@ probe: already installed, replacing
 stashing as probe:0
 L: already installed, replacing
 stashing as L:0
+R: already installed, replacing
+stashing as R:1
 .Def:mysub _net0 _net1 
-  R:R1 _net0 _net1   R=50 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+  R:R1 _net0 _net1   R=50 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85
 .Def:End
   VProbe:Pr1 post gnd  
   Vac:V1 pre gnd   Phase=0 Theta=0 U=1 f=1
-  R:R1 post gnd   R=100 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85 ic=NA( NA)
+  R:R1 post gnd   R=100 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85
   VProbe:Pr2 _net0 gnd  
   mysub:foo1 pre _net0   Type=mysub
   mysub:foo pre post   Type=mysub
@@ -62,7 +64,7 @@ parameter mysub value is "NOT_INPUT"
 parameter mysub not specified, using default
 parameter mysub value is "NOT_INPUT"
 Gnucap   System status
-iterations: op=0, dc=0, tran=47, fourier=0, total=59
+iterations: op=0, dc=0, tran=35, fourier=0, total=47
 transient timesteps: accepted=12, rejected=0, total=12
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=0, model=0, total=3

@@ -1,7 +1,7 @@
 
-R #(.R(50),.Tc1(1.0),.Tc2(0.0),.Temp(30),.Tnom(26.85),.ic(NA( NA))) R1 (.p(_net0),.n(_net1));
-R #(.R(50),.Tc1(1.0),.Tc2(.05),.Temp(8.5),.Tnom(26.85),.ic(NA( NA))) R2 (.p(_net0),.n(_net2));
+R #(.R(50),.Tc1(1.0),.Tc2(0.0),.Temp(30),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
+R #(.R(50),.Tc1(1.0),.Tc2(.05),.Temp(8.5),.Tnom(26.85)) R2 (.p(_net0),.n(_net2));
 VProbe #() Pr1 (.p(_net0),.n(0));
 Vdc #(.U(1)) V1 (.p(_net0),.n(0));
-R #(.R(100),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R3 (.p(_net1),.n(0));
-R #(.R(100),.Tc1(NA( NA)),.Tc2(NA( NA)),.Temp(NA( NA)),.Tnom(NA( NA)),.ic(NA( NA))) R4 (.p(_net2),.n(0));
+R #(.R(100)) R3 (.p(_net1),.n(0));
+R #(.R(100)) R4 (.p(_net2),.n(0));
