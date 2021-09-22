@@ -40,8 +40,6 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
-R: already installed, replacing
-stashing as R:1
 .SP:SPTC1 Type= ... ="1e10" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 # Eqn:Eqn1 reflect="dB(S[1,1])" isolated="dB(S[3,1])" through="dB(S[2,

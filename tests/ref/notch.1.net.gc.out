@@ -40,8 +40,6 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
-R: already installed, replacing
-stashing as R:1
 ## declarations end 
    ^ ? ##: no match
 C:C1 _net9 _net15 C="1.01u" V="" 

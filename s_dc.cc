@@ -429,7 +429,7 @@ void DCOP::sweep_recursive(int Nest)
       }
 
       itl = OPT::DCXFER;
-    }else{ untested();
+    }else{
       outdata(*_sweepval[Nest], ofKEY);
       sweep_recursive(Nest);
     }

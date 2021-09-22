@@ -8,8 +8,6 @@ stashing as ':0
 stashing as ":0
 dev_comment: already installed, replacing
 stashing as dev_comment:0
-R: already installed, replacing
-stashing as R:0
 verilog: already installed, replacing
 stashing as verilog:0
 paramset: already installed, replacing

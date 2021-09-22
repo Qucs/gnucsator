@@ -68,7 +68,7 @@ const PROBELIST& SIM::storelist()const
 void SIM::outdata(double x, int outflags)
 {
   ::status.output.start();
-  if (outflags & ofKEY){ untested();
+  if (outflags & ofKEY){
     if(_keys.size() == _labels.size()-1){
       _counts.push_back(_count);
       _keys.clear();
@@ -76,7 +76,7 @@ void SIM::outdata(double x, int outflags)
     }else{
     }
     _keys.push_back(x);
-  }else{ untested();
+  }else{
   }
   if (outflags & ofKEEP) { untested();
     _sim->keep_voltages();
@@ -91,7 +91,7 @@ void SIM::outdata(double x, int outflags)
     store_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
-  }else{ untested();
+  }else{
     ++::status.hidden_steps;
   }
   if (outflags & ofSTORE) { untested();
@@ -164,7 +164,7 @@ void init_hack(SIM* s)
 }
 /*--------------------------------------------------------------------------*/
 void finish_hack(SIM* s)
-{ untested();
+{
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
   //
@@ -182,13 +182,13 @@ void finish_hack(SIM* s)
 //    outFile << "sweep " << i << "\n";
 //  }
 
-  if(number_of_probes){ untested();
+  if(number_of_probes){
     unsigned n = 0;
-    for(auto d : CKT_BASE::_sim->_waves[0]){ untested();
+    for(auto d : CKT_BASE::_sim->_waves[0]){
       ++n;
     }
     // BUG: only works for <= 2 sweeps
-    if(_labels.size() > 1){ untested();
+    if(_labels.size() > 1){
       int cc = _counts[0];
       outFile << "<indep " << _labels[0] << " " << n/cc << ">\n";
       int i=0;

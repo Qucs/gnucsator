@@ -8,6 +8,7 @@ load ../s_sparam.so
 load public ../lang_verilog.so
 load ../c_vpp.so
 
+include ../include/lumped.v
 include ../include/sources.v
 
 options lang=qucs

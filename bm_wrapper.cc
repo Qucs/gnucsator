@@ -346,10 +346,12 @@ DEV_SCKT_WRAP m3b(&qucs_Vpulse, pn, Vrect_param, "Vrect", Vrect_assign, 2);
 DISPATCHER<CARD>::INSTALL d3b(&device_dispatcher, "Vrect", &m3b);
 /*--------------------------------------------------------------------------*/
 // dispatch(resistor, bm_value, R)
+#if 0
 const char* Vres_param[] = {"R", "Tc1", "Tc2", "Temp", "Tnom", "ic", NULL,
                             "r", "tc1", "tc2", "temp", "tnom", "ic"};
 DEV_BM_WRAP qucs_Res("resistor", "value", "uneeded");
 DEV_SCKT_WRAP m4(&qucs_Res, pn, Vres_param, "R");
 DISPATCHER<CARD>::INSTALL d4(&device_dispatcher, "R", &m4);
+#endif
 /*--------------------------------------------------------------------------*/
 }
