@@ -11,13 +11,13 @@ all: mscoupled.o substrate.o \
      matrix.o vector.o complex.o real.o fspecial.o
 
 mscoupled.o: mscoupled.cpp component.h object.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@
 
 substrate.o msline.o: %.o: %.cpp component.h object.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
 
 subst_wrap.o mscoupled_wrap.o: %.o: %.cc object.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
 
 fspecial.o real.o complex.o vector.o matrix.o: %.o: %.cpp
 	$(CXX) -c -fPIC $< -o $@ -DNR_TINY=1e-15 -Dnr_double_t=double -DHAVE_STD_ERF

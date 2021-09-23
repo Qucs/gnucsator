@@ -1,5 +1,5 @@
 #include "netdefs.h"
-#include <gnucap/e_model.h>
+#include <e_model.h>
 
 namespace qucs{
 

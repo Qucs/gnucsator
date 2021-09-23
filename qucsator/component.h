@@ -4,10 +4,10 @@
 #ifndef QW_COMPONENT_H
 #define QW_COMPONENT_H
 
-#include <gnucap/io_trace.h>
-#include <gnucap/e_compon.h>
-#include <gnucap/e_node.h>
-#include <gnucap/l_denoise.h> // dn_diff
+#include <io_trace.h>
+#include <e_compon.h>
+#include <e_node.h>
+#include <l_denoise.h> // dn_diff
 #include <cmath>
 #include <complex>
 #include <string.h>

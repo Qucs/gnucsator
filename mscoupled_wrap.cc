@@ -1,5 +1,5 @@
 
-#include <gnucap/globals.h>
+#include <globals.h>
 
 #include "component.h"
 #include "substrate.h"

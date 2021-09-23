@@ -1,8 +1,8 @@
 
-#include <gnucap/globals.h>
-#include <gnucap/c_comand.h>
-#include <gnucap/io_trace.h>
-#include <gnucap/u_lang.h>
+#include <globals.h>
+#include <c_comand.h>
+#include <io_trace.h>
+#include <u_lang.h>
 
 #include "component.h"
 #include "substrate.h"

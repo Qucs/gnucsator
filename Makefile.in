@@ -102,7 +102,7 @@ d_bjt.cc: d_diode.cc
 	@touch $*.cc
 
 all-recursive:
-	$(MAKE) -C qucsator
+	$(MAKE) -C qucsator GNUCAP_CPPFLAGS="${GNUCAP_CPPFLAGS}"
 
 all: all-recursive $(QUCS_PLUGINS) ${EXECUTABLES}
 
