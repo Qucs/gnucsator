@@ -1,0 +1,121 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
+L: already installed, replacing
+stashing as L:0
+Gnucap   System status
+iterations: op=0, dc=0, tran=81, fourier=0, total=91
+transient timesteps: accepted=10, rejected=0, total=10
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=5, subckt=0, model=0, total=5
+dctran density=68.0%, ac density=68.0%
+
+<indep time 10>
+ 0.
+ 2.1E-6
+ 4.2E-6
+ 15.03158E-6
+ 100.E-6
+ 110.E-6
+ 143.3333E-6
+ 176.6667E-6
+ 193.3333E-6
+ 210.E-6
+</indep>
+<dep Input.Vt time>
+-5.
+-4.79
+-4.58
+-3.496842
+ 5.
+ 5.
+ 1.666667
+-1.666667
+-3.333333
+-5.
+</dep>
+<dep Output.Vt time>
+ 0.03691681
+ 0.03693282
+ 0.03694915
+ 0.03703328
+ 4.616433
+ 4.617244
+ 4.616088
+ 4.616483
+ 0.03705603
+ 0.03690789
+</dep>
+<dep _net0.Vt time>
+ 0.8073227
+ 0.8073388
+ 0.8073544
+ 0.8074347
+ 0.05884863
+ 0.05883294
+ 0.07004058
+ 0.1051776
+ 0.8074352
+ 0.8073327
+</dep>
+<dep _net1.Vt time>
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+ 5.
+</dep>
+<dep _net2.Vt time>
+-2.481541
+-2.377208
+-2.272216
+-1.73062
+ 0.7852276
+ 0.7852279
+ 0.7814132
+ 0.7768229
+-1.641266
+-2.486999
+</dep>

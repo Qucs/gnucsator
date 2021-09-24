@@ -19,6 +19,7 @@ COMMON_TESTS = \
 	dio.net \
 	dc_sweep.0.net \
 	dc_sweep.1.net \
+	gilbert.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
@@ -34,6 +35,7 @@ COMMON_TESTS = \
 	sparam.1.net \
 	sub.1.net \
 	sub.2.net \
+	schmitt.net \
 	Switch.0.net \
 	wilkinson.net \
 	Vrect.1.net \

@@ -22,6 +22,8 @@ macromodule: already installed, replacing
 stashing as macromodule:0
 verilog: already installed, replacing
 stashing as verilog:0
+CCCS #(.gain(T)) v(outp_ inp inn outp); 
+^ ? CCCS: no match
 C: already installed, replacing
 stashing as C:0
 L: already installed, replacing

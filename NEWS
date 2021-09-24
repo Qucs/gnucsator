@@ -2,6 +2,7 @@
 =====
 * support parameter sweeps
 * component enhancements (R, BJT...)
+* more macros (Iac, Tr)
 * a few Qucsator RF devices
 * driver for modular Qucs (stub)
 

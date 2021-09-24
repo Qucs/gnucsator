@@ -96,7 +96,7 @@ COMPONENTS (table ripped from [1])
 │ coplanar ser gap│                 │                │      │                │
 │ coplanar step   │                 │                │      │                │
 │ bond wire       │                 │                │      │                │
-│ transformer     │                 │                │      │                │
+│ transformer     │ Tr              │      S         │ TE   │ tested T=1     │
 │ symm trafo      │                 │                │      │                │
 │ cccs            │ CCCS            │ (E) [V] S      │ EI   │                │
 │ ccvs            │ CCVS            │ (E) [V] S      │ EI   │                │
@@ -108,7 +108,7 @@ COMPONENTS (table ripped from [1])
 │                 │                 │                │      │ current probe? │
 │ DC current      │ Idc             │ S              │ T    │                │
 │ AC voltage      │ Vac             │      W         │ EI   │ sine source    │
-│ AC current      │                 │      W         │      │                │
+│ AC current      │ Iac             │      W         │ ET   │ sine source    │
 │ AC power        │ Pac             │      S         │ TI   │ also acts as   │
 │                 │                 │                │      │ sparam src     │
 │ AM mod vs       │ AM_Mod          │      S         │ T    │ with Phase     │

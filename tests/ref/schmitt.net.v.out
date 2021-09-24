@@ -1,0 +1,9 @@
+
+R #(.R(4.7k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
+R #(.R(4.7k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net1),.n(Output));
+R #(.R(47k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(_net2),.n(Output));
+R #(.R(47k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R4 (.p(Input),.n(_net2));
+Vpulse #(.U1(-5),.U2(+5),.T2(210u),.TL(NA( NA)),.Tr(100u),.Tf(100u),.T1(0)) Ve (.p(Input),.n(0));
+BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(100),.Br(1),.Cjc(1p),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.1n),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T2 (.b(_net2),.c(_net0),.e(0),.s(_net0));
+BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(100),.Br(1),.Cjc(1p),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.1n),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T3 (.b(_net0),.c(Output),.e(0),.s(Output));
+Vdc #(.U(5)) Vdd (.p(_net1),.n(0));

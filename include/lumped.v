@@ -68,6 +68,12 @@ parameter c0=299792458.0
 tline #(.z(Z), .f(c0), .nl(L) t(a 0 b 0);
 endmodule
 
+module Tr (outp inp inn outn);
+parameter T=1.
+CCCS #(.gain(T)) v(outp_ inp inn outp);
+vcvs #(.gain(T) e(outp_ outn inp inn);
+endmodule
+
 simulator lang=spice
 .options noinsensitive
 

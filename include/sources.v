@@ -89,6 +89,14 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/360.-10)/f}
 .ends
 
+.subckt Iac(1 2)
+.parameter I=1
+.parameter f=1
+.parameter Phase=0
+
+I1 2 1 dc=0 ac={I} tran sin amplitude=I frequency=f delay={(-Phase/360.-10)/f}
+.ends
+
 
 * don't need spice for this
 * .subckt CCVS(1 2 3 4);
