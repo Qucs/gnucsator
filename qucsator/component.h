@@ -94,7 +94,8 @@ public:
 		assert(n);
 	}
 	~circuit() {
-		incomplete();
+		// BUG: memory leak
+		// incomplete();
 		for(auto i : _p){
 			delete i;
 		}
