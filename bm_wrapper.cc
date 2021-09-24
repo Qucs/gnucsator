@@ -329,7 +329,7 @@ const char* Vpulse_param[] =
    "iv", "pv", "width","tlow", "rise", "fall", "delay" };
 const char* Vpulse_assign[] =
 {  "width",     NULL,
-   "{T2-T1}"};
+   "{T2-T1-Tf-Tr}"};
 DEV_BM_WRAP qucs_Vpulse("vsource", "pulse", "uneeded");
 DEV_SCKT_WRAP m3(&qucs_Vpulse, pn, Vpulse_param, "Vpulse", Vpulse_assign, 1);
 DISPATCHER<CARD>::INSTALL d3(&device_dispatcher, "Vpulse", &m3);
