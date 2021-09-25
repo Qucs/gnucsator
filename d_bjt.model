@@ -55,15 +55,21 @@ device BUILT_IN_BJT {
       ie short_to=e  short_if="!OPT::rstray || m->re == 0. || c->area == 0.";
     }
     // basics
-    cpoly_g Ice {ic,ie  ib,ie} state=ccexxx; // cce, go, gm
-    cpoly_g Ipi {ib ie} state=cpixxx; // cpi, gpi
-    cpoly_g Imu {ib ic}  state=cmuxxx; // cmu, gmu
+    cpoly_g Ice {ic,ie  ib,ie} state=ccexxx // cce, go, gm
+	omit="c->area == 0.";
+    cpoly_g Ipi {ib ie} state=cpixxx // cpi, gpi
+	omit="c->area == 0.";
+    cpoly_g Imu {ib ic}  state=cmuxxx // cmu, gmu
+	omit="c->area == 0.";
     // junction charge effects
-    fpoly_cap Cbx {b ic} state=qbx; // qbx, cqbx
-    fpoly_cap Cbc {ib ic} state=qbc; // qbc, cqbc
+    fpoly_cap Cbx {b ic} state=qbx // qbx, cqbx
+	omit="c->area == 0.";
+    fpoly_cap Cbc {ib ic} state=qbc // qbc, cqbc
+	omit="c->area == 0.";
     fpoly_cap Ccs {s ic} state=qcs // qcs, cqcs
 	omit="!(_n[n_s].n_()) || c->area == 0.";
-    fpoly_cap Cbe {ib ie ib ic} state=qbe; // qbe, cqbe, geqbc
+    fpoly_cap Cbe {ib ie ib ic} state=qbe // qbe, cqbe, geqbc
+	omit="c->area == 0.";
     // parasitics
     resistor Rc {c ic} value="(c->area==0.)?1: (m->rc / c->area )"
 	omit="!OPT::rstray || m->rc == 0. || c->area == 0."; // gcpr

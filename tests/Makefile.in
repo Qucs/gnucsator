@@ -16,6 +16,7 @@ all: gc qucs
 COMMON_TESTS = \
 	AM_Mod.1.net \
 	cockroft-walton.net \
+	common_emitter_degen.net \
 	dio.net \
 	dc_sweep.0.net \
 	dc_sweep.1.net \

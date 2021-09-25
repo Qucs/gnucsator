@@ -1,0 +1,223 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
+L: already installed, replacing
+stashing as L:0
+Gnucap   System status
+iterations: op=0, dc=0, tran=200, fourier=0, total=227
+transient timesteps: accepted=27, rejected=0, total=27
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=5, subckt=0, model=1, total=6
+dctran density=83.3%, ac density=83.3%
+
+<indep time 27>
+ 0.
+ 10.E-6
+ 20.E-6
+ 36.61017E-6
+ 64.94516E-6
+ 93.28016E-6
+ 136.4573E-6
+ 179.6344E-6
+ 222.8116E-6
+ 265.9887E-6
+ 309.1658E-6
+ 352.343E-6
+ 395.5201E-6
+ 438.6972E-6
+ 481.8744E-6
+ 525.0515E-6
+ 568.2286E-6
+ 611.4058E-6
+ 654.5829E-6
+ 697.7601E-6
+ 740.9372E-6
+ 784.1143E-6
+ 827.2915E-6
+ 870.4686E-6
+ 913.6457E-6
+ 956.8229E-6
+ 0.001
+</indep>
+<dep _net0.Vt time>
+ 1.595237
+ 1.896756
+ 2.167602
+ 2.475243
+ 2.426233
+ 1.73522
+ 0.6468343
+ 0.9963836
+ 2.236393
+ 2.417098
+ 1.256292
+ 0.5847614
+ 1.461759
+ 2.505748
+ 2.075174
+ 0.8470329
+ 0.7563096
+ 1.947566
+ 2.537297
+ 1.595938
+ 0.6013851
+ 1.114677
+ 2.330434
+ 2.337193
+ 1.126688
+ 0.6080324
+ 1.599857
+</dep>
+<dep _net1.Vt time>
+ 0.9514099
+ 1.244901
+ 1.509757
+ 1.8115
+ 1.76338
+ 1.087441
+ 0.07265406
+ 0.378422
+ 1.577159
+ 1.754414
+ 0.6245097
+ 0.03201062
+ 0.822172
+ 1.83979
+ 1.419267
+ 0.2411934
+ 0.1611844
+ 1.294518
+ 1.867974
+ 0.9520875
+ 0.04171467
+ 0.4896622
+ 1.669371
+ 1.675998
+ 0.5010354
+ 0.04588222
+ 0.955894
+</dep>
+<dep _net2.Vt time>
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+ 20.
+</dep>
+<dep in.Vt time>
+ 0.
+ 0.3059268
+ 0.5819074
+ 0.9036939
+ 0.8828694
+ 0.2074499
+-0.9017419
+-0.5910672
+ 0.6502912
+ 0.8677129
+-0.2811504
+-0.9873193
+-0.1388731
+ 0.9282402
+ 0.5337633
+-0.7011677
+-0.8320527
+ 0.3471974
+ 0.9797567
+ 0.06960882
+-0.9501439
+-0.4738172
+ 0.7485735
+ 0.7922739
+-0.4115258
+-0.9673444
+-11.619E-12
+</dep>
+<dep out.Vt time>
+ 10.56382
+ 7.656154
+ 5.028645
+ 2.035646
+ 2.500337
+ 9.209231
+ 19.2804
+ 16.25659
+ 4.358953
+ 2.593547
+ 13.8006
+ 19.68943
+ 11.84829
+ 1.919591
+ 5.903713
+ 17.6206
+ 18.39821
+ 7.175208
+ 1.923804
+ 10.55076
+ 19.58926
+ 15.15076
+ 3.446415
+ 3.366813
+ 15.031
+ 19.5486
+ 10.52556
+</dep>
