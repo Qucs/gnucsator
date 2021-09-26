@@ -1,0 +1,54 @@
+# MakeList for Qucsator tests
+# (c) Felix Salfelder 2021
+# GPLv3+
+#
+# These should run with Gnucsator and Qucsator
+# Ideally produce similar output
+# WIP: should cover all netlist.txt files from qucs-test
+COMMON_TESTS = \
+	AM_Mod.1.net \
+	cockroft-walton.net \
+	common_emitter_degen.net \
+	bjt_pulse0.net \
+	bjt_pulse1.net \
+	dio.net \
+	dc_sweep.0.net \
+	dc_sweep.1.net \
+	gilbert.net \
+	lang_qucs.1.net \
+	lang_qucs.2.net \
+	lang_qucs.3.net \
+	mscoupler.1.net \
+	notch.1.net \
+	MUT.net \
+	pac.net \
+	rc.net \
+	resonance_ac.net \
+	rr.net \
+	sparam_e.net \
+	sparam.0.net \
+	sparam.1.net \
+	sub.1.net \
+	sub.2.net \
+	schmitt.net \
+	Switch.0.net \
+	wilkinson.net \
+	Vrect.1.net \
+	Vrect.2.net
+
+# These tests run with vanilla gnucap
+GC_TESTS = \
+	lang_verilog.param1.gc \
+	lang_qucs.1.gc \
+	c_hide.2.gc \
+	IProbe.1.gc \
+	d_eqn.1.gc \
+	mscoupler.1.gc \
+	qucs.gc \
+	list.1.gc \
+	wrap.gc \
+	wrap.bad.gc \
+	rect.gc
+
+NOTYET_GC_TESTS = \
+	mscoupler.1.gc

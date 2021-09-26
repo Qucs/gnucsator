@@ -1,0 +1,42 @@
+== Tests for Qucsator
+
+Most tests here are end-to-end tests. They are ran with Gnucap or Gnucsator,
+and the output is compared against a recorded reference file. Output means
+standard output.
+
+== Running tests
+
+Either here or on top level run
+
+$ make check
+
+The return value indicates success, 0 == "good".
+
+== More details
+
+Tests are listed in MakeList. The extension .net is used for Qucsator input
+file, .gc files are Gnucap input. More extensions are
+
+.net.gc.out: Gnucsator output for .net
+.net.v.out:  net2verilog.sh output
+.gc.out:     Gnucap output for .gc
+
+There are rules for these files in Makefile.in. Run
+
+$ make bjt_pulse0.net.gc.out
+
+To produce the output, or
+
+$ make bjt_pulse0.net.gc.diff
+
+to compare against the recorded reference.
+
+Reference test output is in ref/*.out
+
+== Test protocol
+
+This is inherited from Gnucap. Short story: In source code, the "{" character
+is a test hook. It is followed by untested(); unless there is a test that
+reaches the hook during "make check". There are syntactical exceptions, where
+test hooks don't make sense. The other exception is "itested();", these
+indicate that the hook has once been reached during interactive testing.
