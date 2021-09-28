@@ -109,12 +109,12 @@ transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
- 0.01 0.01 0.01 0.02 0.02 0.02<indep R1 2>
+<indep R1 3>
    10.
    20.
    30.
 </indep>
-<indep I1 6>
+<indep I1 2>
    0.01
    0.02
 </indep>

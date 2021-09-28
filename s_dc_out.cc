@@ -20,8 +20,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * qucs output functions (print dc only). to be moved to output plugin.
- *
  * this is hopeless, but maybe useful for testing.
  * need sensible data container.
  */
@@ -85,9 +83,9 @@ void SIM::outdata(double x, int outflags)
   if (outflags & ofPRINT) {
     _ctx.push_back(_keys);
     ++_count;
-    for(auto i : _keys){
-      _out << i;
-    }
+    // for(auto i : _keys){
+      //_out << i;
+    //}
     store_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
@@ -190,7 +188,7 @@ void finish_hack(SIM* s)
     // BUG: only works for <= 2 sweeps
     if(_labels.size() > 1){
       int cc = _counts[0];
-      outFile << "<indep " << _labels[0] << " " << n/cc << ">\n";
+      outFile << "<indep " << _labels[0] << " " << cc << ">\n";
       int i=0;
       for(auto d : CKT_BASE::_sim->_waves[0]){
 	outFile << "  " << d.first << "\n";
@@ -220,11 +218,11 @@ void finish_hack(SIM* s)
 	}
 	outFile << "</indep>\n";
       }else if(_labels.size()==2){
-	outFile << "<indep " << _labels.back() << " " << n << ">\n";
+        int cc = _counts[0];
+	outFile << "<indep " << _labels.back() << " " << n/cc << ">\n";
 	for(unsigned i=0; i<n;){
 	  assert(_ctx[i].size());
 	  outFile << "  " << _ctx[i][0] << "\n";
-	  int cc = _counts[0];
 	  i+=cc;
 	}
 	outFile << "</indep>\n";
