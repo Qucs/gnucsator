@@ -7,34 +7,37 @@
 # WIP: should cover all netlist.txt files from qucs-test
 COMMON_TESTS = \
 	AM_Mod.1.net \
-	cockroft-walton.net \
-	common_emitter_degen.net \
 	bjt_pulse0.net \
 	bjt_pulse1.net \
-	dio.net \
+	cockroft-walton.net \
+	common_emitter_degen.net \
 	dc_sweep.0.net \
 	dc_sweep.1.net \
+	dio.net \
+	div.net \
 	gilbert.net \
+	idc0.net \
 	lang_qucs.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	mscoupler.1.net \
-	notch.1.net \
 	MUT.net \
+	notch.1.net \
 	pac.net \
 	rc.net \
 	resonance_ac.net \
+	rr1.net \
 	rr.net \
-	sparam_e.net \
+	schmitt.net \
 	sparam.0.net \
 	sparam.1.net \
+	sparam_e.net \
 	sub.1.net \
 	sub.2.net \
-	schmitt.net \
 	Switch.0.net \
-	wilkinson.net \
 	Vrect.1.net \
-	Vrect.2.net
+	Vrect.2.net \
+	wilkinson.net
 
 # These tests run with vanilla gnucap
 GC_TESTS = \
@@ -51,4 +54,5 @@ GC_TESTS = \
 	rect.gc
 
 NOTYET_GC_TESTS = \
+	bjt_switch.net \
 	mscoupler.1.gc

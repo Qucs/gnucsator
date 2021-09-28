@@ -40,22 +40,54 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
+Vac:V1 _net0 gnd U="1 V" f="" Phase="0" Theta="0" 
+                         ^ ? V1: f has no value?
 Gnucap   System status
-iterations: op=2, dc=2, tran=0, fourier=0, total=4
+iterations: op=0, dc=0, tran=35, fourier=0, total=47
+transient timesteps: accepted=12, rejected=0, total=12
 transient timesteps: accepted=0, rejected=0, total=0
-transient timesteps: accepted=0, rejected=0, total=0
-nodes: user=3, subckt=0, model=0, total=3
-dctran density=77.8%, ac density=77.8%
+nodes: user=2, subckt=0, model=0, total=2
+dctran density=100.0%, ac density=100.0%
 
-<indep _net0.V 1>
- 0.9999998
+<indep time 12>
+ 0.
+ 0.01
+ 0.02
+ 0.03633333
+ 0.1239394
+ 0.2115455
+ 0.3429545
+ 0.4743636
+ 0.6057727
+ 0.7371818
+ 0.8685909
+ 1.
 </indep>
-<indep _net1.V 1>
- 0.3252032
-</indep>
-<indep _net2.V 1>
- 1.345782
-</indep>
-<indep Pr1.V 1>
- 0.9999998
-</indep>
+<dep _net0.Vt time>
+ 0.
+ 0.06279051
+ 0.1253332
+ 0.2263113
+ 0.7023789
+ 0.9709522
+ 0.8342359
+ 0.1603824
+-0.6167361
+-0.9967584
+-0.7350006
+ 0.
+</dep>
+<dep _net1.Vt time>
+ 0.
+ 0.03139526
+ 0.06266661
+ 0.1131556
+ 0.3511894
+ 0.4854761
+ 0.4171179
+ 0.08019118
+-0.3083681
+-0.4983792
+-0.3675003
+ 0.
+</dep>
