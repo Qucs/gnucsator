@@ -92,9 +92,9 @@ parameter pnp=-1
 // Af="1.0" Ffe="1.0" Kb="0.0" Ab="1.0" Fb="1.0" Ptf="0.0" Xtb="0.0" Xti="3.0"
 // Eg="1.11" Tnom="26.85" Area="1.0"
 module BJT(b, c, e, s);
-	parameter Area;
+	parameter Area=1;
 	parameter Type;
-	parameter Temp;
+	parameter Temp=26.85;
 	parameter Is="3.834e-14";
 	parameter Nf="1.008";
 	parameter Nr="1.005";
