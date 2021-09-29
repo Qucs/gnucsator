@@ -425,6 +425,7 @@ void msline::analyseLoss (nr_double_t W, nr_double_t t, nr_double_t er,
       // D is RMS surface roughness
       Kr = 1 + two_over_pi * qucs::atan (1.4 * sqr (D / ds));
       ac = Rs / (ZlEff1 * W) * Ki * Kr;
+		trace1("msline::calc", ac);
     }
 
     // dielectric losses
@@ -479,6 +480,8 @@ void msline::calcAC (nr_double_t frequency) {
   nr_complex_t g = nr_complex_t (alpha, beta);
   nr_complex_t y11 = coth (g * l) / zl;
   nr_complex_t y21 = -cosech (g * l) / zl;
+  assert(y11==y11);
+  assert(y21==y21);
   setY (NODE_1, NODE_1, y11); setY (NODE_2, NODE_2, y11);
   setY (NODE_1, NODE_2, y21); setY (NODE_2, NODE_1, y21);
 }

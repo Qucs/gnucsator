@@ -73,6 +73,8 @@ void mscoupled::calcPropagation (nr_double_t frequency) { untested();
   // analyse losses of line
   nr_double_t ace, aco, ade, ado;
   assert(ErEffe>0);
+  assert(ErEffo>0);
+  trace4("calcPropagation", Zlo, Zle, ErEffe, ErEffo);
   msline::analyseLoss (W, t, er, rho, D, tand, Zle, Zlo, ErEffe,
 		       frequency, "Hammerstad", ace, ade);
   msline::analyseLoss (W, t, er, rho, D, tand, Zlo, Zle, ErEffo,
@@ -80,7 +82,6 @@ void mscoupled::calcPropagation (nr_double_t frequency) { untested();
 
   // compute propagation constants for even and odd mode
   nr_double_t k0 = 2 * pi * frequency / C0;
-  trace1("mscoupled", C0);
   assert(k0==k0);
   assert(k0);
   assert(ace==ace);
@@ -88,12 +89,16 @@ void mscoupled::calcPropagation (nr_double_t frequency) { untested();
   ae = ace + ade;
   assert(ae==ae);
   ao = aco + ado;
+  trace2("mscoupled::calcPropagation", aco, ado);
+  assert(ao==ao);
   be = qucs::sqrt (ErEffeFreq) * k0;
   bo = qucs::sqrt (ErEffoFreq) * k0;
+  assert(bo==bo);
   ze = ZleFreq;
   zo = ZloFreq;
   ee = ErEffeFreq;
   eo = ErEffoFreq;
+  trace3("mscoupled::calcPropagation", C0, ao, bo);
 }
 
 void mscoupled::saveCharacteristics (nr_double_t) {
@@ -237,7 +242,10 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
       nr_double_t Wo = We + dt;
       ue = We / h;
       uo = Wo / h;
-    }
+		 trace3("analyseQS", uo, Wo, h);
+    }else{
+		 trace3("analyseQS", uo, W, h);
+	 }
 
     // even relative dielectric constant
     v = ue * (20 + sqr (g)) / (10 + sqr (g)) + g * qucs::exp (-g);
@@ -273,8 +281,13 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
     q7 = (10 + 190 * sqr (g)) / (1 + 82.3 * cubic (g));
     q8 = qucs::exp (-6.5 - 0.95 * qucs::log (g) - qucs::pow (g / 0.15, 5.));
     q9 = qucs::log (q7) * (q8 + 1 / 16.5);
+	 trace2("analysQS", qucs::log (uo), qucs::pow (uo, -q9));
     q10 = (q2 * q4 - q5 * qucs::exp (qucs::log (uo) * q6 * qucs::pow (uo, -q9))) / q2;
+	 trace6("analysQS", q10, q2, q5, uo, q6, q9);
+	 assert(ErEff);
+	 assert(Zl1);
     Zlo = qucs::sqrt (ErEff / ErEffo) * Zl1 / (1 - Zl1 * qucs::sqrt (ErEff) * q10 / Z0);
+	 // assert(Zlo);
   }
 }
 
@@ -444,7 +457,7 @@ void mscoupled::initAC (void) {
 }
 
 void mscoupled::calcAC (nr_double_t frequency) { untested();
-	trace1("mscoupled::calcAC", frequency);
+	trace3("mscoupled::calcAC", frequency, ao, bo);
 	assert(frequency);
   // fetch line properties
   nr_double_t l = getPropertyDouble ("L");
@@ -452,8 +465,11 @@ void mscoupled::calcAC (nr_double_t frequency) { untested();
   // compute propagation constants for even and odd mode
   assert(frequency==frequency);
   calcPropagation (frequency);
+	trace3("mscoupled::calcAC2", frequency, ao, bo);
   nr_complex_t ge = nr_complex_t (ae, be);
   assert(ge==ge);
+  assert(ao==ao);
+  assert(bo==bo);
   nr_complex_t go = nr_complex_t (ao, bo);
   assert(go==go);
 
@@ -461,16 +477,19 @@ void mscoupled::calcAC (nr_double_t frequency) { untested();
   nr_complex_t De, Do, y1, y2, y3, y4;
   assert(ze==ze);
   assert(ze);
+  assert(zo==zo);
+  assert(go==go);
   assert(l==l);
   assert(ge==ge);
   De = 0.5 / (ze * qucs::sinh (ge * l));
   assert(De==De);
   Do = 0.5 / (zo * qucs::sinh (go * l));
-  assert(Do==Do);
+  trace3("Do?", zo, go, l);
+  // assert(Do==Do); // ???
   y2 = -De - Do;
-  assert(y2==y2);
+  // assert(y2==y2); // ???
   y3 = -De + Do;
-  assert(y3==y3);
+  // assert(y3==y3); // ???
   assert(De==De);
   trace3("DE??", ge, l, ge*l);
   trace1("...", cosh (ge * l));
@@ -478,10 +497,10 @@ void mscoupled::calcAC (nr_double_t frequency) { untested();
   assert(De==De);
   Do *= cosh (go * l);
   y1 = De + Do;
-  assert(Do==Do);
-  assert(y1==y1);
   y4 = De - Do;
-  assert(y4==y4);
+
+  assert(y4==y4); /// ??
+  assert(y1==y1); /// ??
 
   // store Y-parameters
   setY (NODE_1, NODE_1, y1); setY (NODE_2, NODE_2, y1);

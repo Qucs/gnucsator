@@ -30,6 +30,7 @@
 //#include <cstdlib>
 #include <cmath>
 #include <cassert>
+#include <io_trace.h>
 
 #include "consts.h"
 #include "real.h"

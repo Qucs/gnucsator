@@ -49,7 +49,14 @@ class mscoupled : public qucs::circuit
 				 nr_double_t&);
 
  private:
-  nr_double_t ae, be, ze, ao, bo, zo, ee, eo;
+  nr_double_t ae{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t be{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t ze{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t ao{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t bo{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t zo{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t ee{std::numeric_limits<double>::quiet_NaN()};
+  nr_double_t eo{std::numeric_limits<double>::quiet_NaN()};
 };
 
 #endif /* __MSCOUPLED_H__ */

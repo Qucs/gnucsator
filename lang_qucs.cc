@@ -440,6 +440,12 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 				cmd >> '=';
 				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
 				trace2("model parse", Name, value);
+
+				if (QucsGuessParam(value)){
+					trace1("guessed value", value);
+				}else{ untested();
+				}
+
 				mm->set_param_by_name(Name,value);
 			}
 

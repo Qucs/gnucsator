@@ -132,10 +132,10 @@ protected: // qucsator globals
 		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(i->second)){
 			trace2("got prop string", s, ps->string());
 			trace0("got prop string...");
-			return ps->string().c_str();
+			return strdup(ps->string().c_str()); // BUG: memory leak
 		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
 			assert(false);
-			return ps->string().c_str();
+			return strdup(ps->string().c_str()); // BUG: memory leak
 		}else{ untested();
 			assert(false);
 			return "";
@@ -162,6 +162,10 @@ protected: // qucsator globals
 // acrhs?
 	void setY (node_number ii, node_number jj, nr_complex_t x){ untested();
 		DPAIR& dp = _matrix[ii*_num_ports+jj];
+		if(x==x){
+		}else{
+			trace3("setY", ii, jj, x);
+		}
 		assert(x==x);
 		dp.first = x.real();
 		dp.second = x.imag();
