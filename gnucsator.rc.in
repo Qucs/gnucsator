@@ -47,7 +47,7 @@ load public qucs/d_diode.so
 load qucs/d_bjt.so
 
 load public qucs/subst_wrap.so
-load qucs/mscoupled_wrap.so
+load qucs/microstrip_wrap.so
 
 acs
 

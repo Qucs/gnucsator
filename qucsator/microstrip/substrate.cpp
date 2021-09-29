@@ -27,7 +27,7 @@
 #endif
 
 #include "component.h"
-#include "microstrip/substrate.h"
+#include "substrate.h"
 
 using namespace qucs;
 

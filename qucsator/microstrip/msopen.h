@@ -1,7 +1,8 @@
 /*
- * substrate.h - microstrip substrate class definitions
+ * msopen.h - microstrip open end class definitions
  *
- * Copyright (C) 2004m 2008 Stefan Jahn <stefan@lkcc.org>
+ * Copyright (C) 2004, 2008 Stefan Jahn <stefan@lkcc.org>
+ * Copyright (C) 2004 Michael Margraf <Michael.Margraf@alumni.TU-Berlin.DE>
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,21 +23,20 @@
  *
  */
 
-#ifndef __SUBSTRATE_H__
-#define __SUBSTRATE_H__
+#ifndef __MSOPEN_H__
+#define __MSOPEN_H__
 
-#include "object.h"
-
-namespace qucs {
-
-class substrate : public qucs::object
+class msopen : public qucs::circuit
 {
  public:
-  MCREATOR (substrate);
-  substrate (const substrate &);
-  ~substrate ();
+  CREATOR (msopen);
+  static nr_double_t calcCend (nr_double_t, nr_double_t, nr_double_t,
+			       nr_double_t, nr_double_t, const char * const, const char * const,
+			       const char * const);
+  void calcSP (nr_double_t);
+  void initDC (void);
+  void calcAC (nr_double_t);
+  nr_complex_t calcY (nr_double_t);
 };
 
-} // namespace qucs
-
-#endif /* __SUBSTRATE_H__ */
+#endif /* __MSOPEN_H__ */

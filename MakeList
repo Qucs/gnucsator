@@ -31,7 +31,7 @@ PLUGIN_CC = \
 	bm_trivial.cc \
 	bm_wrapper.cc \
 	cmd_wrapper.cc \
-	mscoupled_wrap.cc \
+	microstrip_wrap.cc \
 	subst_wrap.cc \
 	s_tr.cc \
 	s_dc.cc \
@@ -78,3 +78,8 @@ TEST_EXTRA_DIST = \
 	tests/*.gc \
 	tests/ref/*.out
 
+MICROSTRIP_OBJS = \
+	qucsator/bondwire.o \
+	qucsator/mscoupled.o \
+	qucsator/mslange.o \
+	qucsator/msline.o

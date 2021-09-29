@@ -27,7 +27,7 @@ typedef std::complex<double> nr_complex_t;
 #undef node_t
 
 // struct property_t required;
-#include "substrate.h" // BUG
+#include "microstrip/substrate.h" // BUG
 
 #define CREATOR(a) \
 public: \
@@ -68,18 +68,47 @@ inline std::string to_string(mystring const& a){ untested();
 
 namespace qucs{
 
-static const int CIR_MSCOUPLED = 3;
-static const int CIR_MSLINE = 2;
+// these are not used. perhaps not useful.
+static const int CIR_BONDWIRE = 0;
+static const int CIR_CIRCULARLOOP = 0;
+static const int CIR_CPWGAP = 0;
+static const int CIR_CPWLINE = 0;
+static const int CIR_CPWOPEN = 0;
+static const int CIR_CPWSHORT = 0;
+static const int CIR_CPWSTEP = 0;
+static const int CIR_MSCORNER = 0;	
+static const int CIR_MSCOUPLED = 0;
+static const int CIR_MSCROSS = 0;	
+static const int CIR_MSGAP = 0;	
+static const int CIR_MSLANGE = 0;
+static const int CIR_MSLINE = 0;
+static const int CIR_MSMBEND = 0;
+static const int CIR_MSOPEN = 0;
+static const int CIR_MSRSTUB = 0;	
+static const int CIR_MSSTEP = 0;	
+static const int CIR_MSTEE = 0;
+static const int CIR_MSVIA = 0;	
+static const int CIR_SPIRALIND = 0;	
+
 static const nr_double_t z0 = 50.0; // yikes.
+
+static const int LOG_STATUS = bLOG;
 
 
 typedef enum {
 	NODE_1 = 0,
 	NODE_2 = 1,
 	NODE_3 = 2,
-	NODE_4 = 3} node_number;
+	NODE_4 = 3,
+	NODE_5 = 4,
+	NODE_6 = 5 } node_number;
 
-typedef enum { VSRC_1 = 0, VSRC_2 = 1} vsrc_number;
+typedef enum {
+	VSRC_1 = 0,
+	VSRC_2 = 1,
+	VSRC_3 = 2,
+	VSRC_4 = 3,
+	VSRC_5 = 4 } vsrc_number;
 
 class circuit : public COMPONENT{
 protected:
@@ -107,6 +136,16 @@ private:
 public:
 	void init();
 protected: // qucsator globals
+	std::string getName() const{
+		return long_label();
+	}
+	int createInternal(std::string, std::string){
+		incomplete();
+		return -1;
+	}
+	void setNode(node_number, int){
+		incomplete();
+	}
 	double getPropertyDouble(std::string const& s){ untested();
 		trace1("getPropertyDouble", s);
 		auto i = _pn.find(s);
@@ -150,15 +189,25 @@ protected: // qucsator globals
    void setVoltageSources(double) {incomplete();}
    void setInternalVoltageSource(double) {incomplete();}
    void allocMatrixMNA () {incomplete();}
+   void allocMatrixS () {incomplete();}
+   void allocMatrixN () {incomplete();}
 	matrix getMatrixS() {incomplete(); return matrix();}
 	matrix getMatrixY() {incomplete(); return matrix();}
 	void setMatrixN (matrix) {incomplete();}
+	void setMatrixS (matrix) {incomplete();}
+	void setMatrixY (matrix) {incomplete();}
 	void clearY (){incomplete();}
 	int getSize() const {return _num_ports;}
 
+// misc sources?
+	void setB (node_number, vsrc_number, nr_complex_t){ incomplete(); }
+	void setC (vsrc_number, node_number, nr_complex_t){ incomplete(); }
+	void setD (vsrc_number, vsrc_number, nr_complex_t){ incomplete(); }
+	void setE (vsrc_number, nr_complex_t){ incomplete(); }
+// noise matrix?
+	void setN (node_number, node_number, nr_complex_t){ incomplete(); }
 //	load_ac?
 	void setS (node_number, node_number, nr_complex_t){ incomplete(); }
-	void setD (vsrc_number, vsrc_number, nr_complex_t){ incomplete(); }
 // acrhs?
 	void setY (node_number ii, node_number jj, nr_complex_t x){ untested();
 		DPAIR& dp = _matrix[ii*_num_ports+jj];
@@ -176,6 +225,14 @@ protected: // qucsator globals
 private: // "circuit"
 	virtual void calcAC(nr_double_t){ unreachable(); }
 	virtual void initDC(){ unreachable(); }
+
+public: // used in mstee.
+	void initSP(){
+		incomplete();
+	}
+	void initNoiseSP(){
+		incomplete();
+	}
 
 private: // COMPONENT
 	void precalc_first() override{

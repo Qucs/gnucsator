@@ -1,0 +1,24 @@
+
+MICROSTRIP_SRC = \
+	bondwire.cpp \
+	circularloop.cpp \
+	cpwgap.cpp \
+	cpwline.cpp \
+	cpwopen.cpp \
+	cpwshort.cpp \
+	cpwstep.cpp \
+	mscorner.cpp \
+	mscoupled.cpp \
+	mscross.cpp \
+	msgap.cpp \
+	mslange.cpp \
+	msline.cpp \
+	msmbend.cpp \
+	msopen.cpp \
+	msrstub.cpp \
+	msstep.cpp \
+	msvia.cpp \
+	spiralinductor.cpp
+
+MICROSTRIP_LATER = \
+	mstee.cpp

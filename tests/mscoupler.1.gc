@@ -7,7 +7,7 @@ load public lang_verilog.so
 load c_vpp.so
 load c_hide.so
 load public subst_wrap.so
-load mscoupled_wrap.so
+load microstrip_wrap.so
 
 include ../include/sources.v
 

@@ -5,8 +5,8 @@
 #include <u_lang.h>
 
 #include "component.h"
-#include "substrate.h"
-#include "msline.h"
+#include "microstrip/substrate.h"
+#include "microstrip/msline.h"
 
 namespace{
 qucs::substrate c0;

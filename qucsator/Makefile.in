@@ -1,22 +1,18 @@
 
-# microstrip.so: mscoupled.o mscoupled_wrap.o \
-# 	subst_wrap.o substrate.o \
-# 	msline.o \
-# 	matrix.o vector.o complex.o real.o fspecial.o
-# 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -shared $+ -o $@
+# pointing to raw unmodified qucsator source
+VPATH = microstrip
 
+include MakeList
 
 all: mscoupled.o substrate.o \
      msline.o \
-     matrix.o vector.o complex.o real.o fspecial.o
+     matrix.o vector.o complex.o real.o fspecial.o \
+	  ${MICROSTRIP_SRC:%.cpp=%.o}
 
-mscoupled.o: mscoupled.cpp component.h object.h
-	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@
+%.o: %.cpp component.h object.h
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I. $(CXXFLAGS) -c $< -fPIC -o $@
 
 substrate.o msline.o: %.o: %.cpp component.h object.h
-	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
-
-subst_wrap.o mscoupled_wrap.o: %.o: %.cc object.h
 	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
 
 fspecial.o real.o complex.o vector.o matrix.o: %.o: %.cpp

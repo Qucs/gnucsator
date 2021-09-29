@@ -1,5 +1,5 @@
 /*
- * mscoupled.cpp - parallel coupled microstrip lines class implementation
+ * mslange.cpp - parallel coupled microstrip lines class implementation
  *
  * Copyright (C) 2004, 2005, 2006, 2008 Stefan Jahn <stefan@lkcc.org>
  *
@@ -18,7 +18,7 @@
  * the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
  * Boston, MA 02110-1301, USA.
  *
- * $Id$
+ * $Id: mslange.cpp,v 1.25 2008/10/07 20:15:33 ela Exp $
  *
  */
 
@@ -29,41 +29,34 @@
 #include "component.h"
 #include "substrate.h"
 #include "msline.h"
-#include "mscoupled.h"
-
-#include <gnucap/io_trace.h>
+#include "mslange.h"
 
 using namespace qucs;
 
-mscoupled::mscoupled () : circuit (4) {
-  type = CIR_MSCOUPLED;
+mslange::mslange () : circuit (4) {
+  type = CIR_MSLANGE;
 }
 
-void mscoupled::calcPropagation (nr_double_t frequency) { untested();
+void mslange::calcPropagation (nr_double_t frequency) {
 
   // fetch line properties
   nr_double_t W = getPropertyDouble ("W");
   nr_double_t s = getPropertyDouble ("S");
-  const char * SModel = getPropertyString ("Model");
-  const char * DModel = getPropertyString ("DispModel");
+  const char * const SModel = getPropertyString ("Model");
+  const char * const DModel = getPropertyString ("DispModel");
 
   // fetch substrate properties
   substrate * subst = getSubstrate ();
   nr_double_t er    = subst->getPropertyDouble ("er");
-  assert(er>0);
   nr_double_t h     = subst->getPropertyDouble ("h");
   nr_double_t t     = subst->getPropertyDouble ("t");
   nr_double_t tand  = subst->getPropertyDouble ("tand");
   nr_double_t rho   = subst->getPropertyDouble ("rho");
   nr_double_t D     = subst->getPropertyDouble ("D");
 
-  trace4("calcPropagation", er, h, t, tand);
-  trace4("calcPropagation", W, s, D, frequency);
-
   // quasi-static analysis
   nr_double_t Zle, ErEffe, Zlo, ErEffo;
   analysQuasiStatic (W, h, s, t, er, SModel, Zle, Zlo, ErEffe, ErEffo);
-  assert(ErEffe>0);
 
   // analyse dispersion of Zl and Er
   nr_double_t ZleFreq, ErEffeFreq, ZloFreq, ErEffoFreq;
@@ -72,9 +65,6 @@ void mscoupled::calcPropagation (nr_double_t frequency) { untested();
 
   // analyse losses of line
   nr_double_t ace, aco, ade, ado;
-  assert(ErEffe>0);
-  assert(ErEffo>0);
-  trace4("calcPropagation", Zlo, Zle, ErEffe, ErEffo);
   msline::analyseLoss (W, t, er, rho, D, tand, Zle, Zlo, ErEffe,
 		       frequency, "Hammerstad", ace, ade);
   msline::analyseLoss (W, t, er, rho, D, tand, Zlo, Zle, ErEffo,
@@ -82,33 +72,24 @@ void mscoupled::calcPropagation (nr_double_t frequency) { untested();
 
   // compute propagation constants for even and odd mode
   nr_double_t k0 = 2 * pi * frequency / C0;
-  assert(k0==k0);
-  assert(k0);
-  assert(ace==ace);
-  assert(ade==ade);
   ae = ace + ade;
-  assert(ae==ae);
   ao = aco + ado;
-  trace2("mscoupled::calcPropagation", aco, ado);
-  assert(ao==ao);
   be = qucs::sqrt (ErEffeFreq) * k0;
   bo = qucs::sqrt (ErEffoFreq) * k0;
-  assert(bo==bo);
   ze = ZleFreq;
   zo = ZloFreq;
   ee = ErEffeFreq;
   eo = ErEffoFreq;
-  trace3("mscoupled::calcPropagation", C0, ao, bo);
 }
 
-void mscoupled::saveCharacteristics (nr_double_t) {
+void mslange::saveCharacteristics (nr_double_t) {
   setCharacteristic ("ZlEven", ze);
   setCharacteristic ("ErEven", ee);
   setCharacteristic ("ZlOdd", zo);
   setCharacteristic ("ErOdd", eo);
 }
 
-void mscoupled::calcSP (nr_double_t frequency) {
+void mslange::calcSP (nr_double_t frequency) {
   // fetch line properties
   nr_double_t l = getPropertyDouble ("L");
 
@@ -142,7 +123,7 @@ void mscoupled::calcSP (nr_double_t frequency) {
   setS (NODE_2, NODE_4, Ye - Yo); setS (NODE_4, NODE_2, Ye - Yo);
 }
 
-void mscoupled::calcNoiseSP (nr_double_t) {
+void mslange::calcNoiseSP (nr_double_t) {
   // calculate noise using Bosma's theorem
   nr_double_t T = getPropertyDouble ("Temp");
   matrix s = getMatrixS ();
@@ -154,14 +135,13 @@ void mscoupled::calcNoiseSP (nr_double_t) {
    characteristic impedances for the even and odd mode based upon the
    given line and substrate properties for parallel coupled microstrip
    lines. */
-void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
+void mslange::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
 				   nr_double_t t, nr_double_t er,
 				   const char * const SModel, nr_double_t& Zle,
 				   nr_double_t& Zlo, nr_double_t& ErEffe,
-				   nr_double_t& ErEffo) { untested();
+				   nr_double_t& ErEffo) {
   // initialize default return values
   ErEffe = ErEffo = er;
-  assert(ErEffe>0);
   Zlo = 42.2; Zle = 55.7;
 
   // normalized width and gap
@@ -242,10 +222,7 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
       nr_double_t Wo = We + dt;
       ue = We / h;
       uo = Wo / h;
-		 trace3("analyseQS", uo, Wo, h);
-    }else{
-		 trace3("analyseQS", uo, W, h);
-	 }
+    }
 
     // even relative dielectric constant
     v = ue * (20 + sqr (g)) / (10 + sqr (g)) + g * qucs::exp (-g);
@@ -281,20 +258,20 @@ void mscoupled::analysQuasiStatic (nr_double_t W, nr_double_t h, nr_double_t s,
     q7 = (10 + 190 * sqr (g)) / (1 + 82.3 * cubic (g));
     q8 = qucs::exp (-6.5 - 0.95 * qucs::log (g) - qucs::pow (g / 0.15, 5.));
     q9 = qucs::log (q7) * (q8 + 1 / 16.5);
-	 trace2("analysQS", qucs::log (uo), qucs::pow (uo, -q9));
     q10 = (q2 * q4 - q5 * qucs::exp (qucs::log (uo) * q6 * qucs::pow (uo, -q9))) / q2;
-	 trace6("analysQS", q10, q2, q5, uo, q6, q9);
-	 assert(ErEff);
-	 assert(Zl1);
     Zlo = qucs::sqrt (ErEff / ErEffo) * Zl1 / (1 - Zl1 * qucs::sqrt (ErEff) * q10 / Z0);
-	 // assert(Zlo);
   }
+//  nr_double_t Zle4, Zlo4, C, Z04;
+
+  Zle = ((Zlo+Zle)/(3*Zlo+Zle))*Zle;	//Pozar - Microwave engineering: eq 7.79a
+  Zlo = ((Zlo+Zle)/(3*Zle+Zlo))*Zlo;	//Pozar - Microwave engineering: eq 7.79b
+
 }
 
 /* The function computes the dispersion effects on the dielectric
    constants and characteristic impedances for the even and odd mode
    of parallel coupled microstrip lines. */
-void mscoupled::analyseDispersion (nr_double_t W, nr_double_t h, nr_double_t s,
+void mslange::analyseDispersion (nr_double_t W, nr_double_t h, nr_double_t s,
 				   nr_double_t er, nr_double_t Zle,
 				   nr_double_t Zlo, nr_double_t ErEffe,
 				   nr_double_t ErEffo, nr_double_t frequency,
@@ -302,6 +279,7 @@ void mscoupled::analyseDispersion (nr_double_t W, nr_double_t h, nr_double_t s,
 				   nr_double_t& ZloFreq,
 				   nr_double_t& ErEffeFreq,
 				   nr_double_t& ErEffoFreq) {
+
 
   // initialize default return values
   ZleFreq = Zle;
@@ -420,9 +398,9 @@ void mscoupled::analyseDispersion (nr_double_t W, nr_double_t h, nr_double_t s,
   }
 }
 
-void mscoupled::initDC (void) {
+void mslange::initDC (void) {
   nr_double_t l     = getPropertyDouble ("L");
-  nr_double_t W     = getPropertyDouble ("W");
+  nr_double_t W     = getPropertyDouble ("W")/2;
   substrate * subst = getSubstrate ();
   nr_double_t t     = subst->getPropertyDouble ("t");
   nr_double_t rho   = subst->getPropertyDouble ("rho");
@@ -432,14 +410,12 @@ void mscoupled::initDC (void) {
     nr_double_t g = t * W / rho / l;
     setVoltageSources (0);
     allocMatrixMNA ();
-	 assert(g==g);
     setY (NODE_1, NODE_1, +g); setY (NODE_2, NODE_2, +g);
     setY (NODE_1, NODE_2, -g); setY (NODE_2, NODE_1, -g);
     setY (NODE_3, NODE_3, +g); setY (NODE_4, NODE_4, +g);
     setY (NODE_3, NODE_4, -g); setY (NODE_4, NODE_3, -g);
   }
   else {
-	  assert(false);
     // DC shorts (voltage sources V = 0 volts)
     setVoltageSources (2);
     setInternalVoltageSource (1);
@@ -451,56 +427,30 @@ void mscoupled::initDC (void) {
   }
 }
 
-void mscoupled::initAC (void) {
+void mslange::initAC (void) {
   setVoltageSources (0);
   allocMatrixMNA ();
 }
 
-void mscoupled::calcAC (nr_double_t frequency) { untested();
-	trace3("mscoupled::calcAC", frequency, ao, bo);
-	assert(frequency);
+void mslange::calcAC (nr_double_t frequency) {
   // fetch line properties
   nr_double_t l = getPropertyDouble ("L");
 
   // compute propagation constants for even and odd mode
-  assert(frequency==frequency);
   calcPropagation (frequency);
-	trace3("mscoupled::calcAC2", frequency, ao, bo);
   nr_complex_t ge = nr_complex_t (ae, be);
-  assert(ge==ge);
-  assert(ao==ao);
-  assert(bo==bo);
   nr_complex_t go = nr_complex_t (ao, bo);
-  assert(go==go);
 
   // compute abbreviations
   nr_complex_t De, Do, y1, y2, y3, y4;
-  assert(ze==ze);
-  assert(ze);
-  assert(zo==zo);
-  assert(go==go);
-  assert(l==l);
-  assert(ge==ge);
   De = 0.5 / (ze * qucs::sinh (ge * l));
-  assert(De==De);
   Do = 0.5 / (zo * qucs::sinh (go * l));
-  trace3("Do?", zo, go, l);
-  // assert(Do==Do); // ???
   y2 = -De - Do;
-  // assert(y2==y2); // ???
   y3 = -De + Do;
-  // assert(y3==y3); // ???
-  assert(De==De);
-  trace3("DE??", ge, l, ge*l);
-  trace1("...", cosh (ge * l));
   De *= cosh (ge * l);
-  assert(De==De);
   Do *= cosh (go * l);
   y1 = De + Do;
   y4 = De - Do;
-
-  assert(y4==y4); /// ??
-  assert(y1==y1); /// ??
 
   // store Y-parameters
   setY (NODE_1, NODE_1, y1); setY (NODE_2, NODE_2, y1);
@@ -513,7 +463,7 @@ void mscoupled::calcAC (nr_double_t frequency) { untested();
   setY (NODE_3, NODE_2, y4); setY (NODE_4, NODE_1, y4);
 }
 
-void mscoupled::calcNoiseAC (nr_double_t) {
+void mslange::calcNoiseAC (nr_double_t) {
   // calculate noise using Bosma's theorem
   nr_double_t T = getPropertyDouble ("Temp");
   setMatrixN (4 * celsius2kelvin (T) / T0 * real (getMatrixY ()));
@@ -533,5 +483,5 @@ PROP_REQ [] = {
 PROP_OPT [] = {
   { "Temp", PROP_REAL, { 26.85, PROP_NO_STR }, PROP_MIN_VAL (K) },
   PROP_NO_PROP };
-struct define_t mscoupled::cirdef =
-  { "MCOUPLED", 4, PROP_COMPONENT, PROP_NO_SUBSTRATE, PROP_LINEAR, PROP_DEF };
+struct define_t mslange::cirdef =
+  { "MLANGE", 4, PROP_COMPONENT, PROP_NO_SUBSTRATE, PROP_LINEAR, PROP_DEF };
