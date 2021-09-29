@@ -1,6 +1,6 @@
 0.0.1
 =====
-* support parameter sweeps
+* support device value sweeps
 * component enhancements (R, BJT...)
 * more macros (Iac, Tr)
 * a few Qucsator RF devices
