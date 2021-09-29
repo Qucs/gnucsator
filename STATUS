@@ -5,6 +5,7 @@ SIMULATION COMMANDS
     M  modified upstream plugin
     C  custom plugin
     Q  qucsator code (wrapped)
+    O  output hack
     S  postprocessor script
 
 - test column
@@ -16,7 +17,7 @@ SIMULATION COMMANDS
 │    simulation   │  qucsator name  │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
 │ operating point │  DC             │   M            │ TEI  │                │
-│ transient       │  TR             │   US           │ TEI  │ mixed signal   │
+│ transient       │  TR             │   UO           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
 │ ac analysis     │  AC             │   M            │ TEI  │ needs output   │
 │ sweep           │  SW             │   C            │ TEI  │ DC parameters  │
@@ -79,23 +80,23 @@ COMPONENTS (table ripped from [1])
 │ tpair line      │                 │                │      │                │
 │ coaxial line    │                 │                │      │                │
 │ rect waveguide  │                 │                │      │                │
-│ microstrip line │                 │                │      │                │
-│ microstrip open │                 │                │      │                │
-│ mstrip cross    │                 │                │      │                │
-│ mstrip mit bend │                 │                │      │                │
-│ microstrip step │                 │                │      │                │
-│ microstrip tee  │                 │                │      │                │
-│ mstrip corner   │                 │                │      │                │
-│ microstrip gap  │                 │                │      │                │
-│ cpld mstrip line│ MCOUPLED        │  Q             │ TE   │ needs checking │
-│ microstrip via  │                 │                │      │                │
-│ mstrip rad stub │                 │                │      │                │
-│ coplanar line   │                 │                │      │                │
-│ coplanar open   │                 │                │      │                │
-│ coplanar short  │                 │                │      │                │
-│ coplanar ser gap│                 │                │      │                │
-│ coplanar step   │                 │                │      │                │
-│ bond wire       │                 │                │      │                │
+│ microstrip line │                 │  Q             │      │                │
+│ microstrip open │                 │  Q             │      │                │
+│ mstrip cross    │                 │  Q             │      │                │
+│ mstrip mit bend │                 │  Q             │      │                │
+│ microstrip step │                 │  Q             │      │                │
+│ microstrip tee  │                 │  Q             │      │                │
+│ mstrip corner   │                 │  Q             │      │                │
+│ microstrip gap  │                 │  Q             │      │                │
+│ cpld mstrip line│ MCOUPLED        │  Q             │ TE   │ SP working     │
+│ microstrip via  │                 │  Q             │      │                │
+│ mstrip rad stub │                 │  Q             │      │                │
+│ coplanar line   │                 │  Q             │      │                │
+│ coplanar open   │                 │  Q             │      │                │
+│ coplanar short  │                 │  Q             │      │                │
+│ coplanar ser gap│                 │  Q             │      │                │
+│ coplanar step   │                 │  Q             │      │                │
+│ bond wire       │                 │  Q             │      │                │
 │ transformer     │ Tr              │      S         │ TE   │ tested T=1     │
 │ symm trafo      │                 │                │      │                │
 │ cccs            │ CCCS            │ (E) [V] S      │ EI   │                │
