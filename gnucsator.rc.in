@@ -20,7 +20,11 @@ uninstall comp dev_comment
 uninstall comp C
 uninstall comp D
 uninstall comp R
+uninstall comp X
+uninstall comp subckt
 unload qucs/c_uninst.so
+
+load qucs/d_subckt_p.so
 
 options numdgt 40
 load qucs/bm_value.so

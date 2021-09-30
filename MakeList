@@ -26,6 +26,7 @@ PLUGIN_CC = \
 	bm_poly.cc \
 	d_gpolyk_wrap.cc \
 	d_probe.cc \
+	d_subckt_p.cc \
 	functions.cc \
 	bm_value.cc \
 	bm_trivial.cc \

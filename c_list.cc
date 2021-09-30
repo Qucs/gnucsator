@@ -59,7 +59,7 @@ void list_save(CS& cmd, OMSTREAM out, CARD_LIST* scope)
     break;
   }
 
-  if (!OPT::language) {
+  if (!OPT::language) { untested();
     throw Exception("no language");
   }else{
   }
@@ -75,24 +75,24 @@ void list_save(CS& cmd, OMSTREAM out, CARD_LIST* scope)
     CARD_LIST::fat_iterator ci = (cmd.match1('-')) 
       ? CARD_LIST::fat_iterator(scope, scope->begin())
       : findbranch(cmd, scope);
-    if (ci.is_end()) {itested();
+    if (ci.is_end()) {untested();
       throw Exception_CS("can't find", cmd);
-    }else{
+    }else{ untested();
     }
     
     if (cmd.match1('-')) {		/* there is a dash:  a range	    */
       cmd.skip();
       if (cmd.is_end()) {	/* line ends with dash: all to end  */
-	do {
+	do { untested();
 	  print_item(out, *ci);
 	} while (++ci, !ci.is_end());
-      }else{
+      }else{ untested();
 	CARD_LIST::fat_iterator stop = ci;
 	stop = findbranch(cmd, ++stop);
 	if (stop.is_end()) {itested();
 	  throw Exception_CS("can't find", cmd);
-	}else{
-	  do {
+	}else{ untested();
+	  do { untested();
 	    print_item(out, *ci);
 	  } while (ci++ != stop); // note subtle difference
 	}
