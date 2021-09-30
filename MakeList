@@ -83,4 +83,6 @@ MICROSTRIP_OBJS = \
 	qucsator/bondwire.o \
 	qucsator/mscoupled.o \
 	qucsator/mslange.o \
+	qucsator/msopen.o \
+	qucsator/msstep.o \
 	qucsator/msline.o

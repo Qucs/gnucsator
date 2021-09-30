@@ -104,9 +104,10 @@ class matrix
   ~matrix ();
   nr_complex_t get (int, int);
   void set (int, int, nr_complex_t);
-  int getCols (void) { return cols; }
-  int getRows (void) { return rows; }
+  int getCols (void) const { return cols; }
+  int getRows (void) const { return rows; }
   nr_complex_t * getData (void) { return data; }
+  nr_complex_t const* getData (void) const { return data; }
   void print (void);
   void exchangeRows (int, int);
   void exchangeCols (int, int);

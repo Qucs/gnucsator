@@ -9,6 +9,7 @@ COMMON_TESTS = \
 	AM_Mod.1.net \
 	bjt_pulse0.net \
 	bjt_pulse1.net \
+	bpf.net \
 	cockroft-walton.net \
 	common_emitter_degen.net \
 	dc_sweep.0.net \

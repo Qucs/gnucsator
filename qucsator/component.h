@@ -195,7 +195,17 @@ protected: // qucsator globals
 	matrix getMatrixY() {incomplete(); return matrix();}
 	void setMatrixN (matrix) {incomplete();}
 	void setMatrixS (matrix) {incomplete();}
-	void setMatrixY (matrix) {incomplete();}
+	void setMatrixY (matrix const& y) {
+		int r = y.getRows ();
+		int c = y.getCols ();
+
+		assert(r==_num_ports);
+		assert(c==_num_ports);
+		// copy matrix elements
+		if (r > 0 && c > 0 && r * c == _num_ports * _num_ports) {
+			memcpy (_matrix, y.getData (), sizeof (nr_complex_t) * r * c);
+		}
+	}
 	void clearY (){incomplete();}
 	int getSize() const {return _num_ports;}
 

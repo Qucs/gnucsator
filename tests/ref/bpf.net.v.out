@@ -1,0 +1,26 @@
+
+MCOUPLED #(.W(384um),.L(5.24mm),.S(482um),.Subst(Subst1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MS1 (.p0(_net0),.p1(_net1),.p2(_net2),.p3(_net3));
+MCOUPLED #(.W(1.08mm),.L(4.72mm),.S(712um),.Subst(Subst1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MS2 (.p0(_net4),.p1(_net5),.p2(_net6),.p3(_net7));
+MSTEP #(.W1(1.08mm),.W2(1.3mm),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad)) MS17 (.p0(_net6),.p1(_net8));
+MSTEP #(.W1(1.08mm),.W2(384um),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad)) MS16 (.p0(_net4),.p1(_net2));
+MCOUPLED #(.W(1.3m),.L(5.03mm),.S(913um),.Subst(Subst1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MS3 (.p0(_net8),.p1(_net9),.p2(_net10),.p3(_net11));
+MSTEP #(.W1(1.08mm),.W2(1.3mm),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad)) MS18 (.p0(_net12),.p1(_net10));
+MOPEN #(.W(1.3mm),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS13 (.p0(_net11));
+MOPEN #(.W(1.08m),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS14 (.p0(_net13));
+MCOUPLED #(.W(1.08mm),.L(4.72mm),.S(712um),.Subst(Subst1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MS4 (.p0(_net12),.p1(_net14),.p2(_net15),.p3(_net13));
+MSTEP #(.W1(1.08mm),.W2(384um),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad)) MS19 (.p0(_net15),.p1(_net16));
+MCOUPLED #(.W(384um),.L(5.24mm),.S(482um),.Subst(Subst1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MS5 (.p0(_net16),.p1(_net17),.p2(_net18),.p3(_net19));
+MOPEN #(.W(384u),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS9 (.p0(_net17));
+Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P2 (.1(_net18),.2(0));
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P1 (.1(_net0),.2(0));
+paramset Subst1 SUBST;\
+ .er=2.56; .h=0.76m; .t=18u; .tand=3e-3; .rho=0.022e-6; .D=100; .tnom=tnom;\
+endparmset
+
+MOPEN #(.W(384u),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS11 (.p0(_net3));
+MOPEN #(.W(1.08m),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS12 (.p0(_net7));
+MOPEN #(.W(384u),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS15 (.p0(_net19));
+MOPEN #(.W(384u),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS10 (.p0(_net1));
+MOPEN #(.W(1.08m),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS6 (.p0(_net5));
+MOPEN #(.W(1.3mm),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS7 (.p0(_net9));
+MOPEN #(.W(1.08m),.Subst(Subst1),.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning)) MS8 (.p0(_net14));

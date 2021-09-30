@@ -7,6 +7,8 @@
 #include "microstrip/msline.h"
 #include "microstrip/mscoupled.h"
 #include "microstrip/mslange.h"
+#include "microstrip/msopen.h"
+#include "microstrip/msstep.h"
 
 namespace {
 
@@ -32,9 +34,11 @@ DISPATCHER<CARD>::INSTALL d11(&device_dispatcher, mslange::cirdef.type, &c11);
 
 // CIR_MSLINE = 0;
 // CIR_MSMBEND = 0;
-// CIR_MSOPEN = 0;
+msopen c14;
+DISPATCHER<CARD>::INSTALL d14(&device_dispatcher, msopen::cirdef.type, &c14);
 // CIR_MSRSTUB = 0;	
-// CIR_MSSTEP = 0;	
+msstep c16;
+DISPATCHER<CARD>::INSTALL d16(&device_dispatcher, msstep::cirdef.type, &c16);
 // CIR_MSTEE = 0;
 // CIR_MSVIA = 0;	
 // CIR_SPIRALIND = 0;	
