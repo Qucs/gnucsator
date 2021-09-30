@@ -1,0 +1,12 @@
+
+sTr #(.T1(1),.T2(1)) Tr1 (.outp(_net0),.inp(_net1),.inn(0),.4(_net2),.5(0),.outn(0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net3),.n(_net1));
+Vac #(.Phase(0),.Theta(0),.U(3),.f(10k)) LO (.1(_net3),.2(0));
+sTr #(.T1(1),.T2(1)) Tr2 (.outp(_net4),.inp(_net5),.inn(0),.4(_net6),.5(Output),.outn(Output));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(_net5),.n(_net7));
+Vac #(.Phase(0),.Theta(0),.U(1m),.f(1k)) RF (.1(_net7),.2(0));
+Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(1.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D1 (.1(_net0),.2(_net4));
+Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(1.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D4 (.1(_net4),.2(_net2));
+Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(1.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D3 (.1(_net2),.2(_net6));
+Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(1.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D2 (.1(_net6),.2(_net0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) Load (.p(0),.n(Output));

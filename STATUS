@@ -98,7 +98,7 @@ COMPONENTS (table ripped from [1])
 │ coplanar step   │                 │  Q             │      │                │
 │ bond wire       │                 │  Q             │      │                │
 │ transformer     │ Tr              │      S         │ TE   │ tested T=1     │
-│ symm trafo      │                 │                │      │                │
+│ symm trafo      │ sTr             │      S         │ TE   │ tested T1=T2=1 │
 │ cccs            │ CCCS            │ (E) [V] S      │ EI   │                │
 │ ccvs            │ CCVS            │ (E) [V] S      │ EI   │                │
 │ vccs            │ VCCS            │ (E) [V] S      │      │                │

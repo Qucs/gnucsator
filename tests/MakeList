@@ -23,6 +23,7 @@ COMMON_TESTS = \
 	lc_osc.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
+	mixer.net \
 	mscoupler.1.net \
 	MUT.net \
 	notch.1.net \
