@@ -30,6 +30,7 @@ COMMON_TESTS = \
 	resonance_ac.net \
 	rr1.net \
 	rr.net \
+	sawtooth-discreet.net \
 	schmitt.net \
 	sparam.0.net \
 	sparam.1.net \
