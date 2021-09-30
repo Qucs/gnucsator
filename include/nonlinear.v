@@ -377,9 +377,8 @@ module MOSFET(g, d, s, b);
 	//.nrs=Nrs;
 	
 	// workaround: select one of them.
-	// make the other one very narrow
-	mynmos #(.w(W*(1.+Type)*.5), .l(L), .temp(Temp)) n(d, g, s, b);
-	mypmos #(.w(W*(1.-Type)*.5), .l(L), .temp(Temp)) p(d, g, s, b);
+	mynmos #(.w(W), .m((1.+Type)*.5), .l(L), .temp(Temp)) n(d, g, s, b);
+	mypmos #(.w(W), .m((1.-Type)*.5), .l(L), .temp(Temp)) p(d, g, s, b);
 endmodule // MOSFET
 
 parameter on=1
