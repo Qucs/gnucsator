@@ -1,0 +1,14 @@
+
+BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T1 (.b(_net0),.c(_net1),.e(0),.s(_net1));
+BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T3 (.b(_net2),.c(neg),.e(_net1),.s(neg));
+BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T2 (.b(_net3),.c(pos),.e(_net1),.s(pos));
+R #(.R(1.5k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(neg),.n(_net4));
+R #(.R(100k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R4 (.p(_net2),.n(_net4));
+R #(.R(100k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R5 (.p(_net3),.n(_net4));
+R #(.R(1.5k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(pos),.n(_net4));
+Tr #(.T(1)) Tr1 (.outp(_net5),.inp(_net2),.inn(_net3),.outn(0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R8 (.p(_net6),.n(_net5));
+Vdc #(.U(10)) V2 (.p(_net4),.n(0));
+Vac #(.Phase(0),.Theta(0),.U(0.5),.f(10k)) LO (.1(_net6),.2(0));
+Idc #(.I(2u)) I2 (.1(_net0),.2(0));
+Iac #(.I(1u),.Phase(0),.Theta(0),.f(1k)) RF (.1(_net0),.2(0));

@@ -7,6 +7,7 @@
 # WIP: should cover all netlist.txt files from qucs-test
 COMMON_TESTS = \
 	AM_Mod.1.net \
+	active_mixer.net \
 	bjt_pulse0.net \
 	bjt_pulse1.net \
 	bpf.net \
