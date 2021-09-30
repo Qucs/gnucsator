@@ -15,6 +15,7 @@ COMMON_TESTS = \
 	dc_sweep.1.net \
 	dio.net \
 	div.net \
+	gain.net \
 	gilbert.net \
 	idc0.net \
 	lang_qucs.1.net \
@@ -35,6 +36,7 @@ COMMON_TESTS = \
 	sub.1.net \
 	sub.2.net \
 	Switch.0.net \
+	single_balanced.net \
 	TTL_NAND.net \
 	Vrect.1.net \
 	Vrect.2.net \
@@ -55,5 +57,6 @@ GC_TESTS = \
 	rect.gc
 
 NOTYET_GC_TESTS = \
+	sym_osci.net \
 	bjt_switch.net \
 	mscoupler.1.gc
