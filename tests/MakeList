@@ -10,6 +10,7 @@ COMMON_TESTS = \
 	active_mixer.net \
 	bjt_pulse0.net \
 	bjt_pulse1.net \
+	bjt_pulse2.net \
 	bpf.net \
 	cockroft-walton.net \
 	common_emitter_degen.net \

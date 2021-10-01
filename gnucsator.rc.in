@@ -1,5 +1,17 @@
+* runtime configuration for gnucsator
 
+* uncomment for more verbose diagnosis output
+* options debug
+* or even more
 * options trace
+
+* uncomment for more accuracy (there are more, see manual)
+* options trtol=1
+
+* uncomment for extra steps to make for a better plot
+* on simple plotters that use linear interpolation
+* (default=3, cubic)
+* options trsteporder=1
 
 load gnucap-default-plugins.so
 
