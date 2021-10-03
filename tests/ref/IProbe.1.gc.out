@@ -101,6 +101,17 @@ CCCS #(.gain(T)) v (.1(outp_),.2(inp),.3(inn),.4(outp));
 vcvs #(.gain(T)) e (.p(outp_),.n(outn),.ps(inp),.ns(inn));
 endmodule // Tr
 
+//* sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1" 
+//* sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1" 
+module sTr (outp,inp,inn,4,5,outn);
+parameter T1={ 1.};
+parameter T2={ 1.};
+CCCS #(.gain(T1)) v (.1(outp_),.2(inp),.3(inn),.4(outp));
+vcvs #(.gain(T1)) e (.p(outp_),.n(outn),.ps(inp),.ns(inn));
+CCCS #(.gain(T2)) v (.1(5_),.2(inp),.3(inn),.4(5));
+vcvs #(.gain(T2)) e (.p(5_),.n(4),.ps(inp),.ns(inn));
+endmodule // sTr
+
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 
 module MUT (a1,b1,b2,a2);
 parameter L1={ 0.001};

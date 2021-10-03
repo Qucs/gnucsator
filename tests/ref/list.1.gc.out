@@ -24,6 +24,10 @@ verilog: already installed, replacing
 stashing as verilog:0
 CCCS #(.gain(T)) v(outp_ inp inn outp); 
 ^ ? CCCS: no match
+CCCS #(.gain(T1)) v(outp_ inp inn outp); 
+^ ? CCCS: no match
+CCCS #(.gain(T2)) v(5_ inp inn 5); 
+^ ? CCCS: no match
 C: already installed, replacing
 stashing as C:0
 L: already installed, replacing
