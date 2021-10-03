@@ -1,0 +1,26 @@
+
+module NAND_GATE_cir (_netA,_netVCC,_netB,_netY,_ref);
+module NAND (_ref,_netA,_netB,_netY,_netVCC);
+Diode #(.Bv(8),.Cj0(1e-12),.Is(1e-15),.M(0.5),.N(1),.Vj(0.7)) D1 (.1(_netA),.2(_ref));
+Diode #(.Bv(8),.Cj0(1e-12),.Is(1e-15),.M(0.5),.N(1),.Vj(0.7)) D2 (.1(_netB),.2(_ref));
+R #(.R(4000)) R1 (.p(_netVCC),.n(_netB1));
+BJT #(.Bf(50),.Br(1),.Cjc(2pF),.Cje(2pF),.Cjs(0),.Fc(0.5),.Ikf(0),.Ikr(0),.Irb(0),.Is(2e-15),.Isc(0),.Ise(0),.Itf(0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Rbm(0),.Tf(0),.Tr(0),.Type(npn),.Vaf(50),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtf(0)) Q1 (.b(_netB1),.c(_netB3),.e(_netA),.s(_ref));
+R #(.R(4000)) R2 (.p(_netVCC),.n(_netB2));
+BJT #(.Bf(50),.Br(1),.Cjc(2pF),.Cje(2pF),.Cjs(0),.Fc(0.5),.Ikf(0),.Ikr(0),.Irb(0),.Is(2e-15),.Isc(0),.Ise(0),.Itf(0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Rbm(0),.Tf(0),.Tr(0),.Type(npn),.Vaf(50),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtf(0)) Q2 (.b(_netB2),.c(_netB3),.e(_netB),.s(_ref));
+R #(.R(1600)) R3 (.p(_netVCC),.n(_netC3));
+BJT #(.Bf(50),.Br(1),.Cjc(2pF),.Cje(2pF),.Cjs(0),.Fc(0.5),.Ikf(0),.Ikr(0),.Irb(0),.Is(2e-15),.Isc(0),.Ise(0),.Itf(0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Rbm(0),.Tf(0),.Tr(0),.Type(npn),.Vaf(50),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtf(0)) Q3 (.b(_netB3),.c(_netC3),.e(_netE3),.s(_ref));
+R #(.R(1000)) R4 (.p(_netE3),.n(_ref));
+R #(.R(130)) R5 (.p(_netVCC),.n(_netC4));
+BJT #(.Bf(50),.Br(1),.Cjc(2pF),.Cje(2pF),.Cjs(0),.Fc(0.5),.Ikf(0),.Ikr(0),.Irb(0),.Is(2e-15),.Isc(0),.Ise(0),.Itf(0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Rbm(0),.Tf(0),.Tr(0),.Type(npn),.Vaf(50),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtf(0)) Q4 (.b(_netC3),.c(_netC4),.e(_netE4),.s(_ref));
+Diode #(.Bv(8),.Cj0(1e-12),.Is(1e-15),.M(0.5),.N(1),.Vj(0.7)) D3 (.1(_netY),.2(_netE4));
+BJT #(.Bf(50),.Br(1),.Cjc(2pF),.Cje(2pF),.Cjs(0),.Fc(0.5),.Ikf(0),.Ikr(0),.Irb(0),.Is(2e-15),.Isc(0),.Ise(0),.Itf(0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Rbm(0),.Tf(0),.Tr(0),.Type(npn),.Vaf(50),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtf(0)) Q5 (.b(_netE3),.c(_netY),.e(_ref),.s(_ref));
+endmodule // NAND
+
+NAND #(.Type(NAND)) X1 (._ref(_ref),._netA(_netA),._netB(_netB),._netY(_netY),._netVCC(_netVCC));
+endmodule // NAND_GATE_cir
+
+NAND_GATE_cir #(.Type(NAND_GATE_cir)) X1 (._netA(A),._netVCC(_net0),._netB(B),._netY(out),._ref(0));
+C #(.C(5p)) C1 (.p(0),.n(out));
+Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1m),.TL(1m)) VA (.p(A),.n(0));
+Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1.3m),.TL(1.3m)) VA1 (.p(B),.n(0));
+Vdc #(.U(5)) V1 (.p(_net0),.n(0));
