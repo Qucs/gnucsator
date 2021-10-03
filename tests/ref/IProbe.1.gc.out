@@ -43,12 +43,12 @@ stashing as subckt:0
 module C (p,n);
 parameter C={NA( NA)};
 parameter V={NA( NA)};
-capacitor #(.c(C)) C1 (.p(p),.n(n));
+capacitor #(.c(C)) dev (.p(p),.n(n));
 endmodule // C
 
 module L (p,n);
 parameter L={NA( NA)};
-inductor #(.l(L)) L1 (.p(p),.n(n));
+inductor #(.l(L)) dev (.p(p),.n(n));
 endmodule // L
 
 module R (p,n);

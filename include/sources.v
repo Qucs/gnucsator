@@ -15,7 +15,7 @@ module Vdc(p n);
 // it's missing a probe
 	parameter U=1m
 	parameter Temp
-	vsource #(.dc(U)) v(p n);
+	vsource #(.dc(U)) dev(p n);
 endmodule
 
 module VCCS(1 2 3 4);

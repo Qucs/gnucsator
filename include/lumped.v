@@ -9,12 +9,12 @@ simulator language=verilog
 module C(p, n);
 	parameter C
 	parameter V
-	capacitor #(.c(C)) C1(p, n);
+	capacitor #(.c(C)) dev(p, n);
 endmodule // C
 
 module L(p, n);
 	parameter L
-	inductor #(.l(L)) L1(p, n);
+	inductor #(.l(L)) dev(p, n);
 endmodule // C
 
 module R(p, n);
