@@ -1,3 +1,10 @@
+0.0.2
+=====
+* more microstrips
+* value sweeps in more devices
+* select MOSFET using mfactor
+* symmetric transformer
+
 0.0.1
 =====
 * support device value sweeps
