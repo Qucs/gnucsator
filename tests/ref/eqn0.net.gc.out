@@ -1,0 +1,58 @@
+<Qucs Dataset>
+default plugins: ignored
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+store: already installed, replacing
+stashing as store:0
+alarm: already installed, replacing
+stashing as alarm:0
+iplot: already installed, replacing
+stashing as iplot:0
+plot: already installed, replacing
+stashing as plot:0
+iprint: already installed, replacing
+stashing as iprint:0
+print: already installed, replacing
+stashing as print:0
+probe: already installed, replacing
+stashing as probe:0
+d: already installed, replacing
+stashing as d:0
+diode: already installed, replacing
+stashing as diode:0
+npn: already installed, replacing
+stashing as npn:0
+pnp: already installed, replacing
+stashing as pnp:0
+npn1: already installed, replacing
+stashing as npn1:0
+pnp1: already installed, replacing
+stashing as pnp1:0
+Q: already installed, replacing
+stashing as Q:0
+bjt: already installed, replacing
+stashing as bjt:0
+L: already installed, replacing
+stashing as L:0
+Gnucap   System status
+iterations: op=2, dc=2, tran=0, fourier=0, total=4
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=2, subckt=0, model=0, total=2
+dctran density=100.0%, ac density=100.0%
+
+<indep _net0.V 1>
+ 0.9999999
+</indep>
+<indep _net1.V 1>
+ 0.2
+</indep>
+<indep Pr1.V 1>
+ 0.9999999
+</indep>

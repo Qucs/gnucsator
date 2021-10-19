@@ -1,0 +1,9 @@
+# Qucs 0.0.19
+
+Eqn:Eqn1 RR0="25" Export="yes"
+Eqn:Eqn2 RR1="100" Export="no"
+R:R1 _net0 _net1 R="RR1" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+VProbe:Pr1 _net0 gnd
+.DC:DC1
+Vdc:V1 _net0 gnd U="1 V"
+R:R2 _net1 gnd R="RR0"
