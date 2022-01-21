@@ -124,6 +124,8 @@ parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
 parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=10, dc=10, tran=0, fourier=0, total=220
 transient timesteps: accepted=0, rejected=0, total=0

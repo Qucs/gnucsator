@@ -98,14 +98,15 @@ void SIM::reset_timers()
 #include "u_nodemap.h"
 void SIM_DATA::init(CARD_LIST* scope)
 {
-  trace2("SIM_DATA::init", this, is_first_expand());
+  trace1("SIM_DATA::init", scope);
   assert(scope);
-  if(scope == &CARD_LIST::card_list){
-  }else{
+  if(scope == &CARD_LIST::card_list){ untested();
+  }else{ untested();
   }
-  if (is_first_expand()) {
+  if (is_first_expand()) { untested();
     uninit();
     init_node_count(scope->nodes()->how_many(), 0, 0);
+    trace1("SIM_DATA::init expand", scope);
     scope->expand();
     map__nodes();
     scope->map_nodes();
@@ -116,7 +117,7 @@ void SIM_DATA::init(CARD_LIST* scope)
     scope->tr_iwant_matrix();
     scope->ac_iwant_matrix();
     _last_time = 0;
-  }else{
+  }else{ untested();
     scope->precalc_first();
   }
 }

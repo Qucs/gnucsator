@@ -1,0 +1,13 @@
+load legacy
+load legacy/components
+load legacy/qucsator
+load plugins/verilog
+load plugins/misc
+
+load public ./sim_gnucap
+
+get switch.0.sch
+
+list l=verilog main
+simulate
+list lang=dat gnucap

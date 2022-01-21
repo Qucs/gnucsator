@@ -45,7 +45,7 @@ MY_CPPFLAGS += ${QT_CPPFLAGS}
 RAW_O = ${RAW_SRCS:%.cc=%.o}
 
 ${TARGET}: ${RAW_O}
-	${QUCS_CXX} -shared -o $@ $< ${LIBS}
+	${QUCS_CXX} -shared -o $@ ${RAW_O} ${LIBS}
 
 %.o: %.cc
 	${QUCS_CXX} -c -fPIC ${MY_CPPFLAGS} ${CPPFLAGS} ${QUCS_CXXFLAGS} ${CXXFLAGS} $< -o $@

@@ -110,7 +110,8 @@ void DEV_PROBE::precalc_last()
  if(_reg){
  }else{
    trace3("adding probe", prb, _sim->_mode, long_label());
-   CS p(CS::_STRING, prb+"("+long_label()+")");
+   //CS p(CS::_STRING, prb+"("+long_label()+")");
+   CS p(CS::_STRING, prb+"("+short_label()+")");
    assert(scope());
    // _probe_lists->print[_sim->_mode].add_list(p, scope());
    _probe_lists->print[s_OP].add_list(p, scope());

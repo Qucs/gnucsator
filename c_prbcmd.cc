@@ -41,11 +41,9 @@ void do_probe(CS& cmd, PROBELIST *probes, CARD_LIST *scope)
 {
   assert(probes);
   assert(scope);
-#ifdef TRACE_UNTESTED
-  if(scope==&CARD_LIST::card_list){
-  }else{
+  if(scope==&CARD_LIST::card_list){ untested();
+  }else{ untested();
   }
-#endif
 
   CKT_BASE::_sim->set_command_none();
   enum {aADD, aDELETE, aNEW} action;
@@ -156,7 +154,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "alarm", &p1);
 /*--------------------------------------------------------------------------*/
 class CMD_PLOT : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope) {
+  void do_it(CS& cmd, CARD_LIST* Scope) { untested();
     assert(Scope);
 #ifdef TRACE_UNTESTED
     if(Scope==&CARD_LIST::card_list){

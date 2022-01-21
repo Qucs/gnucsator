@@ -1,0 +1,25 @@
+load legacy
+load legacy/components
+load legacy/qucsator
+load plugins/verilog
+load plugins/misc
+
+* why public?
+load public ./sim_gnucap
+
+verilog
+paramset Verilog ModelFactory;
+  .dev_type = "Verilog";
+  .$SUB_PATH = ".";
+endparamset
+
+list main
+list Verilog
+
+get rc_verilog.sch
+
+list Verilog*
+list main
+
+simulate
+list lang=dat gnucap

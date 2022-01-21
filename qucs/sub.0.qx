@@ -1,0 +1,20 @@
+load legacy
+load legacy/components
+load legacy/paintings
+load legacy/qucsator
+load plugins/verilog
+load plugins/misc
+
+load public ./sim_gnucap
+
+verilog
+paramset Sub ModelFactory;
+  .dev_type = "Sub";
+  .$SUB_PATH = ".";
+endparamset
+
+get opa_tb.sch
+
+list l=verilog main
+simulate
+list lang=dat gnucap

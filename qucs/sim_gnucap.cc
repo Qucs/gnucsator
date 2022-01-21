@@ -1,5 +1,5 @@
 /*                            -*- C++ -*-
- * Copyright (C) 2020 Felix Salfelder
+ * Copyright (C) 2020, 2021 Felix Salfelder
  * Author: Felix Salfelder <felix@salfelder.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,24 +21,28 @@
  */
 
 // Kludge
-//  - use Qucsator models
+//  - fallback to Qucsator models
+//  - only one device per verilog file (inherited from Qucs, fix later)
 //  - stick to "dat" for now.
 // TODO
-//  - model selection
+//  - model selection, Sub
 //  - run in separate thread
 //  - construct proper data
+//  - error handling
 
 // Gnucap
 #include <md.h>
 #include <e_base.h>
 #include <e_cardlist.h>
 #include <e_subckt.h>
+#include <e_model.h>
 #include <io_error.h>
 #include "../env.h"
 #include <globals.h>
 #include <u_lang.h>
 #include <c_comand.h>
 #include <u_prblst.h>
+#include <e_paramlist.h>
 
 // Qucs
 #undef AP_H
@@ -51,6 +55,10 @@
 #include <sckt_base.h>
 #include <element_list.h>
 #include <symbol.h>
+#include <place.h>
+#include <conductor.h>
+#include <model.h>
+#include <factory.h>
 #undef CMD
 #undef OPT
 #undef DISPATCHER
@@ -59,6 +67,8 @@
 #undef DEV_DOT
 
 // #include <boost/thread/thread.hpp> later.
+//
+#include "../l_qucs.h" // QucsGuessParam
 
 namespace{
 /* -------------------------------------------------------------------------------- */
@@ -68,6 +78,11 @@ using qucs::Symbol;
 using qucs::SubcktBase;
 using qucs::ElementList;
 using qucs::TaskElement;
+using qucs::Place;
+using qucs::Conductor;
+using qucs::Component;
+using qucs::Model;
+using qucs::SymbolFactory;
 /* -------------------------------------------------------------------------------- */
 // omit this hack.
 class CMD_HIDE : public CMD {
@@ -127,15 +142,25 @@ static void read_startup_files(char *const* argv, CARD_LIST* scope)
   }
 }
 /* -------------------------------------------------------------------------------- */
-char const* argv[] = {"gnucsator"};
+char const* argv[] = {"gnucsator", nullptr};
 class Gnucap : public Simulator {
 private:
 	Gnucap(Gnucap const& s);
 public:
 	explicit Gnucap();
 	~Gnucap() {
-		delete _data;
-		_data = nullptr;
+		if(_root){
+			CMD::command("clear", _root->subckt());
+			delete _root;
+			_root = nullptr;
+		}else{
+		}
+
+		if(_data){
+			delete _data;
+		  _data = nullptr;
+		}else{
+		}
 	}
 
 private: // Element
@@ -143,21 +168,30 @@ private: // Element
 
 private: // Simulator
   virtual void init() override{ incomplete();}
-  void run(istream_t& cs, SimCtrl* ctx) override {incomplete();}
+  void run(istream_t&, SimCtrl*) override {incomplete();}
   void join() override {incomplete();}
   void do_it(istream_t& cs, ElementList const* ctx) override;
   std::string errorString() const override {incomplete(); return "..";}
   void kill() override {incomplete();}
 
 private: // internal
-	void load_circuit(ElementList const* ctx, BASE_SUBCKT* model);
+	void new_root();
+	CARD_LIST* root_scope(){ return _root->subckt(); }
+
+	void load_main(ElementList const* ctx);
 	void load_symbol(Symbol const* i, BASE_SUBCKT* model);
 	void load_task(TaskElement const* i, BASE_SUBCKT* model);
 	void copy_param_values(Symbol const* sym, COMPONENT* model);
 
+	void load_models(ElementList const* ctx, CARD_LIST* models);
+	CARD* new_model_choose(qucs::Element const* m, ElementList const* scope);
+	CARD* new_model_subckt(qucs::SubcktBase const*);
+	CARD* new_model(qucs::Element const* m);
+
 private:
 //   boost::thread _t; later.
   BASE_SUBCKT* _main;
+  CARD* _root{nullptr};
   SIM_DATA _sim_data; // for now.
   PROBE_LISTS _probe_lists; // for now
 
@@ -173,25 +207,61 @@ Gnucap::Gnucap() : Simulator(), _main(nullptr)
 	CKT_BASE::_probe_lists = &_probe_lists;
 }
 /* -------------------------------------------------------------------------------- */
+static COMMON_PARAMLIST Default_SUBCKT(CC_STATIC);
+/* -------------------------------------------------------------------------------- */
 Gnucap::Gnucap(Gnucap const& s) : Simulator(s), _main(nullptr)
 {
-	trace1("Gnucap::Gnucap copy", &_sim_data);
-	CARD* c = device_dispatcher.clone("subckt");
-	_main = prechecked_cast<BASE_SUBCKT*>(c);
-	_main->set_label("main");
+	prepare_env();
+	try{
+		read_startup_files((char * const*) argv, &CARD_LIST::card_list);
+	}catch(Exception_CS const& e){ itested();
+		trace1("error reading startup files", e.message());
+		message(qucs::MsgFatal, e.message());
+		return;
+	}
+
+	try{ // HACK
+		// just try and load those, in case they are available
+      CMD::command(std::string("load custom/c_make_attach.so"), &CARD_LIST::card_list);
+		CMD::command(std::string("load lang_adms.so"), &CARD_LIST::card_list);
+		CMD::command(std::string("load d_adms_i.so"), &CARD_LIST::card_list);
+		CMD::command(std::string("load d_adms_vbr.so"), &CARD_LIST::card_list);
+	}catch(Exception_CS const& e){ itested();
+		message(qucs::MsgFatal, "failed to load gnucap-adms modules: " + e.message());
+	}
+
+	new_root();
+	untested();
+
+	_root->precalc_first(); // set mfactor (bug?)
+	_root->precalc_last(); // set mfactor (bug?)
+	untested();
+
 	_main->COMPONENT::precalc_first(); // set mfactor (bug?)
+	untested();
+
+	CARD_LIST::card_list.precalc_first(); // here?
+	CARD_LIST::card_list.precalc_last(); // here?
+	untested();
+
 	assert(_main->mfactor() == 1.);
 	assert(_main);
 	assert(_main->subckt());
-	assert(c);
-	prepare_env();
-	read_startup_files((char * const*) argv, &CARD_LIST::card_list);
+
+	// CS off(CS::_STRING, "off=0");
+	// _root->subckt()->params()->parse(off);
+
+
+	// TODO: set from qucs.
+	// CMD::command(std::string("options trace"), &CARD_LIST::card_list);
 
 	{ // yikes.
 		CKT_BASE::_sim = &_sim_data;
 		CKT_BASE::_probe_lists = &_probe_lists;
 		//CARD_LIST::card_list.push_back(_main);
 	}
+
+	_main->attach_common(&Default_SUBCKT);
 }
 /* -------------------------------------------------------------------------------- */
 struct default_sim{
@@ -200,18 +270,54 @@ struct default_sim{
 	}
 }ds;
 /* -------------------------------------------------------------------------------- */
-void Gnucap::copy_param_values(Symbol const* sym, COMPONENT* model)
+void Gnucap::new_root()
+{
+	_root = device_dispatcher.clone("root");
+	assert(_root);
+	_root->set_label("root");
+
+	// move to ::ROOT
+	{
+	trace1("Gnucap::Gnucap copy", &_sim_data);
+	CARD* c = device_dispatcher.clone("main");
+	assert(c);
+	_main = prechecked_cast<BASE_SUBCKT*>(c);
+	assert(_main);
+	_main->set_label("main");
+	_main->set_owner(_root);
+	}
+
+	_root->subckt()->push_back(_main);
+	assert(_main->scope() == _root->subckt());
+
+	assert(_root->subckt());
+	assert(_root->subckt()->params());
+	assert(_main->subckt());
+	assert(_main->subckt()->params());
+
+	// need _root params?
+	_main->subckt()->params()->set_try_again(CARD_LIST::card_list.params());
+}
+/* -------------------------------------------------------------------------------- */
+void Gnucap::copy_param_values(Symbol const* sym, COMPONENT* x)
 {
 	for(index_t i=0; i<sym->param_count(); ++i){
 		std::string name = sym->param_name(i);
 		std::string value = sym->param_value(i);
 
+
 		if(name[0]=='$'){
+//			message(qucs::MsgTrace, "ignore " + name + " in " + x->short_label());
+		}else if(value.substr(0,3) == "NA("){
+			// BUG: printable?
+			message(qucs::MsgWarning, "ignore NA: " + name + " in " + x->short_label());
 		}else{
+			QucsGuessParam(value); // strip of markup, essentially
+			message(qucs::MsgTrace, "set " + name + " in " + x->short_label());
 			try{
-				model->set_param_by_name(name, value);
+				x->set_param_by_name(name, value);
 			}catch(Exception_No_Match const&){
-				message(qucs::MsgWarning, "cannot set " + name + " in " + model->short_label());
+				message(qucs::MsgWarning, "cannot set " + name + " in " + x->short_label());
 			}
 		}
 	}
@@ -246,45 +352,232 @@ void Gnucap::load_task(TaskElement const* tsk, BASE_SUBCKT* scope)
 
 		CS cs(CS::_STRING, cmd);
 		OPT::language->new__instance(cs, scope, scope->subckt());
-	}else{
+	}else{ untested();
 	}
 }
 /* -------------------------------------------------------------------------------- */
 void Gnucap::load_symbol(Symbol const* i, BASE_SUBCKT* model)
 {
 	assert(model->scope());
+	assert(i);
 	assert(OPT::language);
-	CARD const* proto = OPT::language->find_proto(i->dev_type(), model);
+
+	std::string modelname;
+	if(i->common()){
+		modelname = i->common()->modelname();
+	}else{
+  		modelname = i->dev_type();
+	}
+
+	CARD const* proto = OPT::language->find_proto(modelname, model);
+	if(!proto){
+		assert(root_scope());
+		auto i = root_scope()->find_(modelname);
+		if(i!=root_scope()->end()){ untested();
+			proto = *i;
+		}else{
+		}
+	}else{
+	}
 	if(proto){
+		message(qucs::MsgTrace, "load " + modelname);
 		trace3("load", i->dev_type(), i->label(), i->has_common());
 		CARD* c = proto->clone_instance();
 		assert(c);
 
-		// TODO: this does not work for nontrivial models
+		std::string dev_type = i->dev_type();
+		if(i->has_common()){
+			dev_type = i->common()->modelname();
+		}else{
+		}
+
 		if(auto d=dynamic_cast<COMPONENT*>(c)){
+			trace2("load component", dev_type, i->label());
 			d->set_label(i->label());
-			d->set_dev_type(i->dev_type());
+			d->set_dev_type(dev_type);
 			d->set_owner(model);
 			copy_param_values(i, d);
-			model->scope()->push_back(d);
+			model->subckt()->push_back(d);
 			copy_port_values(i, d);
 		}else{ untested();
 		}
-	}else{
-		trace3("unknown", i->dev_type(), i->label(), i->has_common());
-		incomplete();
-		return;
+	}else if(i->subckt()){ untested();
+		message(qucs::MsgWarning, "type with sckt: " + modelname + " " + i->label());
+	}else if(modelname == "GND"){
+		incomplete(); // ignore, for now.
+	}else if(modelname == "Port"){
+		incomplete(); // ignore, for now.
+	}else{ untested();
+		message(qucs::MsgFatal, "unknown type: " + modelname + " " + i->label());
 	}
 }
 /* -------------------------------------------------------------------------------- */
-void Gnucap::load_circuit(ElementList const* ctx, BASE_SUBCKT* model)
+// there is one verilog module in file, and its name is dev_type.
+// load it and create a paramset for it.
+static CARD* new_verilog_handle(std::string const& file, std::string const& dev_type)
 {
-	assert(model->scope());
+	CMD::command("load_va " + file, &CARD_LIST::card_list);
+
+	MODEL_CARD* paramset = model_dispatcher.clone(dev_type);
+
+	assert(paramset);
+	trace1("new_verilog_handle", paramset->dev_type());
+	return paramset;
+}
+/* -------------------------------------------------------------------------------- */
+static CARD* new_model_verilogref(qucs::Element const* m)
+{
+	std::string filename = "";
+	std::string dev_type = "";
+	try{
+		filename = m->param_value_by_name("filename");
+		dev_type = m->param_value_by_name("dev_type");
+	}catch(qucs::ExceptionCantFind const&){ untested();
+	}
+
+	if(filename == ""){ incomplete();
+	}else if(dev_type == ""){ incomplete();
+	}else{
+		auto h = new_verilog_handle(filename, dev_type);
+		return h;
+	}
+
+	return nullptr;
+}
+/* -------------------------------------------------------------------------------- */
+// BUG: same as load_main except load_tasks but ports.
+CARD* Gnucap::new_model_subckt(qucs::SubcktBase const* from)
+{
+	assert(from);
+	assert(from->makes_own_scope());
+	auto c = device_dispatcher.clone("subckt");
+	auto to = dynamic_cast<BASE_SUBCKT*>(c);
+	assert(to);
+	auto scope = from->scope();
+
+	{ // tmp hack.
+		for(index_t i=0; i<from->numPorts(); ++i){
+			auto value = from->port_value(i);
+			trace4("set proto port", i, from->label(), to->short_label(), value);
+			to->set_port_by_index(i, value);
+		}
+	}
+
+	for(auto i : *scope){
+		if(dynamic_cast<Place const*>(i)){
+		}else if(dynamic_cast<Conductor const*>(i)){
+		}else if(auto sym = dynamic_cast<Symbol const*>(i)){
+			load_symbol(sym, to);
+		}
+	}
+	return to;
+}
+/* -------------------------------------------------------------------------------- */
+CARD* Gnucap::new_model_choose(qucs::Element const* m, ElementList const* scope)
+{
+	auto it = scope->find_("VerilogRef");
+	if(it==scope->end()){
+	}else{ untested();
+		return new_model_verilogref(*it);
+	}
+
+	it = scope->find_("main");
+	if(it==scope->end()){
+	}else if(auto s = dynamic_cast<SubcktBase const*>(*it)){
+		return new_model_subckt(s);
+	}else{ untested();
+		message(qucs::MsgFatal, "main is not a circuit");
+	}
+
+	for(auto i : *scope){
+		message(qucs::MsgLog, "found " + i->dev_type() + " " + i->short_label());
+
+		if(i->dev_type()=="VerilogRef"){
+			return new_model_verilogref(i);
+		}else{
+		}
+	}
+	message(qucs::MsgFatal, "cant find model for " + m->dev_type() + " " + m->label());
+	/// throw? message?
+	return nullptr;
+}
+/* -------------------------------------------------------------------------------- */
+CARD* Gnucap::new_model(qucs::Element const* m)
+{
+	CARD* ret=nullptr;
+	std::string modelname;
+	ElementList const* l = nullptr;
+	if(dynamic_cast<Model const*>(m)){ untested();
+		incomplete();
+//		l = q->subckt();
+	}else if(auto q=dynamic_cast<qucs::Component const*>(m)){
+		if(q->common()){
+			modelname = q->common()->modelname();
+		}else{ untested();
+		}
+		l = q->subckt();
+	}else{ untested();
+	}
+
+	if(l){
+		trace2("model", m->label(), m->dev_type());
+		ret = new_model_choose(m, l);
+	}else{ untested();
+		trace1("empty model", m->label());
+	}
+
+	if(ret){
+		ret->set_label(modelname);
+	}else{ untested();
+		trace1("no ret", modelname);
+	}
+
+	return ret;
+}
+/* -------------------------------------------------------------------------------- */
+void Gnucap::load_models(ElementList const* ctx, CARD_LIST* models)
+{
+	assert(models);
 	for(auto i : *ctx){
-		if(auto sym = dynamic_cast<Symbol const*>(i)){
-			load_symbol(sym, model);
+		if(i->label()=="main"){
+		}else if(i->label()=="Symbol"){
+			incomplete();
+		}else if(i->label()=="protos"){
+			incomplete();
+		}else if(i->label()==":Paintings:"){
+			incomplete();
+		}else if(i->label().c_str()[0] == '.'){ untested();
+			// ignore
+		}else if(dynamic_cast<Simulator const*>(i)){
+			incomplete();
+		}else if(dynamic_cast<SymbolFactory const*>(i)){
+			incomplete();
+		}else if(dynamic_cast<Component const*>(i)
+		      || dynamic_cast<Model const*>(i)){
+			// need Model and Component?
+			if(auto m = new_model(i)){
+				trace2("got model", i->short_label(), m->short_label());
+				m->set_owner(_root);
+				root_scope()->push_back(m);
+			}else{ untested();
+				trace1("not a model?", i->short_label());
+				message(qucs::MsgFatal, "cant load " + i->dev_type() + " " + i->label());
+
+				incomplete();
+			}
+		}
+	}
+}
+/* -------------------------------------------------------------------------------- */
+void Gnucap::load_main(ElementList const* ctx)
+{
+	for(auto i : *ctx){
+		if(dynamic_cast<Place const*>(i)){
+		}else if(dynamic_cast<Conductor const*>(i)){
+		}else if(auto sym = dynamic_cast<Symbol const*>(i)){
+			load_symbol(sym, _main);
 		}else if(auto task = dynamic_cast<TaskElement const*>(i)){
-			load_task(task, model);
+			load_task(task, _main);
 		}else{
 		}
 	}
@@ -294,7 +587,11 @@ void Gnucap::do_it(istream_t& cs, ElementList const* ctx)
 {
 	trace1("Gnucap::do_it", cs.fullstring());
 	assert(_main->scope());
-	_main->scope()->erase_all();
+	assert(_main->subckt());
+	_main->subckt()->erase_all();
+
+	load_models(ctx, root_scope());
+	assert(_main->owner() == _root);
 
 	auto i = ctx->find_("main");
 
@@ -302,7 +599,7 @@ void Gnucap::do_it(istream_t& cs, ElementList const* ctx)
 		message(qucs::MsgWarning, "cannot find main");
 		return;
 	}else if((*i)->scope()){
-		load_circuit((*i)->scope(), _main);
+		load_main((*i)->scope());
 	}else{ untested();
 		incomplete();
 		unreachable();
@@ -312,12 +609,17 @@ void Gnucap::do_it(istream_t& cs, ElementList const* ctx)
 	trace0("================= list ============");
 	command("list", _main);
 	trace1("===================================", _sim_data.is_first_expand());
-	command("go FILE", _main);
-	trace0("============== DONE ===============");
+
+	try{ untested();
+		command("go FILE", _main);
+	}catch(Exception_No_Match const& e){ untested();
+		message(qucs::MsgFatal, "Error running simulation: " + e.message());
+	}
+
+	trace0("=========stat==========================");
 	command("status notime", _main);
 
 	_sim_data.uninit();
-
 	delete _data;
 	_data = nullptr;
 
@@ -329,6 +631,7 @@ void Gnucap::do_it(istream_t& cs, ElementList const* ctx)
 	lang->parseItem(stream, _data);
 
 	attach(_data->common());
+	notifyState(Simulator::sst_idle);
 } // Gnucap::do_it
 /* -------------------------------------------------------------------------------- */
 }

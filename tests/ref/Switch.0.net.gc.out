@@ -68,6 +68,10 @@ parameter spline not specified, using default
 parameter spline value is "NOT_INPUT"
 parameter spline not specified, using default
 parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
+parameter spline not specified, using default
+parameter spline value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=0, dc=0, tran=55, fourier=0, total=74
 transient timesteps: accepted=18, rejected=1, total=19

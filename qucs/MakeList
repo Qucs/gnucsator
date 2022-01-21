@@ -1,5 +1,6 @@
 
 RAW_SRCS = \
+	root.cc \
 	sim_gnucap.cc
 
 TARGET = sim_gnucap.so

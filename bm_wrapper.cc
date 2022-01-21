@@ -238,7 +238,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			assert (x<2);
 			return _port_name[x];
 		}
-		void expand(){
+		void expand(){ untested();
 			if (!subckt()) {
 				assert(scope());
 				if(_assignments){
@@ -310,11 +310,10 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 		void precalc_last()
 		{
 			COMPONENT::precalc_last();
-			assert(subckt());
-#ifdef HAVE_IO_MISC_H
-			trace1("wrap:expand", *(subckt()->params()));
-#endif
-			subckt()->precalc_last();
+			if(subckt()){ untested();
+				subckt()->precalc_last();
+			}else{ untested();
+			}
 		}
 };
 

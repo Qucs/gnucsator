@@ -29,6 +29,31 @@
 #include "u_sim_data.h"
 #include "e_cardlist.h"
 #include "u_parameter.h"
+#include "u_nodemap.h"
+void SIM_DATA::init(CARD_LIST* scope)
+{
+  assert(scope);
+  if(scope == &CARD_LIST::card_list){ untested();
+  }else{ untested();
+  }
+  if (is_first_expand()) { untested();
+    uninit();
+    init_node_count(scope->nodes()->how_many(), 0, 0);
+    trace1("SIM_DATA::init expand", scope);
+    scope->expand();
+    map__nodes();
+    scope->map_nodes();
+    alloc_hold_vectors();
+    _aa.reinit(_total_nodes);
+    _lu.reinit(_total_nodes);
+    _acx.reinit(_total_nodes);
+    scope->tr_iwant_matrix();
+    scope->ac_iwant_matrix();
+    _last_time = 0;
+  }else{ untested();
+    scope->precalc_first();
+  }
+}
 
 using std::string;
 using std::stringstream;
@@ -63,7 +88,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl) { untested();
 		assert(cl);
 		options(cmd);
 		data_t t;
@@ -72,12 +97,12 @@ private:
 
 		if(_points<2){ untested();
 			incomplete();
-		}else if (_type == tLin) {
+		}else if (_type == tLin) { untested();
 			double range = _stop - _start;
 			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
-		}else if (_type == tLog) {
+		}else if (_type == tLog) { untested();
 			double range = _stop / _start;
 			double step = exp ( log(range)  / (_points-1));
 
@@ -98,13 +123,13 @@ std::map<string, AC_WRAP::data_t> AC_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL ddc(&command_dispatcher, "AC", &pac);
 /*--------------------------------------------------------------------------*/
 void AC_WRAP::options(CS& cmd)
-{
+{ untested();
 	_start = 0;
 	_stop = 0;
 	_points = 0;
 	double _whatever; // incomplete
 	size_t here = cmd.cursor();
-	do{
+	do{ untested();
 		trace1("options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
@@ -147,12 +172,12 @@ private:
 	double _abstol;
 	double _vntol;
 
-	void options(CS&){
+	void options(CS&){ untested();
 		incomplete();
 	}
-	void do_it(CS&cmd, CARD_LIST* Scope) {
+	void do_it(CS&cmd, CARD_LIST* Scope) { untested();
 		assert(Scope);
-		if(cmd >> "go"){
+		if(cmd >> "go"){ untested();
 			trace1("DC_WRAP go", cmd.fullstring());
 			stringstream x;
 			std::string outfile;
@@ -167,7 +192,7 @@ private:
 			error(bTRACE, "calling op: " + wcmd.fullstring());
 			o->do_it(wcmd, Scope);
 
-		}else{
+		}else{ untested();
 			data_t t;
 			t._start = _start;
 			t._stop = _stop;
@@ -208,7 +233,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl) { untested();
 		assert(cl);
 		options(cmd);
 		data_t t;
@@ -216,7 +241,7 @@ private:
 		t._stop = _stop;
 
 		double range = _stop - _start;
-		if (_type == tLin) {
+		if (_type == tLin) { untested();
 			assert(_points>1);
 			double step = range / (_points-1);
 			incomplete();
@@ -239,7 +264,7 @@ std::map<string, SP_WRAP::data_t> SP_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL dsp(&command_dispatcher, "SP", &psp);
 /*--------------------------------------------------------------------------*/
 void SP_WRAP::options(CS& cmd)
-{
+{ untested();
 	_order = -1;
 	_points = 0;
 	_dtmin = 0.;
@@ -250,7 +275,7 @@ void SP_WRAP::options(CS& cmd)
 	size_t here = cmd.cursor();
 
 	// .SP:SP1 Type="lin" Start="1" Stop="2" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
-	do{
+	do{ untested();
 		trace1("options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
@@ -292,7 +317,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl){
+	void do_it(CS&cmd, CARD_LIST* cl){ untested();
 		trace1("tran_wrap", cmd.fullstring());
 		assert(cl);
 		options(cmd);
@@ -306,7 +331,7 @@ private:
 std::map<string, TRAN_WRAP::tran_t> TRAN_WRAP::_stash;
 /*--------------------------------------------------------------------------*/
 void TRAN_WRAP::options(CS& cmd)
-{
+{ untested();
 	_order = -1;
 	_points = 0;
 	_dtmin = 0.;
@@ -317,7 +342,7 @@ void TRAN_WRAP::options(CS& cmd)
 	double _whatever; // incomplete
 	string type; // incomplete();
 	size_t here = cmd.cursor();
-	do{
+	do{ untested();
 		trace1("tran_wrap options", cmd.tail());
 		ONE_OF
 			|| QucsGet(cmd, "Start", 	   &_start)
@@ -357,15 +382,18 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 // go. run commands that are scattered
 // BUG // that's what 'end' is supposed to do.
 	class GO : public CMD {
-		void do_it(CS&cmd, CARD_LIST*cl) {
+		void do_it(CS&cmd, CARD_LIST*cl) { untested();
 			trace2("GO", _sim->is_first_expand(), _sim);
 			assert(cl);
 			cmd >> _outfile;
+			_sim->init(cl);
 			// std::string tail=cmd.tail();
 			CMD::command("print tran +v(nodes)", cl);
 			CMD::command("print op v(nodes)", cl);
 			CMD::command("print dc v(nodes)", cl);
 			CMD::command("print ac vr(nodes) vi(nodes)", cl);
+			trace2("GO2", _sim->is_first_expand(), _sim);
+			// CMD::command("print tran", cl);
 			CMD* c = NULL;
 			CMD* s = NULL;
 			CMD* o = NULL;
@@ -378,55 +406,55 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 
 			if(!c){ untested();
 				error(bDANGER, "transient command missing, load plugin?\n");
-			}else{
+			}else{ untested();
 			}
 			if(!s){ untested();
 				error(bDANGER, "sp command missing, load plugin?\n");
-			}else{
+			}else{ untested();
 			}
 			if(!o){ untested();
 				error(bDANGER, "op command missing, load plugin?\n");
-			}else{
+			}else{ untested();
 			}
 			if(!a){ untested();
 				error(bDANGER, "ac command missing, load plugin?\n");
-			}else{
+			}else{ untested();
 			}
 
 			// what happens if there are multiple trans?
-			for(auto const&i : TRAN_WRAP::_stash){
+			for(auto const&i : TRAN_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " " << j._stop
 				  << " trace=a basic > " << _outfile << ".tr";
-				trace1("tran_wrap", x.str());
+				trace3("GO tran wrap", _sim->is_first_expand(), _sim, x.str());
 				CS wcmd(CS::_STRING, x.str());
 				assert(c);
 				c->do_it(wcmd, cl);
 			}
-			if(TRAN_WRAP::_stash.empty()){
+			if(TRAN_WRAP::_stash.empty()){ untested();
 				CS wcmd(CS::_STRING, " >/dev/null");
 				assert(o);
 				o->do_it(wcmd, cl);
-			}else{
+			}else{ untested();
 			}
 
 			PARAM_LIST* pl = cl->params();
 			assert(pl);
-			for(auto c : *cl){
-				if(auto cmd=dynamic_cast<CMD*>(c)){
+			for(auto c : *cl){ untested();
+				if(auto cmd=dynamic_cast<CMD*>(c)){ untested();
 					auto l = cmd->short_label();
 					auto omit = pl->deep_lookup("__omit_"+l);
-					if(omit.has_hard_value()){
-					}else{
+					if(omit.has_hard_value()){ untested();
+					}else{ untested();
 						CS go(CS::_STRING, "go outfile="+_outfile);
 						cmd->do_it(go, cl);
 					}
-				}else{
+				}else{ untested();
 				}
 			}
 
-			for(auto const&i : AC_WRAP::_stash){
+			for(auto const&i : AC_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << j._start << " " << j._stop << " ";
@@ -438,7 +466,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 				assert(a);
 				a->do_it(wcmd, cl);
 			}
-			for(auto&i : SP_WRAP::_stash){
+			for(auto&i : SP_WRAP::_stash){ untested();
 				stringstream x;
 				auto j = i.second;
 				x << "port * " << j._start << " " << j._stop << " " <<  j._args

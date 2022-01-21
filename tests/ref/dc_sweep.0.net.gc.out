@@ -57,6 +57,8 @@ parameter R1 not specified, using default
 parameter R1 value is "NOT_INPUT"
 parameter R1 not specified, using default
 parameter R1 value is "NOT_INPUT"
+parameter R1 not specified, using default
+parameter R1 value is "NOT_INPUT"
 parameter R * (1. + dT*(Tc1 + dT*Tc2)) not specified, using default
 R1.dev: short circuit
 parameter R1 not specified, using default

@@ -2,16 +2,14 @@
 
 The i/o related functionality in gnucsator will be gradually moved into output
 plugins. With this, additional glue code, as well as duplicated ("hacked")
-plugins will be removed. Future Qucs might support alternative simulator
-kernels. Then, Gnucap could be linked into a simulator driver for Qucs
-directly, without gnucsator executable. Then, gnucsator can still serve as an
-example, and facilitate testing.
+plugins will be removed. Future "modular" Qucs supports alternative simulator
+kernels. Gnucap can be used through a simulator driver, without gnucsator
+executable. Gnucsator still serves as an example, and facilitates testing.
 
 == Component library
 
 The main purpose of this package is to support projects built for and with
-qucsator, the default simulator in Qucs. Future Qucs might ship such models
-for devices available in qucsator that also work with other simulators.
-This component library will be freed from binaries, and may be regarded as
-platform independent simulator input. Some of the models could be implemented
-in a neutral language (such as verilog-A).
+Qucsator, the default simulator in Qucs. Future Qucs might ship such models for
+devices available in Qucsator that also work with other simulators. Some of the
+models could be implemented in a platform independent language (such as
+verilog-A).
