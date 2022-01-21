@@ -18,6 +18,7 @@ COMMON_TESTS = \
 	dc_sweep.1.net \
 	dio.net \
 	div.net \
+	eqn0.net \
 	gain.net \
 	gilbert.net \
 	idc0.net \

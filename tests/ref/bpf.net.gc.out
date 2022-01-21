@@ -40,12 +40,45 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
-Eqn:Eqn1 dB_S21="dB(S[2,1])" dB_S11="dB(S[1,1])" Export="yes" 
-^ ? Eqn: no match
 .SP:SP1 Type="l ... 5 GHz" Points="150" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
+dB(S[2,1])
+        ^ ? unbalanced parentheses (arglist)
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
+parameter dB(S[2,1]) not specified, using default
 Gnucap   System status
-iterations: op=3, dc=0, tran=0, fourier=0, total=153
+iterations: op=0, dc=0, tran=0, fourier=0, total=151
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=20, subckt=2, model=0, total=22

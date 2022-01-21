@@ -8,6 +8,7 @@ stashing as ':0
 stashing as ":0
 dev_comment: already installed, replacing
 stashing as dev_comment:0
+ a= 3. b=foo+1 bar=foo+a baz=time*time foo=1+2 more=b+baz+bar
 parameter time*time not specified, using default
 parameter time*time value is "NOT_INPUT"
 parameter b+baz+bar not specified, using default

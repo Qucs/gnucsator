@@ -23,6 +23,8 @@
  */
 
 #include <e_compon.h>
+#include <c_comand.h>
+#include <u_lang.h>
 #include <u_xprobe.h>
 #include <globals.h>
 #include <map>
@@ -77,6 +79,10 @@ public: // step control. maybe later?
 //  double   tr_review_trunc_error(const FPOLY1* q);
 //  double   tr_review_check_and_convert(double timestep);
 //  double error_factor()const	{return OPT::trstepcoef[_trsteporder];}
+public:
+  PARAM_LIST const& params() const{ untested();
+    return _params;
+  }
 private:
   PARAM_LIST _params; // map<string,PARAM>, unordered
 //  PARAM_LIST _params_extra; // time, temp etc.
@@ -95,15 +101,15 @@ DISPATCHER<CARD>::INSTALL
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static PARAM_LIST::iterator pick(PARAM_LIST& list, const string& name)
-{
+{ untested();
 #if HAVE_PARAM_PICK
   incomplete();
 #else
   //BUG: linear search
-  for(PARAM_LIST::iterator i=list.begin(); i!=list.end(); ++i){
-    if(i->first == name){
+  for(PARAM_LIST::iterator i=list.begin(); i!=list.end(); ++i){ untested();
+    if(i->first == name){ untested();
       return i;
-    }else{
+    }else{ untested();
     }
   }
 #endif
@@ -117,7 +123,7 @@ EQN::EQN(const EQN& p):
   COMPONENT(p),
   _params(p._params),
   _time_p(NULL)
-{
+{ untested();
   //this is a bit of a hack. but i do need params in order...
   _param_order.resize(p._param_order.size());
   unsigned cnt = 0;
@@ -128,10 +134,10 @@ EQN::EQN(const EQN& p):
 }
 /*--------------------------------------------------------------------------*/
 void EQN::set_param_by_name(string Name, string Value)
-{
-  if(Name=="Export"){
+{ untested();
+  if(Name=="Export"){ untested();
     incomplete();
-  }else{
+  }else{ untested();
     PARAMETER<double> p;
     p = Value;
     CS cs(CS::_STRING, Name+"={"+Value+"}");
@@ -144,8 +150,8 @@ void EQN::set_param_by_name(string Name, string Value)
 }
 /*--------------------------------------------------------------------------*/
 void EQN::expand()
-{
-  if (!subckt()) {
+{ untested();
+  if (!subckt()) { untested();
 #if 0 // UF hack
     new_subckt(&_params);
     // FIXME: time?
@@ -158,16 +164,16 @@ void EQN::expand()
     subckt()->params()->set_try_again(&_params);
 #endif
     _params.set_try_again(scope()->params());
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 void EQN::precalc_last()
-{
+{ untested();
   parm_eval();
 
-  for(auto i=_params.begin(); i!=_params.end(); ++i){
-    if(i->first == "time"){
+  for(auto i=_params.begin(); i!=_params.end(); ++i){ untested();
+    if(i->first == "time"){ untested();
       _time_p = &(i->second);
     }
   }
@@ -179,8 +185,8 @@ XPROBE EQN::ac_probe_ext(const string&)const
 }
 /*--------------------------------------------------------------------------*/
 double EQN::tr_probe_num(const string& what) const
-{
-  try{
+{ untested();
+  try{ untested();
     PARAMETER<double> x = _params[what];
     return x;
   }catch(Exception const&){untested();
@@ -189,34 +195,63 @@ double EQN::tr_probe_num(const string& what) const
 }
 /*--------------------------------------------------------------------------*/
 void EQN::tr_advance()
-{
+{ untested();
 }
 /*--------------------------------------------------------------------------*/
 void EQN::tr_accept()
-{
+{ untested();
   parm_eval();
 }
 /*--------------------------------------------------------------------------*/
 void EQN::parm_eval()
-{
+{ untested();
   assert(subckt());
   trace2("eval", _param_order.size(), _params.size());
   // trace1("eval", _params);
-  if(_time_p) {
+  if(_time_p) { untested();
     *_time_p = _sim->_time0;
   }
-  for(auto p : _param_order){
-    p->second.e_val(NOT_INPUT, subckt());
-    trace3("parm_eval", p->first, p->second, double(p->second));
+  for(auto p : _param_order){ untested();
+    try{
+      p->second.e_val(NOT_INPUT, subckt());
+      trace3("parm_eval", p->first, p->second, double(p->second));
+    }catch(Exception_No_Match const&){
+      incomplete();
+      trace0("parm_eval incomplete");
+    }
   }
 }
 /*--------------------------------------------------------------------------*/
 TIME_PAIR EQN::tr_review()
-{
+{ untested();
   q_accept();
   return TIME_PAIR();
 }
 /*--------------------------------------------------------------------------*/
+class CMD_EQN : public CMD {
+  void do_it(CS& cmd, CARD_LIST* cl) override{ untested();
+    assert(cl);
+    assert(cl->params());
+    auto& pl = *cl->params();
+    trace1("Eqn::do_it", cmd.fullstring());
+
+    assert(OPT::language);
+    CARD* c = device_dispatcher.clone("Eqn");
+    auto e = prechecked_cast<EQN*>(c);
+    assert(e);
+    OPT::language->parse_instance(cmd, e);
+    cl->push_back(e);
+
+    for(auto x : e->params()){ // TODO: ordinary param_access.
+      trace2("DBG", x.first, x.second.string());
+      auto Name = x.first;
+      auto Value = x.second.string();
+      CS cs(CS::_STRING, Name+"={"+Value+"}");
+      pl.parse(cs);
+    }
+  }
+}p0;
+DISPATCHER<CMD>::INSTALL d0(&command_dispatcher, "Eqn", &p0);
 /*--------------------------------------------------------------------------*/
 }
 // vim:ts=8:sw=2:noet

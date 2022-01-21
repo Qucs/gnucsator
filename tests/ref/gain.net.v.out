@@ -18,5 +18,6 @@ R #(.R(50k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(Output),.n(_ne
 R #(.R(100k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(0),.n(Output));
 Vdc #(.U(2.5)) V3 (.p(_net1),.n(0));
 Vdc #(.U(-2.5)) V6 (.p(_net2),.n(0));
+Eqn #() Eqn1 ();
 singleOPV #(.Type(singleOPV)) OPV1 (._net4(_net0),._net0(Input),._net9(_net1),._net3(_net2),._net7(Output));
 R #(.R(1.7k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(_net0),.n(0));
