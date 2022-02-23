@@ -30,6 +30,11 @@ if [ -z "$outfile" ]; then
 	outfile=outfile.dat
 fi
 
+if [ -z "$infile" ]; then
+	echo no input file specified.
+	exit 1
+fi
+
 out=${infile}.tmp
 
 echo "<Qucs Dataset 0.0.19>" > $outfile
