@@ -37,6 +37,8 @@ configuration file (gnucsator.rc).
 - install this package, "./configure; make install"
 - type
   $ QUCSATOR=gnucsator.sh qucs
+- or try qucs-s (somehow preconfigured to run Qucsator)
+  $ QUCSATOR=gnucsator.sh qucs-s
 
 ## customisation
 
