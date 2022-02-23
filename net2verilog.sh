@@ -1,13 +1,6 @@
 #!/bin/bash
-# this is gnucsator, gnucap in qucsator mode.
-# it loads plugins and switches to qucs language.
-#
-# this sucks.
-# to be replaced by a "qucsator" binary, once
-# shared library and output pluggability are ready.
-# the .sh extension is intentional.
-
-#THIS_FILE_IS_AUTOMATICALLY_GENERATED
+# Convert qucsator .net files to verilog using gnucsator.
+# This is mainly used in tests.
 
 TEMP=`getopt -o i:o:bg --long input:output: \
      -n 'gnucsator.sh' -- "$@"`

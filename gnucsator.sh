@@ -1,11 +1,7 @@
 #!/bin/bash
-# this is gnucsator, gnucap in qucsator mode.
-# it loads plugins and switches to qucs language.
 #
-# this sucks.
-# to be replaced by a "qucsator" binary, once
-# shared library and output pluggability are ready.
-# the .sh extension is intentional.
+# Qucs compatibility script. Processes args like Qucsator and run Gnucsator.
+# Also, collate output files into .dat understood by (legacy) Qucs.
 
 TEMP=`getopt -o i:o:bg --long input:output: \
      -n 'gnucsator.sh' -- "$@"`

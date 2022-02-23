@@ -16,7 +16,7 @@ situations. e.g. by introducing stable/fast dc/tran analysis and extensibility.
 
 ## net2verilog.sh
 
-Convert qucsator "net" files into verilog. embedded commands are stripped.
+Convert qucsator "net" files into verilog. Embedded commands will be ignored.
 
 ## gnucsator
 
