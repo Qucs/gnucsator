@@ -39,6 +39,8 @@ configuration file (gnucsator.rc).
   $ QUCSATOR=gnucsator.sh qucs
 - or try qucs-s (somehow preconfigured to run Qucsator)
   $ QUCSATOR=gnucsator.sh qucs-s
+  Remark: The Qucsator executable override can also be specified using the
+  Application settings, Simulation->Select default simulator.
 
 ## customisation
 
