@@ -40,68 +40,15 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
+>>>>>Eqn:Eqn1 I1="1" Export="yes" 
+>>>>>Eqn:Eqn2 R1="1" Export="yes" 
 >>>>>.SW:SW1 Sim="DC1" Type="lin" Param="I1" Start="10m" Stop="20m" Points="2" 
 >>>>>.SW:SW2 Sim="SW1" Type="lin" Param="R1" Start="10" Stop="30" Points="3" 
 >>>>>.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU" 
 >>>>>go dc_sweep.1.net.tmp 
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter I value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter R * (1. + dT*(Tc1 + dT*Tc2)) not specified, using default
-R1.dev: short circuit
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter I value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter R * (1. + dT*(Tc1 + dT*Tc2)) not specified, using default
-new min = -1.71638e+303, new limit = -1.71638e+303
 sweep go outfile=dc_sweep.1.net.tmp
 sweep go outfile=dc_sweep.1.net.tmp R1 10 30 10
-calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dcparameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter I1 not specified, using default
-parameter I1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-parameter R1 not specified, using default
-parameter R1 value is "NOT_INPUT"
-R1.dev: short circuit
->>>>>status notime 
+calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dc>>>>>status notime 
 Gnucap   System status
 iterations: op=2, dc=20, tran=0, fourier=0, total=22
 transient timesteps: accepted=0, rejected=0, total=0

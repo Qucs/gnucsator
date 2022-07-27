@@ -40,30 +40,30 @@ bjt: already installed, replacing
 stashing as bjt:0
 L: already installed, replacing
 stashing as L:0
->>>>>.SW:SW1 Sim="DC1" Type="lin" Param="R1" Start="10m" Stop="50m" Points="5" 
->>>>>Eqn:Eqn1 R1="1" Export="yes" 
+>>>>>Eqn:Eqn1 I1="1" Export="yes" 
+>>>>>.SW:SW1 Sim="DC1" Type="lin" Param="I1" Start="10m" Stop="50m" Points="5" 
 >>>>>.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU" 
->>>>>go dc_sweep.0.net.tmp 
-sweep go outfile=dc_sweep.0.net.tmp
-calling op: R1 0.01 0.05 0.01 trace=n basic > dc_sweep.0.net.tmp.dc>>>>>status notime 
+>>>>>go dc_sweep.2.net.tmp 
+sweep go outfile=dc_sweep.2.net.tmp
+calling op: I1 0.01 0.05 0.01 trace=n basic > dc_sweep.2.net.tmp.dc>>>>>status notime 
 Gnucap   System status
-iterations: op=2, dc=16, tran=0, fourier=0, total=18
+iterations: op=2, dc=20, tran=0, fourier=0, total=22
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
-<indep R1 5>
+<indep swp0 5>
  0.01
  0.02
  0.03
  0.04
  0.05
 </indep>
-<dep _net0.V R1>
- 0.001
- 0.002
- 0.003
- 0.004
- 0.005
+<dep _net0.V swp0>
+ 0.01
+ 0.02
+ 0.03
+ 0.04
+ 0.05
 </dep>

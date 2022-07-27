@@ -36,6 +36,7 @@ PLUGIN_CC = \
 	subst_wrap.cc \
 	s_tr.cc \
 	s_dc.cc \
+	s_dc_param.cc \
 	s_sparam.cc \
 	s_sweep.cc
 

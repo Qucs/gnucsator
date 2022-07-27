@@ -88,7 +88,7 @@ struct INTERFACE SIM_DATA {
   void alloc_hold_vectors(); /* s__init.cc */
   void alloc_vectors();
   void unalloc_vectors();
-  void init(CARD_LIST* scope);
+  void init(CARD_LIST* scope=NULL); // TODO
   void uninit();
   void set_limit();  /* s__aux.cc */
   void set_limit(double v);

@@ -7,6 +7,5 @@ R #(.R(1k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net15),.n(_net
 C #(.C(1u)) C2 (.p(_net5),.n(Out));
 OpAmp #(.G(1e6),.Umax(15)) OP1 (.1(_net5),.2(_net9),.3(_net15));
 OpAmp #(.G(1e6),.Umax(15)) OP2 (.1(_net5),.2(_net10),.3(_net18));
-Eqn #() Eqn1 ();
 R #(.R(10k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(0),.n(_net9));
 Vac #(.Phase(0),.Theta(0),.U(1uV),.f(1G)) V1 (.1(In),.2(0));

@@ -56,7 +56,7 @@ void SIM::command_base(CS& cmd)
     case rSCRIPT:	sweep();	break;
     case rPRESET:	/*nothing*/	break;
     }
-  }catch (Exception& e) { untested();
+  }catch (Exception& e) {
     error(bDANGER, e.message() + '\n');
     _sim->count_iterations(iTOTAL);
     _sim->_lu.unallocate();

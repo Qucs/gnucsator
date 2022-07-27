@@ -16,6 +16,7 @@ COMMON_TESTS = \
 	common_emitter_degen.net \
 	dc_sweep.0.net \
 	dc_sweep.1.net \
+	dc_sweep.2.net \
 	dio.net \
 	div.net \
 	eqn0.net \

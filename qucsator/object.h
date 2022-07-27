@@ -73,7 +73,7 @@ struct object : public MODEL_CARD{
 		trace1("init", cd()->type);
 		incomplete();
 		unsigned i=0;
-		for(;;++i){ untested();
+		for(;;++i){
 			if(char const* k=cd()->required[i].key){
 				_p.push_back(new PARAMETER<double>);
 				auto p = _pn.insert(std::make_pair(k, _p.back()));

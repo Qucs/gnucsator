@@ -112,7 +112,7 @@ typedef enum {
 
 class circuit : public COMPONENT{
 protected:
-	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){ untested();
+	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){
 		assert(_num_ports);
 		assert(!_n);
 		// init();
@@ -473,19 +473,19 @@ private:
 }; // circuit
 
 inline void circuit::init()
-{ untested();
+{
 	_n = new node_t[_num_ports];
 	_matrix = new DPAIR[_num_ports*_num_ports];
 	unsigned i=0;
-	for(; cd()->required[i].key; ++i){ untested();
+	for(; cd()->required[i].key; ++i){
 		auto p = cd()->required[i];
 		auto k = p.key;
 
-		if(p.type == PROP_REAL){ untested();
+		if(p.type == PROP_REAL){
 			_p.push_back(new PARAMETER<double>);
 			auto pp = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&pp.first->first);
-		}else if(p.type == PROP_STR){ untested();
+		}else if(p.type == PROP_STR){
 			_p.push_back(new PARAMETER<mystring>(mystring("invalid")));
 			auto pp = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&pp.first->first);
@@ -494,12 +494,12 @@ inline void circuit::init()
 		}
 	}
 	unsigned j=0;
-	for(;;++j){ untested();
-		if(char const* k=cd()->optional[j].key){ untested();
+	for(;;++j){
+		if(char const* k=cd()->optional[j].key){
 			_p.push_back(new PARAMETER<double>);
 			auto p = _pn.insert(std::make_pair(k, _p.back()));
 			_pnames.push_back(&p.first->first);
-		}else{ untested();
+		}else{
 			break;
 		}
 	}
