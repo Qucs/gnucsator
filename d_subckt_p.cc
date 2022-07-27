@@ -146,6 +146,18 @@ void DEV_SUBCKT_PROTO::precalc_first()
 DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)
   :DEV_SUBCKT(p)
 {
+
+  auto s=p.subckt();
+  assert(s);
+  size_t n=0;
+  for(auto i = s->begin(); i!=s->end(); ++i){ untested();
+    trace2("DSP", long_label(), (*i)->long_label());
+    ++n;
+  }
+
+  if(n){ untested();
+  }else{
+  }
   new_subckt();
 }
 /*--------------------------------------------------------------------------*/

@@ -32,7 +32,7 @@ typedef std::complex<double> nr_complex_t;
 #define CREATOR(a) \
 public: \
 	static define_t cirdef; \
-	define_t* cd() const override {untested(); return &cirdef;} \
+	define_t* cd() const override {return &cirdef;} \
 	a(); \
 	a( const a& p) : circuit(p){incomplete();} \
 	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
