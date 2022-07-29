@@ -12,6 +12,12 @@ X: already installed, replacing
 stashing as X:0
 subckt: already installed, replacing
 stashing as subckt:0
+C: already installed, replacing
+stashing as C:0
+L: already installed, replacing
+stashing as L:0
+R: already installed, replacing
+stashing as R:0
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 
@@ -40,105 +46,16 @@ stashing as subckt:0
 // 
 // mapping qucsator names to actual devices 
 // "lumped components" section 
-module C (p,n);
-parameter C={NA( NA)};
-parameter V={NA( NA)};
-capacitor #(.c(C)) dev (.p(p),.n(n));
-endmodule // C
-
-module L (p,n);
-parameter L={NA( NA)};
-inductor #(.l(L)) dev (.p(p),.n(n));
-endmodule // L
-
-module R (p,n);
-parameter R={NA( NA)};
-parameter Tc1={ 0.};
-parameter Tc2={ 0.};
-parameter Temp={ 26.85};
-parameter Tnom={ 26.85};
-parameter dT={Temp-Tnom};
-// local? 
-resistor #(.r(R * (1. + dT*(Tc1 + dT*Tc2)))) dev (.p(p),.n(n));
-endmodule // R
-
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm" 
 // Zref is some sparam hack.. ignore for now 
-module Gyrator (1,2,3,4);
-parameter R={ 50.};
-ccvs #(.gain(R)) vs1 (.p(2),.n(3i),.in(vp2));
-vsource #(.dc(0)) vp1 (.p(3i),.n(3));
-ccvs #(.gain(R)) vs2 (.p(4i),.n(1),.in(vp1));
-vsource #(.dc(0)) vp2 (.p(4i),.n(4));
-endmodule // Gyrator
-
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB" 
-module Amp (1,2);
-parameter G={ 10.};
-parameter NF={ 1.};
-parameter Z1={ 50.};
-parameter Z2={ 50.};
-// almost? 
-resistor #(.r(Z1)) r (.p(2i),.n(2));
-vcvs #(.gain(G)) vs1 (.p(2i),.n(0),.ps(1),.ns(0));
-endmodule // Amp
-
 // is it lumped? 
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85" 
-module TLIN (a,b);
-parameter Alpha={ 1.};
-parameter L={ 0.1};
-parameter Temp={ 26.85};
-parameter Z={ 50.};
-parameter c0={ 299.792458Meg};
-//* local?? 
-tline #(.z0(Z),.f(c0),.nl(L)) t (.t1(a),.b1(0),.t2(b),.b2(0));
-endmodule // TLIN
-
-module Tr (outp,inp,inn,outn);
-parameter T={ 1.};
-CCCS #(.gain(T)) v (.1(outp_),.2(inp),.3(inn),.4(outp));
-vcvs #(.gain(T)) e (.p(outp_),.n(outn),.ps(inp),.ns(inn));
-endmodule // Tr
-
 //* sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1" 
 //* sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1" 
-module sTr (outp,inp,inn,4,5,outn);
-parameter T1={ 1.};
-parameter T2={ 1.};
-CCCS #(.gain(T1)) v (.1(outp_),.2(inp),.3(inn),.4(outp));
-vcvs #(.gain(T1)) e (.p(outp_),.n(outn),.ps(inp),.ns(inn));
-CCCS #(.gain(T2)) v (.1(5_),.2(inp),.3(inn),.4(5));
-vcvs #(.gain(T2)) e (.p(5_),.n(4),.ps(inp),.ns(inn));
-endmodule // sTr
-
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 
-module MUT (a1,b1,b2,a2);
-parameter L1={ 0.001};
-parameter L2={ 0.001};
-parameter k={ 0.9};
-mutual_inductor #(.k(k)) K1 (.l1(Ll1),.l2(Ll2));
-inductor #(.l(L1)) Ll1 (.p(a1),.n(a2));
-inductor #(.l(L2)) Ll2 (.p(b1),.n(b2));
-endmodule // MUT
-
 //* MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9" 
 //* TODO: check port order 
-module MUT2 (a1,b1,c1,c2,b2,a2);
-parameter L1={ 0.001};
-parameter L2={ 0.001};
-parameter L3={ 0.001};
-parameter k12={ 0.9};
-parameter k13={ 0.9};
-parameter k23={ 0.9};
-mutual_inductor #(.k(k12)) K1 (.l1(Ll1),.l2(Ll2));
-mutual_inductor #(.k(k23)) K2 (.l1(Ll2),.l2(Ll3));
-mutual_inductor #(.k(k13)) K3 (.l1(Ll1),.l2(Ll3));
-L1 #() Ll1 (.p(a1),.n(a2));
-L2 #() Ll2 (.p(b1),.n(b2));
-L3 #() Ll3 (.p(c1),.n(c2));
-endmodule // MUT2
-
 Vdc #(.U(u)) src (.p(1),.n(0));
 R #(.R(1)) res (.p(1),.n(2));
 IProbe #() p1 (.p(2),.n(0));

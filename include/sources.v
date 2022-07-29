@@ -134,7 +134,9 @@ pac_ #(.Num(Num) .Z(Z) .P(P)) sp(1, 2);
 endmodule
 
 `ifdef GNUCAP
-hidemodule *
+hidemodule Vdc
+hidemodule VCVS
+hidemodule CCVS
 `endif
 
 simulator lang=acs

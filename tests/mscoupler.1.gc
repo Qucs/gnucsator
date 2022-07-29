@@ -10,6 +10,7 @@ load public subst_wrap.so
 load microstrip_wrap.so
 
 include ../include/sources.v
+hidemodule *
 
 qucs
 Pac:P1 _net13 gnd Num="1" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"

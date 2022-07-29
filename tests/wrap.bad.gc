@@ -9,6 +9,8 @@ include ../include/sources.v
 verilog
 param u=3
 
+hidemodule *
+
 * X does not exist
 Vdc #(.X(u)) foo1(1,0);
 Vdc #(.X(2)) foo2(2,0);

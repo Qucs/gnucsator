@@ -8,6 +8,7 @@ load c_hide.so
 include ../include/sources.v
 verilog
 param u=3
+hidemodule *
 
 Vdc #(.U(u)) foo1(1,0);
 Vdc #(.U(2)) foo2(2,0);

@@ -7,6 +7,7 @@ load c_hide.so
 load d_subckt_p.so
 include ../include/sources.v
 include ../include/lumped.v
+hidemodule *
 verilog
 param u=3
 
