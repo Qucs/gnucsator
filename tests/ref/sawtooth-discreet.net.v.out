@@ -1,4 +1,8 @@
 
+module main ();
+//# Qucs 0.0.17  /Users/guitorri/.qucs/TR_sawtooth-discreet_prj/sawtooth-discreet.sch 
+//# 
+//# options trtol=1 
 module Z_Diodes_1N4728A (_net1,_net2);
 Diode #(.Cj0(364p),.Is(125p),.M(0.33),.N(1.1),.Rs(0.62),.Tt(50.1n),.Vj(0.75)) D1 (.1(_net1),.2(_net2));
 Diode #(.Cj0(1e-14),.Is(25f),.M(0.5),.N(3),.Rs(1.24),.Vj(0.7)) DZ (.1(_net3),.2(_net1));
@@ -17,3 +21,5 @@ Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1
 C #(.C(680p)) C1 (.p(0),.n(OUT));
 R #(.R(6.8k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net0),.n(_net1));
 Ipulse #(.I1(0),.I2(.1m),.T1(1n),.T2(4n),.Tf(1n),.Tr(1n)) I2 (.1(OUT),.2(0));
+endmodule // main
+

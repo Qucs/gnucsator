@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs   /home/felix/extern/gnucap-qucs/examples/use_sub.sch 
 module mysub (_net0,_net1);
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
 endmodule // mysub
@@ -9,3 +11,5 @@ R #(.R(100),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(post),.n(0));
 VProbe #() Pr2 (.p(_net0),.n(0));
 mysub #(.Type(mysub)) foo1 (._net0(pre),._net1(_net0));
 mysub #(.Type(mysub)) foo (._net0(pre),._net1(post));
+endmodule // main
+

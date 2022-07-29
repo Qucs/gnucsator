@@ -27,6 +27,7 @@
 #include <u_lang.h>
 #include <u_parameter.h>
 #include <libgen.h> // dirname
+#include "e_subckt.h"
 
 std::string gnucap_includepath=".";
 
@@ -34,7 +35,7 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class CMD_SI : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope) {
+  void do_it(CS& cmd, CARD_LIST* Scope) { untested();
     std::string optarg;
     cmd >> optarg;
     trace1("CMD_SI", optarg);
@@ -57,7 +58,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "add_includepath", &p1);
 class CMD_INCLUDE : public CMD {
 public:
   void do_it(CS& cmd, CARD_LIST* Scope)
-  {
+  { untested();
     trace0("CMD_INCLUDE::do_it");
     unsigned here = cmd.cursor();
     char* dirtmp=NULL;
@@ -65,10 +66,26 @@ public:
     char buf[PATH_MAX];
     char* cwd;
     cwd = getcwd(buf, PATH_MAX);
-    try {
+    try { untested();
       std::string file_name;
       cmd >> file_name;
-      trace1("include", file_name);
+      std::string module_name;
+      cmd >> module_name;
+      BASE_SUBCKT* owner=NULL;
+#if 1
+      trace2("include", file_name, module_name);
+
+      if(module_name!=""){ untested();
+        auto c = device_dispatcher.clone("subckt");
+        assert(c);
+        owner = prechecked_cast<BASE_SUBCKT*>(c);
+        assert(owner);
+        owner->set_label(module_name);
+        Scope->push_back(owner);
+        Scope = owner->scope();
+      }else{ untested();
+      }
+#endif
 
 #if 0
       if (file_name.c_str()[0]){ untested();
@@ -93,9 +110,9 @@ public:
       trace1("chdir", dir);
 
       std::string incl(gnucap_includepath);
-      if(const char* x=getenv("GNUCAP_INCLUDEPATH")){
+      if(const char* x=getenv("GNUCAP_INCLUDEPATH")){ untested();
         incl=x;
-      }else{
+      }else{ untested();
       }
 
       std::string full_file_name=findfile(file_name, incl, R_OK);
@@ -103,9 +120,14 @@ public:
       chdir(dir);
 
       CS file(CS::_INC_FILE, std::string(full_file_name));
-      for (;;) {
-        trace2(" CMD_INCLUDE::do_it >", file_name , (OPT::language) );
-        OPT::language->parse_top_item(file, Scope);
+      for (;;) { untested();
+        trace3("q CMD_INCLUDE::do_it >", file_name , (OPT::language), Scope );
+        if(owner /*hack*/ ){
+          file.get_line("gnucap-qucs>");
+          OPT::language->new__instance(file, owner, Scope);
+        }else{
+          OPT::language->parse_top_item(file, Scope);
+        }
       }
     }catch (Exception_File_Open& e) { itested();
       cmd.warn(bDANGER, here, e.message() + '\n');

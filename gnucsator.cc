@@ -1,5 +1,5 @@
 /*                -*- C++ -*-
- * Copyright (C) 2018 Felix Salfelder
+ * Copyright (C) 2018, 2022 Felix Salfelder
  * Author: Felix Salfelder <felix@salfelder.org>
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
@@ -68,28 +68,28 @@ struct JMP_BUF{
 } env;
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-static void read_startup_files(char *const* argv)
+static void read_startup_files(char *const* argv, CARD_LIST* scope)
 {
   {
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
     trace2("read_startup_files", SYSTEMSTARTFILE, SYSTEMSTARTPATH);
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
     if (name != "") {
-      trace2("", name, &CARD_LIST::card_list);
-      CMD::command("include " + name, &CARD_LIST::card_list);
+      trace2("", name, scope);
+      CMD::command("include " + name, scope);
     }else{ untested();
-      CMD::command(std::string("load " DEFAULT_PLUGINS), &CARD_LIST::card_list);
+      CMD::command(std::string("load " DEFAULT_PLUGINS), scope);
     }
   }
   {
     // TODO: also scan parent directories
     std::string name = findfile(USERSTARTFILE, USERSTARTPATH, R_OK);
     if (name != "") {untested();
-      CMD::command("include " + name, &CARD_LIST::card_list);
+      CMD::command("include " + name, scope);
     }else{
     }
   }
-  //CMD::command("clear", &CARD_LIST::card_list);
+  //CMD::command("clear", scope);
   if (!OPT::language) {
     OPT::language = language_dispatcher[DEFAULT_LANGUAGE];
 
@@ -170,7 +170,7 @@ static void finish(void)
   outreset();
 }
 /*--------------------------------------------------------------------------*/
-static void process_cmd_line(int argc, char * const*argv)
+static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
 {
   int opt;
   CS cmd(CS::_STRING, "");
@@ -179,30 +179,30 @@ static void process_cmd_line(int argc, char * const*argv)
     while ((opt = getopt(argc, argv, "a:b:c:i:vI:D:U:")) != -1) { untested();
       switch (opt) {
         case 'a': untested();
-          CMD::command(std::string("attach ") + optarg, &CARD_LIST::card_list);
+          CMD::command(std::string("attach ") + optarg, scope);
           break;
         case 'b': untested();
           incomplete();
           break;
         case 'c': untested();
           cmd = CS(CS::_STRING, optarg);
-          CMD::cmdproc(cmd, &CARD_LIST::card_list);
+          CMD::cmdproc(cmd, scope);
           break;
         case 'v': untested();
           cmd = CS(CS::_STRING, "verilog");
-          CMD::cmdproc(cmd, &CARD_LIST::card_list);
+          CMD::cmdproc(cmd, scope);
           break;
         case 'I': untested();
-          CMD::command(std::string("`add_include ") + optarg, &CARD_LIST::card_list);
+          CMD::command(std::string("`add_include ") + optarg, scope);
           break;
         case 'i':
-          CMD::command(std::string("`include ") + optarg, &CARD_LIST::card_list);
+          CMD::command(std::string("`include ") + optarg, scope);
           break;
         case 'D':
-          CMD::command(std::string("`define ") + optarg, &CARD_LIST::card_list);
+          CMD::command(std::string("`define ") + optarg, scope);
           break;
         case 'U':
-          CMD::command(std::string("`undef ") + optarg, &CARD_LIST::card_list);
+          CMD::command(std::string("`undef ") + optarg, scope);
           break;
         default:
           printf("options (incomplete):\n"
@@ -228,13 +228,13 @@ static void process_cmd_line(int argc, char * const*argv)
     exit(EXIT_FAILURE);
   }else if(optind < argc){
     try {
-      CMD::command(std::string("include ") + argv[optind++], &CARD_LIST::card_list);
+      CMD::command(std::string("include ") + argv[optind++], scope);
     }catch (Exception& e) {itested();
       error(bDANGER, e.message() + '\n');
       finish();
     }
     if (optind >= argc) {itested();
-      //CMD::command("end", &CARD_LIST::card_list);
+      //CMD::command("end", scope);
       throw Exception_Quit("");
     }else{untested();
     }
@@ -244,22 +244,21 @@ static void process_cmd_line(int argc, char * const*argv)
 /*--------------------------------------------------------------------------*/
 class MAIN{
 public:
-  explicit MAIN(){
-  }
+  explicit MAIN();
   void uninit(){
     plclose();
     outreset();
 
-    CMD::command("clear", &CARD_LIST::card_list);
-    for(auto i: CARD_LIST::card_list){
+    CMD::command("clear", _root_scope);
+    for(auto i: *_root_scope){
       unreachable();
       std::cout << i->short_label() << "\n";
     }
-    trace1("erase", &CARD_LIST::card_list);
-    CARD_LIST::card_list.erase_all();
-    CMD::command("delete all", &CARD_LIST::card_list);
+    trace1("erase", _root_scope);
+    _root_scope->erase_all();
+    CMD::command("delete all", _root_scope);
     try{
-      CMD::command("detach_all", &CARD_LIST::card_list);
+      CMD::command("detach_all", _root_scope);
     }catch(Exception_CS const& e){
       incomplete();
       std::cerr << e.message();
@@ -275,7 +274,29 @@ public:
 private:
   SIM_DATA _sim_data;
   PROBE_LISTS _probe_lists;
+  // CARD* _root;
+  CARD_LIST* _root_scope;
 };
+/*--------------------------------------------------------------------------*/
+MAIN::MAIN()
+{
+#if 0 // later?
+  _root = device_dispatcher.clone("subckt");
+  assert(_root);
+  _root->new_subckt();
+  _root_scope = _root->subckt();
+  _root->set_label("root");
+
+  CARD* c = device_dispatcher.clone("subckt");
+  assert(c);
+  c->set_label("main");
+  c->set_owner(_root);
+  _root_scope->push_back(c);
+  CARD_LIST* main_scope = _root->subckt();
+#else
+  _root_scope = &CARD_LIST::card_list;
+#endif
+}
 /*--------------------------------------------------------------------------*/
 int main(int argc, char *const* argv)
 {
@@ -294,10 +315,10 @@ int MAIN::operator()(int argc, char *const* argv)
 
     SET_RUN_MODE xx(rBATCH);
     if (!sigsetjmp(env.p, true)) {
-      read_startup_files(argv);
+      read_startup_files(argv, _root_scope);
       setup_traps();
       try {
-        process_cmd_line(argc, argv);
+        process_cmd_line(argc, argv, _root_scope);
       }catch (Exception_Quit& e) { untested();
         throw;
       }catch (Exception& e) { untested();
@@ -315,9 +336,9 @@ int MAIN::operator()(int argc, char *const* argv)
         if (!sigsetjmp(env.p, true)) {
           try {
             if (OPT::language) {
-              OPT::language->parse_top_item(cmd, &CARD_LIST::card_list);
+              OPT::language->parse_top_item(cmd, _root_scope);
             }else{untested();
-              CMD::cmdproc(cmd.get_line(I_PROMPT), &CARD_LIST::card_list);
+              CMD::cmdproc(cmd.get_line(I_PROMPT), _root_scope);
             }
           }catch (Exception_End_Of_Input& e) {
             error(bDANGER, e.message() + '\n');

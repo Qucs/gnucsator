@@ -1,4 +1,9 @@
 
+module main ();
+//# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/TR_gilbert_prj/gilbert.sch 
+//# .options trtol=1 
+//# .options abstol=1e-12 
+//# .options reltol=1e-6 
 BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T2 (.b(_net0),.c(_net1),.e(_net2),.s(_net1));
 BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T3 (.b(_net3),.c(_net4),.e(_net2),.s(_net4));
 BJT #(.Ab(1.0),.Af(1.0),.Area(1.0),.Bf(200),.Br(1),.Cjc(0),.Cje(0),.Cjs(0),.Eg(1.11),.Fb(1.0),.Fc(0.5),.Ffe(1.0),.Ikf(0),.Ikr(0),.Irb(0),.Is(1e-16),.Isc(0),.Ise(0),.Itf(0.0),.Kb(0.0),.Kf(0.0),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0.0),.Rb(0),.Rbm(0),.Rc(0),.Re(0),.Temp(26.85),.Tf(0.0),.Tnom(26.85),.Tr(0.0),.Type(npn),.Vaf(0),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0.0),.Xcjc(1.0),.Xtb(0.0),.Xtf(0.0),.Xti(3.0)) T5 (.b(_net0),.c(_net4),.e(_net5),.s(_net4));
@@ -21,3 +26,5 @@ Tr #(.T(1)) Tr1 (.outp(Output),.inp(_net1),.inn(_net4),.outn(0));
 R #(.R(200),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R5 (.p(0),.n(Output));
 R #(.R(200k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R8 (.p(_net12),.n(_net10));
 R #(.R(200k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R9 (.p(_net12),.n(_net9));
+endmodule // main
+

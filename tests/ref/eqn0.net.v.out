@@ -1,7 +1,13 @@
 
+module main ();
+parameter RR0={25};
+parameter RR1={100};
+//# Qucs 0.0.19 
 Eqn #() Eqn1 ();
 Eqn #() Eqn2 ();
 R #(.R(RR1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
 VProbe #() Pr1 (.p(_net0),.n(0));
 Vdc #(.U(1)) V1 (.p(_net0),.n(0));
 R #(.R(RR0)) R2 (.p(_net1),.n(0));
+endmodule // main
+

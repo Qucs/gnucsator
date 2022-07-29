@@ -1,3 +1,6 @@
 
+module main ();
 Idc #(.I(8m)) I1 (.1(0),.2(_net1));
 R #(.R(200)) R5 (.p(0),.n(_net1));
+endmodule // main
+

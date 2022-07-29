@@ -19,9 +19,9 @@ while true; do
 	esac
 done
 
-GNUCSATOR=gnucsator
+GNUCSATOR=${GNUCSATOR-gnucsator}
 
-save=list
+save="list"
 if [ -n "$2" ]; then
 	save="save $2"
 fi
@@ -29,9 +29,9 @@ fi
 $GNUCSATOR <<EOF
 qucs
 
-include $1
+\`include $1 main
 
 .verilog
-$save
+$save main
 
 EOF

@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/TR_supply_prj/supply.sch 
 Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(0.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D2 (.1(dc_voltage),.2(_net0));
 Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(0.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D4 (.1(_net1),.2(0));
 Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(0.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D1 (.1(dc_voltage),.2(_net1));
@@ -8,3 +10,5 @@ Tr #(.T(20)) Tr1 (.outp(_net2),.inp(_net1),.inn(_net0),.outn(0));
 Vac #(.Phase(0),.Theta(0),.U(230),.f(50)) V1 (.1(_net3),.2(0));
 R #(.R(0.5),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net3),.n(_net2));
 C #(.C(1000u)) C1 (.p(0),.n(dc_voltage));
+endmodule // main
+

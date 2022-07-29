@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs 0.0.20  /home/dow/.qucs/ch2_prj/common_emitter_degen.sch 
 BJT #(.Ab(1),.Af(1),.Area(1),.Bf(300),.Br(7.5),.Cjc(3.5e-12),.Cje(4.5e-12),.Cjs(0),.Eg(1.11),.Fb(1),.Fc(0.5),.Ffe(1),.Ikf(0.025),.Ikr(0),.Irb(0),.Is(1.4e-14),.Isc(0),.Ise(3e-13),.Itf(0),.Kb(0),.Kf(9e-16),.Mjc(0.33),.Mje(0.33),.Mjs(0),.Nc(2),.Ne(1.5),.Nf(1),.Nr(1),.Ptf(0),.Rb(0),.Rbm(0),.Rc(2.4),.Re(0),.Temp(26.85),.Tf(4e-10),.Tnom(26.85),.Tr(2.1e-08),.Type(npn),.Vaf(100),.Var(0),.Vjc(0.75),.Vje(0.75),.Vjs(0.75),.Vtf(0),.Xcjc(1),.Xtb(1.5),.Xtf(0),.Xti(3)) Q2N3904_1 (.b(_net0),.c(out),.e(_net1),.s(out));
 Vdc #(.U(20)) V1 (.p(_net2),.n(0));
 R #(.R(110k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net2));
@@ -7,3 +9,5 @@ R #(.R(10k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(out),.n(_net2)
 R #(.R(1k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R4 (.p(0),.n(_net1));
 Vac #(.Phase(0),.Theta(0),.U(.99),.f(5k)) V2 (.1(in),.2(0));
 C #(.C(.1u),.V(0)) C1 (.p(in),.n(_net0));
+endmodule // main
+

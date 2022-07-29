@@ -1,4 +1,9 @@
 
+module main ();
+parameter R1={1};
+parameter __omit_DC1={1};
 Idc #(.I(.1)) I1 (.1(_net0),.2(0));
 Eqn #() Eqn1 ();
 R #(.R(R1)) R1 (.p(_net0),.n(0));
+endmodule // main
+

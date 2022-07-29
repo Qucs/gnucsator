@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs 0.0.19  /tmp/neur.sch 
 module TESTSUB (_net0,_net1);
 parameter PARAM2={2};
 parameter RES={1};
@@ -7,3 +9,5 @@ endmodule // TESTSUB
 
 TESTSUB #(.RES(2),.Type(TESTSUB)) T1 (._net0(_net1),._net1(0));
 Idc #(.I(5)) V1 (.1(_net1),.2(0));
+endmodule // main
+

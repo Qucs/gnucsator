@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_mscoupler_prj/mscoupler.sch 
 Pac #(.Num(1),.P(1),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
 Pac #(.Num(2),.P(1),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net1),.2(0));
 Pac #(.Num(3),.P(1),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(_net2),.2(0));
@@ -8,3 +10,5 @@ paramset SubstTC1 SUBST;\
 endparmset
 
 MCOUPLED #(.W(0.518m),.L(14.94m),.S(0.185m),.Subst(SubstTC1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MSTC1 (.p0(_net0),.p1(_net1),.p2(_net2),.p3(_net3));
+endmodule // main
+

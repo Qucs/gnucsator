@@ -498,10 +498,11 @@ DEV_COMMENT* LANG_QUCSATOR::parse_comment(CS& cmd, DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
-{
+{ untested();
 	assert(x);
 	x->set(cmd.fullstring());
-	CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
+	CARD_LIST* scope = (x->owner()) ? x->owner()->scope() : &CARD_LIST::card_list;
+	trace3("LANG_QUCSATOR::parse_command", cmd.fullstring(), x->owner(), scope);
 
 	cmd.reset().umatch(QUCS_ANTI_COMMENT);
 	skip_pre_stuff(cmd);
@@ -525,6 +526,7 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 	}
 
 	// WARNING: not to be confused with CMD::cmdproc
+	trace2("LANG_QUCSATOR::parse_command cmdproc", cmd.fullstring(), scope);
 	cmdproc(cmd, scope);
 
 	delete x;
@@ -584,6 +586,9 @@ void LANG_QUCSATOR::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 			if ((exit_on_blank==EXIT_ON_BLANK && cmd.is_end()) 
 					|| cmd.umatch(exit_key)) {
 				break;
+//			}else if(cmd.umatch("`include")){
+//				cmd.reset();
+//				CMD::cmdproc(cmd, Scope);
 			}else{
 				trace2("LANG_QUCSATOR::parse_module_body ", cmd.fullstring(), OPT::language);
 				skip_pre_stuff(cmd);
@@ -736,7 +741,7 @@ void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 		cmd >> id_string;
 	}
 
-	trace2("LANG_QUCSATOR::cmdproc", id_string, cmdname);
+	trace3("LANG_QUCSATOR::cmdproc", id_string, cmdname, scope);
 	if (cmd.umatch("'|*|#|//|\"")) { untested();
 		unreachable();
 	}else if (id_string != "") {
@@ -769,7 +774,7 @@ void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
-{
+{ untested();
 	if (0 && cmd.is_file()
 			&& cmd.is_first_read()
 			&& (Scope == &CARD_LIST::card_list)
@@ -778,7 +783,7 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 		cmd.get_line("gnucap-qucs-title>");
 		head = cmd.fullstring();
 		IO::mstdout << head << '\n';
-	}else{itested();
+	}else{untested();
 		cmd.get_line("gnucap-qucs>");
 		new__instance(cmd, NULL, Scope);
 	}

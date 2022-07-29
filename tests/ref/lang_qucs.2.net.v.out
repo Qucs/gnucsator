@@ -1,6 +1,12 @@
 
+module main ();
+//# should work with qucsator -i <file> 
+//# also runs with gnucap -a lang_qucs.so -i qucs.gc 
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
 R #(.R(.01),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net0),.n(0));
 Vdc #(.U(2)) V1 (.p(_net0),.n(_net1));
 VProbe #() Pr1 (.p(_net0),.n(_net1));
 R #(.R(.01)) R3 (.p(_net0),.n(0));
+//# second tran does not work 
+endmodule // main
+

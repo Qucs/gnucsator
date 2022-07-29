@@ -1,4 +1,6 @@
 
+module main ();
+//# Qucs 0.0.19  /home/qucs/prjs/TTL_NAND_prj/TTL_NAND_spice.sch 
 module NAND_GATE_cir (_netA,_netVCC,_netB,_netY,_ref);
 module NAND (_ref,_netA,_netB,_netY,_netVCC);
 Diode #(.Bv(8),.Cj0(1e-12),.Is(1e-15),.M(0.5),.N(1),.Vj(0.7)) D1 (.1(_netA),.2(_ref));
@@ -24,3 +26,5 @@ C #(.C(5p)) C1 (.p(0),.n(out));
 Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1m),.TL(1m)) VA (.p(A),.n(0));
 Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1.3m),.TL(1.3m)) VA1 (.p(B),.n(0));
 Vdc #(.U(5)) V1 (.p(_net0),.n(0));
+endmodule // main
+
