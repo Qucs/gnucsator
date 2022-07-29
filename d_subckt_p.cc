@@ -102,7 +102,7 @@ public: // override virtual
   CARD*		clone()const		{return new DEV_SUBCKT_PROTO(*this);}
   bool		is_device()const	{return false;}
   bool		makes_own_scope()const  {return true;}
-  CARD_LIST*	   scope()		{untested();return subckt();}
+  CARD_LIST*	   scope()		{return subckt();}
   const CARD_LIST* scope()const		{return subckt();}
 private: // no-ops for prototype
   void precalc_first();

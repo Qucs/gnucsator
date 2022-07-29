@@ -333,7 +333,7 @@ uint_t DEV_CPOLY_G::min_nodes()const
 }
 /*--------------------------------------------------------------------------*/
 uint_t DEV_CPOLY_G::max_nodes() const
-{ itested();
+{
   // various cases
   //
   // Gfoo 1 2 poly(k) n1....n2k p0...p
@@ -350,7 +350,7 @@ uint_t DEV_CPOLY_G::max_nodes() const
     return net_nodes(); // _n_ports*2
   }else if(_n_ports == 0){ untested();
     return 4;
-  }else{ itested();
+  }else{
     return _n_ports*2;
   }
 }

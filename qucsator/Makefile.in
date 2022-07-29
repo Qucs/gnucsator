@@ -4,10 +4,18 @@ VPATH = microstrip
 
 include MakeList
 
-all: mscoupled.o substrate.o \
-     msline.o \
-     matrix.o vector.o complex.o real.o fspecial.o \
-	  ${MICROSTRIP_SRC:%.cpp=%.o}
+OBJS = \
+	mscoupled.o \
+	substrate.o \
+	msline.o \
+	matrix.o \
+	vector.o \
+	complex.o \
+	real.o \
+	fspecial.o \
+	${MICROSTRIP_SRC:%.cpp=%.o}
+
+all: $(OBJS)
 
 %.o: %.cpp component.h object.h
 	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I. $(CXXFLAGS) -c $< -fPIC -o $@
@@ -17,3 +25,6 @@ substrate.o msline.o: %.o: %.cpp component.h object.h
 
 fspecial.o real.o complex.o vector.o matrix.o: %.o: %.cpp
 	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@ -DNR_TINY=1e-15 -Dnr_double_t=double -DHAVE_STD_ERF
+
+clean:
+	rm -rf $(OBJS)

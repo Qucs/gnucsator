@@ -63,7 +63,7 @@ public: // override virtual
   void tr_advance();
 //  void tr_regress();
   void tr_accept();
-  bool tr_needs_eval()const {itested(); return true;}
+  bool tr_needs_eval()const { return true;}
 
   CARD* clone()const{return new EQN(*this);}
   //void   map_nodes();

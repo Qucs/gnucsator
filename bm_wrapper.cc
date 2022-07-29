@@ -217,16 +217,16 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 			 return _param_name[param_count() - 1 -i];
 			}
 		}
-		std::string param_name(int i)const{ itested();
+		std::string param_name(int i)const{
 			assert(param_count() - 1 - i < int(_param_number));
 			return _param_name[param_count() - 1 -i];
 		}
-		bool param_is_printable(int i)const{ itested();
+		bool param_is_printable(int i)const{
 			trace3("is printable", i, BASE_SUBCKT::param_count(), param_count());
 			unsigned j = param_count() - 1 - i;
 			return j < _param_number;
 		}
-		std::string param_value(int i)const{ itested();
+		std::string param_value(int i)const{
 			assert(param_count() - 1 - i < int(_param_number));
 			return _param[param_count() - 1 - i].string();
 		}
@@ -276,7 +276,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 					_c1->set_parameters("dev", this, _c1->mutable_common(),
 							0/*value*/, 0, NULL, 2, nodes);
 					for(unsigned i=0; _param_name[i] && // clumsy?
-							            _param_name[i+_param_number+1]; ++i){ itested();
+							            _param_name[i+_param_number+1]; ++i){
 						trace3("params", i, _param_number, _param_name[i+_param_number+1]);
 						assert(i<_param_number);
 						if(_param[i].has_hard_value()){

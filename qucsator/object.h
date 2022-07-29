@@ -110,7 +110,7 @@ private:
 #define MCREATOR(a) \
 public: \
 	static define_t miscdef; \
-	define_t* cd() const override {untested(); return &miscdef;} \
+	define_t* cd() const override {return &miscdef;} \
 	a(); \
-	MODEL_CARD* clone() const override{ untested(); a* n=new a(*this); n->init(); return n; }
+	MODEL_CARD* clone() const override{a* n=new a(*this); n->init(); return n; }
 

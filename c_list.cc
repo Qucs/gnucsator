@@ -77,7 +77,7 @@ void list_save(CS& cmd, OMSTREAM out, CARD_LIST* scope)
       : findbranch(cmd, scope);
     if (ci.is_end()) {untested();
       throw Exception_CS("can't find", cmd);
-    }else{ untested();
+    }else{
     }
     
     if (cmd.match1('-')) {		/* there is a dash:  a range	    */
@@ -125,7 +125,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "list", &p1);
 class CMD_SAVE : public CMD {
 public:
   void do_it(CS& cmd, CARD_LIST* Scope)
-  {itested();
+  {
     cmd.reset(); /* back up to beginning of input line */
     OMSTREAM out; // = IO::mstdout;
     list_save(cmd, *outset(cmd,&out), Scope);

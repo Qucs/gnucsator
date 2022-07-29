@@ -498,7 +498,7 @@ DEV_COMMENT* LANG_QUCSATOR::parse_comment(CS& cmd, DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
-{ untested();
+{
 	assert(x);
 	x->set(cmd.fullstring());
 	CARD_LIST* scope = (x->owner()) ? x->owner()->scope() : &CARD_LIST::card_list;
@@ -774,7 +774,7 @@ void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
-{ untested();
+{
 	if (0 && cmd.is_file()
 			&& cmd.is_first_read()
 			&& (Scope == &CARD_LIST::card_list)
@@ -783,7 +783,7 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 		cmd.get_line("gnucap-qucs-title>");
 		head = cmd.fullstring();
 		IO::mstdout << head << '\n';
-	}else{untested();
+	}else{
 		cmd.get_line("gnucap-qucs>");
 		new__instance(cmd, NULL, Scope);
 	}
