@@ -17,7 +17,7 @@ parameter m=1
 Vac #(.U(U) .f(f) .Phase(Phase)) V1(1 2i);
 g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(1, 2j, 1, 2i, 3, 0);
 vsource #(.dc(0.)) p(2j, 1);
-ccvs #(.gain(1.)) HH(1,2,p);
+H #(.gain(1.)) HH(1,2,p); // ccvs, BUG in e_base.h +67
 endmodule;
 // -------------------------------------------------------------------- //
 
