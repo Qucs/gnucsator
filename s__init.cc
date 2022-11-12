@@ -95,31 +95,5 @@ void SIM::reset_timers()
   ::status.total.reset().start();
 }
 /*--------------------------------------------------------------------------*/
-#include "u_nodemap.h"
-void SIM_DATA::init(CARD_LIST* scope)
-{
-  trace2("SIM_DATA::init", this, is_first_expand());
-  assert(scope);
-  if(scope == &CARD_LIST::card_list){
-  }else{
-  }
-  if (is_first_expand()) {
-    uninit();
-    init_node_count(scope->nodes()->how_many(), 0, 0);
-    scope->expand();
-    map__nodes();
-    scope->map_nodes();
-    alloc_hold_vectors();
-    _aa.reinit(_total_nodes);
-    _lu.reinit(_total_nodes);
-    _acx.reinit(_total_nodes);
-    scope->tr_iwant_matrix();
-    scope->ac_iwant_matrix();
-    _last_time = 0;
-  }else{
-    scope->precalc_first();
-  }
-}
-/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 // vim:ts=8:sw=2:noet:
