@@ -58,14 +58,14 @@ public:
       incomplete();
       return;
     }
-    unsigned here = cmd.cursor();
+    size_t here = cmd.cursor();
     try {
       std::string sckt_name;
 //      cmd >> sckt_name;
 
 //      CARD_LIST::iterator i = Scope->begin();
 
-      int here=cmd.cursor();
+      size_t here = cmd.cursor();
       auto i=findbranch(cmd, Scope);
 
       while(!i.is_end()){

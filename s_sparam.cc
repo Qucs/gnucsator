@@ -46,8 +46,8 @@ static bool hack_no_load=false;
 typedef int uint_t;
 #endif
 /*--------------------------------------------------------------------------*/
-void SIM::outdata(double x, int){ incomplete(); }
-void SIM::head(double, double x, const std::string&){ }
+void SIM::outdata(double, int){ incomplete(); }
+void SIM::head(double, double, const std::string&){ }
 void SIM::print_results(double) {}
 void SIM::alarm() {}
 void SIM::store_results(double) {}
@@ -306,7 +306,7 @@ void SPARAM::setup(CS& Cmd)
     std::string port;
     if (Cmd.umatch("port")){
       trace2("findbranch", port, Cmd.tail());
-      unsigned arg1=Cmd.cursor();
+      size_t arg1 = Cmd.cursor();
       CARD_LIST::fat_iterator ci = findbranch(Cmd, &CARD_LIST::card_list);
 #if 1
       hack_findall(&CARD_LIST::card_list);
@@ -457,7 +457,7 @@ void SPARAM::store_results(double x)
 }
 /*--------------------------------------------------------------------------*/
 template<class T, class O>
-void qfl(T const& t, O& o, unsigned n){
+void qfl(T const& t, O& o, size_t){
   for( auto i : t){
     o << i << "\n";
   }
@@ -475,8 +475,8 @@ void SPARAM::flush()
   size_t size=_ports.size();
 
   for(unsigned i=1; i<_data.size(); ++i) {
-    unsigned a=(i-1)/_ports.size();
-    unsigned b=(i-1)%_ports.size();
+    size_t a=(i-1)/_ports.size();
+    size_t b=(i-1)%_ports.size();
     a = _ports[a]->num();
     b = _ports[b]->num();
     _out << "<dep S[" << a << "," << b << "] frequency" << ">\n";

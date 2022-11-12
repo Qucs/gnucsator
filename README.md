@@ -29,6 +29,7 @@ configuration file (gnucsator.rc).
 - install gnucap (>=20210107)
   - official gnucap from savannah [1], or
   - apt install gnucap libgnucap-dev # (not yet)
+  - note: gnucsator/develop may require gnucap/develop
 - install some other dependencies
   - apt install libboost-all-dev # (this is a superset)
   - apt install libgsl-dev

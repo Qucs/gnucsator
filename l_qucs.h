@@ -56,7 +56,7 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
   if (!cmd.umatch("{=}")){ untested();
     cmd.check(bDANGER, "need =");
   }else{
-    unsigned here = cmd.cursor();
+    size_t here = cmd.cursor();
     std::string s = cmd.ctos(",=;)", "\"'{(", "\"'})");
     trace2("QucsSet", key, s);
 

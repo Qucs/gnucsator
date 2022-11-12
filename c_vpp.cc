@@ -39,7 +39,7 @@ public:
 		_defs["GNUCAP"];
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope)
+	void do_it(CS& cmd, CARD_LIST*)
 	{
 		std::string what;
 		cmd >> what;
@@ -130,7 +130,7 @@ private:
 		}
 
 		assert(_nest.size());
-		unsigned depth=_nest.size()-1;
+		size_t depth = _nest.size()-1;
 		trace3("cond push ", cmd.fullstring(), allow_else, _nest.size());
 
 		for (;;) {
@@ -198,7 +198,7 @@ public:
 	CMD_VPP_ELSE() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope) {
+	void do_it(CS& cmd, CARD_LIST*) {
 		trace1("`else", p_if._nest.size());
 		if(!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "misplaced else");
@@ -223,7 +223,7 @@ DISPATCHER<CMD>::INSTALL d_else(&command_dispatcher, "`else", &p_else);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_ENDIF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope) {
+	void do_it(CS& cmd, CARD_LIST*) {
 		trace2("endif", cmd.fullstring(), p_if._nest.size());
 		if(!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "unmatched endif");
@@ -238,7 +238,7 @@ DISPATCHER<CMD>::INSTALL d_endif(&command_dispatcher, "`endif", &p_endif);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_UNDEF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope)
+	void do_it(CS& cmd, CARD_LIST*)
 	{
 		std::string what;
 		cmd >> what;
@@ -270,7 +270,7 @@ public:
 	CMD_VPP_ELSIF() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope) {
+	void do_it(CS& cmd, CARD_LIST*) {
 		if (!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "misplaced `elsif");
 		}else if( p_if.is(CMD_VPP_IF::c_past_else ) ){

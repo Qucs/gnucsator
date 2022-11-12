@@ -165,7 +165,7 @@ bool EVAL_BM_POLY::parse_numlist(CS& cmd)
   size_t start = cmd.cursor();
   size_t here = cmd.cursor();
   for (;;) {
-    unsigned old_here = here;
+    size_t old_here = here;
     PARAMETER<double> val;
     cmd >> val;
     if (cmd.stuck(&here)) {

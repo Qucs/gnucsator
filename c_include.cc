@@ -35,7 +35,7 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class CMD_SI : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope) {
+  void do_it(CS& cmd, CARD_LIST*) {
     std::string optarg;
     cmd >> optarg;
     trace1("CMD_SI", optarg);
@@ -46,7 +46,7 @@ DISPATCHER<CMD>::INSTALL d2(&command_dispatcher, "set_includepath", &p2);
 /*--------------------------------------------------------------------------*/
 class CMD_AI : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope) { untested();
+  void do_it(CS& cmd, CARD_LIST*) { untested();
     std::string optarg;
     cmd >> optarg;
     trace1("CMD_AI::do_it", optarg);
@@ -60,7 +60,7 @@ public:
   void do_it(CS& cmd, CARD_LIST* Scope)
   {
     trace0("CMD_INCLUDE::do_it");
-    unsigned here = cmd.cursor();
+    size_t here = cmd.cursor();
     char* dirtmp=NULL;
     char* basetmp=NULL;
     char buf[PATH_MAX];

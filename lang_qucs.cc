@@ -161,7 +161,7 @@ static int count_ports(CS& cmd, int maxnodes, int minnodes, int leave_tail, int 
 	assert(minnodes <= maxnodes);
 
 	int num_nodes = 0;
-	std::vector<unsigned> spots;
+	std::vector<size_t> spots;
 	int paren = cmd.skip1b('(');
 	int i = start;
 	// loop over the tokens to try to guess where the nodes end
@@ -342,7 +342,7 @@ void LANG_QUCSATOR::parse_type(CS& cmd, CARD* x)
 	// HACK (qucs language misfeature)
 	if(new_type=="Sub"){
 		// it's not really Sub. let's see.
-		int here=cmd.cursor();
+		size_t here = cmd.cursor();
 		scan_get(cmd, "Type", &new_type);
 		cmd.reset(here);
 	}
@@ -506,7 +506,7 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 
 	cmd.reset().umatch(QUCS_ANTI_COMMENT);
 	skip_pre_stuff(cmd);
-	unsigned here = cmd.cursor();
+	size_t here = cmd.cursor();
 
 	std::string id_string;
 	cmd.reset(here); // skip dot
@@ -559,7 +559,7 @@ BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 	(cmd >> ".Def");
 	parse_label(cmd, x);
 	{
-		unsigned here = cmd.cursor();
+		size_t here = cmd.cursor();
 		trace2("LANG_QUCSATOR::parse_module ", x->min_nodes(), x->max_nodes() );
 		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(),
 				0/*no unnamed par*/, 0/*start*/);
@@ -614,7 +614,7 @@ COMPONENT* LANG_QUCSATOR::parse_instance(CS& cmd, COMPONENT* x)
 	parse_label(cmd, x);
 
 	{
-		unsigned here = cmd.cursor();
+		size_t here = cmd.cursor();
 		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
 		//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
 		cmd.reset(here);
@@ -664,7 +664,7 @@ std::string LANG_QUCSATOR::find_type_in_string(CS& cmd) GCUF_CONST
 {
 	cmd.umatch(QUCS_ANTI_COMMENT);
 
-	unsigned here = cmd.cursor();
+	size_t here = cmd.cursor();
 	std::string id_string;
 
 	char first_letter = cmd.peek();
@@ -728,7 +728,7 @@ void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 		/* skip any number of these */
 	}
 
-	unsigned here = cmd.cursor();
+	size_t here = cmd.cursor();
 	std::string id_string;
 	std::string cmdname;
 	trace1("LANG_QUCSATOR::cmdproc", cmd.tail());

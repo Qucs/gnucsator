@@ -101,7 +101,7 @@ void SIM::outdata(double x, int outflags)
 /*--------------------------------------------------------------------------*/
 /* SIM::head: print column headings and draw plot borders
  */
-void SIM::head(double start, double stop, const std::string& col1)
+void SIM::head(double, double, const std::string& col1)
 {
   if(_labels.size()){
   }else{
@@ -121,7 +121,7 @@ void SIM::head(double start, double stop, const std::string& col1)
 /* SIM::print_results: print the list of results (text form) to _out
  * The argument is the first column (independent variable, aka "x")
  */
-void SIM::print_results(double x)
+void SIM::print_results(double)
 { untested();
   unreachable();
 }
@@ -152,7 +152,7 @@ void SIM::store_results(double x)
 }
 /*--------------------------------------------------------------------------*/
 // "OUTPUT::init"
-void init_hack(SIM* s)
+void init_hack(SIM*)
 {
   _labels.clear();
   _keys.clear();
@@ -161,7 +161,7 @@ void init_hack(SIM* s)
   _count = 0;
 }
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM* s)
+void finish_hack(SIM*)
 {
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
@@ -181,8 +181,9 @@ void finish_hack(SIM* s)
 //  }
 
   if(number_of_probes){
-    unsigned n = 0;
+    int n = 0;
     for(auto d : CKT_BASE::_sim->_waves[0]){
+      (void)d;
       ++n;
     }
     // BUG: only works for <= 2 sweeps
@@ -195,6 +196,7 @@ void finish_hack(SIM* s)
 	i+= n/cc;
 	if(i>=n){
 	  break;
+	}else{
 	}
       }
       outFile << "</indep>\n";
@@ -220,7 +222,7 @@ void finish_hack(SIM* s)
       }else if(_labels.size()==2){
         int cc = _counts[0];
 	outFile << "<indep " << _labels.back() << " " << n/cc << ">\n";
-	for(unsigned i=0; i<n;){
+	for(int i=0; i<n;){
 	  assert(_ctx[i].size());
 	  outFile << "  " << _ctx[i][0] << "\n";
 	  i+=cc;

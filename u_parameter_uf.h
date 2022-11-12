@@ -51,7 +51,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     void	operator=(const std::vector<PARAMETER<T> >& v) {
       _v = v; _s = "#";
     }
-    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >& p)const{
+    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >&)const{
 		 // incomplete(); yes, but okay
 		 return false;
 	 }

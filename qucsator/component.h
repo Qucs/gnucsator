@@ -180,7 +180,7 @@ protected: // qucsator globals
 			return "";
 		}
 	}
-	void setCharacteristic (std::string const& name, double const& value){ untested();
+	void setCharacteristic (std::string const&, double const&){ untested();
 		incomplete();
 	}
 	substrate /*const*/ * getSubstrate(){ untested();
@@ -338,7 +338,7 @@ private: // COMPONENT
 	}
    int param_count()const override{
 		trace1("circuit::param_count", _p.size());
-		return COMPONENT::param_count() + _p.size();
+		return COMPONENT::param_count() + int(_p.size());
 	}
    bool param_is_printable(int i)const override{
 		int s = circuit::param_count() - 1 - i;

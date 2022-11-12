@@ -79,7 +79,7 @@ void SIM::outdata(double x, int outflags)
 /*--------------------------------------------------------------------------*/
 /* SIM::head: print column headings and draw plot borders
  */
-void SIM::head(double start, double stop, const std::string& col1)
+void SIM::head(double, double, const std::string&)
 {
   if (_sim->_waves) { untested();
     delete [] _sim->_waves;
@@ -93,7 +93,7 @@ void SIM::head(double start, double stop, const std::string& col1)
 /* SIM::print_results: print the list of results (text form) to _out
  * The argument is the first column (independent variable, aka "x")
  */
-void SIM::print_results(double x)
+void SIM::print_results(double)
 { untested();
   unreachable();
 }
@@ -123,7 +123,7 @@ void SIM::store_results(double x)
   }
 }
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM* s)
+void finish_hack(SIM*)
 {
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
@@ -139,6 +139,7 @@ void finish_hack(SIM* s)
   if(number_of_probes){
     unsigned n = 0;
     for(auto d : CKT_BASE::_sim->_waves[0]){
+      (void) d;
       ++n;
     }
     outFile << "<indep time " << n << ">\n";

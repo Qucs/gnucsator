@@ -94,7 +94,7 @@ void EVAL_BM_TRIVIAL::tr_eval(ELEMENT* d)const
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_TRIVIAL::parse_numlist(CS& cmd)
 { untested();
-  unsigned here = cmd.cursor();
+  size_t here = cmd.cursor();
   PARAMETER<double> new_value(NOT_VALID);
   cmd >> new_value;
   if (cmd.gotit(here)) {

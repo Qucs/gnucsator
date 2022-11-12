@@ -168,9 +168,9 @@ private:
 			o->do_it(wcmd, Scope);
 
 		}else{
-			data_t t;
-			t._start = _start;
-			t._stop = _stop;
+			// data_t t;
+			// t._start = _start;
+			// t._stop = _stop;
 
 			auto cl = clone();
 			cl->options(cmd);

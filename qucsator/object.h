@@ -6,7 +6,7 @@ namespace qucs{
 // BUG: only substrate??
 struct object : public MODEL_CARD{
 	object() : MODEL_CARD(nullptr) {}
-	object(std::string const& x) : MODEL_CARD(nullptr) {}
+	object(std::string const&) : MODEL_CARD(nullptr) {}
 	std::string getName() const{return "noname";}
 	double getPropertyDouble(std::string const& s){ untested();
 		trace1("getPropertyDouble", s);
@@ -29,7 +29,7 @@ struct object : public MODEL_CARD{
 	}
 	virtual define_t* cd() const{return nullptr;}
    int param_count()const override{
-		return MODEL_CARD::param_count() + _p.size();
+		return MODEL_CARD::param_count() + int(_p.size());
 	}
 	void set_param_by_name(std::string a, std::string b) override{
 		trace2("object::spbn", a, b);
@@ -48,6 +48,9 @@ struct object : public MODEL_CARD{
 		}else{ untested();
 			return MODEL_CARD::param_name(i);
 		}
+	}
+	std::string param_name(int i, int)const{ untested();
+		return param_name(i);
 	}
 	std::string param_value(int i)const override{
 		int s = object::param_count() - 1 - i;
