@@ -8,6 +8,10 @@ macromodule: already installed, replacing
 stashing as macromodule:0
 verilog: already installed, replacing
 stashing as verilog:0
+X: already installed, replacing
+stashing as X:0
+subckt: already installed, replacing
+stashing as subckt:0
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 

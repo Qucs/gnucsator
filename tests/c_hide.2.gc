@@ -1,5 +1,9 @@
 load ../c_hide.so
 
+end
+
+it does not work anyway
+
 verilog
 
 module tst(1, 2);

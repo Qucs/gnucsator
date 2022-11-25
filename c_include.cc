@@ -81,6 +81,7 @@ public:
         owner = prechecked_cast<BASE_SUBCKT*>(c);
         assert(owner);
         owner->set_label(module_name);
+        owner->precalc_first(); // init mfactor=1
         Scope->push_back(owner);
         Scope = owner->scope();
       }else{
