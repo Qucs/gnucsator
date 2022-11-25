@@ -47,7 +47,7 @@ public:
     for(auto i : _hidden){
       // trace1("hide delete", i.second->short_label());
       delete i.first;
-      // delete i.second; BUG
+      delete i.second;
     }
   }
 public:
