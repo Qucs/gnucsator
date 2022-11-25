@@ -187,17 +187,17 @@ public:
   ~SPARAM() {}
 private:
   explicit SPARAM(const SPARAM&):SIM() {unreachable(); incomplete();}
-  void sweep();
+  void sweep() override;
   void first();
   bool next();
   bool next_freq();
   void solve();
   void clear();
   void hack_findall( CARD_LIST* scope);
-  void setup(CS&);
+  void setup(CS&) override;
   void outmatrix(gsl_matrix_complex const* M);
-  void outdata(double);
-  void store_results(double x);
+  void outdata(double, int) override;
+  void store_results(double x) override;
   void flush();
 private:
   OMSTREAM _out; // tmp hack
@@ -435,7 +435,7 @@ void SPARAM::solve()
   return;
 }
 /*--------------------------------------------------------------------------*/
-void SPARAM::outdata(double x)
+void SPARAM::outdata(double x, int)
 {
   store_results(x);
 }
@@ -633,7 +633,7 @@ void SPARAM::sweep()
       }
 
       //outmatrix(S);
-      outdata(_sim->_freq);
+      outdata(_sim->_freq, 0);
 
     }else{ untested();
     }
