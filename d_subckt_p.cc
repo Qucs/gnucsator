@@ -129,6 +129,7 @@ DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "X|subckt", &pp);
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT_PROTO::precalc_first()
 {
+  BASE_SUBCKT::precalc_first();
   CARD_LIST* scope;
   if(owner()){ untested();
     scope = owner()->subckt();
