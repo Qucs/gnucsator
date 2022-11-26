@@ -21,7 +21,6 @@
  *------------------------------------------------------------------
  * dc analysis top
  */
-#include "u_sim_data.h" // avoid upstream include (for now)
 #include "globals.h"
 #include "u_status.h"
 #include "u_prblst.h"

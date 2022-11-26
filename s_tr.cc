@@ -23,7 +23,6 @@
  */
 //testing=script,complete 2007.11.22
 #include "globals.h"
-#include "u_sim_data.h"
 #include "u_status.h"
 #include "s_tr.h"
 #include "s_tr_out.cc"
