@@ -150,8 +150,6 @@ parameter pos.Vt-neg.Vt not specified, using default
 parameter pos.Vt-neg.Vt value is "NOT_INPUT"
 parameter pos.Vt-neg.Vt not specified, using default
 parameter pos.Vt-neg.Vt value is "NOT_INPUT"
-parameter pos.Vt-neg.Vt not specified, using default
-parameter pos.Vt-neg.Vt value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=0, dc=10, tran=507, fourier=0, total=576
 transient timesteps: accepted=59, rejected=0, total=59

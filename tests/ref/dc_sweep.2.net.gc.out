@@ -33,20 +33,20 @@ stashing as L:0
 sweep go outfile=dc_sweep.2.net.tmp
 calling op: I1 0.01 0.05 0.01 trace=n basic > dc_sweep.2.net.tmp.dc>>>>>status notime 
 Gnucap   System status
-iterations: op=2, dc=20, tran=0, fourier=0, total=22
+iterations: op=2, dc=10, tran=0, fourier=0, total=12
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
-<indep swp0 5>
+<indep I1 5>
  0.01
  0.02
  0.03
  0.04
  0.05
 </indep>
-<dep _net0.V swp0>
+<dep _net0.V I1>
  0.01
  0.02
  0.03

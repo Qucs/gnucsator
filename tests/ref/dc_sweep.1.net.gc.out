@@ -36,7 +36,7 @@ sweep go outfile=dc_sweep.1.net.tmp
 sweep go outfile=dc_sweep.1.net.tmp R1 10 30 10
 calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dc>>>>>status notime 
 Gnucap   System status
-iterations: op=2, dc=20, tran=0, fourier=0, total=22
+iterations: op=2, dc=12, tran=0, fourier=0, total=14
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
