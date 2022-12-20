@@ -57,7 +57,6 @@ load qucs/s_tr.so
 load qucs/s_sparam.so
 load qucs/s_sweep.so
 load qucs/c_include.so
-load qucs/c_prbcmd.so
 load qucs/d_eqn.so
 
 load public qucs/d_diode.so
