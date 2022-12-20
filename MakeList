@@ -13,30 +13,30 @@ contrib_bin_SCRIPTS = \
 	contrib/qucs_data_convert.py
 
 PLUGIN_CC = \
-	lang_qucs.cc \
-	lang_verilog.cc \
+	bm_poly.cc \
+	bm_trivial.cc \
+	bm_value.cc \
+	bm_wrapper.cc \
 	c_hide.cc \
+	c_include.cc \
 	c_list.cc \
 	c_uninst.cc \
 	c_vpp.cc \
-	c_include.cc \
+	cmd_wrapper.cc \
 	d_eqn.cc \
-	d_poly_g_uf.cc \
-	bm_poly.cc \
 	d_gpolyk_wrap.cc \
+	d_poly_g_uf.cc \
 	d_probe.cc \
 	d_subckt_p.cc \
 	functions.cc \
-	bm_value.cc \
-	bm_trivial.cc \
-	bm_wrapper.cc \
-	cmd_wrapper.cc \
+	lang_qucs.cc \
+	lang_verilog.cc \
 	microstrip_wrap.cc \
-	subst_wrap.cc \
-	s_tr.cc \
 	s_dc.cc \
 	s_sparam.cc \
-	s_sweep.cc
+	s_sweep.cc \
+	s_tr.cc \
+	subst_wrap.cc
 
 PLUGIN_MODEL = \
 	d_diode.model \
