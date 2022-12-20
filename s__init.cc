@@ -39,6 +39,15 @@ void SIM::command_base(CS& cmd)
     _sim->init(_scope);
     _scope->precalc_last();
 
+    for(auto i = _scope->begin(); i!=_scope->end(); ++i){
+      CARD* deflated = (*i)->deflate();
+      if(*i!=deflated){ untested();
+	delete *i;
+	*i = deflated;
+      }else{
+      }
+    }
+
     _sim->alloc_vectors();
     _sim->_aa.reallocate();
     _sim->_aa.dezero(OPT::gmin);
