@@ -55,13 +55,13 @@ parameter spline value is "NOT_INPUT"
 parameter spline not specified, using default
 parameter spline value is "NOT_INPUT"
 Gnucap   System status
-iterations: op=0, dc=0, tran=55, fourier=0, total=74
-transient timesteps: accepted=18, rejected=1, total=19
+iterations: op=0, dc=0, tran=57, fourier=0, total=77
+transient timesteps: accepted=19, rejected=1, total=20
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=5, subckt=2, model=0, total=7
 dctran density=30.6%, ac density=30.6%
 
-<indep time 18>
+<indep time 19>
  0.
  10.E-6
  20.E-6
@@ -69,16 +69,17 @@ dctran density=30.6%, ac density=30.6%
  100.E-6
  100.E-6
  100.E-6
- 147.3684E-6
- 194.7368E-6
+ 152.9412E-6
  200.E-6
  200.E-6
- 223.5294E-6
- 240.7843E-6
- 258.0392E-6
+ 200.E-6
+ 236.3636E-6
+ 272.7273E-6
+ 353.5354E-6
  400.E-6
  600.E-6
- 800.E-6
+ 733.3333E-6
+ 866.6667E-6
  0.001
 </indep>
 <dep _net0.Vt time>
@@ -92,6 +93,7 @@ dctran density=30.6%, ac density=30.6%
  15.E-15
  15.E-15
  15.E-15
+ 0.
  0.
  0.
  0.
@@ -120,8 +122,10 @@ dctran density=30.6%, ac density=30.6%
  3.7
  3.7
  3.7
+ 3.7
 </dep>
 <dep _net2.Vt time>
+ 3.7
  3.7
  3.7
  3.7
@@ -160,8 +164,10 @@ dctran density=30.6%, ac density=30.6%
  3.7
  3.7
  3.7
+ 3.7
 </dep>
 <dep _net4.Vt time>
+ 0.
  0.
  0.
  0.
@@ -197,6 +203,7 @@ dctran density=30.6%, ac density=30.6%
  3.674169
  3.674169
  3.674169
+ 3.7
  3.7
  3.7
  3.7

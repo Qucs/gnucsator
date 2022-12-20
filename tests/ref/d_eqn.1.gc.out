@@ -13,8 +13,6 @@ parameter time*time not specified, using default
 parameter time*time value is "NOT_INPUT"
 parameter b+baz+bar not specified, using default
 parameter b+baz+bar value is "NOT_INPUT"
-parameter b+baz+bar not specified, using default
-parameter b+baz+bar value is "NOT_INPUT"
 #Time       foo(Eq1)   baz(Eq1)   more(Eq1) 
  0.         3.         0.         10.       
  0.005      3.         25.u       10.       
