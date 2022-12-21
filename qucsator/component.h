@@ -268,14 +268,14 @@ private: // COMPONENT
 			}else{
 			}
 		}
-
-		std::string s = getPropertyString("Subst");
-    	_substrate = dynamic_cast<substrate*>(find_in_my_scope(s));
-		assert(_substrate); // for now.. TODO
 	}
 	void expand() override{
-		incomplete();
 		COMPONENT::expand();
+
+		// this only makes sense for MS stuff.
+		std::string s = getPropertyString("Subst");
+		_substrate = dynamic_cast<substrate*>(find_in_my_scope(s));
+		assert(_substrate || s==""); // for now.. TODO
 	}
 	void precalc_last() override{
 		COMPONENT::precalc_last();
