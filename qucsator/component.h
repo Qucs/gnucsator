@@ -112,13 +112,22 @@ typedef enum {
 
 class circuit : public COMPONENT{
 protected:
-	circuit(circuit const& c) : COMPONENT(c),  _num_ports(c._num_ports){
+	circuit(circuit const& c) : COMPONENT(c), _num_ports(c._num_ports) {
 		assert(_num_ports);
 		assert(!_n);
-		// init();
+		_n = new node_t[_num_ports];
+		if(c._n){ untested();
+			for(int i=0; i<_num_ports; ++i){ untested();
+				_n[i] = c._n[i];
+			}
+		}else{
+			// eek
+		}
+//		assert(!_matrix);
+//		_matrix = new DPAIR[_num_ports*_num_ports];
 	};
 public:
-	circuit(int n) : COMPONENT(), _num_ports(n) { untested();
+	circuit(int n) : COMPONENT(), _num_ports(n) {
 		assert(!_n);
 		assert(n);
 	}
@@ -128,7 +137,7 @@ public:
 		for(auto i : _p){
 			delete i;
 		}
-		delete _matrix;
+		delete [] _matrix;
 		delete [] _n;
 	}
 private:
@@ -136,23 +145,23 @@ private:
 public:
 	void init();
 protected: // qucsator globals
-	std::string getName() const{
+	std::string getName() const{ untested();
 		return long_label();
 	}
-	int createInternal(std::string, std::string){
+	int createInternal(std::string, std::string){ untested();
 		incomplete();
 		return -1;
 	}
-	void setNode(node_number, int){
+	void setNode(node_number, int){ untested();
 		incomplete();
 	}
-	double getPropertyDouble(std::string const& s){ untested();
+	double getPropertyDouble(std::string const& s){
 		trace1("getPropertyDouble", s);
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
 			assert(false);
 			return 0.;
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){
 			assert(*ps == *ps);
 			assert(ps->has_good_value());
 			return *ps;
@@ -183,7 +192,7 @@ protected: // qucsator globals
 	void setCharacteristic (std::string const&, double const&){ untested();
 		incomplete();
 	}
-	substrate /*const*/ * getSubstrate(){ untested();
+	substrate /*const*/ * getSubstrate(){
 		return _substrate;
 	}
    void setVoltageSources(double) {incomplete();}
@@ -219,10 +228,13 @@ protected: // qucsator globals
 //	load_ac?
 	void setS (node_number, node_number, nr_complex_t){ incomplete(); }
 // acrhs?
-	void setY (node_number ii, node_number jj, nr_complex_t x){ untested();
+	void setY (node_number ii, node_number jj, nr_complex_t x){
+		assert(ii<_num_ports);
+		assert(jj<_num_ports);
+		assert(_matrix);
 		DPAIR& dp = _matrix[ii*_num_ports+jj];
 		if(x==x){
-		}else{
+		}else{ untested();
 			trace3("setY", ii, jj, x);
 		}
 		assert(x==x);
@@ -237,10 +249,10 @@ private: // "circuit"
 	virtual void initDC(){ unreachable(); }
 
 public: // used in mstee.
-	void initSP(){
+	void initSP(){ untested();
 		incomplete();
 	}
-	void initNoiseSP(){
+	void initNoiseSP(){ untested();
 		incomplete();
 	}
 
@@ -464,8 +476,8 @@ protected: // qucsator globals
 	int type;
 //	static double C0; // ??
 private:
-	DPAIR* _matrix;
-	int _num_ports;
+	DPAIR* _matrix{nullptr};
+	const int _num_ports;
 	std::vector<PARA_BASE*> _p;
 	std::vector<std::string const*> _pnames;
 	std::map<std::string, PARA_BASE*> _pn;
@@ -474,8 +486,16 @@ private:
 
 inline void circuit::init()
 {
-	_n = new node_t[_num_ports];
-	_matrix = new DPAIR[_num_ports*_num_ports];
+	if(!_num_ports){ untested();
+	}else if(!_n){ untested();
+		_n = new node_t[_num_ports];
+	}else{
+	}
+	if(!_num_ports){ untested();
+	}else if(!_matrix){
+		_matrix = new DPAIR[_num_ports*_num_ports];
+	}else{ untested();
+	}
 	unsigned i=0;
 	for(; cd()->required[i].key; ++i){
 		auto p = cd()->required[i];

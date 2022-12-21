@@ -8,13 +8,13 @@ struct object : public MODEL_CARD{
 	object() : MODEL_CARD(nullptr) {}
 	object(std::string const&) : MODEL_CARD(nullptr) {}
 	std::string getName() const{return "noname";}
-	double getPropertyDouble(std::string const& s){ untested();
+	double getPropertyDouble(std::string const& s){
 		trace1("getPropertyDouble", s);
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
 			assert(false);
 			return 0.;
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){
 			assert(*ps == *ps);
 			assert(ps->has_good_value());
 			return *ps;
@@ -45,7 +45,7 @@ struct object : public MODEL_CARD{
 		if(s < int(_p.size())){
 			assert(s<int(_pnames.size()));
 			return *_pnames[s];
-		}else{ untested();
+		}else{
 			return MODEL_CARD::param_name(i);
 		}
 	}
@@ -56,7 +56,7 @@ struct object : public MODEL_CARD{
 		int s = object::param_count() - 1 - i;
 		if(s >= int(_p.size())){
 			return MODEL_CARD::param_name(i);
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){ untested();
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){
 			assert(s<int(_p.size()));
 			return ps->string();
 		}else{ untested();
@@ -95,7 +95,7 @@ private: // MODEL_CARD
 		MODEL_CARD::precalc_first();
 
 		for(unsigned s=0; s<_p.size(); ++s){
-			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){ untested();
+			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){
 				ps->e_val(NOT_VALID, Scope);
 				trace3("param", s, ps->string(), *ps);
 			}else{
