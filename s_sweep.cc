@@ -24,6 +24,8 @@
 #include "c_comand.h"
 #include "globals.h"
 #include "l_qucs.h" // QucsGet
+#include "s__out.cc"
+#include "s__init.cc"
 
 namespace{
 /*--------------------------------------------------------------------------*/
