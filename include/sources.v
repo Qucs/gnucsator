@@ -133,10 +133,4 @@ y_dctr #(.y({1/Z})) Y1(i 2);
 pac_ #(.Num(Num) .Z(Z) .P(P)) sp(1, 2);
 endmodule
 
-`ifdef GNUCAP
-hidemodule Vdc
-hidemodule VCVS
-hidemodule CCVS
-`endif
-
 simulator lang=acs
