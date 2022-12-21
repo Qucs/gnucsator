@@ -136,7 +136,10 @@ EQN::EQN(const EQN& p):
 void EQN::set_param_by_name(string Name, string Value)
 {
   if(Name=="Export"){
-    incomplete();
+    if(Value=="0"){
+    }else{
+      incomplete();
+    }
   }else{
     PARAMETER<double> p;
     p = Value;
@@ -152,24 +155,19 @@ void EQN::set_param_by_name(string Name, string Value)
 void EQN::expand()
 {
   if (!subckt()) {
-#if 0 // UF hack
-    new_subckt(&_params);
-    // FIXME: time?
-//    _params.set_try_again(&_params_extra);
-#else
     new_subckt();
-    PARAM_LIST* dummy = new PARAM_LIST;
-    subckt()->attach_params(dummy, scope());
-    delete dummy;
-    subckt()->params()->set_try_again(&_params);
-#endif
-    _params.set_try_again(scope()->params());
   }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 void EQN::precalc_last()
 {
+  PARAM_LIST* dummy = new PARAM_LIST;
+  subckt()->attach_params(dummy, scope());
+  delete dummy;
+  subckt()->params()->set_try_again(&_params);
+  _params.set_try_again(scope()->params());
+
   parm_eval();
 
   for(auto i=_params.begin(); i!=_params.end(); ++i){
