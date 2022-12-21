@@ -141,7 +141,12 @@ void DEV_SUBCKT_PROTO::precalc_first()
   subckt()->params()->set_try_again(pl);
 
   // deal with nested subckt protos.
-  subckt()->precalc_first();
+  for(auto i : *subckt()){
+    if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){
+      i->precalc_first();
+    }else{
+    }
+  }
 }
 /*--------------------------------------------------------------------------*/
 DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)

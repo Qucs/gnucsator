@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 C:C1 gnd out C="5 pF" V="" 
                       ^ ? C1: V has no value?
 .TR:TR1 Type="l ... " IntegrationMethod="Gear" Order="2" InitialStep="1 ns" 

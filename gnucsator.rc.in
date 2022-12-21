@@ -31,6 +31,7 @@ uninstall status transient
 uninstall comp dev_comment
 uninstall comp C
 uninstall comp D
+uninstall comp L
 uninstall comp R
 uninstall comp X
 uninstall comp subckt

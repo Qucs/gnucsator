@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 # .SP:SPTC1 Type="lin" Start="0.2 GHz" Stop="4.2 GHz" Points="101" Noi
 ^ ? # .SP: no match
 .SP:SPTC1 Type= ... p="4e9" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s

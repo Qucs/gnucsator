@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 C:C1 gnd OUT C="680 pF" V="" 
                         ^ ? C1: V has no value?
 parameter Z_Diodes_1N4728A not specified, using default

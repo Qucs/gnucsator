@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 >>>>>Eqn:Eqn1 I1="1" Export="yes" 
 >>>>>Eqn:Eqn2 R1="1" Export="yes" 
 >>>>>.SW:SW1 Sim="DC1" Type="lin" Param="I1" Start="10m" Stop="20m" Points="2" 

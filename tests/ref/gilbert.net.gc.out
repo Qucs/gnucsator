@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 C:C3 _net10 _net8 C="1 uF" V="" 
                            ^ ? C3: V has no value?
 Gnucap   System status

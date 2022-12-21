@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 Gnucap   System status
 iterations: op=0, dc=0, tran=456, fourier=0, total=574
 transient timesteps: accepted=112, rejected=6, total=118

@@ -11,5 +11,3 @@ R:R1 post gnd R="100 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
 VProbe:Pr2 _net0 gnd
 Sub:foo1 pre _net0 Type="mysub"
 Sub:foo pre post Type="mysub"
-
-.list

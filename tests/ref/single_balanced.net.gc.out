@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 T3.mynmos: rsh - rs - rd conflict: using rsh
 T3.mynmos: is - js conflict
 T3.mynmos: nsub < ni, treating as if not input

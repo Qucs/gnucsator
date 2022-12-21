@@ -24,8 +24,6 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-L: already installed, replacing
-stashing as L:0
 .SP:SP1 Type="l ... op="1e9" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 # Eqn:Eqn1 Attenuation2="dB(S[2,1])" Reflect="dB(S[1,1])" Attenuation3
