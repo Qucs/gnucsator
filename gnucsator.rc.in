@@ -41,7 +41,6 @@ load qucs/d_subckt_p.so
 
 options numdgt 40
 load qucs/bm_value.so
-load qucs/bm_wrapper.so
 load qucs/bm_trivial.so
 load qucs/c_hide.so
 load qucs/c_list.so

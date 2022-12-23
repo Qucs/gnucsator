@@ -1,4 +1,3 @@
-load bm_wrapper.so
 load bm_trivial.so
 verilog
 param u=3

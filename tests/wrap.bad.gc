@@ -1,4 +1,3 @@
-load bm_wrapper.so
 load bm_trivial.so
 load d_probe.so
 load s_sparam.so

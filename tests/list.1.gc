@@ -1,6 +1,5 @@
 
 load ../lang_qucs.so
-load ../bm_wrapper.so
 load ../c_hide.so
 load ../c_list.so
 load ../s_sparam.so
