@@ -23,8 +23,8 @@ endmodule // NAND_GATE_cir
 
 NAND_GATE_cir #(.Type(NAND_GATE_cir)) X1 (._netA(A),._netVCC(_net0),._netB(B),._netY(out),._ref(0));
 C #(.C(5p)) C1 (.p(0),.n(out));
-Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1m),.TL(1m)) VA (.p(A),.n(0));
-Vrect #(.U(5),.Td(1m),.Tr(10n),.Tf(10n),.TH(1.3m),.TL(1.3m)) VA1 (.p(B),.n(0));
+Vrect #(.TH(1m),.TL(1m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA (.1(A),.2(0));
+Vrect #(.TH(1.3m),.TL(1.3m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA1 (.1(B),.2(0));
 Vdc #(.U(5)) V1 (.p(_net0),.n(0));
 endmodule // main
 

@@ -31,6 +31,8 @@ stashing as verilog:0
 // "sources" section 
 * Vexp:V1 _net4 _net5 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1  ms" Tf="1 ms" 
 * Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms" 
+* Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns" 
+* Vrect:V2 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns" 
 * Irect:I1 _net0 _net1 I="1" TH="1 ms" TL="1 ms" Tr=".5m" Tf=".5m" Td=".5m" 
 * Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0" 
 * don't need spice for this 
@@ -59,6 +61,8 @@ SUBST:SubstTC1  er="9.8" h="0.635m" t="17.5u" tand="0.0001" rho="2.43902e-08" D=
 // "sources" section 
 //* Vexp:V1 _net4 _net5 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1  ms" Tf="1 ms" 
 //* Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms" 
+//* Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns" 
+//* Vrect:V2 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns" 
 //* Irect:I1 _net0 _net1 I="1" TH="1 ms" TL="1 ms" Tr=".5m" Tf=".5m" Td=".5m" 
 //* Vac:V1 Gate gnd U="5 V" f="10 MHz" Phase="0" Theta="0" 
 //* don't need spice for this 

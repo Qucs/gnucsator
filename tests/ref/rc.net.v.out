@@ -3,7 +3,7 @@ module main ();
 //# Qucs 0.0.19 
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
 VProbe #() Pr1 (.p(_net1),.n(0));
-Vrect #(.U(1),.Td(0n),.Tr(1n),.Tf(1n),.TH(1m),.TL(1m)) V1 (.p(_net0),.n(0));
+Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1n),.Tr(1n),.U(1)) V1 (.1(_net0),.2(0));
 C #(.C(1u)) C1 (.p(_net1),.n(0));
 endmodule // main
 
