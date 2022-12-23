@@ -67,6 +67,31 @@ I1 1 2 dc=0 ac={I}
 I1 2 1 pulse rise=Tr fall=Tf delay=T1 pv=I2 iv=I1 width={T2-T1-Tr-Tf}
 .ends
 
+* Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns"
+.subckt Vpulse(1 2);
+.parameter U1
+.parameter U2
+.parameter T2
+.parameter TL
+.parameter Tr
+.parameter Tf
+.parameter T1
+
+V1 1 2 pulse pv=U2 rise=Tr fall=Tf width={T2-T1-Tf-Tr} iv=U1
+.ends
+
+* Vrect:V2 _net1 gnd U="1 V" TH="1 ms" TL="1 ms" Tr="1 ns" Tf="1 ns" Td="0 ns"
+.subckt Vrect(1 2);
+.parameter U=1
+.parameter Td
+.parameter Tr
+.parameter Tf
+.parameter TH
+.parameter TL
+
+V1 1 2 pulse pv=U delay=Td rise=Tr fall=Tf period={TH+TL+Tr+Tf} width={TH+Tf+Tr} iv=0
+.ends
+
 * Irect:I1 _net0 _net1 I="1" TH="1 ms" TL="1 ms" Tr=".5m" Tf=".5m" Td=".5m"
 .subckt Irect(1 2);
 .parameter I=1

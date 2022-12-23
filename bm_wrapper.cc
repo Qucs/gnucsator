@@ -319,6 +319,7 @@ class DEV_SCKT_WRAP : public BASE_SUBCKT{
 };
 
 /*--------------------------------------------------------------------------*/
+#if 0
 const char* pn[3] = {"p","n", NULL};
 /*--------------------------------------------------------------------------*/
 // Vpulse:V3 _net2 _net3 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1 ns" Tf="1 ns"
@@ -346,7 +347,6 @@ DEV_SCKT_WRAP m3b(&qucs_Vpulse, pn, Vrect_param, "Vrect", Vrect_assign, 2);
 DISPATCHER<CARD>::INSTALL d3b(&device_dispatcher, "Vrect", &m3b);
 /*--------------------------------------------------------------------------*/
 // dispatch(resistor, bm_value, R)
-#if 0
 const char* Vres_param[] = {"R", "Tc1", "Tc2", "Temp", "Tnom", "ic", NULL,
                             "r", "tc1", "tc2", "temp", "tnom", "ic"};
 DEV_BM_WRAP qucs_Res("resistor", "value", "uneeded");

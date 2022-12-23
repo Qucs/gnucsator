@@ -25,13 +25,13 @@ stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
 Gnucap   System status
-iterations: op=0, dc=0, tran=230, fourier=0, total=323
-transient timesteps: accepted=61, rejected=32, total=93
+iterations: op=0, dc=0, tran=235, fourier=0, total=330
+transient timesteps: accepted=63, rejected=32, total=95
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
-<indep time 61>
+<indep time 63>
  0.
  1.E-9
  2.E-9
@@ -66,17 +66,20 @@ dctran density=100.0%, ac density=100.0%
  0.005000016
  0.005000016
  0.005000016
+ 0.005000021
  0.006000006
  0.006000007
  0.006005116
  0.006006393
  0.006006712
  0.006007031
+ 0.006805625
  0.007000009
  0.00700001
- 0.007000017
- 0.007000017
- 0.007000017
+ 0.007000014
+ 0.007000014
+ 0.007000014
+ 0.007000014
  0.007000017
  0.008000008
  0.008000009
@@ -91,7 +94,6 @@ dctran density=100.0%, ac density=100.0%
  0.009000017
  0.009000017
  0.009000017
- 0.00900002
  0.01
 </indep>
 <dep _net1.Vt time>
@@ -124,6 +126,7 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
+ 309.515E-12
  0.
  0.
  0.
@@ -136,6 +139,8 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
+ 1.
+ 743.196E-12
  0.
  0.
  0.
@@ -149,7 +154,6 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
- 960.037E-12
  0.
  0.
  0.
@@ -187,6 +191,7 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
+ 309.515E-12
  0.
  0.
  0.
@@ -199,6 +204,8 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
+ 1.
+ 743.196E-12
  0.
  0.
  0.
@@ -212,7 +219,6 @@ dctran density=100.0%, ac density=100.0%
  1.
  1.
  1.
- 960.037E-12
  0.
  0.
  0.
