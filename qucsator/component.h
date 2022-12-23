@@ -11,6 +11,7 @@
 #include <cmath>
 #include <complex>
 #include <string.h>
+#include "../q_paramlist.h"
 
 typedef double nr_double_t;
 typedef std::complex<double> nr_complex_t;
@@ -37,34 +38,6 @@ public: \
 	a( const a& p) : circuit(p){incomplete();} \
 	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
 
-class mystring : public std::string{
-public:
-	mystring() : std::string() {}
-	mystring(const char* c) : std::string(c) {}
-
-	bool operator!=(const double& d) const{ untested();
-		return !operator==(d);
-	}
-	bool operator==(const double& d) const{ untested();
-		if(d==NOT_VALID){ untested();
-			return std::string(*this) == "invalid";
-		}else if(d==NOT_INPUT){ untested();
-			return std::string(*this) == "not_input";
-		}else{ untested();
-			unreachable();
-			return false;
-		}
-	}
-
-	void parse(CS& a){ untested();
-		incomplete();
-		trace1("mystring parse", a.tail());
-	}
-};
-
-inline std::string to_string(mystring const& a){ untested();
-	return std::string(a);
-}
 
 namespace qucs{
 
@@ -110,6 +83,8 @@ typedef enum {
 	VSRC_4 = 3,
 	VSRC_5 = 4 } vsrc_number;
 
+static Q_PARAMLIST Default_PARAMS(CC_STATIC);
+
 class circuit : public COMPONENT{
 protected:
 	circuit(circuit const& c) : COMPONENT(c), _num_ports(c._num_ports) {
@@ -125,18 +100,21 @@ protected:
 		}
 //		assert(!_matrix);
 //		_matrix = new DPAIR[_num_ports*_num_ports];
+//
 	};
 public:
 	circuit(int n) : COMPONENT(), _num_ports(n) {
 		assert(!_n);
 		assert(n);
+//		// BUG. init
+//      attach_common(&Default_PARAMS);
 	}
 	~circuit() {
 		// BUG: memory leak
 		// incomplete();
-		for(auto i : _p){
-			delete i;
-		}
+//		for(auto i : _p){
+//			delete i;
+//		}
 		delete [] _matrix;
 		delete [] _n;
 	}
@@ -156,7 +134,19 @@ protected: // qucsator globals
 		incomplete();
 	}
 	double getPropertyDouble(std::string const& s){
-		trace1("getPropertyDouble", s);
+		Q_PARAMLIST const* c = prechecked_cast<Q_PARAMLIST const*>(common());
+		assert(c);
+		auto pp = c->_params.find(s);
+		if(pp == c->_params.end()){ untested();
+			incomplete();
+			assert(false);
+			return 0.;
+		}else{
+			trace3("getPropertyDouble", s, pp->second.string(), double(pp->second));
+			return pp->second;
+		}
+		
+#if 0
 		auto i = _pn.find(s);
 		if(i == _pn.end()){ untested();
 			assert(false);
@@ -165,28 +155,22 @@ protected: // qucsator globals
 			assert(*ps == *ps);
 			assert(ps->has_good_value());
 			return *ps;
-			trace1("getPropertyDouble", *ps);
 		}else{ untested();
 			assert(false);
 			return 0;
 		}
+#endif
 	}
 	const char* getPropertyString(std::string const& s){
-		trace2("prop string", s, short_label());
-		auto i = _pn.find(s);
-		if(i == _pn.end()){ untested();
-			assert(false);
-			return "";
-		}else if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(i->second)){
-			trace2("got prop string", s, ps->string());
-			trace0("got prop string...");
-			return strdup(ps->string().c_str()); // BUG: memory leak
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(i->second)){ untested();
-			assert(false);
-			return strdup(ps->string().c_str()); // BUG: memory leak
-		}else{ untested();
-			assert(false);
-			return "";
+		Q_PARAMLIST const* c = prechecked_cast<Q_PARAMLIST const*>(common());
+		assert(c);
+		trace1("getPropertyString", s);
+		auto pp = c->_params.find(s);
+		if(pp == c->_params.end()){ untested();
+			incomplete();
+			return NULL;
+		}else{
+			return strdup(pp->second.string().c_str());
 		}
 	}
 	void setCharacteristic (std::string const&, double const&){ untested();
@@ -258,18 +242,23 @@ public: // used in mstee.
 
 private: // COMPONENT
 	void precalc_first() override{
-		CARD_LIST* Scope=scope();
+		trace2("precalc_first fwd", long_label(), common());
 		COMPONENT::precalc_first();
 
-		for(unsigned s=0; s<_p.size(); ++s){
-			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){
-				ps->e_val(NOT_VALID, Scope);
-				trace3("param", s, ps->string(), *ps);
-			}else{
-			}
-		}
+		CARD_LIST* Scope=scope();
+		mutable_common()->precalc_first(Scope);
+		mutable_common()->precalc_last(Scope);
+
+		//for(unsigned s=0; s<_p.size(); ++s){
+		//	if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){
+		//		ps->e_val(NOT_VALID, Scope);
+		//		trace3("param", s, ps->string(), *ps);
+		//	}else{
+		//	}
+		//}
 	}
 	void expand() override{
+		trace2("expand fwd", long_label(), common());
 		COMPONENT::expand();
 
 		// this only makes sense for MS stuff.
@@ -279,6 +268,8 @@ private: // COMPONENT
 	}
 	void precalc_last() override{
 		COMPONENT::precalc_last();
+		CARD_LIST* Scope=scope();
+		mutable_common()->precalc_last(Scope);
 	}
 	void tr_iwant_matrix() override {tr_iwant_matrix_extended();}
 	void ac_iwant_matrix() override {ac_iwant_matrix_extended();}
@@ -349,12 +340,12 @@ private: // COMPONENT
 		calcAC (freq);
 	}
    int param_count()const override{
-		trace1("circuit::param_count", _p.size());
-		return COMPONENT::param_count() + int(_p.size());
+		// assert(_num_param = c->_params.size()); //?
+		return COMPONENT::param_count(); //  + int(_num_param);
 	}
    bool param_is_printable(int i)const override{
 		int s = circuit::param_count() - 1 - i;
-		if(s < int(_p.size())){
+		if(s < _num_param){
 			return true;
 		}else{
 			return COMPONENT::param_is_printable(i);
@@ -363,17 +354,23 @@ private: // COMPONENT
 	void set_param_by_index(int i, std::string& b, int j) override{ untested();
 		trace3("circuit::set_param_by_index", i, b, j);
 		int s = circuit::param_count() - 1 - i;
-		if(s < int(_p.size())){ untested();
-			*_p[s] = b;
+		if(s < _num_param){ untested();
+			incomplete();
+			// *_p[s] = b;
 		}else{ untested();
 			COMPONENT::set_param_by_index(i, b, j);
 		}
 	}
 	void set_param_by_name(std::string a, std::string b) override{
 		trace2("circuit::set_param_by_name", a, b);
+		COMPONENT::set_param_by_name(a, b);
+	}
+#if 0
+	{
 		auto i = _pn.find(a);
 		if(i == _pn.end()){ untested();
 			incomplete();
+			// throw
 		}else{
 			*i->second = b;
 		}
@@ -381,7 +378,7 @@ private: // COMPONENT
 	}
 	std::string param_name(int i)const{
 		int s = circuit::param_count() - 1 - i;
-		if(s < int(_p.size())){
+		if(s < _num_param){
 			assert(s < int(_pnames.size()));
 			return *_pnames[s];
 		}else{ untested();
@@ -396,6 +393,8 @@ private: // COMPONENT
 			return "dunno";
 		}
 	}
+#endif
+#if 0
 	std::string param_value(int i)const override{
 		int s = circuit::param_count() - 1 - i;
 		if(s >= int(_p.size())){ untested();
@@ -410,8 +409,12 @@ private: // COMPONENT
 			return "unreachable";
 		}
 	}
+#endif
 
-	std::string value_name()const override{incomplete(); return "value_name_incomplete";}
+	std::string value_name()const override{
+		incomplete();
+		return "value_name_incomplete";
+	}
 	std::string port_name(int i)const override{
 		return "p"+to_string(i);
 	}
@@ -478,9 +481,10 @@ protected: // qucsator globals
 private:
 	DPAIR* _matrix{nullptr};
 	const int _num_ports;
-	std::vector<PARA_BASE*> _p;
-	std::vector<std::string const*> _pnames;
-	std::map<std::string, PARA_BASE*> _pn;
+	int _num_param{0};
+//	std::vector<PARA_BASE*> _p;
+//	std::vector<std::string const*> _pnames;
+//	std::map<std::string, PARA_BASE*> _pn;
 	substrate* _substrate;
 }; // circuit
 
@@ -496,34 +500,41 @@ inline void circuit::init()
 		_matrix = new DPAIR[_num_ports*_num_ports];
 	}else{ untested();
 	}
-	unsigned i=0;
-	for(; cd()->required[i].key; ++i){
-		auto p = cd()->required[i];
-		auto k = p.key;
 
-		if(p.type == PROP_REAL){
-			_p.push_back(new PARAMETER<double>);
-			auto pp = _pn.insert(std::make_pair(k, _p.back()));
-			_pnames.push_back(&pp.first->first);
-		}else if(p.type == PROP_STR){
-			_p.push_back(new PARAMETER<mystring>(mystring("invalid")));
-			auto pp = _pn.insert(std::make_pair(k, _p.back()));
-			_pnames.push_back(&pp.first->first);
-		}else{ untested();
-			incomplete();
+	if(common()){
+		// BUG init once only. not here.
+	}else{
+
+		Q_PARAMLIST* mc = prechecked_cast<Q_PARAMLIST*>(Default_PARAMS.clone());
+		assert(mc);
+		unsigned i=0;
+		_num_param = 0;
+		for(; cd()->required[i].key; ++i){
+			auto p = cd()->required[i];
+			auto k = p.key;
+
+			if(p.type == PROP_REAL){
+				++_num_param;
+				mc->_params.set(k, PARAMETER<double>());
+			}else if(p.type == PROP_STR){
+				++_num_param;
+				mc->_params.set(k, PARAMETER<mystring>(mystring("")));
+			}else{ untested();
+				incomplete();
+			}
 		}
-	}
-	unsigned j=0;
-	for(;;++j){
-		if(char const* k=cd()->optional[j].key){
-			_p.push_back(new PARAMETER<double>);
-			auto p = _pn.insert(std::make_pair(k, _p.back()));
-			_pnames.push_back(&p.first->first);
-		}else{
-			break;
+		unsigned j=0;
+		for(;;++j){
+			if(char const* k=cd()->optional[j].key){
+				++_num_param;
+				mc->_params.set(k, PARAMETER<double>());
+			}else{
+				break;
+			}
 		}
+		attach_common(mc);
+		trace2("circuit::init params", i, j);
 	}
-	trace2("circuit::init params", i, j);
 }
 } // namespace qucs
 #endif

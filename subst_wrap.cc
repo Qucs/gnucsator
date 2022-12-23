@@ -7,6 +7,7 @@
 #include "component.h"
 #include "microstrip/substrate.h"
 #include "microstrip/msline.h"
+#include "q_paramlist.cc"
 
 namespace{
 qucs::substrate c0;
@@ -26,3 +27,5 @@ class SUBST : public CMD {
 }c1;
 DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "SUBST", &c1);
 }
+
+//std::string	Q_PARAMLIST::name()const	{untested();return "";}

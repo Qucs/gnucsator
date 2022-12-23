@@ -23,6 +23,7 @@
  * (works with both upstream and -uf, hence still ugly)
  */
 #ifndef PAR_UF_H
+#define PAR_UF_H
 /*--------------------------------------------------------------------------*/
 #define IString std::string
 #include "u_parameter.h"
@@ -175,6 +176,44 @@ inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
   }
   o << ")";
   return o;
+}
+/*--------------------------------------------------------------------------*/
+class mystring : public std::string{
+public:
+	explicit mystring() : std::string() {}
+	mystring(mystring const& x) : std::string(x) {}
+	explicit mystring(std::string const& x) : std::string(x) {}
+	explicit mystring(const char* c) : std::string(c) {}
+	explicit mystring(const double& c) : std::string("INVALID") {
+		assert(c==NOT_VALID);
+	}
+
+	mystring operator=(mystring const& m){
+		std::string::operator=(m);
+		return *this;
+	}
+	bool operator!=(const double& d) const{ untested();
+		return !operator==(d);
+	}
+	bool operator==(const double& d) const{ untested();
+		if(d==NOT_VALID){ untested();
+			return std::string(*this) == "invalid";
+		}else if(d==NOT_INPUT){ untested();
+			return std::string(*this) == "not_input";
+		}else{ untested();
+			unreachable();
+			return false;
+		}
+	}
+
+	void parse(CS& a){ untested();
+		incomplete();
+		trace1("mystring parse", a.tail());
+	}
+};
+/*--------------------------------------------------------------------------*/
+inline std::string to_string(mystring const& a){
+	return std::string(a);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

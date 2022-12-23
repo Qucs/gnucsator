@@ -50,7 +50,7 @@ stashing as verilog:0
   Pac:P2 _net6 gnd   Num=2 P=0  Temp=26.85 Z=50 f=1G
   Pac:P3 _net2 gnd   Num=3 P=0  Temp=26.85 Z=50 f=1G
   Pac:P4 _net8 gnd   Num=4 P=0  Temp=26.85 Z=50 f=1G
-  MCOUPLED:MSTC1 _net13 _net6 _net2 _net8   W=0.518m L=14.94m S=0.185m Subst=SubstTC1 Model=Kirschning DispModel=Kirschning Temp=26.85
+  MCOUPLED:MSTC1 _net13 _net6 _net2 _net8   DispModel=Kirschning L=14.94m Model=Kirschning S=0.185m Subst=SubstTC1 Temp=26.85 W=0.518m
 SUBST:SubstTC1  er="9.8" h="0.635m" t="17.5u" tand="0.0001" rho="2.43902e-08" D="1.5e-07" tnom="tnom"
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
@@ -78,7 +78,7 @@ Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net13),.2(0));
 Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net6),.2(0));
 Pac #(.Num(3),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(_net2),.2(0));
 Pac #(.Num(4),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P4 (.1(_net8),.2(0));
-MCOUPLED #(.W(0.518m),.L(14.94m),.S(0.185m),.Subst(SubstTC1),.Model(Kirschning),.DispModel(Kirschning),.Temp(26.85)) MSTC1 (.p0(_net13),.p1(_net6),.p2(_net2),.p3(_net8));
+MCOUPLED #(.DispModel(Kirschning),.L(14.94m),.Model(Kirschning),.S(0.185m),.Subst(SubstTC1),.Temp(26.85),.W(0.518m)) MSTC1 (.p0(_net13),.p1(_net6),.p2(_net2),.p3(_net8));
 paramset SubstTC1 SUBST;\
  .er=9.8; .h=0.635m; .t=17.5u; .tand=0.0001; .rho=2.43902e-08; .D=1.5e-07; .tnom=tnom;\
 endparmset
