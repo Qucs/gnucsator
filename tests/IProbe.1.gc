@@ -21,4 +21,6 @@ spice
 .print dc v(nodes) v(p1) i(p1)
 .dc
 
+.clear
+.detach c_hide.so
 .end

@@ -22,4 +22,6 @@ spice
 .print dc v(nodes) v(foo*)
 .dc
 
+.clear
+.detach c_hide.so
 .end
