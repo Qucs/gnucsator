@@ -2,9 +2,8 @@
 module main ();
 //# Qucs 0.0.19  /tmp/neur.sch 
 module TESTSUB (_net0,_net1);
-parameter PARAM2={2};
 parameter RES={1};
-resistor #(.r(RES)) a (.p(_net0),.n(_net1));
+R #(.R(RES)) a (.p(_net0),.n(_net1));
 endmodule // TESTSUB
 
 TESTSUB #(.RES(2),.Type(TESTSUB)) T1 (._net0(_net1),._net1(0));

@@ -43,6 +43,7 @@ COMMON_TESTS = \
 	sparam_e.net \
 	sub.1.net \
 	sub.2.net \
+	sub.3.net \
 	supply.net \
 	Switch.0.net \
 	single_balanced.net \
