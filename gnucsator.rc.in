@@ -38,6 +38,7 @@ uninstall comp subckt
 unload qucs/c_uninst.so
 
 load qucs/d_subckt.so
+load qucs/v_subckt.so
 
 options numdgt 40
 load qucs/bm_value.so

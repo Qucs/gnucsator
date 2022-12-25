@@ -1,11 +1,12 @@
 
-load ../lang_qucs.so
-load ../c_hide.so
-load ../c_list.so
-load ../s_sparam.so
+load v_subckt.so
+load lang_qucs.so
+load c_hide.so
+load c_list.so
+load s_sparam.so
 
-load public ../lang_verilog.so
-load ../c_vpp.so
+load public lang_verilog.so
+load c_vpp.so
 
 include ../include/lumped.v
 include ../include/sources.v

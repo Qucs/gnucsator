@@ -54,7 +54,7 @@ static /*const*/  std::string ground_name="0";
 /*--------------------------------------------------------------------------*/
 struct subckt_alias{
 	subckt_alias(){
-		CARD* x=device_dispatcher["subckt"];
+		CARD* x=device_dispatcher["subckt"]; // module
 		assert(x);
 		_d = new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", x);
 	}
@@ -122,8 +122,7 @@ ds(&language_dispatcher, lang_qucs.name(), &lang_qucs);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class CMD_SUBCKT : public CMD {
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
+  void do_it(CS& cmd, CARD_LIST* Scope) {
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
     assert(new_module);
     assert(!new_module->owner());

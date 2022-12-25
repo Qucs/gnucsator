@@ -346,7 +346,7 @@ int MAIN::operator()(int argc, char *const* argv)
           }catch (Exception& e) { untested();
             error(bDANGER, e.message() + '\n');
           }
-        }else{ untested();
+        }else{
         }
       }
     }

@@ -1,6 +1,7 @@
-load lang_qucs.so
 load d_eqn.so
 load d_subckt.so
+load v_subckt.so
+load lang_qucs.so
 load d_probe.so
 load s_sparam.so
 load public lang_verilog.so

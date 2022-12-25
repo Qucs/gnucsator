@@ -1,3 +1,4 @@
+load v_subckt.so
 load lang_qucs.so
 load d_eqn.so
 

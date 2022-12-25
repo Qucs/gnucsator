@@ -1,4 +1,4 @@
-/*$Id: d_subckt.cc   $ -*- C++ -*-
+/*$Id: d_subckt.cc  2016/09/17  $ -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
  * Author: Albert Davis <aldavis@gnu.org>
  *
@@ -35,11 +35,11 @@
  *  *** see DEV_SUBCKT_PROTO::precalc_first            ***
  */
 //testing=script 2016.09.16
-#include "u_nodemap.h"
 #include "e_node.h"
 #include "globals.h"
 #include "e_paramlist.h"
 #include "e_subckt.h"
+#include "io_trace.h"
 /*--------------------------------------------------------------------------*/
 namespace{
 /*--------------------------------------------------------------------------*/
@@ -54,8 +54,10 @@ private:
 public:
   explicit	DEV_SUBCKT();
 		~DEV_SUBCKT()		{--_count;}
-  CARD*		clone()const override	{return new DEV_SUBCKT(*this);}
+  CARD*		clone()const override;
+  CARD*		clone_instance()const override;
 private: // override virtual
+  bool		is_device()const	{return _parent;}
   char		id_letter()const override	{return 'X';}
   bool		print_type_in_spice()const override {return true;}
   std::string   value_name()const override	{return "#";}
@@ -64,24 +66,36 @@ private: // override virtual
   int		matrix_nodes()const override	{return 0;}
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
-  bool		makes_own_scope()const override  {return false;}
+  bool		makes_own_scope()const override  {return !_parent;}
+  CARD_LIST*	   scope() override;
+  const CARD_LIST* scope()const		{return const_cast<DEV_SUBCKT*>(this)->scope();}
 
   void		expand() override;
 private:
-  void		precalc_last()override;
-  double	tr_probe_num(const std::string&)const override;
-  int param_count_dont_print()const override {return common()->COMMON_COMPONENT::param_count();}
+  void		precalc_last();
+  double	tr_probe_num(const std::string&)const;
+  int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
 
-  std::string port_name(int i)const override;
+  std::string port_name(int i)const;
 public:
   static int	count()			{untested();return _count;}
 protected:
-  const COMPONENT* _parent;
+  const BASE_SUBCKT* _parent;
 private:
   node_t	_nodes[PORTS_PER_SUBCKT];
   static int	_count;
 } p1;
+DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
 int DEV_SUBCKT::_count = -1;
+/*--------------------------------------------------------------------------*/
+CARD_LIST* DEV_SUBCKT::scope()
+{
+  if(_parent){
+    return COMPONENT::scope();
+  }else{
+    return subckt();
+  }
+}
 /*--------------------------------------------------------------------------*/
 class DEV_SUBCKT_PROTO : public DEV_SUBCKT {
 private:
@@ -90,85 +104,111 @@ public:
   explicit	DEV_SUBCKT_PROTO();
 		~DEV_SUBCKT_PROTO(){}
 public: // override virtual
-  char		id_letter()const override	{untested();return '\0';}
-  CARD*		clone_instance()const override;
-  bool		print_type_in_spice()const override {unreachable(); return false;}
-  std::string   value_name()const override	{untested();incomplete(); return "";}
-  std::string   dev_type()const override		{untested(); return "";}
-  int		max_nodes()const override	{return PORTS_PER_SUBCKT;}
-  int		min_nodes()const override	{return 0;}
-  int		matrix_nodes()const override	{untested();return 0;}
-  int		net_nodes()const override	{return _net_nodes;}
-  CARD*		clone()const override		{return new DEV_SUBCKT_PROTO(*this);}
-  bool		is_device()const override	{return false;}
-  bool		makes_own_scope()const override	{return true;}
-  CARD_LIST*	   scope()override		{return subckt();}
-  const CARD_LIST* scope()const override	{return subckt();}
+  char		id_letter()const	{untested();return '\0';}
+  bool		print_type_in_spice()const {unreachable(); return false;}
+  std::string   value_name()const	{untested();incomplete(); return "";}
+  std::string   dev_type()const		{untested(); return "";}
+  int		max_nodes()const	{return PORTS_PER_SUBCKT;}
+  int		min_nodes()const	{return 0;}
+  int		matrix_nodes()const	{untested();return 0;}
+  int		net_nodes()const	{return _net_nodes;}
+  CARD*		clone()const		{return new DEV_SUBCKT_PROTO(*this);}
+  CARD_LIST*	   scope()		{return subckt();}
+  const CARD_LIST* scope()const		{return subckt();}
 private: // no-ops for prototype
-  void precalc_first()override;
-  void expand()override {}
-  void precalc_last()override {}
-  void map_nodes()override {}
-  void tr_begin()override {}
-  void tr_load()override {}
-  TIME_PAIR tr_review() override { return TIME_PAIR(NEVER, NEVER);}
-  void tr_accept()override {}
-  void tr_advance()override {}
-  void tr_restore()override {}
-  void tr_regress()override {}
-  void dc_advance()override {}
-  void ac_begin()override {}
-  void do_ac()override {}
-  void ac_load()override {}
-  bool do_tr()override { return true;}
-  bool tr_needs_eval()const override {untested(); return false;}
-  void tr_queue_eval()override {}
-  std::string port_name(int)const override{untested();return "";}
-} pp;
-DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "X|subckt", &pp);
+  void precalc_first();
+  void expand(){}
+  void precalc_last(){}
+  void map_nodes(){}
+  void tr_begin(){}
+  void tr_load(){}
+  TIME_PAIR tr_review(){ return TIME_PAIR(NEVER, NEVER);}
+  void tr_accept(){}
+  void tr_advance(){}
+  void tr_restore(){}
+  void tr_regress(){}
+  void dc_advance(){}
+  void ac_begin(){}
+  void do_ac(){}
+  void ac_load(){}
+  bool do_tr(){ return true;}
+  bool tr_needs_eval()const{untested(); return false;}
+  void tr_queue_eval(){}
+  std::string port_name(int)const {untested();return "";}
+};
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT_PROTO::precalc_first()
-{
+{ untested();
   BASE_SUBCKT::precalc_first();
-  CARD_LIST* scope;
-  if(owner()){ untested();
-    scope = owner()->subckt();
-  }else{
-    scope = &CARD_LIST::card_list;
-  }
+//   CARD_LIST* scope;
+//   if(owner()){ untested();
+//     scope = owner()->subckt();
+//   }else{ untested();
+//     scope = &CARD_LIST::card_list;
+//   }
 
-  PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope->params());
+  PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
   subckt()->params()->set_try_again(pl);
 
   // deal with nested subckt protos.
-  for(auto i : *subckt()){
-    if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){
+  for(auto i : *subckt()){ untested();
+    if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){ untested();
       i->precalc_first();
-    }else{
+    }else{ untested();
     }
   }
 }
 /*--------------------------------------------------------------------------*/
 DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)
   :DEV_SUBCKT(p)
-{
+{ untested();
+
+  auto s=p.subckt();
+  assert(s);
+  size_t n=0;
+  for(auto i = s->begin(); i!=s->end(); ++i){ untested();
+    trace2("DSP", long_label(), (*i)->long_label());
+    ++n;
+  }
+
+  if(n){ untested();
+  }else{ untested();
+  }
   new_subckt();
 }
 /*--------------------------------------------------------------------------*/
-DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO()
-  :DEV_SUBCKT()
+CARD* DEV_SUBCKT::clone()const
 {
-  new_subckt();
-}
-/*--------------------------------------------------------------------------*/
-CARD* DEV_SUBCKT_PROTO::clone_instance()const
-{
-  DEV_SUBCKT* new_instance = dynamic_cast<DEV_SUBCKT*>(p1.clone());
+  DEV_SUBCKT* new_instance = new DEV_SUBCKT(*this);
   assert(!new_instance->subckt());
 
-  if (this == &pp){ untested();
+  if (this == &p1){
     // cloning from static, empty model
     // look out for _parent in expand
+    new_instance->new_subckt(); // from DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO
+  }else if(_parent){
+    new_instance->_parent = _parent;
+    assert(new_instance->is_device());
+  }else{ untested();
+    new_instance->_parent = this;
+    assert(new_instance->is_device());
+  }
+
+  return new_instance;
+}
+/*--------------------------------------------------------------------------*/
+CARD* DEV_SUBCKT::clone_instance()const
+{
+  DEV_SUBCKT* new_instance = dynamic_cast<DEV_SUBCKT*>(p1.clone());
+  //assert(!new_instance->subckt());
+
+  if (this == &p1){ untested();
+    // cloning from static, empty model
+    // look out for _parent in expand
+    new_instance->new_subckt(); // from DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO
+  }else if(_parent){ untested();
+    new_instance->_parent = _parent;
+    assert(new_instance->is_device());
   }else{
     new_instance->_parent = this;
   }
@@ -217,33 +257,34 @@ std::string DEV_SUBCKT::port_name(int i)const
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::expand()
 {
+  assert(_parent);
+  trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
   BASE_SUBCKT::expand();
   COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
   assert(c);
+  if(c->modelname()==""){ untested();
+    // proto?
+    return;
+  }else{
+  }
   if (!_parent) { untested();
-    // first time
+    // get here when instanciating X, then set modelname
     assert(c->modelname()!="");
     const CARD* model = find_looking_out(c->modelname());
-    if ((_parent = dynamic_cast<const DEV_SUBCKT_PROTO*>(model))) { untested();
-      // good
-    }else if (dynamic_cast<const BASE_SUBCKT*>(model)) { untested();
-      throw Exception_Type_Mismatch(long_label(), c->modelname(), "subckt proto");
+    if(!dynamic_cast<const BASE_SUBCKT*>(model)) { untested();
+      throw Exception_Type_Mismatch(long_label(), c->modelname(), "module");
     }else{ untested();
-      throw Exception_Type_Mismatch(long_label(), c->modelname(), "subckt");
+      _parent = prechecked_cast<const BASE_SUBCKT*>(model);
     }
   }else{
-    // reruns
-    // bypassed: does not play with hidemodule
+    // possible after clone_instance.
+    //
+    // does not work, because prototypes may have been hidden.
     // assert(find_looking_out(c->modelname()) == _parent);
   }
   
-  assert(_parent);
   assert(_parent->subckt());
-  assert(_parent->subckt()->nodes());
-  trace2("",  _parent->net_nodes(),  _parent->subckt()->nodes()->how_many());
-  assert(_parent->net_nodes() <= _parent->subckt()->nodes()->how_many());
   assert(_parent->subckt()->params());
-
   PARAM_LIST* pl = const_cast<PARAM_LIST*>(_parent->subckt()->params());
   assert(pl);
   c->_params.set_try_again(pl);
@@ -256,7 +297,7 @@ void DEV_SUBCKT::precalc_first()
 {
   BASE_SUBCKT::precalc_first();
 
-  if (subckt()) {
+  if (_parent && subckt()) {
     COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);
     subckt()->attach_params(&(c->_params), scope());
@@ -264,22 +305,41 @@ void DEV_SUBCKT::precalc_first()
   }else{
   }
   assert(!is_constant()); /* because I have more work to do */
+
+
+  if(!is_device()){
+    PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
+    subckt()->params()->set_try_again(pl);
+
+    // Qucs hack: deal with nested subckt protos.
+    for(auto i : *subckt()){ untested();
+      if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){ untested();
+	i->precalc_first();
+      }else{ untested();
+      }
+    }
+  }else{
+  }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_last()
 {
   BASE_SUBCKT::precalc_last();
 
-  COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
-  assert(c);
-  subckt()->attach_params(&(c->_params), scope());
-  subckt()->precalc_last();
+  if(is_device()){
+    COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
+    assert(c);
+    subckt()->attach_params(&(c->_params), scope());
+    subckt()->precalc_last();
 
-  assert(!is_constant()); /* because I have more work to do */
+    assert(!is_constant()); /* because I have more work to do */
+  }else{ untested();
+    // DEV_SUBCKT_PROTO
+  }
 }
 /*--------------------------------------------------------------------------*/
 double DEV_SUBCKT::tr_probe_num(const std::string& x)const
-{untested();
+{
   if (Umatch(x, "p ")) {untested();
     double power = 0.;
     assert(subckt());
@@ -304,7 +364,7 @@ double DEV_SUBCKT::tr_probe_num(const std::string& x)const
       power += CARD::probe(*ci,"PS");
     }      
     return power;
-  }else{untested();
+  }else{
     return COMPONENT::tr_probe_num(x);
   }
   /*NOTREACHED*/

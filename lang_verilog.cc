@@ -514,8 +514,7 @@ void LANG_VERILOG::print_command(OMSTREAM& o, const DEV_DOT* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class CMD_PARAMSET : public CMD {
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
+  void do_it(CS& cmd, CARD_LIST* Scope) {
     // already got "paramset"
     std::string my_name, base_name;
     cmd >> my_name;
@@ -543,7 +542,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "paramset", &p1);
 class CMD_MODULE : public CMD {
   void do_it(CS& cmd, CARD_LIST* Scope)
   {
-    BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
+    BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("module"));
     assert(new_module);
     assert(!new_module->owner());
     assert(new_module->subckt());
