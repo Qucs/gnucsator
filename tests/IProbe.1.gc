@@ -3,7 +3,7 @@ load s_sparam.so
 load public lang_verilog.so
 load c_vpp.so
 load c_hide.so
-load d_subckt_p.so
+load d_subckt.so
 include ../include/sources.v
 include ../include/lumped.v
 hidemodule *

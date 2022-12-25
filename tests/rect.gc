@@ -1,7 +1,7 @@
 load bm_trivial.so
 load s_sparam.so
 load c_hide.so
-load d_subckt_p.so
+load d_subckt.so
 include ../include/sources.v
 verilog
 hidemodule *

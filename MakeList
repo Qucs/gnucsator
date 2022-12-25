@@ -27,7 +27,7 @@ PLUGIN_CC = \
 	d_gpolyk_wrap.cc \
 	d_poly_g_uf.cc \
 	d_probe.cc \
-	d_subckt_p.cc \
+	d_subckt.cc \
 	functions.cc \
 	lang_qucs.cc \
 	lang_verilog.cc \
