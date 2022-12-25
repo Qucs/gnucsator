@@ -41,15 +41,13 @@ int TRANSIENT::steps_accepted_;
 int TRANSIENT::steps_rejected_;
 int TRANSIENT::steps_total_;
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM*);
-/*--------------------------------------------------------------------------*/
 void TRANSIENT::do_it(CS& Cmd, CARD_LIST* Scope)
 {
   _scope = Scope;
   _sim->set_command_tran();
   ::status.tran.reset().start();
   command_base(Cmd);
-  finish_hack(this);
+  finish_hack(this, _out);
   _sim->_has_op = s_TRAN;
   _scope = NULL;
   ::status.tran.stop();

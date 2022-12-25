@@ -29,7 +29,6 @@
 #include "declare.h"	/* plottr, plopen */
 #include "s__.h"
 
-OMSTREAM* out_hack;
 /*--------------------------------------------------------------------------*/
 /* SIM::____list: access probe lists
  */
@@ -87,7 +86,6 @@ void SIM::head(double, double, const std::string&)
   }
 
   _sim->_waves = new WAVE [printlist().size()];
-  out_hack = &_out;
 }
 /*--------------------------------------------------------------------------*/
 /* SIM::print_results: print the list of results (text form) to _out
@@ -123,7 +121,7 @@ void SIM::store_results(double x)
   }
 }
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM*)
+void finish_hack(SIM*, OMSTREAM& outFile)
 {
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
@@ -134,8 +132,6 @@ void finish_hack(SIM*)
   unsigned number_of_probes = PL.size();
   trace1("finish_hack", number_of_probes);
 
-  assert(out_hack);
-  auto& outFile = *out_hack;
   if(number_of_probes){
     unsigned n = 0;
     for(auto d : CKT_BASE::_sim->_waves[0]){
@@ -153,18 +149,16 @@ void finish_hack(SIM*)
 
   unsigned i=0;
   for(auto ii : PL){
-    names.push_back(ii.label());
-    ++i;
-  }
-
-  for(unsigned i=0; i<number_of_probes; ++i){
-    std::string itm = names[i];
-    outFile << "<dep " << itm.substr(2, itm.length()-3 ) << "."<< (char)toupper(itm.at(0)) << "t time>\n";
+    std::string itm = ii.label();
+    outFile << "<dep " << itm.substr(2, itm.length()-3 ) << "." << (char)toupper(itm.at(0)) << "t time>\n";
     for(auto d : CKT_BASE::_sim->_waves[i]){
       outFile << d.second << "\n";
     }
     outFile << "</dep>\n";
+    ++i;
   }
+
+  assert(number_of_probes == i);
 }
 /*--------------------------------------------------------------------------*/
 // vim:ts=8:sw=2:noet:

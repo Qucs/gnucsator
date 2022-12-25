@@ -31,7 +31,6 @@
 #include "s__.h"
 /*--------------------------------------------------------------------------*/
 static const int ofKEY=2048;
-OMSTREAM* out_hack;
 std::vector<std::string> _labels;
 std::vector<double> _keys;
 std::vector<int> _counts;
@@ -113,8 +112,6 @@ void SIM::head(double, double, const std::string& col1)
   }
 
   _sim->_waves = new WAVE [printlist().size()];
-  out_hack = &_out;
-
   _labels.push_back(col1);
 }
 /*--------------------------------------------------------------------------*/
@@ -161,7 +158,7 @@ void init_hack(SIM*)
   _count = 0;
 }
 /*--------------------------------------------------------------------------*/
-void finish_hack(SIM*)
+void finish_hack(SIM*, OMSTREAM& outFile)
 {
   // TODO: this is currently within the obsolete control script
   //outFile << "<Qucs Dataset>"  << endl; //"<Qucs Dataset 0.0.19>"
@@ -172,8 +169,6 @@ void finish_hack(SIM*)
   unsigned number_of_probes = PL.size();
   trace1("finish_hack", number_of_probes);
 
-  assert(out_hack);
-  auto& outFile = *out_hack;
   std::string dep, SW;
 
 //  for(auto i: _labels){ untested();
@@ -232,23 +227,20 @@ void finish_hack(SIM*)
     }
   }else{ untested();
   }
-  std::vector<std::string> names;
 
   unsigned i=0;
   for(auto ii : PL){
-    names.push_back(ii.label());
-    ++i;
-  }
-
-  for(unsigned i=0; i<number_of_probes; ++i){
-    std::string itm = names[i];
-    outFile << "<" << dep << " " << itm.substr(2, itm.length()-3 ) << "."<< (char)toupper(itm.at(0))
+    std::string itm = ii.label();
+    outFile << "<" << dep << " " << itm.substr(2, itm.length()-3 ) << "." << (char)toupper(itm.at(0))
             << " " << SW << ">\n";
     for(auto d : CKT_BASE::_sim->_waves[i]){
       outFile << d.second << "\n";
     }
     outFile << "</" << dep << ">\n";
+    ++i;
   }
+
+  assert(i==number_of_probes);
 }
 /*--------------------------------------------------------------------------*/
 // vim:ts=8:sw=2:noet:

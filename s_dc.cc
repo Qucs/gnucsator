@@ -188,7 +188,7 @@ void DC::do_it(CS& Cmd, CARD_LIST* Scope)
   _sim->_phase = p_INIT_DC;
   ::status.dc.reset().start();
   command_base(Cmd);
-  finish_hack(this);
+  finish_hack(this, _out);
   _scope = NULL;
   ::status.dc.stop();
 }
