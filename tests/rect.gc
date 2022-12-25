@@ -1,5 +1,11 @@
 load bm_trivial.so
+load s_sparam.so
+load c_hide.so
+load d_subckt_p.so
+include ../include/sources.v
 verilog
+hidemodule *
+
 param u=3
 param foo=TH+TL+Tr+Tf
 
@@ -11,5 +17,8 @@ spice
 .options noinsensitive
 .print tran v(nodes)
 .tran 0 10 10 trace=a
+
+.clear
+.unload c_hide.so
 
 .end
