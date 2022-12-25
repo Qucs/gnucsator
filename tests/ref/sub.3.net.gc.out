@@ -38,12 +38,6 @@ parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
 parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
-v(T1.Pr2)
-  ^ ? no match
-v(T1.Pr2)
-  ^ ? no match
-v(T1.Pr2)
-  ^ ? no match
 parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
 parameter TESTSUB not specified, using default
@@ -58,15 +52,12 @@ Gnucap   System status
 iterations: op=2, dc=2, tran=0, fourier=0, total=4
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
-nodes: user=2, subckt=0, model=0, total=2
+nodes: user=1, subckt=0, model=0, total=1
 dctran density=100.0%, ac density=100.0%
 
 <indep _net1.V 1>
- 1.49987E+12
-</indep>
-<indep _net2.V 1>
- 1.49987E+12
+ 3.
 </indep>
 <indep Pr2.V 1>
--1.49987E+12
+-3.
 </indep>

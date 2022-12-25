@@ -60,6 +60,9 @@ protected: // override virtual
 //  void     precalc_first();
   void     precalc_last();
   COMPLEX  ac_involts()const	{untested();return ac_outvolts();}
+  bool is_device() const override {untested();
+    return true;
+  }
   void tr_iwant_matrix();
   void tr_begin();
 //  bool do_tr();
@@ -71,7 +74,7 @@ protected: // override virtual
   void ac_begin(){incomplete();}
   void do_ac(){incomplete();}
   void ac_load(){incomplete();}
-  string port_name(uint_t i)const {
+  string port_name(uint_t i)const { untested();
     assert(i != INVALID_NODE);
     assert(i < 2);
     static string names[] = {"p", "n"};
@@ -79,7 +82,7 @@ protected: // override virtual
   }
   virtual void expand();
 public:
-  string iwant_print() const {
+  string iwant_print() const { untested();
     trace3("DEV_PROBE::iwant_print() calledthe right function",
         long_label(), this, _sim->_mode);
     return "v(" + long_label() + ")"; }
@@ -89,28 +92,31 @@ private:
 
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::set_dev_type(const string& new_type)
-{
+{ untested();
   trace2("DEV_PROBE:probe type", long_label(), new_type);
-  if(new_type=="VProbe"){
+  if(new_type=="VProbe"){ untested();
     _type = VOLTAGE;
-  }else if(new_type=="IProbe"){
+  }else if(new_type=="IProbe"){ untested();
     _type = CURRENT;
   }else{ unreachable(); incomplete();
   }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::precalc_last()
-{
+{ untested();
   ELEMENT::precalc_last();
   set_constant(true);
   set_converged(true);
 
  string prb = string((_type==VOLTAGE)?"v":"i");
 
- if(_reg){
- }else{
+ if(_reg){ untested();
+ }else if(owner()){ untested();
+   // ignore probes in subcircuits, just as qucsator does
+   // (good idea?)
+ }else{ untested();
    trace3("adding probe", prb, _sim->_mode, long_label());
-   CS p(CS::_STRING, prb+"("+long_label()+")");
+   CS p(CS::_STRING, prb+"("+short_label()+")");
    assert(scope());
    // _probe_lists->print[_sim->_mode].add_list(p, scope());
    _probe_lists->print[s_OP].add_list(p, scope());
@@ -123,15 +129,15 @@ void DEV_PROBE::precalc_last()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::expand()
-{
+{ untested();
   string prb = string((_type==VOLTAGE)?"v":"i");
-  if(_sim->is_first_expand()){
+  if(_sim->is_first_expand()){ untested();
   }else{untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::tr_iwant_matrix()
-{
+{ untested();
   switch(_type){
     case VOLTAGE:
       break;
@@ -141,11 +147,11 @@ void DEV_PROBE::tr_iwant_matrix()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::tr_begin()
-{
+{ untested();
   ELEMENT::tr_begin();
   assert(is_constant());
 
-  if(_type==CURRENT) {
+  if(_type==CURRENT) { untested();
     // from d_res
     _y1.f1 = _y[0].f1 = OPT::shortckt;
     _m0.x  = _y[0].x;
@@ -158,7 +164,7 @@ void DEV_PROBE::tr_begin()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::ac_iwant_matrix()
-{
+{ untested();
   switch(_type) {
     case VOLTAGE:
       break;
@@ -168,7 +174,7 @@ void DEV_PROBE::ac_iwant_matrix()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::tr_load()
-{
+{ untested();
   switch(_type) {
     case VOLTAGE:
       break;
@@ -178,7 +184,7 @@ void DEV_PROBE::tr_load()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_PROBE::tr_unload()
-{
+{ untested();
   switch(_type) {
     case VOLTAGE: untested();
       break;

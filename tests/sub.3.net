@@ -6,6 +6,6 @@ VProbe:Pr2 _net0 _net1
 .Def:End
 
 .DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU"
-Sub:T1 _net1 _net2 Type="TESTSUB"
+Sub:T1 _net1 gnd Type="TESTSUB"
 Idc:V1 _net1 gnd I="3"
 VProbe:Pr2 gnd _net1
