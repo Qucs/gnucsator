@@ -1,6 +1,6 @@
 /*$Id: d_subckt.cc  2016/09/17  $ -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
- * Author: Albert Davis <aldavis@gnu.org>
+ *               2022 Felix Salfelder
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
  *
@@ -34,7 +34,6 @@
  *  *** MODIFIED version. changed parameter resolution ***
  *  *** see DEV_SUBCKT_PROTO::precalc_first            ***
  */
-//testing=script 2016.09.16
 #include "e_node.h"
 #include "globals.h"
 #include "e_paramlist.h"
@@ -55,7 +54,7 @@ public:
   explicit	DEV_SUBCKT();
 		~DEV_SUBCKT()		{--_count;}
   CARD*		clone()const override;
-  CARD*		clone_instance()const override;
+//  CARD*		clone_instance()const override;
 private: // override virtual
   bool		is_device()const	{return _parent;}
   char		id_letter()const override	{return 'X';}
@@ -97,86 +96,6 @@ CARD_LIST* DEV_SUBCKT::scope()
   }
 }
 /*--------------------------------------------------------------------------*/
-class DEV_SUBCKT_PROTO : public DEV_SUBCKT {
-private:
-  explicit	DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO&p);
-public:
-  explicit	DEV_SUBCKT_PROTO();
-		~DEV_SUBCKT_PROTO(){}
-public: // override virtual
-  char		id_letter()const	{untested();return '\0';}
-  bool		print_type_in_spice()const {unreachable(); return false;}
-  std::string   value_name()const	{untested();incomplete(); return "";}
-  std::string   dev_type()const		{untested(); return "";}
-  int		max_nodes()const	{return PORTS_PER_SUBCKT;}
-  int		min_nodes()const	{return 0;}
-  int		matrix_nodes()const	{untested();return 0;}
-  int		net_nodes()const	{return _net_nodes;}
-  CARD*		clone()const		{return new DEV_SUBCKT_PROTO(*this);}
-  CARD_LIST*	   scope()		{return subckt();}
-  const CARD_LIST* scope()const		{return subckt();}
-private: // no-ops for prototype
-  void precalc_first();
-  void expand(){}
-  void precalc_last(){}
-  void map_nodes(){}
-  void tr_begin(){}
-  void tr_load(){}
-  TIME_PAIR tr_review(){ return TIME_PAIR(NEVER, NEVER);}
-  void tr_accept(){}
-  void tr_advance(){}
-  void tr_restore(){}
-  void tr_regress(){}
-  void dc_advance(){}
-  void ac_begin(){}
-  void do_ac(){}
-  void ac_load(){}
-  bool do_tr(){ return true;}
-  bool tr_needs_eval()const{untested(); return false;}
-  void tr_queue_eval(){}
-  std::string port_name(int)const {untested();return "";}
-};
-/*--------------------------------------------------------------------------*/
-void DEV_SUBCKT_PROTO::precalc_first()
-{ untested();
-  BASE_SUBCKT::precalc_first();
-//   CARD_LIST* scope;
-//   if(owner()){ untested();
-//     scope = owner()->subckt();
-//   }else{ untested();
-//     scope = &CARD_LIST::card_list;
-//   }
-
-  PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
-  subckt()->params()->set_try_again(pl);
-
-  // deal with nested subckt protos.
-  for(auto i : *subckt()){ untested();
-    if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){ untested();
-      i->precalc_first();
-    }else{ untested();
-    }
-  }
-}
-/*--------------------------------------------------------------------------*/
-DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)
-  :DEV_SUBCKT(p)
-{ untested();
-
-  auto s=p.subckt();
-  assert(s);
-  size_t n=0;
-  for(auto i = s->begin(); i!=s->end(); ++i){ untested();
-    trace2("DSP", long_label(), (*i)->long_label());
-    ++n;
-  }
-
-  if(n){ untested();
-  }else{ untested();
-  }
-  new_subckt();
-}
-/*--------------------------------------------------------------------------*/
 CARD* DEV_SUBCKT::clone()const
 {
   DEV_SUBCKT* new_instance = new DEV_SUBCKT(*this);
@@ -189,7 +108,7 @@ CARD* DEV_SUBCKT::clone()const
   }else if(_parent){
     new_instance->_parent = _parent;
     assert(new_instance->is_device());
-  }else{ untested();
+  }else{
     new_instance->_parent = this;
     assert(new_instance->is_device());
   }
@@ -197,6 +116,7 @@ CARD* DEV_SUBCKT::clone()const
   return new_instance;
 }
 /*--------------------------------------------------------------------------*/
+#if 0
 CARD* DEV_SUBCKT::clone_instance()const
 {
   DEV_SUBCKT* new_instance = dynamic_cast<DEV_SUBCKT*>(p1.clone());
@@ -216,6 +136,7 @@ CARD* DEV_SUBCKT::clone_instance()const
   assert(new_instance->is_device());
   return new_instance;
 }
+#endif
 /*--------------------------------------------------------------------------*/
 DEV_SUBCKT::DEV_SUBCKT()
   :BASE_SUBCKT(),
@@ -313,7 +234,7 @@ void DEV_SUBCKT::precalc_first()
 
     // Qucs hack: deal with nested subckt protos.
     for(auto i : *subckt()){ untested();
-      if(dynamic_cast<DEV_SUBCKT_PROTO*>(i)){ untested();
+      if(dynamic_cast<DEV_SUBCKT*>(i)){ untested();
 	i->precalc_first();
       }else{ untested();
       }
