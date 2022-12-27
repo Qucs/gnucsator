@@ -25,6 +25,7 @@ COMMON_TESTS = \
 	idc0.net \
 	lang_qucs.1.net \
 	lc_osc.net \
+	lc_osc.1.net \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	mixer.net \
