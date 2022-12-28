@@ -63,7 +63,7 @@ parameter L=100m
 parameter Alpha=1
 parameter Temp=26.85
 
-* local??
+// local??
 parameter c0=299792458.0
 tline #(.z(Z), .f(c0), .nl(L) t(a 0 b 0);
 endmodule

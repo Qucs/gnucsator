@@ -25,25 +25,24 @@ endmodule
 
 module VCVS(1 2 3 4);
 parameter G=1
+parameter T=0.
 vcvs #(.gain(G)) v(2 3 1 4);
-endmodule
-
-module CCVS(1, 2, 3, 4);
-parameter G=1
-vsource #(.dc(0)) p(1, 4);
-// looks like a hack. maybe it is.
-ccvs #(.gain(G)) HH(2, 3, p);
-endmodule
-
-module CCCS(1 2 3 4);
-parameter G=1
-vsource #(.dc(0)) p(1, 4);
-// looks like a hack. maybe it is.
-cccs #(.gain(G)) FF(2, 3, p)
 endmodule
 
 simulator lang=spice
 .options noinsensitive
+
+.subckt CCVS(1 2 3 4);
+ .parameter G=1
+  V1 1 4 0
+  H1 2 3 V1 {G}
+.ends
+
+.subckt CCCS(1 2 3 4);
+ .parameter G=1
+  V1 1 4 0
+  F1 2 3 V1 {G}
+.ends
 
 .subckt IAC(1 2);
 .parameter I=1
@@ -109,6 +108,7 @@ I1 2 1 pulse rise=Tr fall=Tf delay=Td pv=I iv=0 width={TH-Tr} period={TH+TL}
 .parameter U=1
 .parameter f=1
 .parameter Phase=0
+.parameter Theta=0
 
 *V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/3.141592653589793/2.-10)/f}
 V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/360.-10)/f}
@@ -118,6 +118,7 @@ V1 1 2 dc=0 ac={U} tran sin amplitude=U frequency=f delay={(-Phase/360.-10)/f}
 .parameter I=1
 .parameter f=1
 .parameter Phase=0
+.parameter Theta=0
 
 I1 2 1 dc=0 ac={I} tran sin amplitude=I frequency=f delay={(-Phase/360.-10)/f}
 .ends
@@ -150,6 +151,7 @@ parameter Z=50
 parameter P=1
 parameter f=1
 parameter Num=1
+parameter Temp
 
 // U is local...
 parameter U={sqrt(8 * P * Z)}
