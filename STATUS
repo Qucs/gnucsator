@@ -121,13 +121,13 @@ COMPONENTS (table ripped from [1])
 │ thyristor       │                 │                │      │                │
 │ triac           │                 │                │      │                │
 │ junction fet    │                 │ (V)            │      │                │
-│ homo bjt        │ BJT             │  W             │      │ select tweak   │
+│ homo bjt        │ BJT             │  W             │ E    │ select tweak   │
 │ homo bjt w/ sub │ BJT             │  W             │      │ select tweak   │
 │ mosfet          │ MOSFET          │  W             │ EI   │ level 1        │
 │ deplt mosfet    │ MOSFET          │  W             │      │                │
 │ mosfet w/ bulk  │ MOSFET          │  W             │      │                │
 │ FBH HBT         │                 │ (V)            │      │ ext. temp      │
-│ bsim4v30        │ bsim4v30{p,n}MOS│  V             │      │                │
+│ bsim4v30        │ bsim4v30{p,n}MOS│  V             │      │ gnucap-models  │
 │ HICUM v2.1 l2   │ hicumL2V2p1     │  V             │      │                │
 │ HICUM v2.22 l2  │                 │ (V)            │      │                │
 │ HICUM v2.23 l2  │                 │ (V)            │      │                │

@@ -1,9 +1,9 @@
 0.0.3 (WIP)
 =====
 * parameter sweeps in dc
-* fixes
 * Eqn command
 * drop bm_wrapper
+* MOSFET BJT polarity by parameter
 * preparations...
 
 0.0.2

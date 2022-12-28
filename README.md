@@ -9,6 +9,8 @@ Your support is gratefully received.
 
 [![donate](https://liberapay.com/assets/widgets/donate.svg "donate through lp")](https://liberapay.com/felixs/donate)
 
+For chat, feedback and questions, visit #gnucap:matrix.org.
+
 ## gnucsator.sh
 
 Emulates qucsator and enhances Qucs (the default simulator in qucs) in some
