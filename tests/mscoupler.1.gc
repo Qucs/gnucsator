@@ -4,6 +4,7 @@ load v_subckt.so
 load lang_qucs.so
 load d_probe.so
 load s_sparam.so
+load c_param.so
 load public lang_verilog.so
 load c_vpp.so
 load c_hide.so

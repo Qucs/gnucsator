@@ -24,6 +24,8 @@ uninstall command dc
 uninstall command list
 uninstall command save
 uninstall command op
+uninstall command parameter
+uninstall command param
 uninstall command paramset
 uninstall command transient
 uninstall command generator
@@ -44,6 +46,7 @@ options numdgt 40
 load qucs/bm_value.so
 load qucs/bm_trivial.so
 load qucs/c_hide.so
+load qucs/c_param.so
 load qucs/c_list.so
 load qucs/cmd_wrapper.so
 load qucs/d_poly_g_uf.so

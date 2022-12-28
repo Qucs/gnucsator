@@ -328,6 +328,7 @@ BASE_SUBCKT* LANG_VERILOG::parse_module(CS& cmd, BASE_SUBCKT* x)
     if (cmd >> "endmodule ") {
       break;
     }else{
+      trace1("LANG_VERILOG::parse_module", cmd.fullstring());
       new__instance(cmd, x, x->subckt());
     }
   }

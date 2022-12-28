@@ -20,6 +20,7 @@ PLUGIN_CC = \
 	c_hide.cc \
 	c_include.cc \
 	c_list.cc \
+	c_param.cc \
 	c_uninst.cc \
 	c_vpp.cc \
 	cmd_wrapper.cc \
