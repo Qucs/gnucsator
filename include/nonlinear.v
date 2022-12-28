@@ -187,12 +187,18 @@ parameter pfet=-1
 spice
 .options noinsensitive
 
-.subckt spice_nmos(d, g, s, b);
+* todo: paramset for spice models
+.subckt spice_mos(d, g, s, b);
  .parameter vto=.7, kp=50e-6, gamma=.96, phi=.5763, lambda=0, rd=0, rs=0, rg=0, is=0, n=1., w=3.5u, l=5.5u
  .parameter ld=.5e-6, tox=50e-9, cgdo=0., cgso=0., cgbo=0., cbd=0., cbs=0., pb=.7, mj=.5, fc=.5, cjsw=.05e-9
  .parameter mjsw=.33, tt=0, nsub=1e16, nss=0, tpg=1, uo=600., rsh=20, nrd=1, nrs=1, cj=1e-4, js=1e-8
  .parameter ad=100.p, as=100.p, pd=50.u, ps=50.u, kf=0, af=1, temp=26.85, tnom=26.85
- .parameter m
+
+ * hack: ranges do not exist in spice.
+ .parameter polarity=1 from [1:1]
+
+ * BUG
+ .parameter m=1
 
  * ignored
  .parameter ffe=1
@@ -205,15 +211,19 @@ spice
   *.pd=Pd; .tt=Tt; .ps=Ps; .rg=Rg; .ad=Ad; .as=As; .nrd=Nrd; .nrs=Nrs;
 
   * M d g s b mynmos l=l w=w ad=ad as=as pd=pd ps=ps nrd=nrd nrs=nrs m=m temp=temp
-  M d g s b mynmos l=l w=w m=m temp=temp
+  M d g s b mynmos l=l w=w m=1 temp=temp
 .ends
 
-.subckt spice_pmos(d, g, s, b);
+* todo: paramset for spice models
+.subckt spice_mos(d, g, s, b);
  .parameter vto=.7, kp=50e-6, gamma=.96, phi=.5763, lambda=0, rd=0, rs=0, rg=0, is=0, n=1., w=3.5u, l=5.5u
  .parameter ld=.5e-6, tox=50e-9, cgdo=0., cgso=0., cgbo=0., cbd=0., cbs=0., pb=.7, mj=.5, fc=.5, cjsw=.05e-9
  .parameter mjsw=.33, tt=0, nsub=1e16, nss=0, tpg=1, uo=600., rsh=20, nrd=1, nrs=1, cj=1e-4, js=1e-8
  .parameter ad=100.p, as=100.p, pd=50.u, ps=50.u, kf=0, af=1, temp=26.85, tnom=26.85
- .parameter m
+ .parameter m=1
+
+ * hack: ranges do not exist in spice.
+ .parameter polarity=-1 from [-1:-1]
 
  * ignored
  .parameter ffe=1
@@ -226,12 +236,11 @@ spice
   *.pd=Pd; .tt=Tt; .ps=Ps; .rg=Rg; .ad=Ad; .as=As; .nrd=Nrd; .nrs=Nrs;
 
   * M d g s b mypmos l=l w=w ad=ad as=as pd=pd ps=ps nrd=nrd nrs=nrs m=m temp=temp
-  M d g s b mypmos l=l w=w m=m temp=temp
+  M d g s b mypmos l=l w=w m=1 temp=temp
 .ends
 
 .verilog
 
-// TODO: this is a paramset
 module MOSFET(g, d, s, b);
   parameter Vt0=.7, Kp=50e-6, Gamma=.96, Phi=.5763, Lambda=0, Rd=0, Rs=0, Rg=0, Is=0, N=1., W=3.5u, L=5.5u;
   parameter Ld=.5e-6, Tox=50e-9, Cgso=0., Cgdo=0., Cgbo=0., Cbd=0., Cbs=0., Pb=.7, Mj=.5, Fc=.5, Cjsw=.05e-9;
@@ -239,20 +248,13 @@ module MOSFET(g, d, s, b);
   parameter Ad=100.p, As=100.p, Pd=50.u, Ps=50.u, Kf=0, Af=1, Temp=26.85, Tnom=26.85;
   parameter Ffe=1; // ignored
 
-	parameter Type;
+  parameter Type;
 
-  // workaround: select one of them.
-  spice_nmos #(.w(W), .m((1.+Type)*.5), .l(L), .temp(Temp) \
+  spice_mos #(.w(W) .polarity(Type) .l(L) .temp(Temp) \
     .kp(Kp) .gamma(Gamma) .phi(Phi) .lambda(Lambda) .rd(Rd) .rs(Rs) .is(Is) .ld(Ld) .tox(Tox) \
     .cgso(Cgso) .cgdo(Cgdo) .cgbo(Cgbo) .cbd(Cbd) .cbs(Cbs) .pb(Pb) .mj(Mj) .fc(Fc) .cjsw(Cjsw) .mjsw(Mjsw) \
     .nsub(Nsub) .nss(Nss) .tpg(Tpg) .uo(Uo) .rsh(Rsh) .cj(Cj) .js(Js) .kf(Kf) .af(Af) .tnom(Tnom) .vto(Vt0) \
    ) n(d, g, s, b);
-
-  spice_pmos #(.w(W), .m((1.-Type)*.5), .l(L), .temp(Temp) \
-    .kp(Kp) .gamma(Gamma) .phi(Phi) .lambda(Lambda) .rd(Rd) .rs(Rs) .is(Is) .ld(Ld) .tox(Tox) \
-    .cgso(Cgso) .cgdo(Cgdo) .cgbo(Cgbo) .cbd(Cbd) .cbs(Cbs) .pb(Pb) .mj(Mj) .fc(Fc) .cjsw(Cjsw) .mjsw(Mjsw) \
-    .nsub(Nsub) .nss(Nss) .tpg(Tpg) .uo(Uo) .rsh(Rsh) .cj(Cj) .js(Js) .kf(Kf) .af(Af) .tnom(Tnom) .vto(Vt0) \
-    ) p(d, g, s, b);
 endmodule // MOSFET
 
 parameter on=1

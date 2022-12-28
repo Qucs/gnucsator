@@ -24,24 +24,17 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
+spice_mos: already installed, replacing
+stashing as spice_mos:0
 T3.n.mynmos: rsh - rs - rd conflict: using rsh
 T3.n.mynmos: is - js conflict
 T3.n.mynmos: nsub < ni, treating as if not input
-T3.p.mypmos: rsh - rs - rd conflict: using rsh
-T3.p.mypmos: is - js conflict
-T3.p.mypmos: nsub < ni, treating as if not input
 T1.n.mynmos: rsh - rs - rd conflict: using rsh
 T1.n.mynmos: is - js conflict
 T1.n.mynmos: nsub < ni, treating as if not input
-T1.p.mypmos: rsh - rs - rd conflict: using rsh
-T1.p.mypmos: is - js conflict
-T1.p.mypmos: nsub < ni, treating as if not input
 T2.n.mynmos: rsh - rs - rd conflict: using rsh
 T2.n.mynmos: is - js conflict
 T2.n.mynmos: nsub < ni, treating as if not input
-T2.p.mypmos: rsh - rs - rd conflict: using rsh
-T2.p.mypmos: is - js conflict
-T2.p.mypmos: nsub < ni, treating as if not input
 parameter pos.Vt-neg.Vt not specified, using default
 parameter pos.Vt-neg.Vt value is "NOT_INPUT"
 parameter dB(Time2Freq(Vout,time)) not specified, using default
@@ -276,1584 +269,132 @@ parameter dB(Time2Freq(Vout,time)) recursion too deep
 parameter dB(Time2Freq(Vout,time)) recursion too deep
 parameter dB(Time2Freq(Vout,time)) recursion too deep
 parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
 Gnucap   System status
-iterations: op=0, dc=0, tran=2649, fourier=0, total=3159
-transient timesteps: accepted=479, rejected=33, total=512
+iterations: op=0, dc=0, tran=819, fourier=0, total=935
+transient timesteps: accepted=116, rejected=2, total=118
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=7, subckt=0, model=0, total=7
 dctran density=83.7%, ac density=83.7%
 
-<indep time 479>
+<indep time 116>
  0.
  5.E-9
  10.E-9
- 15.E-9
- 15.63744E-9
- 16.27489E-9
- 16.91233E-9
- 17.54978E-9
- 18.50702E-9
- 19.46426E-9
- 20.4215E-9
- 21.37875E-9
- 23.0963E-9
- 24.81385E-9
- 26.53141E-9
- 29.12126E-9
- 35.31899E-9
- 39.96363E-9
- 44.60826E-9
- 44.66261E-9
- 44.71696E-9
- 44.75538E-9
- 44.7938E-9
- 45.16951E-9
- 45.54523E-9
- 46.35119E-9
- 48.33258E-9
- 53.92475E-9
- 59.51692E-9
- 72.28325E-9
- 85.04959E-9
- 97.81592E-9
- 110.5823E-9
- 123.3486E-9
- 124.7305E-9
- 125.5592E-9
- 126.3879E-9
- 127.2165E-9
- 128.0452E-9
- 128.8738E-9
- 129.7025E-9
- 130.5312E-9
- 131.3598E-9
- 132.1885E-9
- 133.0172E-9
- 133.8458E-9
- 135.1499E-9
- 136.454E-9
- 137.7581E-9
- 139.0622E-9
- 140.3663E-9
- 141.6704E-9
- 141.6749E-9
- 141.6795E-9
- 141.6828E-9
- 141.6861E-9
- 141.6931E-9
- 141.7E-9
- 141.707E-9
- 141.7139E-9
- 141.7208E-9
- 141.7278E-9
- 141.7347E-9
- 141.7417E-9
- 141.7486E-9
- 141.7593E-9
- 141.7699E-9
- 141.7879E-9
- 141.8059E-9
- 141.8238E-9
- 141.8418E-9
- 141.8597E-9
- 141.8878E-9
- 141.9159E-9
- 141.944E-9
- 141.9899E-9
- 142.0633E-9
- 142.1853E-9
- 142.1873E-9
- 142.1884E-9
- 142.1895E-9
- 142.1906E-9
- 142.204E-9
- 142.2174E-9
- 142.2521E-9
- 142.3418E-9
- 142.4315E-9
- 142.6619E-9
- 143.1444E-9
- 144.1031E-9
- 146.3177E-9
- 150.8611E-9
- 158.4395E-9
- 166.0179E-9
- 177.9269E-9
- 195.7904E-9
- 213.6538E-9
- 231.5173E-9
- 235.9165E-9
- 244.6066E-9
- 244.7178E-9
- 244.8289E-9
- 244.9068E-9
- 244.9846E-9
- 245.5023E-9
- 246.02E-9
- 247.3041E-9
- 250.1868E-9
- 256.3918E-9
- 269.2125E-9
- 282.0331E-9
- 302.7315E-9
- 323.4299E-9
- 344.1283E-9
- 345.1411E-9
- 346.1538E-9
- 346.9467E-9
- 347.7395E-9
- 352.1221E-9
- 359.8952E-9
- 375.5152E-9
- 391.1352E-9
- 406.7553E-9
- 422.3753E-9
- 437.9954E-9
- 453.6154E-9
- 453.9369E-9
- 454.2584E-9
- 454.4986E-9
- 454.7387E-9
- 455.891E-9
- 457.0433E-9
- 459.2991E-9
- 463.9679E-9
- 468.6367E-9
- 480.7904E-9
- 498.8762E-9
- 516.962E-9
- 535.0479E-9
- 553.1337E-9
- 555.3944E-9
- 557.6551E-9
- 559.2349E-9
- 560.8147E-9
- 568.0833E-9
- 582.1217E-9
- 596.1601E-9
- 610.1985E-9
- 624.2369E-9
- 626.3699E-9
- 627.6585E-9
- 628.9471E-9
- 630.2356E-9
- 631.5242E-9
- 632.8128E-9
- 634.1014E-9
- 635.39E-9
- 636.6786E-9
- 637.9671E-9
- 640.4301E-9
- 642.8931E-9
- 645.3561E-9
- 645.3786E-9
- 645.401E-9
- 645.4177E-9
- 645.4343E-9
- 645.5427E-9
- 645.6511E-9
- 645.9201E-9
- 646.478E-9
- 647.4934E-9
- 649.5427E-9
- 653.6226E-9
- 665.7521E-9
- 677.8816E-9
- 696.2444E-9
- 714.6071E-9
- 732.9699E-9
- 746.742E-9
- 756.165E-9
- 762.2622E-9
- 768.3594E-9
- 774.4567E-9
- 790.1687E-9
- 805.8808E-9
- 821.5929E-9
- 821.6842E-9
- 821.7545E-9
- 821.8248E-9
- 821.8951E-9
- 821.9653E-9
- 822.076E-9
- 822.1866E-9
- 822.2973E-9
- 822.4669E-9
- 822.6365E-9
- 822.8912E-9
- 823.3338E-9
- 823.7765E-9
- 824.2192E-9
- 824.9984E-9
- 825.7776E-9
- 827.0348E-9
- 828.292E-9
- 830.6881E-9
- 833.0842E-9
- 836.7423E-9
- 840.4003E-9
- 844.0584E-9
- 844.2666E-9
- 844.4748E-9
- 844.4769E-9
- 844.4781E-9
- 844.4793E-9
- 844.4805E-9
- 844.4945E-9
- 844.5086E-9
- 844.5462E-9
- 844.6311E-9
- 844.7652E-9
- 844.9901E-9
- 845.5323E-9
- 846.4694E-9
- 848.2746E-9
- 851.966E-9
- 858.2053E-9
- 867.8816E-9
- 877.5578E-9
- 887.234E-9
- 904.897E-9
- 922.5599E-9
- 940.2229E-9
- 957.8858E-9
- 958.363E-9
- 958.8401E-9
- 959.2048E-9
- 959.5695E-9
- 961.2476E-9
- 962.9257E-9
- 966.1767E-9
- 972.5584E-9
- 984.7898E-9
- 997.0213E-9
- 1.009253E-6
- 1.021484E-6
- 1.022194E-6
- 1.022731E-6
- 1.023268E-6
- 1.023804E-6
- 1.024341E-6
- 1.024878E-6
- 1.025414E-6
- 1.025951E-6
- 1.026488E-6
- 1.027024E-6
- 1.027561E-6
- 1.028098E-6
- 1.028634E-6
- 1.029171E-6
- 1.029708E-6
- 1.030244E-6
- 1.030781E-6
- 1.031595E-6
- 1.032408E-6
- 1.033222E-6
- 1.034707E-6
- 1.036192E-6
- 1.037677E-6
- 1.039163E-6
- 1.040648E-6
- 1.042133E-6
- 1.042144E-6
- 1.042155E-6
- 1.042163E-6
- 1.042172E-6
- 1.042198E-6
- 1.042224E-6
- 1.042251E-6
- 1.042293E-6
- 1.042335E-6
- 1.042377E-6
- 1.042457E-6
- 1.042651E-6
- 1.042986E-6
- 1.042988E-6
- 1.042989E-6
- 1.04299E-6
- 1.042991E-6
- 1.043005E-6
- 1.043018E-6
- 1.043051E-6
- 1.04313E-6
- 1.043252E-6
- 1.043474E-6
- 1.043914E-6
- 1.044794E-6
- 1.04655E-6
- 1.049771E-6
- 1.054964E-6
- 1.062774E-6
- 1.076163E-6
- 1.089552E-6
- 1.102941E-6
- 1.11633E-6
- 1.129718E-6
- 1.139957E-6
- 1.150196E-6
- 1.150244E-6
- 1.150292E-6
- 1.150325E-6
- 1.150358E-6
- 1.150568E-6
- 1.150777E-6
- 1.151174E-6
- 1.151922E-6
- 1.153682E-6
- 1.156683E-6
- 1.162499E-6
- 1.168315E-6
- 1.179866E-6
- 1.191417E-6
- 1.202968E-6
- 1.214519E-6
- 1.226071E-6
- 1.234865E-6
- 1.241461E-6
- 1.241608E-6
- 1.241754E-6
- 1.241853E-6
- 1.241855E-6
- 1.241856E-6
- 1.241858E-6
- 1.241859E-6
- 1.241871E-6
- 1.241884E-6
- 1.241918E-6
- 1.242006E-6
- 1.242094E-6
- 1.242322E-6
- 1.242805E-6
- 1.243815E-6
- 1.246052E-6
- 1.250764E-6
- 1.260622E-6
- 1.270481E-6
- 1.280339E-6
- 1.298331E-6
- 1.316322E-6
- 1.334314E-6
- 1.348182E-6
- 1.348696E-6
- 1.34921E-6
- 1.34951E-6
- 1.34981E-6
- 1.351596E-6
- 1.353382E-6
- 1.356665E-6
- 1.363229E-6
- 1.369794E-6
- 1.381685E-6
- 1.393575E-6
- 1.405466E-6
- 1.417357E-6
- 1.429247E-6
- 1.438307E-6
- 1.447366E-6
- 1.447551E-6
- 1.447736E-6
- 1.447866E-6
- 1.447995E-6
- 1.448834E-6
- 1.449673E-6
- 1.451558E-6
- 1.455876E-6
- 1.465952E-6
- 1.476029E-6
- 1.491907E-6
- 1.507785E-6
- 1.523662E-6
- 1.523806E-6
- 1.523949E-6
- 1.524093E-6
- 1.524236E-6
- 1.52438E-6
- 1.524523E-6
- 1.524666E-6
- 1.52481E-6
- 1.524953E-6
- 1.525097E-6
- 1.525315E-6
- 1.525533E-6
- 1.525751E-6
- 1.525969E-6
- 1.52632E-6
- 1.526671E-6
- 1.527021E-6
- 1.527549E-6
- 1.528077E-6
- 1.528605E-6
- 1.529481E-6
- 1.530357E-6
- 1.531722E-6
- 1.533088E-6
- 1.535239E-6
- 1.537391E-6
- 1.539543E-6
- 1.541694E-6
- 1.543846E-6
- 1.543866E-6
- 1.543886E-6
- 1.543901E-6
- 1.543916E-6
- 1.544016E-6
- 1.544117E-6
- 1.544346E-6
- 1.544842E-6
- 1.545738E-6
- 1.547499E-6
- 1.551809E-6
- 1.556118E-6
- 1.565982E-6
- 1.575846E-6
- 1.58571E-6
- 1.603723E-6
- 1.621735E-6
- 1.639748E-6
- 1.657761E-6
- 1.658901E-6
- 1.660042E-6
- 1.661183E-6
- 1.662324E-6
- 1.666887E-6
- 1.67145E-6
- 1.680577E-6
- 1.696548E-6
- 1.712519E-6
- 1.72849E-6
- 1.739803E-6
- 1.751116E-6
- 1.752144E-6
- 1.753173E-6
- 1.753951E-6
- 1.75473E-6
- 1.757367E-6
- 1.760005E-6
- 1.762642E-6
- 1.769235E-6
- 1.775829E-6
- 1.788283E-6
- 1.800737E-6
- 1.81319E-6
- 1.825644E-6
- 1.834821E-6
- 1.841174E-6
- 1.847527E-6
- 1.847781E-6
- 1.848035E-6
- 1.848212E-6
- 1.848388E-6
- 1.849366E-6
- 1.850344E-6
- 1.852367E-6
- 1.856709E-6
- 1.865138E-6
- 1.873567E-6
- 1.881995E-6
- 1.898853E-6
- 1.915711E-6
- 1.932569E-6
- 1.943807E-6
- 1.947554E-6
- 1.9513E-6
- 1.953417E-6
- 1.955535E-6
- 1.964428E-6
- 1.973321E-6
- 1.982214E-6
- 1.991107E-6
+ 18.1893E-9
+ 32.55025E-9
+ 46.91119E-9
+ 61.27214E-9
+ 75.63309E-9
+ 89.99404E-9
+ 113.5744E-9
+ 131.3708E-9
+ 149.1673E-9
+ 166.9638E-9
+ 184.7602E-9
+ 202.5567E-9
+ 220.3532E-9
+ 238.1496E-9
+ 255.9461E-9
+ 273.7426E-9
+ 291.539E-9
+ 309.3355E-9
+ 327.132E-9
+ 344.9284E-9
+ 362.7249E-9
+ 380.5214E-9
+ 398.3178E-9
+ 416.1143E-9
+ 433.9108E-9
+ 451.7073E-9
+ 469.5037E-9
+ 487.3002E-9
+ 505.0967E-9
+ 522.8931E-9
+ 540.6896E-9
+ 558.4861E-9
+ 576.2825E-9
+ 594.079E-9
+ 611.8755E-9
+ 629.6719E-9
+ 647.4684E-9
+ 665.2649E-9
+ 683.0613E-9
+ 700.8578E-9
+ 718.6543E-9
+ 736.4507E-9
+ 754.2472E-9
+ 772.0437E-9
+ 789.8402E-9
+ 807.6366E-9
+ 825.4331E-9
+ 843.2296E-9
+ 861.026E-9
+ 878.8225E-9
+ 896.619E-9
+ 914.4154E-9
+ 932.2119E-9
+ 950.0084E-9
+ 967.8048E-9
+ 985.6013E-9
+ 1.003398E-6
+ 1.021194E-6
+ 1.038991E-6
+ 1.056787E-6
+ 1.074584E-6
+ 1.09238E-6
+ 1.110177E-6
+ 1.127973E-6
+ 1.14577E-6
+ 1.163566E-6
+ 1.181362E-6
+ 1.199159E-6
+ 1.216955E-6
+ 1.234752E-6
+ 1.252548E-6
+ 1.270345E-6
+ 1.288141E-6
+ 1.305938E-6
+ 1.323734E-6
+ 1.341531E-6
+ 1.359327E-6
+ 1.377124E-6
+ 1.39492E-6
+ 1.412717E-6
+ 1.430513E-6
+ 1.448309E-6
+ 1.466106E-6
+ 1.483902E-6
+ 1.501699E-6
+ 1.519495E-6
+ 1.537292E-6
+ 1.555088E-6
+ 1.572885E-6
+ 1.590681E-6
+ 1.608478E-6
+ 1.626274E-6
+ 1.644071E-6
+ 1.661867E-6
+ 1.679664E-6
+ 1.69746E-6
+ 1.715257E-6
+ 1.733053E-6
+ 1.750849E-6
+ 1.768646E-6
+ 1.786442E-6
+ 1.804239E-6
+ 1.822035E-6
+ 1.839832E-6
+ 1.857628E-6
+ 1.875425E-6
+ 1.893221E-6
+ 1.911018E-6
+ 1.928814E-6
+ 1.946611E-6
+ 1.964407E-6
+ 1.982204E-6
  2.E-6
 </indep>
 <dep _net0.Vt time>
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
  5.
  5.
  5.
@@ -1975,1328 +516,239 @@ dctran density=83.7%, ac density=83.7%
  0.
  0.006282152
  0.0125581
- 0.01882166
- 0.01961899
- 0.020416
- 0.02121269
- 0.02200903
- 0.02320423
- 0.02439859
- 0.02559206
- 0.02678461
- 0.0289219
- 0.03105583
- 0.03318614
- 0.036391
- 0.04401976
- 0.04969371
- 0.05532533
- 0.05539096
- 0.05545658
- 0.05550296
- 0.05554935
- 0.05600275
- 0.05645584
- 0.05742672
- 0.05980725
- 0.06647473
- 0.07306014
- 0.08774315
- 0.1018619
- 0.1153256
- 0.1280477
- 0.1399464
- 0.1411817
- 0.1419174
- 0.1426492
- 0.1433771
- 0.1441012
- 0.1448213
- 0.1455376
- 0.1462498
- 0.1469582
- 0.1476625
- 0.1483628
- 0.1490591
- 0.1501467
- 0.1512243
- 0.1522916
- 0.1533488
- 0.1543956
- 0.1554321
- 0.1554357
- 0.1554393
- 0.155442
- 0.1554446
- 0.1554501
- 0.1554556
- 0.155461
- 0.1554665
- 0.155472
- 0.1554775
- 0.155483
- 0.1554885
- 0.155494
- 0.1555024
- 0.1555108
- 0.155525
- 0.1555392
- 0.1555534
- 0.1555676
- 0.1555818
- 0.155604
- 0.1556261
- 0.1556483
- 0.1556845
- 0.1557424
- 0.1558386
- 0.1558401
- 0.155841
- 0.1558418
- 0.1558427
- 0.1558532
- 0.1558638
- 0.1558911
- 0.1559617
- 0.1560323
- 0.1562132
- 0.1565911
- 0.1573377
- 0.1590405
- 0.162437
- 0.1678067
- 0.172796
- 0.1798409
- 0.1885103
- 0.1948074
- 0.1986529
- 0.1992175
- 0.1998852
- 0.1998899
- 0.1998944
- 0.1998976
- 0.1999007
- 0.1999201
- 0.1999375
- 0.1999713
- 0.1999999
- 0.1998387
- 0.1985445
- 0.1959627
- 0.1891226
- 0.1790884
- 0.1660293
- 0.1653164
- 0.1645968
- 0.1640288
- 0.1634567
- 0.1602216
- 0.1541866
- 0.1409628
- 0.1263824
- 0.1105855
- 0.09372438
- 0.07596119
- 0.05746691
- 0.05707983
- 0.05669251
- 0.05640306
- 0.05611349
- 0.05472214
- 0.05332793
- 0.05059059
- 0.04489346
- 0.03915771
- 0.02408097
- 0.001412202
--0.02127478
--0.04368733
--0.06553634
--0.06821371
--0.0708773
--0.07273016
--0.07457585
--0.0829704
--0.09867855
--0.1136194
--0.1276769
--0.1407417
--0.1426334
--0.1437638
--0.1448848
--0.1459963
--0.1470982
--0.1481905
--0.1492731
--0.1503458
--0.1514088
--0.1524618
--0.1544466
--0.1563945
--0.1583049
--0.1583221
--0.1583394
--0.1583521
--0.1583649
--0.1584481
--0.1585312
--0.158737
--0.1591625
--0.159932
--0.1614649
--0.164437
--0.1726276
--0.179816
--0.1887001
--0.1950751
--0.1988561
--0.1999581
--0.19985
--0.1994067
--0.1986708
--0.1976433
--0.1936638
--0.1877983
--0.1801041
--0.1800542
--0.1800157
--0.1799772
--0.1799387
--0.1799001
--0.1798393
--0.1797784
--0.1797174
--0.1796238
--0.17953
--0.1793887
--0.1791421
--0.178894
--0.1786446
--0.1782022
--0.1777556
--0.1770259
--0.1762852
--0.1748431
--0.1733614
--0.1710236
--0.1685955
--0.1660783
--0.1659324
--0.1657862
--0.1657847
--0.1657839
--0.1657831
--0.1657822
--0.1657723
--0.1657624
--0.165736
--0.1656762
--0.1655818
--0.1654231
--0.1650392
--0.1643712
--0.1630683
--0.1603389
--0.1555304
--0.1476031
--0.1391304
--0.1301436
--0.1125237
--0.09351942
--0.07336444
--0.0523068
--0.05172782
--0.05114838
--0.05070522
--0.05026179
--0.04821793
--0.04616871
--0.04218435
--0.03431357
--0.0190846
--0.003742975
- 0.01162075
- 0.02691587
- 0.02779982
- 0.02846751
- 0.02913487
- 0.02980191
- 0.0304686
- 0.03113495
- 0.03180094
- 0.03246658
- 0.03313184
- 0.03379673
- 0.03446123
- 0.03512534
- 0.03578905
- 0.03645236
- 0.03711525
- 0.03777771
- 0.03843975
- 0.03944281
- 0.04044484
- 0.04144581
- 0.04326966
- 0.04508974
- 0.0469059
- 0.04871797
- 0.0505258
- 0.05232923
- 0.05234287
- 0.05235651
- 0.05236646
- 0.05237642
- 0.05240834
- 0.05244027
- 0.05247219
- 0.05252328
- 0.05257436
- 0.05262545
- 0.05272202
- 0.05295814
- 0.05336365
- 0.05336608
- 0.05336741
- 0.05336874
- 0.05337007
- 0.053386
- 0.05340193
- 0.05344272
- 0.05353804
- 0.05368537
- 0.05395378
- 0.05448696
- 0.0555496
- 0.05766588
- 0.06152967
- 0.06770446
- 0.07685439
- 0.0920975
- 0.1066892
- 0.1205263
- 0.133511
- 0.1455513
- 0.1540683
- 0.1619478
- 0.1619834
- 0.162019
- 0.1620434
- 0.1620677
- 0.1622218
- 0.1623755
- 0.1626659
- 0.1632113
- 0.1644793
- 0.1665955
- 0.1705272
- 0.1742313
- 0.1808936
- 0.1866035
- 0.1913308
- 0.1950507
- 0.1977437
- 0.1990964
- 0.1997122
- 0.199722
- 0.1997317
- 0.199738
- 0.1997382
- 0.1997382
- 0.1997383
- 0.1997384
- 0.1997392
- 0.19974
- 0.1997422
- 0.1997478
- 0.1997533
- 0.1997673
- 0.1997957
- 0.199849
- 0.1999385
- 0.1999977
- 0.1995547
- 0.1983463
- 0.1963771
- 0.1908491
- 0.1828847
- 0.1725858
- 0.1631355
- 0.1627612
- 0.1623853
- 0.1621648
- 0.1619437
- 0.1606163
- 0.1592687
- 0.1567403
- 0.1514844
- 0.1459708
- 0.1353586
- 0.1239911
- 0.1119319
- 0.09924814
- 0.08601069
- 0.07559889
- 0.06494219
- 0.0647224
- 0.06450252
- 0.06434862
- 0.06419467
- 0.06319536
- 0.06219429
- 0.05993904
- 0.05474033
- 0.04245997
- 0.03000947
- 0.01016607
--0.009778431
--0.02962569
--0.02980393
--0.02998214
--0.03016034
--0.03033851
--0.03051665
--0.03069477
--0.03087286
--0.03105093
--0.03122898
--0.03140699
--0.03167769
--0.03194833
--0.03221891
--0.03248943
--0.0329241
--0.0333586
--0.03379294
--0.03444657
--0.03509982
--0.03575268
--0.03683546
--0.03791712
--0.03960021
--0.04128037
--0.04392217
--0.04655593
--0.04918119
--0.05179746
--0.05440426
--0.05442845
--0.05445265
--0.05447057
--0.0544885
--0.05461019
--0.05473187
--0.05500856
--0.05560798
--0.05668861
--0.05880693
--0.06396086
--0.06906791
--0.08056077
--0.09174428
--0.1025755
--0.1213093
--0.138491
--0.1539006
--0.1673411
--0.1681219
--0.168894
--0.1696575
--0.1704123
--0.1733434
--0.176132
--0.1812727
--0.1888261
--0.1944795
--0.1981762
--0.1995896
--0.1999951
--0.1999818
--0.1999603
--0.1999384
--0.1999117
--0.1997858
--0.199605
--0.1993694
--0.1985411
--0.1973721
--0.1942421
--0.1899233
--0.1844421
--0.1778322
--0.1722628
--0.1680704
--0.1636103
--0.1634265
--0.1632422
--0.1631141
--0.1629858
--0.1622703
--0.1615488
--0.1600375
--0.1567058
--0.1499077
--0.1426893
--0.1350708
--0.1187198
--0.1010382
--0.08222403
--0.06915578
--0.06471983
--0.06024802
--0.05770556
--0.05515288
--0.04433032
--0.03336939
--0.02230429
--0.01116958
- 145.E-15
+ 0.02280762
+ 0.04061929
+ 0.05810046
+ 0.0751089
+ 0.09150623
+ 0.107159
+ 0.1309132
+ 0.1469675
+ 0.1611861
+ 0.1733914
+ 0.1834311
+ 0.1911795
+ 0.1965401
+ 0.1994459
+ 0.1998604
+ 0.1977787
+ 0.1932266
+ 0.1862611
+ 0.1769691
+ 0.1654666
+ 0.1518975
+ 0.1364311
+ 0.1192606
+ 0.1006005
+ 0.08068388
+ 0.05975949
+ 0.03808867
+ 0.01594212
+-0.006403557
+-0.02866925
+-0.05057686
+-0.07185274
+-0.09223115
+-0.1114576
+-0.1292918
+-0.1455112
+-0.1599131
+-0.1723176
+-0.1825698
+-0.1905416
+-0.1961336
+-0.1992757
+-0.1999288
+-0.1980847
+-0.1937665
+-0.1870281
+-0.1779536
+-0.1666564
+-0.1532776
+-0.1379843
+-0.1209676
+-0.1024399
+-0.0826327
+-0.0617934
+-0.04018228
+-0.01806926
+ 0.004269443
+ 0.02655482
+ 0.04850852
+ 0.06985633
+ 0.09033161
+ 0.1096786
+ 0.1276557
+ 0.1440383
+ 0.1586218
+ 0.1712241
+ 0.1816878
+ 0.189882
+ 0.1957046
+ 0.1990828
+ 0.1999744
+ 0.1983682
+ 0.1942843
+ 0.1877737
+ 0.1789178
+ 0.1678271
+ 0.1546402
+ 0.1395218
+ 0.1226608
+ 0.1042676
+ 0.0845721
+ 0.06382027
+ 0.0422713
+ 0.02019434
+-0.002134843
+-0.02443737
+-0.04643466
+-0.06785196
+-0.08842178
+-0.1078872
+-0.126005
+-0.142549
+-0.1573125
+-0.1701111
+-0.180785
+-0.1892008
+-0.1952534
+-0.1988672
+-0.1999972
+-0.198629
+-0.1947799
+-0.188498
+-0.1798616
+-0.1689788
+-0.1559853
+-0.1410435
+-0.12434
+-0.1060834
+-0.08650187
+-0.06583987
+-0.04435551
+-0.02231713
+-3.E-15
 </dep>
 <dep _net2.Vt time>
  5.
  5.927051
  6.763356
- 7.427051
- 7.495711
- 7.560369
- 7.620919
- 7.677266
- 7.753789
- 7.820353
- 7.876718
- 7.92268
- 7.978565
- 7.999795
- 7.986123
- 7.899981
- 7.391223
- 6.768898
- 5.99699
- 5.987322
- 5.977642
- 5.970792
- 5.963937
- 5.89661
- 5.828783
- 5.681776
- 5.313727
- 4.267678
- 3.311114
- 2.043601
- 2.578455
- 4.589602
- 6.850949
- 7.983865
- 7.99957
- 7.998149
- 7.988601
- 7.970954
- 7.945254
- 7.911572
- 7.869998
- 7.820646
- 7.763649
- 7.699162
- 7.627359
- 7.548435
- 7.410332
- 7.256055
- 7.08664
- 6.903223
- 6.707036
- 6.499393
- 6.498649
- 6.497904
- 6.497363
- 6.496821
- 6.495687
- 6.494553
- 6.493419
- 6.492284
- 6.491149
- 6.490014
- 6.488878
- 6.487743
- 6.486606
- 6.48486
- 6.483113
- 6.480169
- 6.477222
- 6.474274
- 6.471324
- 6.468372
- 6.463752
- 6.459127
- 6.454498
- 6.446922
- 6.434796
- 6.414548
- 6.414219
- 6.414036
- 6.413853
- 6.413671
- 6.411448
- 6.409224
- 6.403439
- 6.388471
- 6.373459
- 6.334714
- 6.252652
- 6.086289
- 5.687916
- 4.837772
- 3.482702
- 2.465205
- 2.050588
- 4.215725
- 7.269405
- 7.751967
- 7.321539
- 5.997289
- 5.9775
- 5.957663
- 5.943745
- 5.929804
- 5.836549
- 5.742409
- 5.505743
- 4.96479
- 3.8273
- 2.196177
- 2.288182
- 5.512352
- 7.985413
- 6.081853
- 5.901727
- 5.717951
- 5.572017
- 5.424665
- 4.60117
- 3.252671
- 2.001572
- 3.414102
- 6.235452
- 7.959298
- 7.054276
- 4.324354
- 4.265452
- 4.206851
- 4.163289
- 4.119918
- 3.914755
- 3.715278
- 3.345202
- 2.692322
- 2.236605
- 2.196367
- 4.788344
- 7.625464
- 7.421738
- 4.413124
- 4.002535
- 3.612038
- 3.355307
- 3.114768
- 2.278869
- 2.295367
- 4.283202
- 6.793492
- 7.996552
- 7.988894
- 7.958245
- 7.908215
- 7.839132
- 7.751448
- 7.645737
- 7.522692
- 7.38312
- 7.227934
- 7.058152
- 6.697127
- 6.295539
- 5.862985
- 5.85893
- 5.854873
- 5.851867
- 5.848859
- 5.829237
- 5.809576
- 5.760651
- 5.658475
- 5.470532
- 5.086196
- 4.32304
- 2.492359
- 2.049039
- 4.298636
- 7.38279
- 7.631648
- 5.609844
- 3.866775
- 2.910612
- 2.257367
- 2.001748
- 3.262476
- 6.083459
- 7.931522
- 7.935127
- 7.937839
- 7.940494
- 7.943091
- 7.945631
- 7.949512
- 7.953251
- 7.956847
- 7.962083
- 7.966982
- 7.973703
- 7.983576
- 7.99114
- 7.996391
- 8.
- 7.99642
- 7.975515
- 7.936054
- 7.810435
- 7.621234
- 7.219873
- 6.701757
- 6.094138
- 6.057496
- 6.020674
- 6.020318
- 6.020105
- 6.019892
- 6.019679
- 6.017184
- 6.014688
- 6.00802
- 5.99292
- 5.969047
- 5.928834
- 5.831123
- 5.660061
- 5.324595
- 4.630356
- 3.520943
- 2.2951
- 2.038658
- 2.843525
- 5.90856
- 7.964811
- 6.729197
- 3.573636
- 3.495163
- 3.418043
- 3.360057
- 3.302931
- 3.051998
- 2.822702
- 2.449322
- 2.035234
- 2.549874
- 4.441793
- 6.647495
- 7.927097
- 7.953503
- 7.969562
- 7.982245
- 7.991537
- 7.997428
- 7.999911
- 7.998984
- 7.994647
- 7.986905
- 7.975768
- 7.961247
- 7.94336
- 7.922126
- 7.89757
- 7.86972
- 7.838607
- 7.804267
- 7.746126
- 7.680807
- 7.60848
- 7.459064
- 7.288254
- 7.097535
- 6.888566
- 6.663167
- 6.423297
- 6.421431
- 6.419564
- 6.4182
- 6.416836
- 6.412461
- 6.408081
- 6.403698
- 6.396674
- 6.38964
- 6.382597
- 6.369253
- 6.336477
- 6.279696
- 6.279354
- 6.279167
- 6.278979
- 6.278792
- 6.276549
- 6.274305
- 6.268553
- 6.255092
- 6.234221
- 6.196
- 6.119351
- 5.9639
- 5.645246
- 5.04316
- 4.07949
- 2.842508
- 2.008002
- 3.16898
- 5.551139
- 7.565722
- 7.86912
- 6.769893
- 4.963114
- 4.954011
- 4.944909
- 4.938676
- 4.932443
- 4.892994
- 4.853564
- 4.778974
- 4.638561
- 4.312196
- 3.777014
- 2.878843
- 2.26079
- 2.139123
- 3.45945
- 5.556274
- 7.372715
- 7.993214
- 7.441885
- 6.533397
- 6.509585
- 6.485644
- 6.469418
- 6.469087
- 6.468906
- 6.468725
- 6.468544
- 6.466442
- 6.464338
- 6.458753
- 6.444288
- 6.429778
- 6.3917
- 6.310485
- 6.136778
- 5.736588
- 4.856028
- 3.143095
- 2.12013
- 2.167234
- 4.685923
- 7.565008
- 7.500805
- 5.3419
- 5.24555
- 5.148943
- 5.092407
- 5.035838
- 4.699646
- 4.367232
- 3.780135
- 2.783733
- 2.159071
- 2.260743
- 3.821599
- 6.010181
- 7.660646
- 7.893804
- 7.011089
- 5.494143
- 5.459736
- 5.425266
- 5.401114
- 5.376935
- 5.219606
- 5.061667
- 4.706885
- 3.9174
- 2.471843
- 2.006264
- 3.539338
- 6.409539
- 7.989412
- 7.99156
- 7.993465
- 7.995127
- 7.996546
- 7.997721
- 7.998653
- 7.999341
- 7.999786
- 7.999987
- 7.999945
- 7.999413
- 7.998317
- 7.996659
- 7.994437
- 7.989688
- 7.983488
- 7.975841
- 7.961604
- 7.944109
- 7.923376
- 7.881877
- 7.831645
- 7.736341
- 7.620915
- 7.400255
- 7.135792
- 6.832352
- 6.495473
- 6.131301
- 6.127807
- 6.124311
- 6.12172
- 6.119128
- 6.101501
- 6.083831
- 6.043475
- 5.955263
- 5.793737
- 5.46948
- 4.659823
- 3.874955
- 2.46882
- 2.004239
- 2.654031
- 5.695358
- 7.937111
- 6.801556
- 3.594439
- 3.408237
- 3.23021
- 3.061272
- 2.90229
- 2.381406
- 2.074311
- 2.182281
- 4.35436
- 7.123843
- 7.928157
- 6.793259
- 4.789824
- 4.597016
- 4.40589
- 4.262796
- 4.121466
- 3.660345
- 3.235925
- 2.859834
- 2.194648
- 2.004065
- 2.985504
- 5.13878
- 7.211327
- 7.997541
- 7.446723
- 6.579677
- 5.464252
- 5.416871
- 5.369384
- 5.336384
- 5.303343
- 5.119455
- 4.935117
- 4.555545
- 3.772543
- 2.557787
- 2.012159
- 2.285155
- 4.784031
- 7.503383
- 7.667104
- 6.138053
- 5.459333
- 4.755282
- 4.360826
- 3.977666
- 2.637922
- 2.016684
- 2.302923
- 3.40957
+ 7.729482
+ 7.668706
+ 5.578578
+ 3.048484
+ 2.002373
+ 3.235735
+ 7.259577
+ 7.762843
+ 5.15689
+ 2.374378
+ 2.54666
+ 5.479856
+ 7.873037
+ 7.03299
+ 3.905079
+ 2.009358
+ 3.479214
+ 6.660516
+ 7.973124
+ 5.939869
+ 2.848915
+ 2.178725
+ 4.683512
+ 7.544465
+ 7.541955
+ 4.678807
+ 2.17712
+ 2.852216
+ 5.944362
+ 7.973752
+ 6.656573
+ 3.475137
+ 2.009735
+ 3.909486
+ 7.036467
+ 7.871671
+ 5.475184
+ 2.54394
+ 2.37667
+ 5.161615
+ 7.764684
+ 7.256462
+ 4.208887
+ 2.051606
+ 3.212358
+ 6.384867
+ 7.998889
+ 6.238054
+ 3.083951
+ 2.086111
+ 4.367472
+ 7.360661
+ 7.697235
+ 4.998423
+ 2.301386
+ 2.641287
+ 5.635611
+ 7.914638
+ 6.913621
+ 3.759073
+ 2.001026
+ 3.617933
+ 6.790175
+ 7.947809
+ 5.78807
+ 2.74146
+ 2.236542
+ 4.841535
+ 7.624859
+ 7.454247
+ 4.521701
+ 2.127418
+ 2.96585
+ 6.093453
+ 7.990517
+ 6.522145
+ 3.340798
+ 2.026666
+ 4.058633
+ 7.149986
+ 7.82181
+ 5.318056
+ 2.456371
+ 2.457208
+ 5.319625
+ 7.822346
+ 7.148885
+ 4.057135
+ 2.026456
+ 3.342112
+ 6.523504
+ 7.990391
+ 6.091984
+ 2.964691
+ 2.127873
+ 4.523258
+ 7.455154
+ 7.624095
+ 4.83996
+ 2.235929
+ 2.742499
+ 5.789591
+ 7.948102
+ 6.788909
+ 3.616533
+ 2.001068
+ 3.76051
+ 6.914835
+ 7.914264
+ 5.634069
+ 2.640312
+ 2.302075
  5.
 </dep>
 <dep _net3.Vt time>
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
  5.
  5.
  5.
@@ -3418,482 +870,119 @@ dctran density=83.7%, ac density=83.7%
  3.292937
  3.922608
  4.430947
- 4.589166
- 4.598812
- 4.608837
- 4.616268
- 4.623955
- 4.632393
- 4.640064
- 4.645254
- 4.649888
- 4.653957
- 4.655049
- 4.651861
- 4.640759
- 4.562709
- 4.399517
- 3.938768
- 3.931087
- 3.92272
- 3.916267
- 3.910723
- 3.851975
- 3.794406
- 3.675922
- 3.424731
- 2.973479
- 2.924179
- 2.911881
- 2.899873
- 3.034715
- 4.355798
- 4.584396
- 4.581412
- 4.584403
- 4.579268
- 4.579824
- 4.573119
- 4.571143
- 4.562578
- 4.557838
- 4.546946
- 4.538992
- 4.525081
- 4.513165
- 4.484718
- 4.452719
- 4.407463
- 4.353166
- 4.277943
- 4.182909
- 4.182306
- 4.181755
- 4.181651
- 4.180928
- 4.18136
- 4.178635
- 4.1796
- 4.176995
- 4.177953
- 4.175474
- 4.176428
- 4.174045
- 4.175004
- 4.172067
- 4.172997
- 4.171705
- 4.169033
- 4.168064
- 4.165568
- 4.164664
- 4.161407
- 4.159485
- 4.157774
- 4.15374
- 4.146955
- 4.135471
- 4.13528
- 4.135175
- 4.135095
- 4.134964
- 4.133986
- 4.131568
- 4.129202
- 4.12021
- 4.111366
- 4.087532
- 4.033819
- 3.912492
- 3.600991
- 3.100626
- 2.830743
- 2.825555
- 2.8208
- 2.866337
- 4.417671
- 4.51108
- 4.425019
- 3.808363
- 3.789915
- 3.776526
- 3.764922
- 3.754469
- 3.680854
- 3.608972
- 3.443335
- 3.134098
- 2.799044
- 2.799852
- 2.805831
- 3.455798
- 4.555359
- 3.900371
- 3.762082
- 3.618289
- 3.514984
- 3.4177
- 3.004696
- 2.842649
- 2.859783
- 2.87527
- 4.067483
- 4.611054
- 4.462968
- 2.997241
- 2.978419
- 2.971117
- 2.960186
- 2.956461
- 2.942145
- 2.946007
- 2.945674
- 2.95415
- 2.95851
- 2.978089
- 3.19498
- 4.644054
- 4.632945
- 3.113611
- 3.066054
- 3.068499
- 3.069745
- 3.07181
- 3.081352
- 3.100287
- 3.129893
- 4.558262
- 4.757976
- 4.752346
- 4.756198
- 4.74725
- 4.747213
- 4.734744
- 4.729776
- 4.711936
- 4.699592
- 4.672507
- 4.647229
- 4.551434
- 4.378756
- 4.021138
- 4.018601
- 4.015186
- 4.011974
- 4.009455
- 3.989633
- 3.971184
- 3.924365
- 3.835974
- 3.690377
- 3.452172
- 3.175569
- 3.169413
- 3.181457
- 3.197681
- 4.72464
- 4.757827
- 3.825715
- 3.201874
- 3.192244
- 3.201138
- 3.193478
- 3.201257
- 4.252188
- 4.774473
- 4.770229
- 4.772261
- 4.772077
- 4.772939
- 4.772545
- 4.773137
- 4.772454
- 4.773167
- 4.773608
- 4.773423
- 4.774183
- 4.774406
- 4.775041
- 4.775055
- 4.775196
- 4.774491
- 4.772611
- 4.769203
- 4.758257
- 4.739726
- 4.686881
- 4.567554
- 4.245383
- 4.215588
- 4.183262
- 4.182953
- 4.182768
- 4.182731
- 4.182398
- 4.182459
- 4.179267
- 4.173012
- 4.157709
- 4.136116
- 4.096401
- 3.998768
- 3.841321
- 3.593821
- 3.250346
- 3.151307
- 3.146694
- 3.13902
- 3.133601
- 4.02041
- 4.727219
- 4.493015
- 3.053846
- 3.045977
- 3.050685
- 3.046147
- 3.048706
- 3.044502
- 3.04492
- 3.039383
- 3.034817
- 3.020142
- 3.07658
- 4.384446
- 4.6534
- 4.649287
- 4.656156
- 4.65205
- 4.656929
- 4.653221
- 4.65643
- 4.65286
- 4.654765
- 4.650937
- 4.65161
- 4.647619
- 4.64704
- 4.642715
- 4.64093
- 4.636103
- 4.633105
- 4.6276
- 4.620497
- 4.610417
- 4.600251
- 4.574963
- 4.542964
- 4.498862
- 4.440237
- 4.358014
- 4.243412
- 4.242352
- 4.241285
- 4.239967
- 4.239311
- 4.237115
- 4.234802
- 4.231145
- 4.227949
- 4.224349
- 4.220273
- 4.212462
- 4.192744
- 4.156691
- 4.156468
- 4.156345
- 4.156277
- 4.156099
- 4.155389
- 4.152905
- 4.149554
- 4.140229
- 4.126077
- 4.098917
- 4.041074
- 3.910869
- 3.648897
- 3.271187
- 2.940341
- 2.920101
- 2.908982
- 2.895009
- 3.53326
- 4.527132
- 4.564282
- 4.302771
- 3.162152
- 3.155171
- 3.151393
- 3.148213
- 3.14521
- 3.126391
- 3.10806
- 3.074691
- 3.016614
- 2.907344
- 2.831744
- 2.82742
- 2.824713
- 2.819869
- 2.815306
- 3.482451
- 4.442707
- 4.54428
- 4.452767
- 4.155884
- 4.143242
- 4.130849
- 4.122005
- 4.121815
- 4.121719
- 4.121634
- 4.121526
- 4.120466
- 4.118461
- 4.116101
- 4.108229
- 4.100018
- 4.077999
- 4.027931
- 3.908818
- 3.604808
- 3.082281
- 2.797958
- 2.801138
- 2.804262
- 3.017323
- 4.48794
- 4.488074
- 3.364919
- 3.311679
- 3.25462
- 3.22705
- 3.195564
- 3.043776
- 2.925837
- 2.842867
- 2.845167
- 2.854459
- 2.864425
- 2.879485
- 3.892206
- 4.57006
- 4.605189
- 4.455333
- 3.534776
- 3.514503
- 3.490307
- 3.476044
- 3.460097
- 3.36656
- 3.280252
- 3.118381
- 2.943185
- 2.95565
- 2.970273
- 2.992373
- 4.294636
- 4.693002
- 4.690089
- 4.692351
- 4.69136
- 4.692777
- 4.691867
- 4.693034
- 4.692249
- 4.693215
- 4.692524
- 4.69332
- 4.692696
- 4.693389
- 4.692706
- 4.693224
- 4.692432
- 4.692833
- 4.69175
- 4.691267
- 4.689518
- 4.68824
- 4.684387
- 4.680096
- 4.670329
- 4.657605
- 4.627815
- 4.581527
- 4.50691
- 4.380762
- 4.161449
- 4.158679
- 4.155967
- 4.153429
- 4.151635
- 4.137259
- 4.124364
- 4.090387
- 4.011924
- 3.862222
- 3.61262
- 3.18987
- 3.066679
- 3.078556
- 3.091898
- 3.104875
- 3.83344
- 4.748974
- 4.58522
- 3.166942
- 3.162203
- 3.168
- 3.164612
- 3.169384
- 3.16961
- 3.176949
- 3.180919
- 3.207446
- 4.683423
- 4.7843
- 4.613245
- 3.346878
- 3.26144
- 3.228089
- 3.192557
- 3.20447
- 3.189919
- 3.202662
- 3.190544
- 3.202933
- 3.191893
- 3.203082
- 3.497917
- 4.697485
- 4.773681
- 4.720539
- 4.522733
- 3.691817
- 3.653687
- 3.624636
- 3.600605
- 3.58066
- 3.470155
- 3.375965
- 3.225811
- 3.154347
- 3.147512
- 3.142499
- 3.136601
- 3.280369
- 4.679481
- 4.692225
- 4.176072
- 3.614843
- 3.219926
- 3.099539
- 3.047426
- 3.047547
- 3.027844
- 3.028935
- 3.009107
- 3.296844
+ 4.63041
+ 4.608457
+ 3.600608
+ 2.920814
+ 2.910251
+ 2.89385
+ 4.469686
+ 4.548432
+ 3.26123
+ 2.823765
+ 2.819689
+ 3.432121
+ 4.528907
+ 4.351716
+ 2.805175
+ 2.798825
+ 2.812026
+ 4.224253
+ 4.559432
+ 3.785972
+ 2.852102
+ 2.858371
+ 3.072394
+ 4.541599
+ 4.56871
+ 3.101227
+ 2.967275
+ 2.97985
+ 3.957317
+ 4.685216
+ 4.45356
+ 3.065241
+ 3.095806
+ 3.111146
+ 4.623741
+ 4.748012
+ 3.692577
+ 3.169227
+ 3.185249
+ 3.515409
+ 4.765333
+ 4.71312
+ 3.198999
+ 3.194745
+ 3.199893
+ 4.451036
+ 4.777676
+ 4.34339
+ 3.157563
+ 3.131659
+ 3.157229
+ 4.655606
+ 4.700064
+ 3.328869
+ 3.046203
+ 3.012997
+ 3.689021
+ 4.64401
+ 4.454136
+ 2.923515
+ 2.913682
+ 2.888788
+ 4.338252
+ 4.574285
+ 3.676711
+ 2.82554
+ 2.82071
+ 3.083545
+ 4.490004
+ 4.456946
+ 2.94646
+ 2.799192
+ 2.809507
+ 3.886144
+ 4.558148
+ 4.17832
+ 2.847676
+ 2.856054
+ 2.896547
+ 4.459443
+ 4.605062
+ 3.418085
+ 2.962717
+ 2.974698
+ 3.478721
+ 4.665475
+ 4.59112
+ 3.059642
+ 3.093158
+ 3.105879
+ 4.466332
+ 4.754284
+ 4.235034
+ 3.16634
+ 3.182568
+ 3.242398
+ 4.733102
+ 4.757534
+ 3.357869
+ 3.196974
+ 3.197653
+ 3.978794
+ 4.772167
+ 4.593696
+ 3.156542
+ 3.137108
+ 3.131412
+ 4.571878
+ 4.721927
+ 3.731589
+ 3.048665
+ 3.017557
+ 3.298767
 </dep>
 <dep neg.Vt time>
  4.950023
@@ -3901,959 +990,233 @@ dctran density=83.7%, ac density=83.7%
  5.
  5.
  5.
+ 4.984049
+ 4.883591
+ 4.881301
+ 4.877702
  5.
  5.
+ 4.945441
+ 4.861716
+ 4.860756
+ 4.967759
  5.
  5.
+ 4.857311
+ 4.85579
+ 4.858942
  5.
  5.
+ 4.995416
+ 4.868298
+ 4.869732
+ 4.913992
  5.
  5.
+ 4.919255
+ 4.893397
+ 4.895977
+ 4.999817
  5.
  5.
+ 4.91266
+ 4.918278
+ 4.921027
  5.
  5.
+ 4.990547
+ 4.931009
+ 4.933644
+ 4.97652
  5.
- 4.999623
- 4.999523
- 4.999401
- 4.999297
- 4.999201
- 4.997806
- 4.99577
- 4.989496
- 4.966914
- 4.894674
- 4.884316
- 4.881656
- 4.87903
- 4.906864
  5.
+ 4.935864
+ 4.935181
+ 4.936007
  5.
  5.
  5.
+ 4.929058
+ 4.924629
+ 4.929002
  5.
  5.
+ 4.954972
+ 4.909067
+ 4.902626
+ 4.990327
  5.
  5.
+ 4.884173
+ 4.882048
+ 4.87658
  5.
  5.
+ 4.989547
+ 4.862133
+ 4.860997
+ 4.916047
  5.
  5.
+ 4.889057
+ 4.855878
+ 4.858344
+ 4.998701
  5.
  5.
+ 4.86728
+ 4.869203
+ 4.878298
  5.
  5.
+ 4.966146
+ 4.892454
+ 4.894924
+ 4.972832
  5.
  5.
+ 4.911611
+ 4.917798
+ 4.920088
  5.
  5.
  5.
+ 4.930528
+ 4.933206
+ 4.942624
  5.
  5.
+ 4.958779
+ 4.935539
+ 4.935648
+ 4.999954
  5.
  5.
+ 4.928886
+ 4.925572
+ 4.924586
  5.
  5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.999232
- 4.984079
- 4.919147
- 4.863352
- 4.862136
- 4.861018
- 4.871543
- 5.
- 5.
- 5.
- 4.996325
- 4.995583
- 4.995003
- 4.994471
- 4.993969
- 4.989813
- 4.98471
- 4.969019
- 4.925052
- 4.855843
- 4.856037
- 4.857468
- 4.97039
- 5.
- 4.999005
- 4.994337
- 4.985429
- 4.976479
- 4.966101
- 4.900982
- 4.86612
- 4.870054
- 4.87356
- 5.
- 5.
- 5.
- 4.899493
- 4.895685
- 4.894189
- 4.891929
- 4.891153
- 4.888147
- 4.888962
- 4.888892
- 4.890671
- 4.89158
- 4.895618
- 4.935219
- 5.
- 5.
- 4.921464
- 4.912812
- 4.913268
- 4.9135
- 4.913883
- 4.915645
- 4.919086
- 4.924322
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.999989
- 4.999916
- 4.999426
- 4.997307
- 4.990411
- 4.969995
- 4.932058
- 4.931039
- 4.933025
- 4.935653
- 5.
- 5.
- 4.99696
- 4.936323
- 4.934778
- 4.936206
- 4.934977
- 4.936225
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.997479
- 4.983502
- 4.943822
- 4.928001
- 4.927216
- 4.925901
- 4.924966
- 5.
- 5.
- 5.
- 4.910518
- 4.909024
- 4.909919
- 4.909056
- 4.909544
- 4.908742
- 4.908822
- 4.907762
- 4.906883
- 4.904031
- 4.914766
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.999203
- 4.987671
- 4.946901
- 4.887765
- 4.883437
- 4.881025
- 4.877958
- 4.978218
- 5.
- 5.
- 5.
- 4.929829
- 4.928655
- 4.928015
- 4.927475
- 4.926963
- 4.923712
- 4.920478
- 4.914417
- 4.903338
- 4.880667
- 4.863586
- 4.862574
- 4.861939
- 4.860799
- 4.85972
- 4.973219
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.999166
- 4.984382
- 4.915815
- 4.855582
- 4.856345
- 4.857093
- 4.903478
- 5.
- 5.
- 4.959679
- 4.952636
- 4.94446
- 4.940277
- 4.935313
- 4.908604
- 4.884672
- 4.86617
- 4.866702
- 4.868838
- 4.87111
- 4.874505
- 4.998836
- 5.
- 5.
- 5.
- 4.978359
- 4.976432
- 4.974026
- 4.972552
- 4.970856
- 4.959887
- 4.948214
- 4.922307
- 4.888366
- 4.890984
- 4.894015
- 4.898515
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 5.
- 4.998099
- 4.984993
- 4.934394
- 4.912929
- 4.91513
- 4.91757
- 4.919909
- 4.997223
- 5.
- 5.
- 4.930629
- 4.929837
- 4.930805
- 4.93024
- 4.931035
- 4.931072
- 4.932285
- 4.932937
- 4.937209
- 5.
- 5.
- 5.
- 4.957356
- 4.945472
- 4.940437
- 4.934828
- 4.936737
- 4.934402
- 4.936449
- 4.934503
- 4.936492
- 4.934721
- 4.936516
- 4.974795
- 5.
- 5.
- 5.
- 5.
- 4.9905
- 4.988005
- 4.98591
- 4.984048
- 4.982416
- 4.971932
- 4.961069
- 4.940085
- 4.928516
- 4.927356
- 4.926499
- 4.925484
- 4.94823
- 5.
- 5.
- 5.
- 4.985165
- 4.939171
- 4.918951
- 4.9093
- 4.909323
- 4.905533
- 4.905745
- 4.901857
- 4.950573
+ 4.992793
+ 4.909536
+ 4.903524
+ 4.950843
 </dep>
 <dep pos.Vt time>
  4.950023
  4.899245
  4.897717
- 4.896654
- 4.896264
- 4.896277
- 4.89594
- 4.895901
- 4.89551
- 4.895348
- 4.894976
- 4.89479
- 4.894212
- 4.89379
- 4.893219
- 4.892538
- 4.890719
- 4.889611
- 4.889178
- 4.889361
- 4.889505
- 4.889437
- 4.889644
- 4.890906
- 4.893073
- 4.898854
- 4.921019
- 4.991325
- 5.000017
- 4.999982
- 5.000017
- 4.969199
- 4.872547
- 4.870826
- 4.869229
- 4.870219
- 4.868917
- 4.869758
- 4.868616
- 4.869296
- 4.868308
- 4.868851
- 4.867999
- 4.868423
- 4.867689
- 4.868014
- 4.867277
- 4.867448
- 4.866786
- 4.866926
- 4.866375
- 4.866543
- 4.866591
- 4.866515
- 4.866077
- 4.866507
- 4.865879
- 4.86649
- 4.866319
- 4.86586
- 4.866155
- 4.86558
- 4.866239
- 4.865261
- 4.866594
- 4.864678
- 4.866982
- 4.865794
- 4.866166
- 4.866156
- 4.8661
- 4.866095
- 4.866082
- 4.866055
- 4.86638
- 4.866302
- 4.866391
- 4.866285
- 4.866331
- 4.866332
- 4.866093
- 4.866333
- 4.865629
- 4.866319
- 4.866188
- 4.866471
- 4.866158
- 4.866449
- 4.866121
- 4.867147
- 4.881738
- 4.945858
- 4.999822
- 5.000178
- 4.999822
- 4.987969
- 4.856838
- 4.857011
- 4.85515
- 4.860576
- 4.860275
- 4.861486
- 4.861671
- 4.862394
- 4.866447
- 4.871651
- 4.887126
- 4.931078
- 4.999863
- 5.000056
- 4.999944
- 4.888478
- 4.861024
- 4.864841
- 4.870498
- 4.878894
- 4.888559
- 4.89841
- 4.964669
- 4.999761
- 5.000238
- 4.999761
- 4.876926
- 4.880615
- 4.883799
- 4.989069
- 4.991987
- 4.994212
- 4.9961
- 4.997097
- 5.000228
- 4.999771
- 5.000228
- 4.999771
- 5.000228
- 4.999771
- 4.965029
- 4.903884
- 4.908883
- 4.990822
- 5.000205
- 4.999795
- 5.000205
- 4.999795
- 5.000205
- 4.999795
- 4.997852
- 4.923269
- 4.927305
- 4.92542
- 4.927616
- 4.925815
- 4.927814
- 4.926204
- 4.928021
- 4.926595
- 4.928247
- 4.927003
- 4.928508
- 4.927623
- 4.929344
- 4.929014
- 4.929557
- 4.929377
- 4.92963
- 4.929424
- 4.929678
- 4.929594
- 4.930234
- 4.932232
- 4.939302
- 4.959669
- 4.997966
- 4.999856
- 5.000144
- 4.998835
- 4.935103
- 4.936047
- 4.938673
- 4.999864
- 5.000136
- 4.999864
- 5.000136
- 4.999864
- 4.933435
- 4.93384
- 4.932569
- 4.93296
- 4.933179
- 4.933067
- 4.933213
- 4.932939
- 4.93287
- 4.932779
- 4.933018
- 4.932633
- 4.932921
- 4.932561
- 4.932783
- 4.932469
- 4.932615
- 4.932271
- 4.932324
- 4.931962
- 4.931838
- 4.93133
- 4.931065
- 4.930516
- 4.930671
- 4.930538
- 4.93076
- 4.93059
- 4.93065
- 4.930431
- 4.9307
- 4.930608
- 4.931246
- 4.930472
- 4.930965
- 4.930402
- 4.931094
- 4.930384
- 4.933354
- 4.946254
- 4.98592
- 4.999638
- 5.000361
- 4.999638
- 5.000361
- 4.92079
- 4.918614
- 4.913082
- 5.000491
- 4.999508
- 5.000491
- 4.999508
- 5.000491
- 4.999508
- 5.000491
- 4.999508
- 5.000491
- 4.999508
- 4.987152
- 4.896676
- 4.896132
- 4.893203
- 4.89554
- 4.893129
- 4.89502
- 4.893003
- 4.894544
- 4.892839
- 4.894143
- 4.892605
- 4.893721
- 4.892393
- 4.893322
- 4.892162
- 4.892943
- 4.891915
- 4.89258
- 4.891658
- 4.892159
- 4.891225
- 4.891679
- 4.890606
- 4.890859
- 4.889829
- 4.89009
- 4.889112
- 4.889456
- 4.888985
- 4.889288
- 4.888993
- 4.888636
- 4.889142
- 4.889107
- 4.888925
- 4.888995
- 4.889167
- 4.889085
- 4.889141
- 4.889046
- 4.889066
- 4.889032
- 4.889032
- 4.888798
- 4.889033
- 4.888472
- 4.889543
- 4.888563
- 4.889488
- 4.888538
- 4.889444
- 4.888493
- 4.890152
- 4.900277
- 4.940924
- 4.997564
- 5.000497
- 4.999503
- 5.000497
- 4.895943
- 4.872085
- 4.868458
- 4.866746
- 4.935271
- 4.936809
- 4.936457
- 4.93814
- 4.93745
- 4.941853
- 4.943842
- 4.951014
- 4.960729
- 4.984209
- 4.9994
- 5.000599
- 4.9994
- 5.000599
- 4.9994
- 4.885344
- 4.856995
- 4.857162
- 4.855406
- 4.856483
- 4.855465
- 4.856429
- 4.85554
- 4.85595
- 4.85596
- 4.855712
- 4.855973
- 4.855172
- 4.856014
- 4.855738
- 4.856196
- 4.855793
- 4.856202
- 4.855867
- 4.857181
- 4.871753
- 4.94037
- 4.999783
- 5.000217
- 4.999783
- 4.955528
- 4.859573
- 4.863122
- 4.9044
- 4.913019
- 4.919859
- 4.925339
- 4.929229
- 4.957189
- 4.980325
- 5.000193
- 4.999807
- 5.000193
- 4.999807
- 5.000193
- 4.876754
- 4.88036
- 4.881081
- 4.884887
- 4.907725
- 4.91097
- 4.912346
- 4.914738
- 4.915699
- 4.927538
- 4.938684
- 4.965652
- 4.999723
- 5.000277
- 4.999723
- 5.000277
- 4.901514
- 4.906783
- 4.90536
- 4.906404
- 4.905718
- 4.906471
- 4.905769
- 4.906503
- 4.905808
- 4.906539
- 4.905843
- 4.90658
- 4.90588
- 4.906654
- 4.905932
- 4.906715
- 4.906026
- 4.90695
- 4.906226
- 4.90709
- 4.90647
- 4.907281
- 4.906776
- 4.907629
- 4.907249
- 4.908193
- 4.908004
- 4.90914
- 4.90901
- 4.910225
- 4.910333
- 4.911034
- 4.91042
- 4.910855
- 4.910451
- 4.910791
- 4.910664
- 4.911069
- 4.911006
- 4.913469
- 4.926405
- 4.978121
- 4.999796
- 5.000204
- 4.999796
- 5.000204
- 4.925536
- 4.926089
- 4.927823
- 5.000337
- 4.999663
- 5.000337
- 4.999663
- 5.000337
- 4.999663
- 5.000337
- 4.999663
- 4.998176
- 4.934066
- 4.937084
- 4.934077
- 4.980642
- 4.988476
- 4.997097
- 4.999244
- 5.000261
- 4.999739
- 5.000261
- 4.999739
- 5.000261
- 4.999739
- 5.000261
- 4.95868
- 4.934447
- 4.931867
- 4.931722
- 4.929993
- 4.940648
- 4.941484
- 4.944846
- 4.94559
- 4.948082
- 4.957562
- 4.969033
- 4.988834
- 5.000291
- 4.999708
- 5.000291
- 4.999708
- 4.974928
- 4.918543
- 4.916541
- 4.912224
- 4.928953
- 4.971104
- 4.993411
- 4.999759
- 5.000241
- 4.999759
- 5.000241
- 4.999759
- 4.950814
+ 4.89581
+ 4.891374
+ 4.904287
+ 5.000113
+ 4.999887
+ 5.000113
+ 4.872324
+ 4.868506
+ 4.919641
+ 5.000171
+ 4.999828
+ 4.890448
+ 4.857068
+ 4.855802
+ 4.998923
+ 5.000077
+ 4.999923
+ 4.858461
+ 4.862758
+ 4.867336
+ 5.000061
+ 4.999939
+ 4.962724
+ 4.877139
+ 4.885036
+ 4.966588
+ 5.00006
+ 4.99994
+ 4.902884
+ 4.904587
+ 4.910626
+ 5.000086
+ 4.999914
+ 5.000086
+ 4.924348
+ 4.927133
+ 4.938595
+ 5.00018
+ 4.99982
+ 4.958434
+ 4.935106
+ 4.936041
+ 4.999866
+ 5.000124
+ 4.999876
+ 4.933553
+ 4.933261
+ 4.92935
+ 4.999996
+ 5.000004
+ 4.995573
+ 4.917802
+ 4.917654
+ 4.955151
+ 5.000032
+ 4.999967
+ 4.910468
+ 4.893271
+ 4.891228
+ 5.000083
+ 4.999917
+ 5.000083
+ 4.873486
+ 4.868923
+ 4.876329
+ 5.000218
+ 4.999782
+ 4.942784
+ 4.856934
+ 4.85641
+ 4.966718
+ 5.0002
+ 4.9998
+ 4.860088
+ 4.861603
+ 4.862806
+ 4.999928
+ 5.000072
+ 4.997298
+ 4.876752
+ 4.883971
+ 4.919037
+ 5.000002
+ 4.999998
+ 4.929318
+ 4.903346
+ 4.910417
+ 5.000074
+ 4.999926
+ 5.000074
+ 4.924356
+ 4.926196
+ 4.928939
+ 5.000209
+ 4.999791
+ 4.992318
+ 4.934733
+ 4.936423
+ 4.976535
+ 5.000227
+ 4.999773
+ 4.934513
+ 4.932727
+ 4.930663
+ 4.999907
+ 5.000093
+ 4.999907
+ 4.919199
+ 4.917811
+ 4.918566
+ 5.000021
+ 4.999978
+ 4.950865
 </dep>
