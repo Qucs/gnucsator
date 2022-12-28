@@ -146,16 +146,6 @@ parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
-parameter dB(S[2,1]) not specified, using default
 Gnucap   System status
 iterations: op=0, dc=0, tran=0, fourier=0, total=151
 transient timesteps: accepted=0, rejected=0, total=0

@@ -12,6 +12,10 @@ X: already installed, replacing
 stashing as X:0
 subckt: already installed, replacing
 stashing as subckt:0
+Vdc #(.X(u)) foo1(1,0); 
+       ^ ? Vdc: bad parameter X ignored
+Vdc #(.X(2)) foo2(2,0); 
+       ^ ? Vdc: bad parameter X ignored
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 
@@ -37,7 +41,7 @@ stashing as subckt:0
 //* 
 //* only admit in dc and tr 
 //* X does not exist 
-Vdc #(.X(u)) foo1 (.p(1),.n(0));
-Vdc #(.X(2)) foo2 (.p(2),.n(0));
+Vdc #() foo1 (.p(1),.n(0));
+Vdc #() foo2 (.p(2),.n(0));
 #           v(1)       v(2)       v(foo1)    v(foo2)   
  0.         0.001      0.001      ??         ??        

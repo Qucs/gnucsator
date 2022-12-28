@@ -66,6 +66,7 @@ private: // override virtual
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
   bool		makes_own_scope()const override  {return !_parent;}
+  bool		is_valid() const override;
   CARD_LIST*	   scope() override;
   const CARD_LIST* scope()const		{return const_cast<DEV_SUBCKT*>(this)->scope();}
 
@@ -76,6 +77,7 @@ private:
   int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const;
+  void set_param_by_name(std::string Name, std::string Value) override;
 public:
   static int	count()			{untested();return _count;}
 protected:
@@ -94,6 +96,19 @@ CARD_LIST* DEV_SUBCKT::scope()
   }else{
     return subckt();
   }
+}
+/*--------------------------------------------------------------------------*/
+bool DEV_SUBCKT::is_valid() const
+{
+  trace1("DEV_SUBCKT::is_valid", long_label());
+  assert(subckt());
+  assert(_parent);
+  assert(_parent->subckt());
+  PARAM_LIST const* params = _parent->subckt()->params();
+  PARAMETER<double> v = params->deep_lookup("_..is_valid");
+  trace1("DEV_SUBCKT::is_valid I", v.string());
+  double x = v.e_val(1., subckt());
+  return x==1.;
 }
 /*--------------------------------------------------------------------------*/
 CARD* DEV_SUBCKT::clone()const
@@ -160,6 +175,19 @@ DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
   ++_count;
 }
 /*--------------------------------------------------------------------------*/
+void DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
+{
+  assert(_parent);
+  assert(_parent->subckt());
+
+  PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
+  if(p != _parent->subckt()->params()->end()){ untested();
+    BASE_SUBCKT::set_param_by_name(Name,Value);
+  }else{ untested();
+    throw Exception_No_Match(Name);
+  }
+}
+/*--------------------------------------------------------------------------*/
 std::string DEV_SUBCKT::port_name(int i)const
 {
   if (const DEV_SUBCKT* p=dynamic_cast<const DEV_SUBCKT*>(_parent)) {
@@ -178,16 +206,17 @@ std::string DEV_SUBCKT::port_name(int i)const
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::expand()
 {
-  assert(_parent);
-  trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
-  BASE_SUBCKT::expand();
   COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
   assert(c);
   if(c->modelname()==""){ untested();
+    assert(!_parent);
     // proto?
     return;
   }else{
+    assert(_parent);
   }
+  trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
+  BASE_SUBCKT::expand();
   if (!_parent) { untested();
     // get here when instanciating X, then set modelname
     assert(c->modelname()!="");
@@ -212,23 +241,53 @@ void DEV_SUBCKT::expand()
 
   renew_subckt(_parent, &(c->_params));
   subckt()->expand();
+
+  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
+    CARD* d = (*i)->deflate();
+
+    if(d == (*i)){ untested();
+    }else{ untested();
+      assert(d->owner() == this);
+      delete *i;
+      *i = d;
+    }
+  }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()
 {
+  trace2("DEV_SUBCKT::precalc_first1", long_label(), owner());
   BASE_SUBCKT::precalc_first();
+  trace2("DEV_SUBCKT::precalc_first2", long_label(), owner());
 
-  if (_parent && subckt()) {
-    COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
-    assert(c);
-    subckt()->attach_params(&(c->_params), scope());
-    subckt()->precalc_first();
+  if (subckt()) {
   }else{
+    new_subckt();
   }
-  assert(!is_constant()); /* because I have more work to do */
+
+  COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
+  assert(c);
+
+  if(_parent){
+    PARAM_LIST* pl = const_cast<PARAM_LIST*>(_parent->subckt()->params());
+    assert(pl);
+    c->_params.set_try_again(pl);
+
+    for( auto p: c->_params){
+      trace2("DEV_SUBCKT::precalc_first att", p.first, p.second.string());
+    }
+
+    subckt()->attach_params(&(c->_params), scope());
+    trace1("DEV_SUBCKT::precalc_first recurse", long_label());
+//  subckt()->precalc_first();
+    assert(!is_constant()); /* because I have more work to do */
+  }else{ untested();
+  }
 
 
-  if(!is_device()){
+
+  // HACK
+  if(!is_device()){ untested();
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
     subckt()->params()->set_try_again(pl);
 
