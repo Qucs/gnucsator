@@ -41,9 +41,7 @@ PLUGIN_CC = \
 	v_module.cc \
 	v_subckt.cc
 
-PLUGIN_MODEL = \
-	d_diode.model \
-	d_bjt.model
+PLUGIN_MODEL =
 
 noinst_HEADERS = \
 	io.h \

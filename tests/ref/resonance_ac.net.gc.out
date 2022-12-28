@@ -8,22 +8,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-d: already installed, replacing
-stashing as d:0
-diode: already installed, replacing
-stashing as diode:0
-npn: already installed, replacing
-stashing as npn:0
-pnp: already installed, replacing
-stashing as pnp:0
-npn1: already installed, replacing
-stashing as npn1:0
-pnp1: already installed, replacing
-stashing as pnp1:0
-Q: already installed, replacing
-stashing as Q:0
-bjt: already installed, replacing
-stashing as bjt:0
+spice_bjt: already installed, replacing
+stashing as spice_bjt:0
+spice_mos: already installed, replacing
+stashing as spice_mos:0
 C:C1 gnd Voltage C="2 pF" V="" 
                           ^ ? C1: V has no value?
 L:L1 Voltage _net1 L="13 nH" I="" 

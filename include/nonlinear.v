@@ -95,11 +95,14 @@ S1 1 3 2 4 sss
 .parameter pnp=-1
 
 * wrap "spice model" into subckt to expose device parameters.
-.subckt spice_npn (b, c, e, s)
+.subckt spice_bjt (c, b, e, s)
  .parameter area=1
  .parameter temp is nf nr ikf ikr vaf var ise ne isc nc bf br rbm irb rc
           + re rb cje vje mje cjc vjc mjc xcjc cjs vjs mjs fc tf xtf vtf itf
           + tr kf af ffe kb ab fb ptf xtb xti eg
+
+ * hack: ranges do not exist in spice.
+ .parameter polarity=1 from [1:1]
 
  .model mynpn npn ( is=is nf=nf nr=nr ikf=ikf ikr=ikr vaf=vaf
       + var= var ise= ise ne=ne isc=isc nc=nc bf=bf br=br rbm=rbm
@@ -110,11 +113,14 @@ S1 1 3 2 4 sss
   Q1 (c, b, e, s) mynpn area=area
 .ends
 
-.subckt spice_pnp (b, c, e, s)
+.subckt spice_bjt (c, b, e, s)
  .parameter area=1
  .parameter temp is nf nr ikf ikr vaf var ise ne isc nc bf br rbm irb rc
           + re rb cje vje mje cjc vjc mjc xcjc cjs vjs mjs fc tf xtf vtf itf
           + tr kf af ffe kb ab fb ptf xtb xti eg
+
+ * hack: ranges do not exist in spice.
+ .parameter polarity=-1 from [-1:-1]
 
  .model mypnp pnp ( is=is nf=nf nr=nr ikf=ikf ikr=ikr vaf=vaf
       + var= var ise= ise ne=ne isc=isc nc=nc bf=bf br=br rbm=rbm
@@ -146,7 +152,6 @@ S1 1 3 2 4 sss
 // Af="1.0" Ffe="1.0" Kb="0.0" Ab="1.0" Fb="1.0" Ptf="0.0" Xtb="0.0" Xti="3.0"
 // Eg="1.11" Tnom="26.85" Area="1.0"
 //
-// TODO: these are two paramsets
 module BJT (b, c, e, s);
   parameter Area=1;
   parameter Type;
@@ -166,18 +171,11 @@ module BJT (b, c, e, s);
 //"OFF"
 //"ICVBE"
 //"ICVCE"
-// workaround: select one of them.
-  spice_npn #(.is(Is) .nf(  Nf) .nr(  Nr) .ikf( Ikf) .ikr( Ikr) .vaf( Vaf) .var( Var) .ise( Ise) .ne(  Ne) \
+  spice_bjt #(.is(Is) .nf(  Nf) .nr(  Nr) .ikf( Ikf) .ikr( Ikr) .vaf( Vaf) .var( Var) .ise( Ise) .ne(  Ne) \
       .isc( Isc) .nc(  Nc) .bf(  Bf) .br(  Br) .rbm( Rbm) .irb( Irb) .rc(  Rc) .re(  Re) .rb(  Rb) .cje( Cje) \
       .vje( Vje) .mje( Mje) .cjc( Cjc) .vjc( Vjc) .mjc( Mjc) .xcjc(Xcjc) .cjs( Cjs) .vjs( Vjs) .mjs( Mjs) \
       .fc(  Fc) .tf(  Tf) .xtf( Xtf) .vtf( Vtf) .itf( Itf) .tr(  Tr) .kf(  Kf) .af(  Af) .ptf( Ptf) \
-      .xtb( Xtb) .xti( Xti) .eg(  Eg) .area(Area*(1.+Type)*.5) .temp(Temp)) npn(b, c, e, s);
-
-  spice_pnp #(.is(Is) .nf(  Nf) .nr(  Nr) .ikf( Ikf) .ikr( Ikr) .vaf( Vaf) .var( Var) .ise( Ise) .ne(  Ne) \
-      .isc( Isc) .nc(  Nc) .bf(  Bf) .br(  Br) .rbm( Rbm) .irb( Irb) .rc(  Rc) .re(  Re) .rb(  Rb) .cje( Cje) \
-      .vje( Vje) .mje( Mje) .cjc( Cjc) .vjc( Vjc) .mjc( Mjc) .xcjc(Xcjc) .cjs( Cjs) .vjs( Vjs) .mjs( Mjs) \
-      .fc(  Fc) .tf(  Tf) .xtf( Xtf) .vtf( Vtf) .itf( Itf) .tr(  Tr) .kf(  Kf) .af(  Af) .ptf( Ptf) \
-      .xtb( Xtb) .xti( Xti) .eg(  Eg) .area(Area*(1.-Type)*.5) .temp(Temp)) pnp(b, c, e, s);
+      .xtb( Xtb) .xti( Xti) .eg(  Eg) .area(Area) .polarity(Type) .temp(Temp)) npn(c, b, e, s);
 endmodule // BJT
 
 // d'oh. in qucsator, "MOSFET" is both, nFET and pFET.

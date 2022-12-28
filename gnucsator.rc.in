@@ -32,7 +32,6 @@ uninstall command generator
 uninstall status transient
 uninstall comp dev_comment
 uninstall comp C
-uninstall comp D
 uninstall comp L
 uninstall comp R
 uninstall comp X
@@ -63,9 +62,6 @@ load qucs/s_sparam.so
 load qucs/s_sweep.so
 load qucs/c_include.so
 load qucs/d_eqn.so
-
-load public qucs/d_diode.so
-load qucs/d_bjt.so
 
 load public qucs/subst_wrap.so
 load qucs/microstrip_wrap.so
