@@ -73,19 +73,19 @@ private: // override virtual
   void		expand() override;
 
 private: // no ops for prototype
-  void map_nodes()override	{if(is_device()){untested(); BASE_SUBCKT::map_nodes();}else{untested();} }
-  void tr_begin()override	{if(is_device()){untested(); BASE_SUBCKT::tr_begin();}else{untested();} }
-  void ac_begin()override	{if(is_device()){untested(); BASE_SUBCKT::ac_begin();}else{untested();} }
-  void tr_load()override	{if(is_device()){untested(); BASE_SUBCKT::tr_load();}else{untested();} }
-  void tr_accept()override	{if(is_device()){untested(); BASE_SUBCKT::tr_accept();}else{untested();} }
-  void tr_advance()override	{if(is_device()){untested(); BASE_SUBCKT::tr_advance();}else{untested();} }
-  void dc_advance()override	{if(is_device()){untested(); BASE_SUBCKT::dc_advance();}else{untested();} }
-  void do_ac()override		{if(is_device()){untested(); BASE_SUBCKT::do_ac();}else{untested();} }
-  void ac_load()override	{if(is_device()){untested(); BASE_SUBCKT::ac_load();}else{untested();} }
+  void map_nodes()override	{if(is_device()){ BASE_SUBCKT::map_nodes();}else{} }
+  void tr_begin()override	{if(is_device()){ BASE_SUBCKT::tr_begin();}else{} }
+  void ac_begin()override	{if(is_device()){ BASE_SUBCKT::ac_begin();}else{} }
+  void tr_load()override	{if(is_device()){ BASE_SUBCKT::tr_load();}else{} }
+  void tr_accept()override	{if(is_device()){ BASE_SUBCKT::tr_accept();}else{} }
+  void tr_advance()override	{if(is_device()){ BASE_SUBCKT::tr_advance();}else{} }
+  void dc_advance()override	{if(is_device()){ BASE_SUBCKT::dc_advance();}else{} }
+  void do_ac()override		{if(is_device()){ BASE_SUBCKT::do_ac();}else{} }
+  void ac_load()override	{if(is_device()){ BASE_SUBCKT::ac_load();}else{} }
   void tr_queue_eval()override{
-    if(is_device()){untested();
+    if(is_device()){
       BASE_SUBCKT::tr_queue_eval();
-    }else{untested();
+    }else{
     }
   }
   bool do_tr() override		{if(is_device()){untested(); return BASE_SUBCKT::do_tr();}else{untested(); return true;} }
@@ -207,9 +207,9 @@ void DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
   assert(_parent->subckt());
 
   PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
-  if(p != _parent->subckt()->params()->end()){ untested();
+  if(p != _parent->subckt()->params()->end()){
     BASE_SUBCKT::set_param_by_name(Name,Value);
-  }else{ untested();
+  }else{
     throw Exception_No_Match(Name);
   }
 }
@@ -278,7 +278,7 @@ void DEV_SUBCKT::expand()
     CARD* d = (*i)->deflate();
 
     if(d == (*i)){ untested();
-    }else{ untested();
+    }else{
       assert(d->owner() == this);
       delete *i;
       *i = d;
@@ -313,7 +313,7 @@ void DEV_SUBCKT::precalc_first()
     trace1("DEV_SUBCKT::precalc_first recurse", long_label());
 //  subckt()->precalc_first();
     assert(!is_constant()); /* because I have more work to do */
-  }else{ untested();
+  }else{
   }
 
   // HACK
@@ -338,7 +338,7 @@ void DEV_SUBCKT::precalc_first()
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_last()
 {
-  if(is_device()){ untested();
+  if(is_device()){
     BASE_SUBCKT::precalc_last();
     COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);
@@ -346,7 +346,7 @@ void DEV_SUBCKT::precalc_last()
     subckt()->precalc_last();
 
     assert(!is_constant()); /* because I have more work to do */
-  }else{ untested();
+  }else{
     // DEV_SUBCKT_PROTO
   }
 }

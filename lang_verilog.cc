@@ -133,7 +133,7 @@ static void parse_args_instance(CS& cmd, CARD* x)
 	cmd >> ',';
 	try{
 	  x->set_param_by_name(name, value);
-	}catch (Exception_No_Match&) {untested();
+	}catch (Exception_No_Match&) {
 	  cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + name + " ignored");
 	}
       }
@@ -332,7 +332,7 @@ BASE_SUBCKT* LANG_VERILOG::parse_module(CS& cmd, BASE_SUBCKT* x)
     }else if (!have_instance && (cmd >> "parameter ")) {
       cmd.reset();
       new__instance(cmd, x, x->subckt());
-    }else if (cmd >> "//") { untested();
+    }else if (cmd >> "//") {
       cmd.reset();
       new__instance(cmd, x, x->subckt());
     }else if (cmd >> "paramset ") { untested();

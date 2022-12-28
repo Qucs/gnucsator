@@ -96,7 +96,7 @@ public:
       std::string range_expr = "1";
 
       for(;;){
-	if(cmd >> "from "){ untested();
+	if(cmd >> "from "){
 	  range_expr = range_expr + "*(";
 	}else if(cmd>> "exclude ") { untested();
 	  range_expr = range_expr + "*(1-";
@@ -109,7 +109,7 @@ public:
 	std::string what;
 	std::string lb, ub, uo, lo;
 	bool range = true;
-	if(cmd.skip1('[')){ untested();
+	if(cmd.skip1('[')){
 	  lo = "<=";
 	}else if(cmd.skip1('(')){ untested();
 	  lo = "<";
@@ -117,13 +117,13 @@ public:
 	  range = false;
 	}
 
-	if(range){ untested();
+	if(range){
 	  lb = cmd.ctos(":");
 	  cmd.skip1(":");
 	  ub = cmd.ctos("])");
 	  trace2("bounds", lb, ub);
 
-	  if(cmd.skip1(']')){ untested();
+	  if(cmd.skip1(']')){
 	    uo = "<=";
 	  }else if(cmd.skip1(')')){ untested();
 	    uo = "<";
@@ -138,7 +138,7 @@ public:
 	range_expr = range_expr + what + ")";
 	if(cmd.skip1(',')){ untested();
 	  break;
-	}else{ untested();
+	}else{
 	}
       }
 //      range_expr = range_expr + "}";

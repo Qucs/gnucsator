@@ -172,7 +172,7 @@ public:
   void precalc_last(const CARD_LIST* scope) {
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     if(_poly){
-    }else{ untested();
+    }else{
       assert(_n_ports);
       _poly = new MV_POLY<double>(vector<PARAMETER<double> >(_coeffs), _n_ports-1);
     }

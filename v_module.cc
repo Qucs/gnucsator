@@ -518,7 +518,7 @@ void INSTANCE::expand()
     COMPONENT const* d = dynamic_cast<COMPONENT const*>(s);
     CARD_LIST::iterator j = i;
       ++i;
-    if(!d->is_valid()){ untested();
+    if(!d->is_valid()){
       error(bTRACE, long_label() + " dropped invalid candidate.\n");
       subckt()->erase(j);
     }else{
@@ -539,12 +539,12 @@ void INSTANCE::expand()
   trace2("INSTANCE::expand, pre expand sckt", long_label(), dev_type());
   subckt()->expand(); // here? duplicate precalc_first...
 
-  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){ untested();
+  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
     CARD* s = *i;
     assert(s->owner()==owner());
     CARD* d = s->deflate();
 
-    if(d == s){ untested();
+    if(d == s){
     }else{ untested();
       assert(d->owner() == owner());
       *i = d;
@@ -563,7 +563,7 @@ void INSTANCE::precalc_first()
   if(!owner()){
     build_proto();
     _parent=_proto;
-  }else if(_cloned_from){ untested();
+  }else if(_cloned_from){
     _cloned_from->build_proto();
   }else{ untested();
   }
