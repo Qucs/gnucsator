@@ -1,6 +1,7 @@
 load bm_trivial.so
 load d_subckt.so
 load v_subckt.so
+load v_module.so
 load d_probe.so
 load s_sparam.so
 load public lang_verilog.so

@@ -1,0 +1,36 @@
+
+load ../v_subckt.so
+load public ../lang_verilog.so
+load ../c_param.so
+load ../v_module.so
+verilog
+
+module a (1 2);
+parameter dc=1 from [.1:1];
+vsource #(.dc(dc)) v1 (1 2);
+endmodule
+
+module a (1 2);
+parameter dc=20 from [1:10];
+vsource #(.dc(dc)) v2 (1 2);
+endmodule
+
+module a (1 2);
+parameter dc=100 from [10:100];
+vsource #(.dc(dc)) v3 (1 2);
+endmodule
+
+module main(1 2 3 4);
+a #(.dc(.5)) a1(1 4);
+a #(.dc(5)) a1(2 4);
+a #(.dc(50)) a1(3 4);
+endmodule
+
+main m(1 2 3 0);
+
+list
+print dc v(nodes) v(m.a1.v*)
+dc
+
+
+end

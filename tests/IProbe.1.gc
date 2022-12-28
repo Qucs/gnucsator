@@ -5,6 +5,7 @@ load c_vpp.so
 load c_hide.so
 load d_subckt.so
 load v_subckt.so
+load v_module.so
 include ../include/sources.v
 include ../include/lumped.v
 hidemodule *

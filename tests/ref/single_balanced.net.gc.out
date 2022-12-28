@@ -24,27 +24,18 @@ Q: already installed, replacing
 stashing as Q:0
 bjt: already installed, replacing
 stashing as bjt:0
-T3.mynmos: rsh - rs - rd conflict: using rsh
-T3.mynmos: is - js conflict
-T3.mynmos: nsub < ni, treating as if not input
 T3.n.mynmos: rsh - rs - rd conflict: using rsh
 T3.n.mynmos: is - js conflict
 T3.n.mynmos: nsub < ni, treating as if not input
 T3.p.mypmos: rsh - rs - rd conflict: using rsh
 T3.p.mypmos: is - js conflict
 T3.p.mypmos: nsub < ni, treating as if not input
-T1.mynmos: rsh - rs - rd conflict: using rsh
-T1.mynmos: is - js conflict
-T1.mynmos: nsub < ni, treating as if not input
 T1.n.mynmos: rsh - rs - rd conflict: using rsh
 T1.n.mynmos: is - js conflict
 T1.n.mynmos: nsub < ni, treating as if not input
 T1.p.mypmos: rsh - rs - rd conflict: using rsh
 T1.p.mypmos: is - js conflict
 T1.p.mypmos: nsub < ni, treating as if not input
-T2.mynmos: rsh - rs - rd conflict: using rsh
-T2.mynmos: is - js conflict
-T2.mynmos: nsub < ni, treating as if not input
 T2.n.mynmos: rsh - rs - rd conflict: using rsh
 T2.n.mynmos: is - js conflict
 T2.n.mynmos: nsub < ni, treating as if not input

@@ -71,9 +71,35 @@ private: // override virtual
   const CARD_LIST* scope()const		{return const_cast<DEV_SUBCKT*>(this)->scope();}
 
   void		expand() override;
+
+private: // no ops for prototype
+  void map_nodes()override	{if(is_device()){untested(); BASE_SUBCKT::map_nodes();}else{untested();} }
+  void tr_begin()override	{if(is_device()){untested(); BASE_SUBCKT::tr_begin();}else{untested();} }
+  void ac_begin()override	{if(is_device()){untested(); BASE_SUBCKT::ac_begin();}else{untested();} }
+  void tr_load()override	{if(is_device()){untested(); BASE_SUBCKT::tr_load();}else{untested();} }
+  void tr_accept()override	{if(is_device()){untested(); BASE_SUBCKT::tr_accept();}else{untested();} }
+  void tr_advance()override	{if(is_device()){untested(); BASE_SUBCKT::tr_advance();}else{untested();} }
+  void dc_advance()override	{if(is_device()){untested(); BASE_SUBCKT::dc_advance();}else{untested();} }
+  void do_ac()override		{if(is_device()){untested(); BASE_SUBCKT::do_ac();}else{untested();} }
+  void ac_load()override	{if(is_device()){untested(); BASE_SUBCKT::ac_load();}else{untested();} }
+  void tr_queue_eval()override{
+    if(is_device()){untested();
+      BASE_SUBCKT::tr_queue_eval();
+    }else{untested();
+    }
+  }
+  bool do_tr() override		{if(is_device()){untested(); return BASE_SUBCKT::do_tr();}else{untested(); return true;} }
+
+  bool tr_needs_eval()const override{
+    if(is_device()){untested();
+      return BASE_SUBCKT::tr_needs_eval();
+    }else{untested();
+      return false;
+    }
+  }
 private:
-  void		precalc_last();
-  double	tr_probe_num(const std::string&)const;
+  void		precalc_last()override;
+  double	tr_probe_num(const std::string&)const override;
   int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const;
@@ -206,6 +232,12 @@ std::string DEV_SUBCKT::port_name(int i)const
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::expand()
 {
+  if(!_parent){
+    return;
+  }else{
+    trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
+  }
+  BASE_SUBCKT::expand();
   COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
   assert(c);
   if(c->modelname()==""){ untested();
@@ -256,7 +288,7 @@ void DEV_SUBCKT::expand()
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()
 {
-  trace2("DEV_SUBCKT::precalc_first1", long_label(), owner());
+  trace3("DEV_SUBCKT::precalc_first1", long_label(), owner(), is_device());
   BASE_SUBCKT::precalc_first();
   trace2("DEV_SUBCKT::precalc_first2", long_label(), owner());
 
@@ -284,16 +316,18 @@ void DEV_SUBCKT::precalc_first()
   }else{ untested();
   }
 
-
-
   // HACK
-  if(!is_device()){ untested();
+  if(1){
+  }else if(!is_device()){ untested();
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
+    assert(subckt());
     subckt()->params()->set_try_again(pl);
 
     // Qucs hack: deal with nested subckt protos.
     for(auto i : *subckt()){ untested();
-      if(dynamic_cast<DEV_SUBCKT*>(i)){ untested();
+      assert(i);
+      if(i->is_device()){ untested();
+      }else if(dynamic_cast<DEV_SUBCKT*>(i)){ untested();
 	i->precalc_first();
       }else{ untested();
       }
@@ -304,9 +338,8 @@ void DEV_SUBCKT::precalc_first()
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_last()
 {
-  BASE_SUBCKT::precalc_last();
-
-  if(is_device()){
+  if(is_device()){ untested();
+    BASE_SUBCKT::precalc_last();
     COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);
     subckt()->attach_params(&(c->_params), scope());

@@ -32,24 +32,20 @@ C:C1 gnd out C="5 pF" V=""
                                         ^ ? what's this (incomplete)?
 parameter NAND_GATE_cir not specified, using default
 parameter NAND_GATE_cir value is "NOT_INPUT"
-parameter NAND not specified, using default
-parameter NAND value is "NOT_INPUT"
 parameter NAND_GATE_cir not specified, using default
 parameter NAND_GATE_cir value is "NOT_INPUT"
 parameter NAND not specified, using default
 parameter NAND value is "NOT_INPUT"
-parameter NAND_GATE_cir not specified, using default
-parameter NAND_GATE_cir value is "NOT_INPUT"
 parameter NAND not specified, using default
 parameter NAND value is "NOT_INPUT"
 parameter NAND_GATE_cir not specified, using default
 parameter NAND_GATE_cir value is "NOT_INPUT"
-parameter NAND not specified, using default
-parameter NAND value is "NOT_INPUT"
 parameter NAND_GATE_cir not specified, using default
 parameter NAND_GATE_cir value is "NOT_INPUT"
-parameter NAND not specified, using default
-parameter NAND value is "NOT_INPUT"
+parameter NAND_GATE_cir not specified, using default
+parameter NAND_GATE_cir value is "NOT_INPUT"
+parameter NAND_GATE_cir not specified, using default
+parameter NAND_GATE_cir value is "NOT_INPUT"
 parameter NAND_GATE_cir not specified, using default
 parameter NAND_GATE_cir value is "NOT_INPUT"
 parameter NAND_GATE_cir not specified, using default

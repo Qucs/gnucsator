@@ -48,6 +48,8 @@ parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
 parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
+parameter TESTSUB not specified, using default
+parameter TESTSUB value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=2, dc=2, tran=0, fourier=0, total=4
 transient timesteps: accepted=0, rejected=0, total=0

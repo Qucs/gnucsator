@@ -65,6 +65,7 @@ private: // override virtual
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
   bool		makes_own_scope()const override  {return false;}
+  bool		is_valid() const override;
 
   void		expand() override;
 private:
@@ -252,17 +253,46 @@ void DEV_SUBCKT::expand()
   subckt()->expand();
 }
 /*--------------------------------------------------------------------------*/
+bool DEV_SUBCKT::is_valid() const
+{
+  assert(scope());
+  assert(_parent);
+  assert(_parent->subckt());
+  PARAM_LIST const* params = _parent->subckt()->params();
+  PARAMETER<double> v = params->deep_lookup("_..is_valid");
+  trace1("DEV_SUBCKT::is_valid I", v.string());
+  double x = v.e_val(1., subckt());
+  return x==1.;
+}
+/*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()
 {
+  trace2("DEV_SUBCKT::precalc_first1", long_label(), owner());
   BASE_SUBCKT::precalc_first();
+  trace2("DEV_SUBCKT::precalc_first2", long_label(), owner());
 
   if (subckt()) {
-    COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
-    assert(c);
-    subckt()->attach_params(&(c->_params), scope());
-    subckt()->precalc_first();
   }else{
+    new_subckt();
   }
+
+  COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
+  assert(c);
+
+  if(_parent){
+    PARAM_LIST* pl = const_cast<PARAM_LIST*>(_parent->subckt()->params());
+    assert(pl);
+    c->_params.set_try_again(pl);
+  }else{ untested();
+  }
+
+  for( auto p: c->_params){
+    trace2("DEV_SUBCKT::precalc_first att", p.first, p.second.string());
+  }
+
+  subckt()->attach_params(&(c->_params), scope());
+  trace1("DEV_SUBCKT::precalc_first recurse", long_label());
+//  subckt()->precalc_first();
   assert(!is_constant()); /* because I have more work to do */
 }
 /*--------------------------------------------------------------------------*/

@@ -321,15 +321,36 @@ BASE_SUBCKT* LANG_VERILOG::parse_module(CS& cmd, BASE_SUBCKT* x)
   parse_ports(cmd, x, true/*all new*/);
   cmd >> ';';
 
+  bool have_instance = false;
+
   // body
   for (;;) {
-    cmd.get_line("verilog-module>");
 
+    cmd.get_line("verilog-module>");
     if (cmd >> "endmodule ") {
       break;
-    }else{
-      trace1("LANG_VERILOG::parse_module", cmd.fullstring());
+    }else if (!have_instance && (cmd >> "parameter ")) {
+      cmd.reset();
       new__instance(cmd, x, x->subckt());
+    }else if (cmd >> "//") { untested();
+      cmd.reset();
+      new__instance(cmd, x, x->subckt());
+    }else if (cmd >> "paramset ") { untested();
+      cmd.reset();
+      cmd.check(bDANGER, "ERROR: This will not work. Need top level.");
+      new__instance(cmd, x, x->subckt());
+    }else{
+      have_instance = true;
+      BASE_SUBCKT* new_instance = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("instance"));
+      assert(new_instance);
+      CARD_LIST* Scope = x->subckt();
+      trace3("parse_module instance", cmd.fullstring(), Scope, Scope->nodes());
+      assert(Scope);
+
+      new_instance->set_owner(x);
+      parse_instance(cmd, new_instance);
+
+      Scope->push_back(new_instance);
     }
   }
   return x;
@@ -359,6 +380,7 @@ std::string LANG_VERILOG::find_type_in_string(CS& cmd)
     cmd >> type;
   }
   cmd.reset(here);
+  trace2("LANG_VERILOG::find_type_in_string", cmd.fullstring(), type);
   return type;
 }
 /*--------------------------------------------------------------------------*/
@@ -424,12 +446,17 @@ static void print_ports_long(OMSTREAM& o, const COMPONENT* x)
   assert(x);
 
   o << " (";
-  std::string sep = ".";
+  std::string sep = "";
   for (int ii = 0;  x->port_exists(ii);  ++ii) {
-    o << sep << x->port_name(ii) << '(' << x->port_value(ii) << ')';
-    sep = ",.";
+    o << sep;
+    if(x->port_name(ii) != ""){
+      o << "." << x->port_name(ii) << '(' << x->port_value(ii) << ')';
+    }else{
+      o << x->port_value(ii);
+    }
+    sep = ",";
   }
-  for (int ii = 0;  x->current_port_exists(ii);  ++ii) {
+  for (int ii = 0;  x->current_port_exists(ii);  ++ii) {untested();
     o << sep << x->current_port_name(ii) << '(' << x->current_port_value(ii) << ')';
     sep = ",.";
   }

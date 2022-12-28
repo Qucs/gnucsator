@@ -30,6 +30,10 @@ stashing as bjt:0
 >>>>>.SW:SW2 Sim="SW1" Type="lin" Param="R1" Start="10" Stop="30" Points="3" 
 >>>>>.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU" 
 >>>>>go dc_sweep.1.net.tmp 
+Idc.dev: isource from device_dispatcher
+Idc.dev: 1 candidate found for isource
+R.dev: resistor from device_dispatcher
+R.dev: 1 candidate found for resistor
 sweep go outfile=dc_sweep.1.net.tmp
 sweep go outfile=dc_sweep.1.net.tmp R1 10 30 10
 calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dc>>>>>status notime 

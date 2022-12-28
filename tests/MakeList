@@ -56,6 +56,7 @@ COMMON_TESTS = \
 # These tests run with vanilla gnucap
 GC_TESTS = \
 	lang_verilog.param1.gc \
+	lang_verilog.range.0.gc \
 	lang_qucs.1.gc \
 	c_hide.2.gc \
 	IProbe.1.gc \

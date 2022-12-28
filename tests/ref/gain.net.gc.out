@@ -30,72 +30,50 @@ C:C1 _net8 _net7 C="4p" V=""
                                         ^ ? what's this (incomplete)?
 parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
-OPV1.T3.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T3.mynmos: is - js conflict
-OPV1.T3.mynmos: nsub < ni, treating as if not input
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
 OPV1.T3.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T3.n.mynmos: is - js conflict
 OPV1.T3.n.mynmos: nsub < ni, treating as if not input
 OPV1.T3.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T3.p.mypmos: is - js conflict
 OPV1.T3.p.mypmos: nsub < ni, treating as if not input
-OPV1.T4.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T4.mynmos: is - js conflict
-OPV1.T4.mynmos: nsub < ni, treating as if not input
 OPV1.T4.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T4.n.mynmos: is - js conflict
 OPV1.T4.n.mynmos: nsub < ni, treating as if not input
 OPV1.T4.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T4.p.mypmos: is - js conflict
 OPV1.T4.p.mypmos: nsub < ni, treating as if not input
-OPV1.T6.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T6.mynmos: is - js conflict
-OPV1.T6.mynmos: nsub < ni, treating as if not input
 OPV1.T6.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T6.n.mynmos: is - js conflict
 OPV1.T6.n.mynmos: nsub < ni, treating as if not input
 OPV1.T6.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T6.p.mypmos: is - js conflict
 OPV1.T6.p.mypmos: nsub < ni, treating as if not input
-OPV1.T5.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T5.mynmos: is - js conflict
-OPV1.T5.mynmos: nsub < ni, treating as if not input
 OPV1.T5.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T5.n.mynmos: is - js conflict
 OPV1.T5.n.mynmos: nsub < ni, treating as if not input
 OPV1.T5.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T5.p.mypmos: is - js conflict
 OPV1.T5.p.mypmos: nsub < ni, treating as if not input
-OPV1.T8.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T8.mynmos: is - js conflict
-OPV1.T8.mynmos: nsub < ni, treating as if not input
 OPV1.T8.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T8.n.mynmos: is - js conflict
 OPV1.T8.n.mynmos: nsub < ni, treating as if not input
 OPV1.T8.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T8.p.mypmos: is - js conflict
 OPV1.T8.p.mypmos: nsub < ni, treating as if not input
-OPV1.T1.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T1.mynmos: is - js conflict
-OPV1.T1.mynmos: nsub < ni, treating as if not input
 OPV1.T1.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T1.n.mynmos: is - js conflict
 OPV1.T1.n.mynmos: nsub < ni, treating as if not input
 OPV1.T1.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T1.p.mypmos: is - js conflict
 OPV1.T1.p.mypmos: nsub < ni, treating as if not input
-OPV1.T2.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T2.mynmos: is - js conflict
-OPV1.T2.mynmos: nsub < ni, treating as if not input
 OPV1.T2.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T2.n.mynmos: is - js conflict
 OPV1.T2.n.mynmos: nsub < ni, treating as if not input
 OPV1.T2.p.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T2.p.mypmos: is - js conflict
 OPV1.T2.p.mypmos: nsub < ni, treating as if not input
-OPV1.T7.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T7.mynmos: is - js conflict
-OPV1.T7.mynmos: nsub < ni, treating as if not input
 OPV1.T7.n.mynmos: rsh - rs - rd conflict: using rsh
 OPV1.T7.n.mynmos: is - js conflict
 OPV1.T7.n.mynmos: nsub < ni, treating as if not input
@@ -2213,19 +2191,7 @@ parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) value is "NOT_INPUT"
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
@@ -3336,19 +3302,7 @@ parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) value is "NOT_INPUT"
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
-parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default
 parameter dB(Output.v/Input.v) not specified, using default

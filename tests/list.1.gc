@@ -1,5 +1,6 @@
 
 load v_subckt.so
+load v_module.so
 load lang_qucs.so
 load c_hide.so
 load c_list.so

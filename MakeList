@@ -38,6 +38,7 @@ PLUGIN_CC = \
 	s_sweep.cc \
 	s_tr.cc \
 	subst_wrap.cc \
+	v_module.cc \
 	v_subckt.cc
 
 PLUGIN_MODEL = \

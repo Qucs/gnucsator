@@ -67,7 +67,7 @@ public:
 private: // override virtual
   char	   id_letter()const	{return '\0';}
   std::string value_name()const {return "Z";}
-  std::string dev_type()const	{return "pac";}
+  std::string dev_type()const	{return "pac_";}
   uint_t	   max_nodes()const	{return 2;}
   uint_t	   min_nodes()const	{return 2;}
   uint_t	   matrix_nodes()const	{return 2;}

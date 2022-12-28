@@ -1,0 +1,41 @@
+verilog: already installed, replacing
+stashing as verilog:0
+paramset: already installed, replacing
+stashing as paramset:0
+module: already installed, replacing
+stashing as module:0
+macromodule: already installed, replacing
+stashing as macromodule:0
+verilog: already installed, replacing
+stashing as verilog:0
+param: already installed, replacing
+stashing as param:0
+parameter: already installed, replacing
+stashing as parameter:0
+module a (1,2);
+parameter _..is_valid={1*((.1<=dc)*(dc<=1))};
+parameter dc={ 1.};
+vsource #(.dc(dc)) v1 (1,2);
+endmodule // a
+
+module a (1,2);
+parameter _..is_valid={1*((1<=dc)*(dc<=10))};
+parameter dc={ 20.};
+vsource #(.dc(dc)) v2 (1,2);
+endmodule // a
+
+module a (1,2);
+parameter _..is_valid={1*((10<=dc)*(dc<=100))};
+parameter dc={ 100.};
+vsource #(.dc(dc)) v3 (1,2);
+endmodule // a
+
+module main (1,2,3,4);
+a #(.dc(.5)) a1 (1,4);
+a #(.dc(5)) a1 (2,4);
+a #(.dc(50)) a1 (3,4);
+endmodule // main
+
+main #() m (.1(1),.2(2),.3(3),.4(0));
+#           v(1)       v(2)       v(3)       v(m.a1.v1) v(m.a1.v2) v(m.a1.v3)
+ 0.         0.5        5.         50.        0.5        5.         50.       
