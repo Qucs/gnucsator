@@ -241,48 +241,6 @@ module MOSFET(g, d, s, b);
 
 	parameter Type;
 
-	paramset mynmos nmos;
-		.level=1;
-		.kp=Kp;
-		.gamma=Gamma;
-		.phi=Phi;
-		.lambda=Lambda;
-		.rd=Rd;
-		.rs=Rs;
-		.is=Is;
-		.ld=Ld;
-		.tox=Tox;
-		.cgso=Cgso;
-		.cgdo=Cgdo;
-		.cgbo=Cgbo;
-		.cbd=Cbd;
-		.cbs=Cbs;
-		.pb=Pb;
-		.mj=Mj;
-		.fc=Fc;
-		.cjsw=Cjsw;
-		.mjsw=Mjsw;
-		.nsub=Nsub;
-		.nss=Nss;
-		.tpg=Tpg;
-		.uo=Uo;
-		.rsh=Rsh;
-		.cj=Cj;
-		.js=Js;
-		.kf=Kf;
-		.af=Af;
-		.tnom=Tnom;
-		.vto=Vt0;
-	endparamset
-	//.pd=Pd;
-	//.tt=Tt;
-	//.ps=Ps;
-	//.rg=Rg;
-	//.ad=Ad;
-	//.as=As;
-	//.nrd=Nrd;
-	//.nrs=Nrs;
-
   // workaround: select one of them.
   spice_nmos #(.w(W), .m((1.+Type)*.5), .l(L), .temp(Temp) \
     .kp(Kp) .gamma(Gamma) .phi(Phi) .lambda(Lambda) .rd(Rd) .rs(Rs) .is(Is) .ld(Ld) .tox(Tox) \
