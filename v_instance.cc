@@ -1,6 +1,6 @@
-/*                     -*- C++ -*-
+/*                              -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
- *               2022 Felix Salfelder
+ *               2022, 2023 Felix Salfelder
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
  *
@@ -19,12 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
+ * module stuff
  */
 #include "u_nodemap.h"
 #include "e_node.h"
 #include "globals.h"
 #include "e_paramlist.h"
 #include "e_subckt.h"
+#include "io_trace.h"
 #include "e_model.h"
 /*--------------------------------------------------------------------------*/
 namespace{
@@ -95,7 +97,7 @@ protected:
   void		expand()override;
   CARD*		deflate()override;
 private:
-  void		precalc_last()override{
+  void		precalc_last()override{ untested();
     trace1("INSTANCE::precalc_last", long_label());
     unreachable();
   }
@@ -123,11 +125,11 @@ private: // overrides
     assert(i<int(_params.size()));
     return _params[i].second;
   }
-  void set_param_by_index(int i, std::string& value, int) override { untested();
+  void set_param_by_index(int i, std::string& value, int) override {
     int idx = i+1;
 
     // TODO: use common.
-    if(int(_params.size()) == idx){ untested();
+    if(int(_params.size()) == idx){
       _params.push_back(std::make_pair("", value));
     }else{ untested();
       throw Exception(long_label() + ": param assign out of order");
@@ -195,7 +197,7 @@ public:
 
 
 }pp; // DEV_INSTANCE_PROTO
-DISPATCHER<CARD>::INSTALL d2(&device_dispatcher, "instance_proto", &pp);
+DISPATCHER<CARD>::INSTALL dd(&device_dispatcher, "instance_proto", &pp);
 /*--------------------------------------------------------------------------*/
 void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE_PROTO* Proto) const
 {
@@ -210,12 +212,11 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
   COMPONENT* c = prechecked_cast<COMPONENT*>(cl);
   assert(c || !cl);
 
-  // dup in CMD_PARAMSET creation, lang_verilog.cc
-  if(!cl){ untested();
+  if(!cl){
     return;
   }else if(!c->common()){
     c->set_dev_type(modelname);
-  }else if(auto m=dynamic_cast<MODEL_CARD const*>(model)){ untested();
+  }else if(auto m=dynamic_cast<MODEL_CARD const*>(model)){
     // bypass spice-style find_model
     trace3("prepare_overload bypass", Proto->long_label(), Proto->net_nodes(), _parent);
     assert(c->common());
@@ -237,14 +238,15 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
     for(int i=0; i<Proto->net_nodes(); ++i){
       std::string v = Proto->port_value(i);
       trace3("DEV_INSTANCE_PROTO::po, set port in proto", Proto->long_label(), i, v);
+      trace2("DEV_INSTANCE_PROTO::po, set port in proto", c->net_nodes(), c->max_nodes());
 
       if(v[0] == '*'){
 	c->set_port_by_index(i, v);
-      }else{ untested();
+      }else{
 	c->set_port_by_name(v, v);
       }
     }
-    if(Proto->net_nodes() < c->min_nodes()){ untested();
+    if(Proto->net_nodes() < c->min_nodes()){
       throw Exception("not enough nodes\n");
     }else{
     }
@@ -254,7 +256,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
     for(int i=0; i<int(_params.size()); ++i){
       trace4("stub param fwd", c->long_label(), i, _params[i].first, _params[i].second);
       std::string value = _params[i].second;
-      if(_params[i].first == ""){ untested();
+      if(_params[i].first == ""){
 	int idx = c->param_count() - i - 1;
 	c->set_param_by_index(idx, value, 0);
       }else{
@@ -262,13 +264,11 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
       }
     }
     Proto->subckt()->push_front(c);
-  }catch(Exception const& e){ untested();
+  }catch(Exception const& e){
     // TODO: include proto name attribute
     error(bLOG, long_label() + " discarded: " + e.message() + "\n");
     delete (CARD*) c;
   }
-
-  trace3("done overload", Proto->long_label(), modelname, Proto->subckt()->size());
 } // prepare_overload
 /*--------------------------------------------------------------------------*/
 void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
@@ -312,7 +312,7 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
     MODEL_CARD* m = model_dispatcher[modelname];
     std::string extended_name = modelname;
     int bin_count = 0;
-    while(m){ untested();
+    while(m){
       error(bLOG, long_label() + ": " + extended_name + " from model_dispatcher\n");
       prepare_overload(m, modelname, Proto);
       extended_name = modelname + ':' + to_string(bin_count++);
@@ -334,7 +334,7 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
   if(size_t s = Proto->subckt()->size()){
     error(bTRACE, long_label() + ": " + std::to_string(s) + " candidate" + (s>1?"s":"") +
 	" found for " +modelname+ "\n");
-  }else{ untested();
+  }else{
     error(bDANGER, long_label() + ": no candidates found for " +modelname+ "\n");
     // not in precalc
     // throw Exception(long_label() + ": no candiates found for " + modelname);
@@ -407,7 +407,7 @@ CARD* INSTANCE::deflate()
     }
     trace2("INSTANCE::deflate done", long_label(), subckt()->size());
     trace2("INSTANCE::deflate done", deflated->dev_type(), dev_type());
-    assert(deflated->dev_type()==dev_type());
+    // assert(deflated->dev_type()==dev_type()); ?
     return deflated;
   }else{ untested();
     throw Exception_No_Match(dev_type());
@@ -460,7 +460,7 @@ INSTANCE::INSTANCE(const INSTANCE& p)
 /*--------------------------------------------------------------------------*/
 std::string INSTANCE::port_name(int i)const
 {
-  if(size_t(i)<_port_names.size()){ untested();
+  if(size_t(i)<_port_names.size()){
     return _port_names[i];
   }else{
     return ""; // it has no name.
@@ -491,7 +491,7 @@ void INSTANCE::expand()
   trace2("expand I: renew", _parent->scope()->nodes(), _parent->scope()->nodes()->how_many());
   trace2("expand I: renew", _parent->scope()->size(), common()->has_model());
   trace2("expand I: renew", _parent->subckt()->size(), common()->has_model());
-  if(!_parent->scope()->size()){ untested();
+  if(!_parent->scope()->size()){
     std::string modelname = c->modelname();
     throw Exception(long_label() + ": no valid prototype found for " + modelname);
   }else {
@@ -525,12 +525,12 @@ void INSTANCE::expand()
     }
   }
 
-  if(subckt()->size()==0){ untested();
+  if(subckt()->size()==0){
     // reachable?
     throw Exception(long_label() + ": no candidates " + dev_type());
   }else if(subckt()->size()==1){
     (*subckt()->begin())->set_label(short_label());
-  }else{ untested();
+  }else{
     // TODO: include name attributes, once available
     throw Exception(long_label() + ": ambiguous overload: " + dev_type());
   }
@@ -544,7 +544,7 @@ void INSTANCE::expand()
     CARD* d = s->deflate();
 
     if(d == s){
-    }else{ untested();
+    }else{
       assert(d->owner() == owner());
       *i = d;
       delete s;
@@ -559,7 +559,7 @@ void INSTANCE::precalc_first()
   assert(common());
   trace3("INSTANCE::precalc_first", long_label(), _parent, common()->modelname());
 
-  if(!owner()){
+  if(!owner()){ untested();
     build_proto();
     _parent=_proto;
   }else if(_cloned_from){
@@ -633,7 +633,7 @@ void INSTANCE::set_port_by_index(int Index, std::string& Value)
 }
 /*--------------------------------------------------------------------------*/
 void INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
-{ untested();
+{
   trace3("INSTANCE::pbn", long_label(), name, ext_name);
 
   int i = net_nodes();
@@ -641,7 +641,7 @@ void INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
   _port_names[net_nodes()] = name;
 
   if(subckt()){ untested();
-  }else{ untested();
+  }else{
   }
   assert(scope());
 
@@ -657,7 +657,6 @@ void INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
 
   assert(scope()!=subckt());
 }
-/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 } // namespace
 /*--------------------------------------------------------------------------*/
