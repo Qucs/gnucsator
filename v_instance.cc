@@ -71,8 +71,7 @@ private: // override virtual
 protected:
   int		max_nodes()const	{
     // INT_MAX results in arithmetic overflow in lang_spice
-    incomplete();
-    return 1000; // BUG BUG BUG INT_MAX/2;
+    return INT_MAX-2;
   }
 public: // ?
   void build_proto() const;
