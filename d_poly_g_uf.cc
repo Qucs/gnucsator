@@ -284,22 +284,22 @@ public:
 		      uint_t state_count, double state[],
 		      uint_t node_count, const node_t nodes[]);
   //		      const double* inputs[]=0);
-  int param_count()const { return 0 + ELEMENT::param_count(); }
-  std::string param_name(int i, int)const{ return param_name(i); }
-  std::string param_name(int i)const
-  { untested();
-    switch (DEV_CPOLY_G::param_count() - 1 - i) {
-//      case 0: return "coeffs";
-      default: return ELEMENT::param_name(i);
-    }
-  }
-  bool param_is_printable(int i)const
-  { untested();
-    switch (DEV_CPOLY_G::param_count() - 1 - i) {
-      case 0: return true;
-      default: return ELEMENT::param_is_printable(i);
-    }
-  }
+  // int param_count()const { return 0 + ELEMENT::param_count(); }
+//   std::string param_name(int i, int)const{ return param_name(i); }
+//   std::string param_name(int i)const
+//   { untested();
+//     switch (DEV_CPOLY_G::param_count() - 1 - i) {
+// //      case 0: return "coeffs";
+//       default: return ELEMENT::param_name(i);
+//     }
+//   }
+//  bool param_is_printable(int i)const
+//  { untested();
+//    switch (DEV_CPOLY_G::param_count() - 1 - i) {
+//      case 0: return true;
+//      default: return ELEMENT::param_is_printable(i);
+//    }
+//  }
   void set_param_by_index(int, std::string&, int);
   void set_param_by_name(const std::string, const std::string);
   void expand();
@@ -687,10 +687,10 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
    retry = true;
   }
 
-  if(retry){ untested();
-    ELEMENT::set_param_by_name(Name, Value);
-  }else{
-  }
+//   if(retry){ untested();
+//     ELEMENT::set_param_by_name(Name, Value);
+//   }else{
+//   }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_CPOLY_G::expand()

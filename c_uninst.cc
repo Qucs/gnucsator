@@ -45,6 +45,8 @@ public:
 			d = (DISPATCHER<CARD>*) &language_dispatcher;
 		}else if(cmd.umatch("comp{onent}")){
 			d = (DISPATCHER<CARD>*) &device_dispatcher;
+		}else if(cmd.umatch("bm")){
+			d = (DISPATCHER<CARD>*) &bm_dispatcher;
 		}else{
 			incomplete();
 			return;

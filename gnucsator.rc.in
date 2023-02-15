@@ -21,6 +21,7 @@ uninstall command verilog
 uninstall command module
 uninstall command macromodule
 uninstall command dc
+uninstall bm sweepval
 uninstall command list
 uninstall command save
 uninstall command op
