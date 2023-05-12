@@ -1,5 +1,5 @@
 
-load ../v_subckt.so
+load ../v_module.so
 load ../lang_verilog.so
 verilog
 

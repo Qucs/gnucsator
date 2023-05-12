@@ -1,4 +1,4 @@
-load v_subckt.so
+load v_module.so
 load lang_qucs.so
 * this is a hack.
 * we don't have a --language switch...

@@ -1,5 +1,4 @@
 
-load v_subckt.so
 load v_module.so
 load v_instance.so
 load lang_qucs.so

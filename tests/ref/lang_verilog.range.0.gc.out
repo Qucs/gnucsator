@@ -12,8 +12,6 @@ param: already installed, replacing
 stashing as param:0
 parameter: already installed, replacing
 stashing as parameter:0
-module: already installed, replacing
-stashing as module:0
 detach_all: already installed, replacing
 stashing as detach_all:0
 module a (1,2);
