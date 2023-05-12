@@ -1,3 +1,7 @@
+module: already installed, replacing
+stashing as module:0
+detach_all: already installed, replacing
+stashing as detach_all:0
 ;: already installed, replacing
 stashing as ;:0
 *: already installed, replacing

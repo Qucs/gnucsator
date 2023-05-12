@@ -21,27 +21,55 @@
  *------------------------------------------------------------------
  * module stuff
  */
-#include "u_nodemap.h"
-#include "e_node.h"
-#include "globals.h"
-#include "e_paramlist.h"
-#include "e_subckt.h"
-#include "io_trace.h"
-#include "e_model.h"
+#include <u_nodemap.h>
+#include <e_node.h>
+#include <globals.h>
+#include <e_paramlist.h>
+#include <e_subckt.h>
+#include <io_trace.h>
+#include <e_model.h>
+#include <c_comand.h>
+#include <set>
 /*--------------------------------------------------------------------------*/
 namespace{
 /*--------------------------------------------------------------------------*/
-static COMMON_PARAMLIST Default_SUBCKT(CC_STATIC);
+// components with one node are unlikely.
+const size_t node_capacity_floor = 2;
+/*--------------------------------------------------------------------------*/
+static void grow_nodes(size_t Index, node_t*& n, size_t& capacity, size_t capacity_floor)
+{
+  if(Index < capacity){
+  }else{
+    size_t new_capacity = std::max(capacity, capacity_floor);
+    while(new_capacity <= Index) {
+      assert(new_capacity < new_capacity * 2);
+      new_capacity *= 2;
+    }
+    node_t* new_nodes = new node_t[new_capacity];
+    for(size_t i=0; i<capacity; ++i){
+      new_nodes[i] = n[i];
+    }
+    delete[] n;
+    n = new_nodes;
+    capacity = new_capacity;
+  }
+}
+/*--------------------------------------------------------------------------*/
+class DEV_INSTANCE_PROTO;
+class COMMON_INSTANCE : public COMMON_PARAMLIST {
+public:
+  COMMON_INSTANCE(int x) : COMMON_PARAMLIST(x) {}
+public:
+  DEV_INSTANCE_PROTO* _proto{NULL};
+};
+static COMMON_INSTANCE Default_SUBCKT(CC_STATIC);
 /*--------------------------------------------------------------------------*/
 // looks like INSTANCE from d_subckt.cc, but isnt.
 // this one is never part of a simulation, because of deflation.
 // TODO: cleanup/rename?
-class DEV_INSTANCE_PROTO;
 class INSTANCE : public BASE_SUBCKT {
   friend class DEV_INSTANCE_PROTO; // has to do with _parent.
-private:
 protected: // HACK
-  std::vector<node_t> _nodes;
   static int	_count;
 
 protected: // stub stuff
@@ -50,14 +78,12 @@ protected: // stub stuff
   mutable DEV_INSTANCE_PROTO* _proto; // use common->proto?
   std::vector<std::pair<std::string, std::string>> _params;
   std::vector<std::string> _port_names;
+  size_t _node_capacity;
 protected:
   explicit	INSTANCE(const INSTANCE&);
 public:
   explicit	INSTANCE();
-		~INSTANCE()		{
-		  --_count;
-		  delete (CARD*)_proto;
-		}
+		~INSTANCE();
   CARD*		clone()const		{
     INSTANCE* new_instance = new INSTANCE(*this);
 
@@ -73,6 +99,7 @@ private: // override virtual
 protected:
   int		max_nodes()const	{
     // INT_MAX results in arithmetic overflow in lang_spice
+    // (does not seem to work with lang_spice anyway)
     return INT_MAX-2;
   }
 public: // ?
@@ -97,7 +124,7 @@ protected:
   void		expand()override;
   CARD*		deflate()override;
 private:
-  void		precalc_last()override{ untested();
+  void		precalc_last()override{
     trace1("INSTANCE::precalc_last", long_label());
     unreachable();
   }
@@ -107,6 +134,18 @@ private:
     return int(_params.size());
   }
 private: // overrides
+  virtual void set_parameters(const std::string& Label, CARD* Parent,
+			      COMMON_COMPONENT* Common, double Value,
+			      int state_count, double state[],
+			      int node_count, const node_t nodes[]){ untested();
+    if(node_count){ untested();
+      grow_nodes(node_count-1, _n, _node_capacity, node_capacity_floor);
+      _net_nodes = node_count;
+    }else{ untested();
+    }
+    COMPONENT::set_parameters(Label, Parent, Common, Value, state_count, state,
+	node_count, nodes);
+  }
   bool param_is_printable(int)const override {
     return true;
   }
@@ -147,10 +186,14 @@ public:
 protected:
 } p1;
 int INSTANCE::_count = -1;
-DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "instance", &p1);
+DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "instance|device_stub", &p1);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class DEV_INSTANCE_PROTO : public INSTANCE {
+  static std::set<DEV_INSTANCE_PROTO*> & protos(){
+    static std::set<DEV_INSTANCE_PROTO*> p;
+    return p;
+  }
   explicit	DEV_INSTANCE_PROTO(const DEV_INSTANCE_PROTO&p)
    : INSTANCE(p) { untested();
      new_subckt();
@@ -158,8 +201,11 @@ class DEV_INSTANCE_PROTO : public INSTANCE {
 public:
   explicit	DEV_INSTANCE_PROTO() : INSTANCE() {
     new_subckt();
+    protos().insert(this);
   }
-		~DEV_INSTANCE_PROTO(){}
+  ~DEV_INSTANCE_PROTO(){
+    protos().erase(this);
+  }
 private:
   CARD* clone() const override;
   CARD* clone_instance()const override{ untested(); return clone();}
@@ -173,28 +219,20 @@ public:
 
 public:
   void set_port_by_index(int Index, std::string& Value){
-    assert(!_parent);
-    // assert(!_proto);
-    if(_proto){ untested();
-    }else{
-    }
-
-    _nodes.resize(std::max(size_t(Index)+1, _nodes.size())); // TODO
-    _n = _nodes.data();
-    trace3("resized", long_label(), Index, _nodes.capacity());
-
+    grow_nodes(Index, _n, _node_capacity, node_capacity_floor);
     BASE_SUBCKT::set_port_by_index(Index, Value);
   }
 
   void set_port_by_name(std::string&, std::string&) override { untested();
     unreachable();
   }
-  int		max_nodes()const	{ return int(_nodes.size());}
+//  int		max_nodes()const	{ return int(_nodes.size());}
 
   void set_param_by_name(std::string name, std::string value) override { untested();
     trace3("proto:spbn", long_label(), name, value);
   }
 
+  static void cleanup();
 
 }pp; // DEV_INSTANCE_PROTO
 DISPATCHER<CARD>::INSTALL dd(&device_dispatcher, "instance_proto", &pp);
@@ -216,7 +254,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
     return;
   }else if(!c->common()){
     c->set_dev_type(modelname);
-  }else if(auto m=dynamic_cast<MODEL_CARD const*>(model)){
+  }else if(auto m=dynamic_cast<MODEL_CARD const*>(model)){ untested();
     // bypass spice-style find_model
     trace3("prepare_overload bypass", Proto->long_label(), Proto->net_nodes(), _parent);
     assert(c->common());
@@ -247,7 +285,9 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
       }
     }
     if(Proto->net_nodes() < c->min_nodes()){
-      throw Exception("not enough nodes\n");
+      throw Exception("not enough nodes, have "
+	    + std::to_string(Proto->net_nodes()) + " need "
+	    + std::to_string(c->min_nodes()) +"\n");
     }else{
     }
 
@@ -274,7 +314,9 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
 void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
 {
   if(Proto->subckt()->size()){
-    incomplete();
+    // device has multiple instances
+    // BUG: cleanup cache if is_first_expand()
+    // incomplete();
     return;
   }else{
   }
@@ -420,9 +462,10 @@ INSTANCE::INSTANCE()
   ,_cloned_from(NULL)
   ,_parent(NULL)
   ,_proto(NULL)
+  ,_node_capacity(0)
 {
   attach_common(&Default_SUBCKT);
-  _n = _nodes.data();
+  assert(_n == NULL);
   ++_count;
 }
 /*--------------------------------------------------------------------------*/
@@ -431,11 +474,26 @@ INSTANCE::INSTANCE(const INSTANCE& p)
   ,_cloned_from(&p)
   ,_parent(p._parent)
   ,_proto(NULL)
+  ,_node_capacity(0)
 {
   trace2("INSTANCE::INSTANCE", p.long_label(), p._net_nodes);
-  _nodes = p._nodes;
-  _net_nodes = p._net_nodes;
-  _n = _nodes.data();
+  assert(_net_nodes == p._net_nodes);
+  _node_capacity = net_nodes();
+  if(_node_capacity){
+    _n = new node_t[_node_capacity];
+  }else{
+    assert(_n == NULL);
+  }
+  if(p.is_device()){
+    for (int ii = 0;  ii < net_nodes();  ++ii) {
+      _n[ii] = p._n[ii];
+    }
+  }else{ untested();
+    for (int ii = 0;  ii < net_nodes();  ++ii) { untested();
+      assert(!_n[ii].n_());
+    }
+  }
+
   assert(!subckt());
   ++_count;
 
@@ -456,6 +514,12 @@ INSTANCE::INSTANCE(const INSTANCE& p)
     assert(_proto->subckt());
     assert(_proto->subckt()->params());
   }
+}
+/*--------------------------------------------------------------------------*/
+INSTANCE::~INSTANCE()
+{
+  --_count;
+  delete _proto;
 }
 /*--------------------------------------------------------------------------*/
 std::string INSTANCE::port_name(int i)const
@@ -480,12 +544,14 @@ void INSTANCE::expand()
   assert(_parent->net_nodes() <= _parent->subckt()->nodes()->how_many());
   assert(_parent->subckt()->params());
 
-  {
+#if 0
+  { untested();
     // some of these are used in debug mode in map_subckt_nodes
     // make valgrind happy.. (is a bug, fixed in sckt_ports branch)
     _nodes.resize(prechecked_cast<CARD const*>(_parent)->net_nodes());
     _n = _nodes.data();
   }
+#endif
 
   trace4("expand I", long_label(), _parent->long_label(), _parent, _parent->net_nodes());
   trace2("expand I: renew", _parent->scope()->nodes(), _parent->scope()->nodes()->how_many());
@@ -530,7 +596,7 @@ void INSTANCE::expand()
     throw Exception(long_label() + ": no candidates " + dev_type());
   }else if(subckt()->size()==1){
     (*subckt()->begin())->set_label(short_label());
-  }else{
+  }else{ untested();
     // TODO: include name attributes, once available
     throw Exception(long_label() + ": ambiguous overload: " + dev_type());
   }
@@ -558,10 +624,11 @@ void INSTANCE::precalc_first()
 {
   assert(common());
   trace3("INSTANCE::precalc_first", long_label(), _parent, common()->modelname());
+  trace1("INSTANCE::precalc_first", _sim->is_first_expand());
 
   if(!owner()){ untested();
     build_proto();
-    _parent=_proto;
+    _parent = _proto; // common->proto?
   }else if(_cloned_from){
     _cloned_from->build_proto();
   }else{ untested();
@@ -615,10 +682,7 @@ CARD* DEV_INSTANCE_PROTO::clone()const
 /*--------------------------------------------------------------------------*/
 void INSTANCE::set_port_by_index(int Index, std::string& Value)
 {
-  _nodes.resize(std::max(size_t(Index)+1, _nodes.size())); // TODO
-  _n = _nodes.data();
-  trace3("resized", long_label(), Index, _nodes.capacity());
-
+  grow_nodes(Index, _n, _node_capacity, node_capacity_floor);
   BASE_SUBCKT::set_port_by_index(Index, Value);
 
   if(!_parent){
@@ -646,9 +710,7 @@ void INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
   assert(scope());
 
   { // INSTANCE::set_port_by_index(i, ext_name);
-    _nodes.resize(std::max(size_t(i)+1, _nodes.size())); // TODO
-    _n = _nodes.data();
-    trace3("resized", long_label(), i, _nodes.capacity());
+    grow_nodes(i, _n, _node_capacity, node_capacity_floor);
     BASE_SUBCKT::set_port_by_index(i, ext_name);
   }
 
@@ -657,6 +719,23 @@ void INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
 
   assert(scope()!=subckt());
 }
+/*--------------------------------------------------------------------------*/
+void DEV_INSTANCE_PROTO::cleanup()
+{
+  for(auto i : protos() ){
+    assert(i);
+    assert(i->subckt());
+    i->subckt()->erase_all();
+  }
+}
+/*--------------------------------------------------------------------------*/
+class CLEANUP : public CMD {
+  void do_it(CS&, CARD_LIST*)override {
+    DEV_INSTANCE_PROTO::cleanup();
+    CMD::command("detach_all:0", &CARD_LIST::card_list);
+  }
+}p3;
+DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "detach_all", &p3);
 /*--------------------------------------------------------------------------*/
 } // namespace
 /*--------------------------------------------------------------------------*/

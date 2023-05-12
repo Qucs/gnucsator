@@ -3,6 +3,7 @@ load ../v_subckt.so
 load public ../lang_verilog.so
 load ../c_param.so
 load ../v_module.so
+load ../v_instance.so
 verilog
 
 module a (1 2);

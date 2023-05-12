@@ -2,6 +2,10 @@ X: already installed, replacing
 stashing as X:0
 subckt: already installed, replacing
 stashing as subckt:0
+module: already installed, replacing
+stashing as module:0
+detach_all: already installed, replacing
+stashing as detach_all:0
 verilog: already installed, replacing
 stashing as verilog:0
 paramset: already installed, replacing

@@ -40,7 +40,7 @@ uninstall comp subckt
 unload qucs/c_uninst.so
 
 load qucs/d_subckt.so
-load qucs/v_subckt.so
+load qucs/v_module.so
 load qucs/v_instance.so
 
 options numdgt 40
