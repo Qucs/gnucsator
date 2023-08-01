@@ -16,6 +16,10 @@ spice_mos: already installed, replacing
 stashing as spice_mos:0
 .SP:SP1 Type="l ... 5 GHz" Points="150" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
+dB(S[2,1])
+      ^ ? missing ]?
+dB(S[1,1])
+      ^ ? missing ]?
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
@@ -516,6 +520,10 @@ parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
+dB(S[2,1])
+      ^ ? missing ]?
+dB(S[1,1])
+      ^ ? missing ]?
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
@@ -586,6 +594,10 @@ parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
+dB(S[2,1])
+      ^ ? missing ]?
+dB(S[1,1])
+      ^ ? missing ]?
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
 parameter dB(S[2,1]) not specified, using default
