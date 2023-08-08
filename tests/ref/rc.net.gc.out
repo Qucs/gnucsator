@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 C:C1 _net1 gnd C="1u" V="" 
                       ^ ? C1: V has no value?
 Gnucap   System status

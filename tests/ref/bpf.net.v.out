@@ -1,7 +1,5 @@
 
 module main ();
-parameter dB_S11={dB(S[1,1])};
-parameter dB_S21={dB(S[2,1])};
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_bpf_10Ghz_prj/bpf_10Ghz.sch 
 MCOUPLED #(.DispModel(Kirschning),.L(5.24mm),.Model(Kirschning),.S(482um),.Subst(Subst1),.Temp(26.85),.W(384um)) MS1 (.p0(_net0),.p1(_net1),.p2(_net2),.p3(_net3));
 MCOUPLED #(.DispModel(Kirschning),.L(4.72mm),.Model(Kirschning),.S(712um),.Subst(Subst1),.Temp(26.85),.W(1.08mm)) MS2 (.p0(_net4),.p1(_net5),.p2(_net6),.p3(_net7));
@@ -21,7 +19,6 @@ paramset Subst1 SUBST;\
  .er=2.56; .h=0.76m; .t=18u; .tand=3e-3; .rho=0.022e-6; .D=100; .tnom=tnom;\
 endparmset
 
-Eqn #() Eqn1 ();
 MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(Subst1),.W(384u)) MS11 (.p0(_net3));
 MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(Subst1),.W(1.08m)) MS12 (.p0(_net7));
 MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(Subst1),.W(384u)) MS15 (.p0(_net19));

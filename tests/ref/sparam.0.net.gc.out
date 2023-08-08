@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 .SP:SPTC1 Type= ... p="1e10" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 Gnucap   System status

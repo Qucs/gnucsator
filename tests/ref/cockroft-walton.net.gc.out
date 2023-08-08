@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 # Qucs 0.0.19  C:/Users/Andrea/.qucs/multiplier.sch 
 ^ ? # Qucs 0.0.19  C: no match
 C:C5 _net1 gnd C="1 nF" V="" 

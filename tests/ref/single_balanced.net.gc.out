@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 T3.n.mynmos: rsh - rs - rd conflict: using rsh
 T3.n.mynmos: is - js conflict
 T3.n.mynmos: nsub < ni, treating as if not input

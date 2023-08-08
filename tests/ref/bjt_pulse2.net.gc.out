@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 Gnucap   System status
 iterations: op=0, dc=0, tran=456, fourier=0, total=574
 transient timesteps: accepted=112, rejected=6, total=118

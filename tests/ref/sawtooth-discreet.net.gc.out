@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 C:C1 gnd OUT C="680 pF" V="" 
                         ^ ? C1: V has no value?
 parameter Z_Diodes_1N4728A not specified, using default

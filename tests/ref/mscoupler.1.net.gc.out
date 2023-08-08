@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 # .SP:SPTC1 Type="lin" Start="0.2 GHz" Stop="4.2 GHz" Points="101" Noi
 ^ ? # .SP: no match
 .SP:SPTC1 Type= ... p="4e9" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s

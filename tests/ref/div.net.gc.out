@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 Vac:V1 _net0 gnd U="1 V" f="" Phase="0" Theta="0" 
                          ^ ? V1: f has no value?
 Gnucap   System status

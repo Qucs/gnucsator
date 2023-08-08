@@ -15,7 +15,7 @@ MOPEN:MS9 _net17 Subst="Subst1" W="384 um" MSModel="Hammerstad" MSDispModel="Kir
 Pac:P2 _net18 gnd Num="2" Z="50 Ohm" P="0 dBm" f="10 GHz" Temp="26.85"
 Pac:P1 _net0 gnd Num="1" Z="50 Ohm" P="0 dBm" f="10 GHz" Temp="26.85"
 SUBST:Subst1 er="2.56" h="0.76 mm" t="18 um" tand="3e-3" rho="0.022e-6" D="100"
-Eqn:Eqn1 dB_S21="dB(S[2,1])" dB_S11="dB(S[1,1])" Export="yes"
+# Eqn:Eqn1 dB_S21="dB(S[2,1])" dB_S11="dB(S[1,1])" Export="yes"
 MOPEN:MS11 _net3 Subst="Subst1" W="384 um" MSModel="Hammerstad" MSDispModel="Kirschning" Model="Kirschning"
 MOPEN:MS12 _net7 Subst="Subst1" W="1.08 mm" MSModel="Hammerstad" MSDispModel="Kirschning" Model="Kirschning"
 MOPEN:MS15 _net19 Subst="Subst1" W="384 um" MSModel="Hammerstad" MSDispModel="Kirschning" Model="Kirschning"

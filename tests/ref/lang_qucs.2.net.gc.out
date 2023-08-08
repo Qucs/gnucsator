@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 # .TR:mySim2 Start="0" Stop="1 ms" Points="5" IntegrationMethod="Trape
 ^ ? # .TR: no match
 Gnucap   System status

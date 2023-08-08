@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 .SP:SP1 Type="l ... op="1e9" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 # Eqn:Eqn1 Attenuation2="dB(S[2,1])" Reflect="dB(S[1,1])" Attenuation3

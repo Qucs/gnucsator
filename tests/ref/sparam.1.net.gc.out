@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 R:RR gnd _net1 R="1 Ohm" Temp="" Tc1="0.0" Tc2="0.0" Tnom="26.85" 
                          ^ ? RR: Temp has no value?
 .SP:SP1 Type="l ... p="1e1" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s

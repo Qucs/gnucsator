@@ -5,6 +5,6 @@
 `include logic.v
 `include lumped.v
 
-`ifdef GNUCAP
+`ifdef HIDE_TOP_LEVEL_MODULES
 hidemodule *
 `endif

@@ -10,10 +10,6 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
-spice_bjt: already installed, replacing
-stashing as spice_bjt:0
-spice_mos: already installed, replacing
-stashing as spice_mos:0
 >>>>>Eqn:Eqn1 I1="1" Export="yes" 
 >>>>>Eqn:Eqn2 R1="1" Export="yes" 
 >>>>>.SW:SW1 Sim="DC1" Type="lin" Param="I1" Start="10m" Stop="20m" Points="2" 
