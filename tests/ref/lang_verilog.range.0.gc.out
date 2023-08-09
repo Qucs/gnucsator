@@ -12,8 +12,8 @@ param: already installed, replacing
 stashing as param:0
 parameter: already installed, replacing
 stashing as parameter:0
-detach_all: already installed, replacing
-stashing as detach_all:0
+clear: already installed, replacing
+stashing as clear:0
 module a (1,2);
 parameter _..is_valid={1*((.1<=dc)*(dc<=1))};
 parameter dc={ 1.};

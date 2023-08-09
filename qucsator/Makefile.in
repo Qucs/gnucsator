@@ -1,6 +1,7 @@
 
 # pointing to raw unmodified qucsator source
 VPATH = microstrip
+LOCAL_CXXFLAGS = -Wno-inconsistent-missing-override
 
 include MakeList
 
@@ -18,13 +19,13 @@ OBJS = \
 all: $(OBJS)
 
 %.o: %.cpp component.h object.h
-	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I. $(CXXFLAGS) -c $< -fPIC -o $@
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I. $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@
 
 substrate.o msline.o: %.o: %.cpp component.h object.h
-	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@
 
 fspecial.o real.o complex.o vector.o matrix.o: %.o: %.cpp
-	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@ -DNR_TINY=1e-15 -Dnr_double_t=double -DHAVE_STD_ERF
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@ -DNR_TINY=1e-15 -Dnr_double_t=double -DHAVE_STD_ERF
 
 clean:
 	rm -rf $(OBJS)

@@ -84,7 +84,7 @@ protected:
 public:
   explicit	INSTANCE();
 		~INSTANCE();
-  CARD*		clone()const		{
+  CARD*		clone()const override	{
     INSTANCE* new_instance = new INSTANCE(*this);
 
     // BUG?
@@ -93,11 +93,11 @@ public:
     return new_instance;
   }
 private: // override virtual
-  char		id_letter()const	{return 'X';}
-  bool		print_type_in_spice()const {return true;}
-  std::string   value_name()const	{return "#";}
+  char		id_letter()const override{return 'X';}
+  bool		print_type_in_spice()const override{return true;}
+  std::string   value_name()const override{return "#";}
 protected:
-  int		max_nodes()const	{
+  int		max_nodes()const override{
     // INT_MAX results in arithmetic overflow in lang_spice
     // (does not seem to work with lang_spice anyway)
     return INT_MAX-2;
@@ -107,18 +107,18 @@ public: // ?
 private:
 
 protected:
-  void set_port_by_index(int Index, std::string& Value);
+  void set_port_by_index(int Index, std::string& Value) override;
 
   // override. the base class does not know about _parent.
-  void set_port_by_name(std::string& name, std::string& ext_name);
-  int		min_nodes()const	{return 0;}
-  int		ext_nodes()const	{return net_nodes();}
-  int		matrix_nodes()const	{return 0;}
+  void set_port_by_name(std::string& name, std::string& ext_name) override;
+  int		min_nodes()const override {return 0;}
+  int		ext_nodes()const override {return net_nodes();}
+  int		matrix_nodes()const override {return 0;}
 protected:
-  int		net_nodes()const	{return _net_nodes;}
-  void		precalc_first();
+  int		net_nodes()const override {return _net_nodes;}
+  void		precalc_first() override;
 private:
-  bool		makes_own_scope()const  {return false;}
+  bool		makes_own_scope()const override {return false;}
 
 protected:
   void		expand()override;
@@ -128,8 +128,8 @@ private:
     trace1("INSTANCE::precalc_last", long_label());
     unreachable();
   }
-  double	tr_probe_num(const std::string&)const {unreachable(); return 0.;}
-  int param_count_dont_print()const {return 0;}
+  double	tr_probe_num(const std::string&)const override{unreachable(); return 0.;}
+  int param_count_dont_print()const override{return 0;}
   int param_count() const override {
     return int(_params.size());
   }
@@ -137,7 +137,7 @@ private: // overrides
   virtual void set_parameters(const std::string& Label, CARD* Parent,
 			      COMMON_COMPONENT* Common, double Value,
 			      int state_count, double state[],
-			      int node_count, const node_t nodes[]){ untested();
+			      int node_count, const node_t nodes[]) override{ untested();
     if(node_count){ untested();
       grow_nodes(node_count-1, _n, _node_capacity, node_capacity_floor);
       _net_nodes = node_count;
@@ -180,7 +180,7 @@ private:
   void prepare_overload(CARD* proto, std::string modelname, DEV_INSTANCE_PROTO* p) const;
 
 protected:
-  std::string port_name(int i)const;
+  std::string port_name(int i)const override;
 public:
   static int	count()			{untested();return _count;}
 protected:
@@ -212,13 +212,13 @@ private:
 public:
   void precalc_first() override { unreachable(); }
   void precalc_last() override { unreachable(); }
-  CARD_LIST*	   scope()		{ return subckt(); }
-  const CARD_LIST* scope()const		{ return subckt(); }
+  CARD_LIST*	   scope()override	{ return subckt(); }
+  const CARD_LIST* scope()const	override{ return subckt(); }
 
   bool do_tr() override { unreachable(); return true; }
 
 public:
-  void set_port_by_index(int Index, std::string& Value){
+  void set_port_by_index(int Index, std::string& Value)override {
     grow_nodes(Index, _n, _node_capacity, node_capacity_floor);
     BASE_SUBCKT::set_port_by_index(Index, Value);
   }
@@ -732,10 +732,10 @@ void DEV_INSTANCE_PROTO::cleanup()
 class CLEANUP : public CMD {
   void do_it(CS&, CARD_LIST*)override {
     DEV_INSTANCE_PROTO::cleanup();
-    CMD::command("detach_all:0", &CARD_LIST::card_list);
+    CMD::command("clear:0", &CARD_LIST::card_list);
   }
 }p3;
-DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "detach_all", &p3);
+DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "clear", &p3);
 /*--------------------------------------------------------------------------*/
 } // namespace
 /*--------------------------------------------------------------------------*/

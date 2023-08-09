@@ -1,7 +1,7 @@
 <Qucs Dataset>
 default plugins: ignored
-detach_all: already installed, replacing
-stashing as detach_all:0
+clear: already installed, replacing
+stashing as clear:0
 ;: already installed, replacing
 stashing as ;:0
 *: already installed, replacing

@@ -204,8 +204,12 @@ int vector::getSize (void) const {
 
 int vector::checkSizes (vector v1, vector v2) {
   if (v1.getSize () != v2.getSize ()) {
+#ifdef __clang__
+	 incomplete();
+#else
     logprint (LOG_ERROR, "vector '%s' and '%s' have different sizes\n",
 	      v1.getName (), v2.getName ());
+#endif
     return 0;
   }
   return 1;

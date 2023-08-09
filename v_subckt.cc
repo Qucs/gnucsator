@@ -56,7 +56,7 @@ public:
   CARD*		clone()const override;
 //  CARD*		clone_instance()const override;
 private: // override virtual
-  bool		is_device()const	{return _parent;}
+  bool		is_device()const override	{return _parent;}
   char		id_letter()const override	{return 'X';}
   bool		print_type_in_spice()const override {return true;}
   std::string   value_name()const override	{return "#";}
@@ -68,7 +68,7 @@ private: // override virtual
   bool		makes_own_scope()const override  {return !_parent;}
   bool		is_valid() const override;
   CARD_LIST*	   scope() override;
-  const CARD_LIST* scope()const		{return const_cast<DEV_SUBCKT*>(this)->scope();}
+  const CARD_LIST* scope()const override	{return const_cast<DEV_SUBCKT*>(this)->scope();}
 
   void		expand() override;
 
@@ -100,9 +100,9 @@ private: // no ops for prototype
 private:
   void		precalc_last()override;
   double	tr_probe_num(const std::string&)const override;
-  int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
+  int param_count_dont_print()const override{return common()->COMMON_COMPONENT::param_count();}
 
-  std::string port_name(int i)const;
+  std::string port_name(int i)const override;
   void set_param_by_name(std::string Name, std::string Value) override;
 public:
   static int	count()			{untested();return _count;}

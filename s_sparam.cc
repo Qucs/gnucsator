@@ -65,22 +65,22 @@ private:
 public:
   explicit PAC()		:ELEMENT(), _num(-1u) {}
 private: // override virtual
-  char	   id_letter()const	{return '\0';}
-  std::string value_name()const {return "Z";}
-  std::string dev_type()const	{return "pac_";}
-  uint_t	   max_nodes()const	{return 2;}
-  uint_t	   min_nodes()const	{return 2;}
-  uint_t	   matrix_nodes()const	{return 2;}
-  uint_t	   net_nodes()const	{return 2;}
-  CARD*	   clone()const		{return new PAC(*this);}
-  void	   tr_iwant_matrix()	{}
-  void	   ac_iwant_matrix()	{}
-  void     precalc_last();
-  double   tr_involts()const	{return dn_diff(_n[IN1].v0(), _n[IN2].v0());}
-  double   tr_involts_limited()const {return tr_involts();}
-  double   tr_probe_num(const std::string&)const;
+  char	   id_letter()const override{return '\0';}
+  std::string value_name()const override{return "Z";}
+  std::string dev_type()const override{return "pac_";}
+  uint_t	   max_nodes()const override{return 2;}
+  uint_t	   min_nodes()const override{return 2;}
+  uint_t	   matrix_nodes()const override{return 2;}
+  uint_t	   net_nodes()const override{return 2;}
+  CARD*	   clone()const	override{return new PAC(*this);}
+  void	   tr_iwant_matrix()override	{}
+  void	   ac_iwant_matrix()override	{}
+  void     precalc_last()override;
+  double   tr_involts()const override   {return dn_diff(_n[IN1].v0(), _n[IN2].v0());}
+  double   tr_involts_limited()const override{return tr_involts();}
+  double   tr_probe_num(const std::string&)const override;
 
-  std::string port_name(uint_t i)const { untested();
+  std::string port_name(uint_t i)const override{ untested();
     assert(i < 2);
     static std::string names[] = {"p", "n"};
     return names[i];
@@ -101,7 +101,7 @@ public:
   unsigned num() const{
     return _num;
   }
-  COMPLEX  ac_involts()const	{return -ac_outvolts();}
+  COMPLEX  ac_involts()const override{return -ac_outvolts();}
   void stamp_rhs(){
     _acg = 1;
     ac_load_source();
@@ -168,7 +168,7 @@ private:
     tS      = 2
   };
 public:
-  void	do_it(CS&, CARD_LIST*);
+  void do_it(CS&, CARD_LIST*) override;
 
   explicit SPARAM():
     SIM(),

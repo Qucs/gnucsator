@@ -12,8 +12,8 @@ X: already installed, replacing
 stashing as X:0
 subckt: already installed, replacing
 stashing as subckt:0
-detach_all: already installed, replacing
-stashing as detach_all:0
+clear: already installed, replacing
+stashing as clear:0
 C: already installed, replacing
 stashing as C:0
 L: already installed, replacing

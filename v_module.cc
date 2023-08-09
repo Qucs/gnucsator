@@ -68,7 +68,7 @@ private:
   void		set_port_by_index(int Index, std::string& Value) override;
   // void	set_port_by_name(std::string&, std::string&) override;
 private: // override virtual
-  bool		is_device()const		{return _parent;}
+  bool		is_device()const override	{return _parent;}
   char		id_letter()const override	{return 'X';}
   bool		print_type_in_spice()const override {return true;}
   std::string   value_name()const override	{return "#";}

@@ -40,7 +40,7 @@ struct object : public MODEL_CARD{
 			*i->second = b;
 		}
 	}
-	std::string param_name(int i)const{
+	std::string param_name(int i)const override{
 		int s = object::param_count() - 1 - i;
 		if(s < int(_p.size())){
 			assert(s<int(_pnames.size()));
@@ -49,7 +49,7 @@ struct object : public MODEL_CARD{
 			return MODEL_CARD::param_name(i);
 		}
 	}
-	std::string param_name(int i, int)const{ untested();
+	std::string param_name(int i, int)const override{ untested();
 		return param_name(i);
 	}
 	std::string param_value(int i)const override{
@@ -87,7 +87,7 @@ struct object : public MODEL_CARD{
 		}
 	};
 	std::string dev_type()const override {return cd()->type;}
-	MODEL_CARD* clone() const{return nullptr;}
+	MODEL_CARD* clone()const override{return nullptr;}
 
 private: // MODEL_CARD
 	void precalc_first() override{

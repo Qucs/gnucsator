@@ -36,7 +36,7 @@ public: \
 	define_t* cd() const override {return &cirdef;} \
 	a(); \
 	a( const a& p) : circuit(p){incomplete();} \
-	COMPONENT* clone() const{ a* n=new a(*this); n->init(); return n; }
+	COMPONENT* clone()const override{ a* n=new a(*this); n->init(); return n; }
 
 
 namespace qucs{

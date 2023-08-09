@@ -47,40 +47,40 @@ protected: // override virtual
   enum probe_t { VOLTAGE, // voltage probe
                  CURRENT  // current probe (short)
                } _type;
-  string value_name()const {return "dummy";}
-  string dev_type()const	{return string((_type==VOLTAGE)?"V":"I")+"Probe";}
-  uint_t	   max_nodes()const	{return 2;}
-  uint_t	   min_nodes()const	{return 2;}
-  uint_t	   matrix_nodes()const	{return 2;}
-  uint_t	   net_nodes()const	{return 2;}
-  void  set_dev_type(const string& new_type);
+  string value_name()const override{return "dummy";}
+  string dev_type()const override{return string((_type==VOLTAGE)?"V":"I")+"Probe";}
+  uint_t	   max_nodes()const override{return 2;}
+  uint_t	   min_nodes()const override{return 2;}
+  uint_t	   matrix_nodes()const override{return 2;}
+  uint_t	   net_nodes()const override{return 2;}
+  void  set_dev_type(const string& new_type) override;
   //bool	   has_iv_probe()const  {return true;}
-  bool	   use_obsolete_callback_parse()const {return false;}
-  CARD*	   clone()const		{return new DEV_PROBE(*this);}
+  bool	   use_obsolete_callback_parse()const override{return false;}
+  CARD*	   clone()const override{return new DEV_PROBE(*this);}
 //  void     precalc_first();
-  void     precalc_last();
-  COMPLEX  ac_involts()const	{untested();return ac_outvolts();}
+  void     precalc_last()override;
+  COMPLEX  ac_involts()const override{untested();return ac_outvolts();}
   bool is_device() const override {
     return true;
   }
-  void tr_iwant_matrix();
-  void tr_begin();
+  void tr_iwant_matrix() override;
+  void tr_begin() override;
 //  bool do_tr();
-  void tr_load();
-  void tr_unload();
-  double tr_involts()const {return tr_outvolts();}
-  double tr_involts_limited()const {return tr_outvolts_limited();}
-  void ac_iwant_matrix();
-  void ac_begin(){incomplete();}
-  void do_ac(){incomplete();}
-  void ac_load(){incomplete();}
-  string port_name(uint_t i)const {
+  void tr_load() override;
+  void tr_unload() override;
+  double tr_involts()const override {return tr_outvolts();}
+  double tr_involts_limited()const override {return tr_outvolts_limited();}
+  void ac_iwant_matrix()override;
+  void ac_begin()override{incomplete();}
+  void do_ac()override{incomplete();}
+  void ac_load()override{incomplete();}
+  string port_name(uint_t i)const override{
     assert(i != INVALID_NODE);
     assert(i < 2);
     static string names[] = {"p", "n"};
     return names[i];
   }
-  virtual void expand();
+  void expand() override;
 public:
   string iwant_print() const { untested();
     trace3("DEV_PROBE::iwant_print() calledthe right function",
