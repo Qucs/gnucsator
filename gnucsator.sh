@@ -3,11 +3,12 @@
 # Qucs compatibility script. Processes args like Qucsator and run Gnucsator.
 # Also, collate output files into .dat understood by (legacy) Qucs.
 
-TEMP=`getopt -o i:o:bg --long input:output: \
+TEMP=`getopt -o i:o:a:bg --long input:output: \
      -n 'gnucsator.sh' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 eval set -- "$TEMP"
+ARGS=""
 
 while true; do
 	case "$1" in
@@ -15,12 +16,15 @@ while true; do
 		-g) shift;;
 		-i|--input) infile="$2"; shift 2;;
 		-o|--output) outfile="$2"; shift 2;;
+		-a) ARGS="${ARGS} -a $2"; shift 2;;
 		--) shift; break ;;
 		*) echo "Internal error!" ; exit 1 ;;
 	esac
 done
 
+if [ -z "$GNUCSATOR" ]; then
 GNUCSATOR=gnucsator
+fi
 
 if [ -z "$outfile" ]; then
 	outfile=outfile.dat
@@ -40,7 +44,7 @@ rm -f $out.tr
 rm -f $out.sp
 rm -f $out.ac
 
-$GNUCSATOR <<EOF
+$GNUCSATOR $ARGS <<EOF
 qucs
 include $infile
 go ${out}

@@ -386,7 +386,8 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 						}
 
 						OPT::case_insensitive = true;
-						bool isame = Umatch(Name, xx->value_name()); // HACK, value_name is case sensitive
+						bool isame =  xx->value_name().size() &&
+							          Umatch(Name, xx->value_name()); // HACK, value_name is case sensitive
 						                                             // and does not permit alternatives
 						                                             // maybe write smarter wrappers instead...
 						OPT::case_insensitive = false;
@@ -395,6 +396,8 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 						if(value==""){
 							// bug in qucs?
 						}else if (cc && isame) {untested();
+							unreachable();
+#if 0
 							trace1("isame hack", value);
 							CS v(CS::_STRING, value);
 							cc->parse_numlist(v); // HACK.
@@ -402,18 +405,9 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 							  	xx->set_param_by_name(Name,value);
 							}catch(Exception const&){
 							}
-						}else if (cc){
-							trace3("have common", Name, value, xx->short_label());
-
-						//	try{
-						//		cc->set_param_by_name(Name, value);
-						//	}catch(Exception const&){ untested();
-							  	// retry if common did not like it...
-								xx->set_param_by_name(Name, value);
-						//	}
-						} else {
-							trace2("no common", Name, value);
-							xx->set_param_by_name(Name,value);
+#endif
+						}else{
+							xx->set_param_by_name(Name, value);
 						}
 
 					}catch (Exception_No_Match&) {untested();
