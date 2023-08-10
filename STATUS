@@ -64,7 +64,7 @@ COMPONENTS (table ripped from [1])
 │ ground          │   -             │                │      │ BUG, hidden    │
 │ DC block        │                 │                │      │                │
 │ DC feed         │                 │                │      │                │
-│ bias T          │                 │                │      │                │
+│ bias T          │   BiasT         │  S             │      │                │
 │ attenuator      │                 │                │      │                │
 │ isolator        │                 │ (E)            │      │                │
 │ circulator      │                 │                │      │                │

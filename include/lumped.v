@@ -86,6 +86,13 @@ CCCS #(.gain(T2)) v(5_ inp inn 5);
 vcvs #(.gain(T2) e(5_ 4 inp inn);
 endmodule
 
+module BiasT(1 2 3)
+parameter C=1
+parameter L=1
+capacitor #(.c(C)) c1(1, 2);
+inductor #(.l(L)) l1(3, 2);
+endmodule
+
 simulator lang=spice
 .options noinsensitive
 
