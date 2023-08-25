@@ -42,8 +42,10 @@ COMPONENTS (table ripped from [1])
     C  have component
    (C) candidate for component
     V  have verilog-A model
-    V* verilog-A model in Qucsator, but inaccessible
+    V* verilog-A model in Qucsator, works with gnucap-modelgen-verilog
+       (must be loaded manually)
    (V) uses feature not supported by gnucap-adms
+       (revisit gnucap-modelgen-verilog)
    [V] a verilog-A/MS model could do this
     ?  no idea
 
@@ -128,11 +130,11 @@ COMPONENTS (table ripped from [1])
 │ mosfet w/ bulk  │ MOSFET          │  W             │      │                │
 │ FBH HBT         │                 │ (V)            │      │ ext. temp      │
 │ bsim4v30        │ bsim4v30{p,n}MOS│  V             │      │ gnucap-models  │
-│ HICUM v2.1 l2   │ hicumL2V2p1     │  V             │      │                │
-│ HICUM v2.22 l2  │                 │ (V)            │      │                │
-│ HICUM v2.23 l2  │                 │ (V)            │      │                │
-│ HICUM v1.12 l0  │                 │ (V)            │      │                │
-│ HICUM v1.2 l0   │ hicumL0V1p2     │  V             │      │                │
+│ HICUM v2.1 l2   │ hicumL2V2p1     │  V             │      │ non-free?      │
+│ HICUM v2.22 l2  │                 │  V             │      │ non-free?      │
+│ HICUM v2.23 l2  │                 │  V             │      │ non-free?      │
+│ HICUM v1.12 l0  │                 │  V             │      │ non-free?      │
+│ HICUM v1.2 l0   │ hicumL0V1p2     │  V             │      │ non-free?      │
 │ MESFET          │                 │ (V)            │      │                │
 │ EPFL EKV v2.6   │                 │ (V)            │      │                │
 │ equation device │ Eqn             │  C             │ T    │ probe access?  │
@@ -181,29 +183,29 @@ COMPONENTS (table ripped from [1])
 │ high prio enc   │                 │                │      │                │
 │ grey2bin        │ greytobinary4bit│  V*            │      │                │
 │ bin2grey        │ binarytogrey4bit│  V*            │      │                │
-│ gated D-latch   │                 │                │      │                │
+│ gated D-latch   │ gatedDlatch     │  V*            │      │                │
 │ d/a lvl shift   │                 │                │      │                │
 │ a/d lvl shift   │                 │                │      │                │
-│ 2to1 mux        │                 │  V*            │      │                │
-│ 4to1 mux        │                 │  V*            │      │                │
-│ 8to1 mux        │                 │  V*            │      │                │
-│ 2to4 mux        │                 │                │      │                │
-│ 3to8 mux        │                 │                │      │                │
-│ 4to16 demux     │  dmux4to16      │  V*            │      │                │
-│ 4x2 and/or      │  andor4x2       │  V*            │      │                │
-│ 4x3 and/or      │  andor4x3       │  V*            │      │                │
-│ 4x4 and/or      │  andor4x4       │  V*            │      │                │
-│ 2bit pat gen    │                 │                │      │                │
-│ 3bit pat gen    │                 │                │      │                │
-│ 4bit pat gen    │                 │                │      │                │
+│ 2to1 mux        │ mux2to2         │  V*            │      │                │
+│ 4to1 mux        │ mux4to2         │  V*            │      │                │
+│ 8to1 mux        │ mux8to2         │  V*            │      │                │
+│ 2to4 mux        │ mux2to4         │  V*            │      │                │
+│ 3to8 mux        │ mux8to8         │  V*            │      │                │
+│ 4to16 demux     │ dmux4to16       │  V*            │      │                │
+│ 4x2 and/or      │ andor4x2        │  V*            │      │                │
+│ 4x3 and/or      │ andor4x3        │  V*            │      │                │
+│ 4x4 and/or      │ andor4x4        │  V*            │      │                │
+│ 2bit pat gen    │ pad2bit         │  V*            │      │                │
+│ 3bit pat gen    │ pad2bit         │  V*            │      │                │
+│ 4bit pat gen    │ pad2bit         │  V*            │      │                │
 │ 1bit comparator │ comp_1bit       │  V*            │      │                │
 │ 2bit comparator │ comp_2bit       │  V*            │      │                │
 │ 4bit comparator │ comp_4bit       │  V*            │      │                │
-│ 1bit half adder │                 │                │      │                │
-│ 1bit full adder │                 │                │      │                │
-│ 2bit full adder │                 │                │      │                │
+│ 1bit half adder │ ha1b            │  V*            │      │                │
+│ 1bit full adder │ fa1b            │  V*            │      │                │
+│ 2bit full adder │ fa2b            │  V*            │      │                │
 │ VHDL file       │                 │ ??             │      │ lang_vhdl?     │
-│ Verilog-HDL     │                 │ ?              │      │ icarus?        │
+│ Verilog-HDL     │                 │ ?              │      │ verilog-AMS?   │
 └─────────────────┴─────────────────┴────────────────┴──────┴────────────────┘
 
 [1] http://qucs.sourceforge.net/components.html
