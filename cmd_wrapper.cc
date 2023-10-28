@@ -102,7 +102,7 @@ void AC_WRAP::options(CS& cmd)
 	_start = 0;
 	_stop = 0;
 	_points = 0;
-	double _whatever; // incomplete
+//	double _whatever; // incomplete
 	size_t here = cmd.cursor();
 	do{
 		trace1("options", cmd.tail());

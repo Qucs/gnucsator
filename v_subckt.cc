@@ -103,7 +103,7 @@ private:
   int param_count_dont_print()const override{return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const override;
-  void set_param_by_name(std::string Name, std::string Value) override;
+  int set_param_by_name(std::string Name, std::string Value)override;
 public:
   static int	count()			{untested();return _count;}
 protected:
@@ -201,14 +201,14 @@ DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
   ++_count;
 }
 /*--------------------------------------------------------------------------*/
-void DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
+int DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
 {
   assert(_parent);
   assert(_parent->subckt());
 
   PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
   if(p != _parent->subckt()->params()->end()){
-    BASE_SUBCKT::set_param_by_name(Name,Value);
+    return BASE_SUBCKT::set_param_by_name(Name,Value);
   }else{
     throw Exception_No_Match(Name);
   }

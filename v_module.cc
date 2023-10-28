@@ -118,7 +118,7 @@ private:
   int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const;
-  void set_param_by_name(std::string Name, std::string Value) override;
+  int set_param_by_name(std::string Name, std::string Value)override;
 } p1;
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
 /*--------------------------------------------------------------------------*/
@@ -220,14 +220,14 @@ DEV_MODULE::DEV_MODULE(const DEV_MODULE& p)
   assert(!subckt());
 }
 /*--------------------------------------------------------------------------*/
-void DEV_MODULE::set_param_by_name(std::string Name, std::string Value)
+int DEV_MODULE::set_param_by_name(std::string Name, std::string Value)
 {
   assert(_parent);
   assert(_parent->subckt());
 
   PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
   if(p != _parent->subckt()->params()->end()){
-    BASE_SUBCKT::set_param_by_name(Name,Value);
+    return BASE_SUBCKT::set_param_by_name(Name,Value);
   }else{
     throw Exception_No_Match(Name);
   }

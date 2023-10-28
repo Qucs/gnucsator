@@ -62,7 +62,7 @@ private: // override vitrual
   std::string	name()const		{return "poly";}
   bool		ac_too()const		{untested();return false;}
   bool		parse_numlist(CS&);
-  void      set_param_by_name(std::string Name, std::string Value);
+  int		set_param_by_name(std::string Name, std::string Value)override;
   bool		parse_params_obsolete_callback(CS&);
   void		skip_type_tail(CS& cmd)const {cmd.umatch("(1)");}
 };
@@ -193,14 +193,15 @@ std::map<std::string, PARA_BASE EVAL_BM_POLY::*> EVAL_BM_POLY::param_dict =
     ("max",  (PARA_BASE EVAL_BM_POLY::*) &EVAL_BM_POLY::_max)
     ("abs",  (PARA_BASE EVAL_BM_POLY::*) &EVAL_BM_POLY::_abs);
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_POLY::set_param_by_name(std::string Name, std::string Value)
+int EVAL_BM_POLY::set_param_by_name(std::string Name, std::string Value)
 {
   PARA_BASE EVAL_BM_POLY::* x = (param_dict[Name]);
   if(x) {
     PARA_BASE* p = &(this->*x);
     *p = Value;
+    return 0; // TODO
   } else {
-    EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
+    return EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
   }
 }
 /*--------------------------------------------------------------------------*/

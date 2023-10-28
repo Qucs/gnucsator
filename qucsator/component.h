@@ -361,9 +361,9 @@ private: // COMPONENT
 			COMPONENT::set_param_by_index(i, b, j);
 		}
 	}
-	void set_param_by_name(std::string a, std::string b) override{
+	int set_param_by_name(std::string a, std::string b)override {
 		trace2("circuit::set_param_by_name", a, b);
-		COMPONENT::set_param_by_name(a, b);
+		return COMPONENT::set_param_by_name(a, b);
 	}
 #if 0
 	{

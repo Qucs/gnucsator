@@ -31,7 +31,7 @@ struct object : public MODEL_CARD{
    int param_count()const override{
 		return MODEL_CARD::param_count() + int(_p.size());
 	}
-	void set_param_by_name(std::string a, std::string b) override{
+	int set_param_by_name(std::string a, std::string b)override {
 		trace2("object::spbn", a, b);
 		auto i = _pn.find(a);
 		if(i == _pn.end()){
@@ -39,6 +39,7 @@ struct object : public MODEL_CARD{
 		}else{
 			*i->second = b;
 		}
+		return 0; // TODO
 	}
 	std::string param_name(int i)const override{
 		int s = object::param_count() - 1 - i;

@@ -51,11 +51,12 @@ public:
 
 private:
   std::string name()const {return "sweepval";}
-  void set_param_by_name(std::string name, std::string value) {
+  int set_param_by_name(std::string name, std::string value)override{
     if(name == "value"){
       _value = value;
+      return 0;
     }else{ untested();
-      COMMON_COMPONENT::set_param_by_name(name, value);
+      return COMMON_COMPONENT::set_param_by_name(name, value);
     }
   }
 

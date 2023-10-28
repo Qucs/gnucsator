@@ -56,7 +56,7 @@ private: // override virtual
   bool		parse_numlist(CS&);
 //  bool  	parse_params_obsolete_callback(CS&);
   bool is_constant()const{return true;}
-  void  	set_param_by_name(string Name, string Value);
+  int set_param_by_name(string Name, string Value)override;
   // doesnt make sense. set value through device
   // void   set_param_by_name(string Name, string Value);
 };
@@ -128,7 +128,7 @@ map<string, const char*> EVAL_BM_VALUE::_param_dict =
   ("Temp", "temp")
   ("ic", "ic");
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_VALUE::set_param_by_name(string Name, string Value)
+int EVAL_BM_VALUE::set_param_by_name(string Name, string Value)
 { untested();
   const char* n = _param_dict[Name];
   if(n) {
@@ -136,7 +136,7 @@ void EVAL_BM_VALUE::set_param_by_name(string Name, string Value)
   }else{
   }
   trace2("value wrapper", Name, Value);
-  EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
+  return EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

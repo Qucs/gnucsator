@@ -86,7 +86,7 @@ private: // override virtual
     return names[i];
   }
 private:
-  void set_param_by_name(std::string a, std::string b) override{
+  int set_param_by_name(std::string a, std::string b) override{
     trace2("PAC::set_param_by_name", a, b);
     if(a=="Z"){
       set_value(b);
@@ -96,6 +96,7 @@ private:
       _num = b;
     }else{ untested();
     }
+    return 0; // TODO
   }
 public:
   unsigned num() const{

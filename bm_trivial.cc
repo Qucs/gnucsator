@@ -51,8 +51,8 @@ private: // override virtual
   bool		ac_too()const		{return false;}
   bool		parse_numlist(CS&);
 //  bool  	parse_params_obsolete_callback(CS&);
-  bool is_constant()const{return true;}
-  void  	set_param_by_name(string Name, string Value);
+  bool is_constant()const {return true;}
+  int set_param_by_name(string Name, string Value) override;
   // doesnt make sense. set value through device
   // void   set_param_by_name(string Name, string Value);
 };
@@ -105,14 +105,14 @@ bool EVAL_BM_TRIVIAL::parse_numlist(CS& cmd)
   }
 }
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_TRIVIAL::set_param_by_name(string Name, string Value)
+int EVAL_BM_TRIVIAL::set_param_by_name(string Name, string Value)
 { untested();
   if(Umatch(_name,Name)) {
     _value = Value;
+    return 0;
   }else{
-    EVAL_BM_BASE::set_param_by_name(Name, Value);
+    return EVAL_BM_BASE::set_param_by_name(Name, Value);
   }
-  trace2("value wrapper", Name, Value);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

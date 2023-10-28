@@ -38,7 +38,7 @@ public:
   COMMON_COMPONENT* clone()const override{return new Q_PARAMLIST(*this);}
   static int	count()			{untested();return 0;}
 
-  void set_param_by_name(std::string Name, std::string Value) override;
+  int set_param_by_name(std::string Name, std::string Value) override;
   std::string param_by_name(std::string const& Name)const /*override*/;
   bool		param_is_printable(int)const override;
   std::string	param_name(int)const override;
@@ -129,7 +129,7 @@ inline void COMMON_PARAMLIST::precalc_last(const CARD_LIST* Scope)
   }
 }
 /*--------------------------------------------------------------------------*/
-inline void COMMON_PARAMLIST::set_param_by_name(std::string Name, std::string Value)
+inline int COMMON_PARAMLIST::set_param_by_name(std::string Name, std::string Value)
 {
   std::string old = "not_set";
   auto x = _params.find(Name);
@@ -140,6 +140,7 @@ inline void COMMON_PARAMLIST::set_param_by_name(std::string Name, std::string Va
   trace3("CPL::spbn", Name, Value, old);
 
   _params.set(Name, Value);
+  return 0; // TODO
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

@@ -87,8 +87,7 @@ public:
   }
   bool has_tr_eval()const{return true;}
   bool ac_too()const {untested();return false;}
-  void set_param_by_name(std::string Name, std::string Value)
-  {
+  int set_param_by_name(std::string Name, std::string Value) {
     trace2("", Name, Value);
     if (Umatch(Name, "c{oeffs} ")) {
       _coeffs = Value;
@@ -106,8 +105,9 @@ public:
       int x=atoi(Value.c_str());
       set_nports(x);
     }else{ untested();
-      EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
+      return EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
     }
+    return 0; // TODO
   }
   std::string param_name(int i, int j)const{return j?"":param_name(i); }
   std::string param_name(int i)const
@@ -301,7 +301,7 @@ public:
 //    }
 //  }
   void set_param_by_index(int, std::string&, int);
-  void set_param_by_name(const std::string, const std::string);
+  int set_param_by_name(const std::string, const std::string)override;
   void expand();
   void precalc_last();
 protected:
@@ -625,9 +625,9 @@ void DEV_CPOLY_G::alloc_values()
   _old_values = new double[matrix_nodes()];
 }
 /*--------------------------------------------------------------------------*/
-void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
+int DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
 {
-  bool retry = false;
+//  bool retry = false;
   if (!common()){ incomplete();
     if (Umatch(Name, "nports")) { untested();
       incomplete();
@@ -674,7 +674,7 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
     try{
       m->set_param_by_name(Name,Value);
     }catch(Exception const&){untested();
-      retry = true;
+      //retry = true;
       delete m;
       m = NULL;
     }
@@ -684,8 +684,9 @@ void DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
     }else{ untested();
     }
   }else{ untested();
-   retry = true;
+//   retry = true;
   }
+  return 0; // TODO
 
 //   if(retry){ untested();
 //     ELEMENT::set_param_by_name(Name, Value);

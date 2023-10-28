@@ -94,7 +94,7 @@ private:
   int param_count()const {return (unsigned(_param_order.size()) + COMPONENT::param_count());}
   void parm_eval();
 protected:
-  void set_param_by_name(std::string Name, std::string Value);
+  int set_param_by_name(std::string Name, std::string Value)override;
 /*--------------------------------------------------------------------------*/
 }e1;
 /*--------------------------------------------------------------------------*/
@@ -135,7 +135,7 @@ EQN::EQN(const EQN& p):
   }
 }
 /*--------------------------------------------------------------------------*/
-void EQN::set_param_by_name(std::string Name, std::string Value)
+int EQN::set_param_by_name(std::string Name, std::string Value)
 {
   if(Name=="Export"){
     if(Value=="0"){
@@ -152,6 +152,7 @@ void EQN::set_param_by_name(std::string Name, std::string Value)
     _param_order.push_back(pick(_params, Name));
     trace1("EQN parse", _params.size());
   }
+  return 0; // TODO
 }
 /*--------------------------------------------------------------------------*/
 void EQN::expand()
