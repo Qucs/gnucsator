@@ -93,12 +93,14 @@ QUCSATOR_OBJS = \
 MY_CPPFLAGS = -I.
 microstrip_wrap.so: MY_CPPFLAGS=-Iqucsator
 microstrip_wrap.so: OBJS = ${MICROSTRIP_OBJS} ${QUCSATOR_OBJS}
+microstrip_wrap.so: MY_CXXFLAGS = -Wno-suggest-override -Wno-class-memaccess
 
 #does not work.
 #mscoupled_wrap.so: qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
 
 subst_wrap.so: MY_CPPFLAGS=-Iqucsator
 subst_wrap.so: OBJS = qucsator/substrate.o ${QUCSATOR_OBJS}
+subst_wrap.so: MY_CXXFLAGS = -Wno-suggest-override -Wno-class-memaccess
 
 d_bjt.cc: d_diode.cc
 %.cc %.h: %.model
@@ -127,7 +129,7 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 	$(LDLIBS)
 
 %.so : %.cc
-	$(CXX) $(MY_CPPFLAGS) $(GNUCSATOR_CXXFLAGS) $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # 2
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(MY_CXXFLAGS) ${MY_CPPFLAGS} $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # 2
 
 ${QUCS_PLUGINS}: %.so: %.cc
 
