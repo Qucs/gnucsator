@@ -63,7 +63,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl)override {
 		assert(cl);
 		options(cmd);
 		data_t t;
@@ -127,8 +127,8 @@ class DC_WRAP : public CARD, public CMD {
 public:
 	DC_WRAP(): CMD() {}
 private:
-	DC_WRAP* clone() const {return new DC_WRAP(*this);}
-	std::string value_name()const {unreachable(); return "";}
+	DC_WRAP* clone()const override{return new DC_WRAP(*this);}
+	std::string value_name()const override{unreachable(); return "";}
 public:
 	typedef struct{
 		double _start;
@@ -150,7 +150,7 @@ private:
 	void options(CS&){
 		incomplete();
 	}
-	void do_it(CS&cmd, CARD_LIST* Scope) {
+	void do_it(CS&cmd, CARD_LIST* Scope)override {
 		assert(Scope);
 		if(cmd >> "go"){
 			trace1("DC_WRAP go", cmd.fullstring());
@@ -208,7 +208,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl) {
+	void do_it(CS&cmd, CARD_LIST* cl)override {
 		assert(cl);
 		options(cmd);
 		data_t t;
@@ -292,7 +292,7 @@ private:
 	double _vntol;
 
 	void options(CS&);
-	void do_it(CS&cmd, CARD_LIST* cl){
+	void do_it(CS&cmd, CARD_LIST* cl)override {
 		trace1("tran_wrap", cmd.fullstring());
 		assert(cl);
 		options(cmd);
@@ -357,7 +357,7 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 // go. run commands that are scattered
 // BUG // that's what 'end' is supposed to do.
 	class GO : public CMD {
-		void do_it(CS&cmd, CARD_LIST*cl) {
+		void do_it(CS&cmd, CARD_LIST*cl)override {
 			trace2("GO", _sim->is_first_expand(), _sim);
 			assert(cl);
 			cmd >> _outfile;

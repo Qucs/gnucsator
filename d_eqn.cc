@@ -42,35 +42,35 @@ public:
 protected:
   explicit EQN(const EQN& p);
 private: // a default for most elements
-  uint_t max_nodes()const     {return 0;}
-  uint_t min_nodes()const     {return 0;}
-  uint_t matrix_nodes()const  {return 0;}
-  uint_t net_nodes()const     {return 0;}
+  uint_t max_nodes()const override {return 0;}
+  uint_t min_nodes()const override {return 0;}
+  uint_t matrix_nodes()const override {return 0;}
+  uint_t net_nodes()const override {return 0;}
 private:
-  std::string dev_type()const {return "Eqn";}
-  std::string value_name()const{return "";}
-  std::string port_name(uint_t)const{return "";}
+  std::string dev_type()const override {return "Eqn";}
+  std::string value_name()const override {return "";}
+  std::string port_name(uint_t)const override {return "";}
 public: // override virtual
-  bool print_type_in_spice()const {return false;}
-  void precalc_last();
-  void expand();
-  void tr_begin() {
+  bool print_type_in_spice()const override {return false;}
+  void precalc_last()override;
+  void expand()override;
+  void tr_begin()override {
     scope()->params()->set("time", 0.);
    // _params.set("time", "0");
     q_eval();
   }
-  TIME_PAIR tr_review();
+  TIME_PAIR tr_review()override;
 //  void tr_restore();
 //  void dc_advance();
-  void tr_advance();
+  void tr_advance()override;
 //  void tr_regress();
-  void tr_accept();
-  bool tr_needs_eval()const { return true;}
+  void tr_accept()override;
+  bool tr_needs_eval()const override { return true;}
 
-  CARD* clone()const{return new EQN(*this);}
+  CARD* clone()const override {return new EQN(*this);}
   //void   map_nodes();
-  double   tr_probe_num(const std::string&)const;
-  XPROBE   ac_probe_ext(const std::string&)const;
+  double   tr_probe_num(const std::string&)const override;
+  XPROBE   ac_probe_ext(const std::string&)const override;
 
 protected: // inline, below
   bool conv_check()const;
@@ -91,7 +91,9 @@ private:
   std::vector<PARAM_LIST::iterator> _param_order; // in order, for evaluation
 //  PARAMETER<double>* _time_p;
 
-  int param_count()const {return (unsigned(_param_order.size()) + COMPONENT::param_count());}
+  int param_count()const override {
+    return (unsigned(_param_order.size()) + COMPONENT::param_count());
+  }
   void parm_eval();
 protected:
   int set_param_by_name(std::string Name, std::string Value)override;

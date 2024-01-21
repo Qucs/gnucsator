@@ -40,8 +40,7 @@ typedef std::string fun_t;
 namespace { \
 class FUNC_##name : public FUNCTION { \
   public: \
-    fun_t eval(CS& Cmd, const CARD_LIST* Scope)const \
-    { \
+    fun_t eval(CS& Cmd, const CARD_LIST* Scope)const override { \
       PARAMETER<double> x; \
       Cmd >> x; \
       x.e_val(NOT_INPUT, Scope); \
@@ -54,9 +53,9 @@ DISPATCHER<FUNCTION>::INSTALL d##name(&function_dispatcher, #name, &p##name); \
 // exponential and logarithmic functions
 // function_plugin(exp, exp(x))
 function_plugin(limexp, exp(x)) // uuh
-function_plugin(log10, log10(x))
+// function_plugin(log10, log10(x))
 function_plugin(log2, log2(x))
-function_plugin(ln, log(x))
+// function_plugin(ln, log(x))
 
 // inverse trigonometric functions
 function_plugin(arccos, acos(x))

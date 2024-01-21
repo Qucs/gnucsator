@@ -115,8 +115,7 @@ void list_save(CS& cmd, OMSTREAM out, CARD_LIST* scope)
 /*--------------------------------------------------------------------------*/
 class CMD_LIST : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
+  void do_it(CS& cmd, CARD_LIST* Scope)override {
     list_save(cmd, IO::mstdout, Scope);
   }
 } p1;
@@ -124,8 +123,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "list", &p1);
 /*--------------------------------------------------------------------------*/
 class CMD_SAVE : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
+  void do_it(CS& cmd, CARD_LIST* Scope)override {
     cmd.reset(); /* back up to beginning of input line */
     OMSTREAM out; // = IO::mstdout;
     list_save(cmd, *outset(cmd,&out), Scope);

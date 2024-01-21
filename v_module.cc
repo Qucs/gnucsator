@@ -78,9 +78,9 @@ private: // override virtual
   // int	net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
   bool		makes_own_scope()const override  {return !_parent;}
-  bool		is_valid() const override;
-  CARD_LIST*	   scope() override;
-  const CARD_LIST* scope()const		{return const_cast<DEV_MODULE*>(this)->scope();}
+  bool		is_valid()const override;
+  CARD_LIST*	   scope()override;
+  const CARD_LIST* scope()const	override {return const_cast<DEV_MODULE*>(this)->scope();}
 
   void		expand() override;
 
@@ -115,9 +115,9 @@ private: // no ops for prototype
 private:
   void		precalc_last()override;
   double	tr_probe_num(const std::string&)const override;
-  int param_count_dont_print()const {return common()->COMMON_COMPONENT::param_count();}
+  int param_count_dont_print()const override{return common()->COMMON_COMPONENT::param_count();}
 
-  std::string port_name(int i)const;
+  std::string port_name(int i)const override;
   int set_param_by_name(std::string Name, std::string Value)override;
 } p1;
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);

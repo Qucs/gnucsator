@@ -62,8 +62,8 @@ public:
     trace3("copy. coeff", _coeff, _maxnodes, _minnodes);
   }
 
-  COMMON_COMPONENT* clone()const{return new COMMON_G_POLY_K(*this);}
-  bool operator==(const COMMON_COMPONENT&x)const {
+  COMMON_COMPONENT* clone()const override{return new COMMON_G_POLY_K(*this);}
+  bool operator==(const COMMON_COMPONENT&x)const override{
     const COMMON_G_POLY_K* p = dynamic_cast<const COMMON_G_POLY_K*>(&x);
     bool rv = p
       && _n_ports == p->_n_ports
@@ -72,22 +72,21 @@ public:
     return rv;
   }
 
-  int param_count()const {return 1 + EVAL_BM_ACTION_BASE::param_count(); }
+  int param_count()const override {return 1 + EVAL_BM_ACTION_BASE::param_count(); }
   void parse_type_tail(CS&);
-  bool use_obsolete_callback_parse()const {return false;}
-  bool use_obsolete_callback_print()const {return false;}
-  bool has_parse_params_obsolete_callback()const {return false;}
-  std::string name()const
-  { untested();
+  bool use_obsolete_callback_parse()const override {return false;}
+  bool use_obsolete_callback_print()const override {return false;}
+  bool has_parse_params_obsolete_callback()const override {return false;}
+  std::string name()const override { untested();
     if(_n_ports){ untested();
       return "poly(" + ::to_string(_n_ports-1) + ")";
     }else{ untested();
       return "poly";
     }
   }
-  bool has_tr_eval()const{return true;}
-  bool ac_too()const {untested();return false;}
-  int set_param_by_name(std::string Name, std::string Value) {
+  bool has_tr_eval()const override {return true;}
+  bool ac_too()const override {untested();return false;}
+  int set_param_by_name(std::string Name, std::string Value)override {
     trace2("", Name, Value);
     if (Umatch(Name, "c{oeffs} ")) {
       _coeffs = Value;
@@ -109,8 +108,8 @@ public:
     }
     return 0; // TODO
   }
-  std::string param_name(int i, int j)const{return j?"":param_name(i); }
-  std::string param_name(int i)const
+  std::string param_name(int i, int j)const override{return j?"":param_name(i); }
+  std::string param_name(int i)const override
   { untested();
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
       case 0: return "coeffs";
@@ -118,8 +117,7 @@ public:
     }
   }
 
-  void set_param_by_index(int i, std::string& s, int)
-  { untested();
+  void set_param_by_index(int i, std::string& s, int)override { untested();
 //    unsigned i = COMMON_G_POLY_K::param_count() - 1 - I;
     if(i < int(_coeff.size())) { untested();
       //ok.
@@ -128,15 +126,14 @@ public:
     }
     _coeff[i] = s;
   }
-  bool param_is_printable(int i)const
-  { untested();
+  bool param_is_printable(int i)const override { untested();
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
       case 0: return true;
       default: return EVAL_BM_ACTION_BASE::param_is_printable(i);
     }
   }
 
-  std::string param_value(int i)const {
+  std::string param_value(int i)const override {
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
       case 0: return _coeffs.string();
       default: return EVAL_BM_ACTION_BASE::param_value(i);
@@ -151,7 +148,7 @@ public:
     _minnodes = 2*n_ports;
   }
 
-  void precalc_first(const CARD_LIST* scope) {
+  void precalc_first(const CARD_LIST* scope)override {
     trace3("COMMON_G_POLY_K::precfirst", _maxnodes, _n_ports, _minnodes);
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     trace2("COMMON_G_POLY_K::precfirst", _coeffs, _n_ports);
@@ -169,7 +166,7 @@ public:
       trace0("COMMON_G_POLY_K::new poly done");
     }
   }
-  void precalc_last(const CARD_LIST* scope) {
+  void precalc_last(const CARD_LIST* scope)override {
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     if(_poly){
     }else{
@@ -177,7 +174,7 @@ public:
       _poly = new MV_POLY<double>(vector<PARAMETER<double> >(_coeffs), _n_ports-1);
     }
   }
-  void tr_eval(ELEMENT* e) const;
+  void tr_eval(ELEMENT* e)const override;
 private:
   PARAMETER<vector<PARAMETER<double> > > _coeffs;
   vector<PARAMETER<double> > _coeff; // one by one...
@@ -235,37 +232,37 @@ public:
   explicit DEV_CPOLY_G();
   ~DEV_CPOLY_G();
 protected: // override virtual
-  char id_letter()const	{return 'G';}
-  bool print_type_in_spice()const {return false;}
-  std::string value_name()const	{return "p0";}
-  std::string dev_type()const	{return _dev_type;}
-  void  set_dev_type(const std::string& new_type){
+  char id_letter()const	override{return 'G';}
+  bool print_type_in_spice()const override{return false;}
+  std::string value_name()const	override{return "p0";}
+  std::string dev_type()const override{return _dev_type;}
+  void  set_dev_type(const std::string& new_type) override{
     _dev_type = new_type;
   }
 
-  uint_t	   max_nodes()const;
-  uint_t	   min_nodes()const;
-  uint_t	   matrix_nodes()const	{return net_nodes();}
-  uint_t	   net_nodes()const;
-  uint_t	   ext_nodes()const	{return net_nodes();}
-  uint_t	   int_nodes()const	{return 0;}
-  CARD*	   clone()const		{return new DEV_CPOLY_G(*this);}
-  void	   tr_iwant_matrix()	{tr_iwant_matrix_extended();}
-  bool	   do_tr();
-  void	   tr_load();
+  uint_t	   max_nodes()const override;
+  uint_t	   min_nodes()const override;
+  uint_t	   matrix_nodes()const override{return net_nodes();}
+  uint_t	   net_nodes()const override;
+  uint_t	   ext_nodes()const override{return net_nodes();}
+  uint_t	   int_nodes()const override{return 0;}
+  CARD*	   clone()const override{return new DEV_CPOLY_G(*this);}
+  void	   tr_iwant_matrix()override{tr_iwant_matrix_extended();}
+  bool	   do_tr()override;
+  void	   tr_load()override;
   // void	   tr_begin(){ incomplete();
   //   untested();
   // }
-  void	   tr_unload();
-  double   tr_involts()const	{unreachable(); return NOT_VALID;}
-  double   tr_involts_limited()const {unreachable(); return NOT_VALID;}
-  double   tr_amps()const;
-  void	   ac_iwant_matrix()	{ac_iwant_matrix_extended();}
-  void	   ac_load();
-  COMPLEX  ac_involts()const	{itested(); return NOT_VALID;}
-  COMPLEX  ac_amps()const	{itested(); return NOT_VALID;}
+  void	   tr_unload()override;
+  double   tr_involts()const override{unreachable(); return NOT_VALID;}
+  double   tr_involts_limited()const override{unreachable(); return NOT_VALID;}
+  double   tr_amps()const override;
+  void	   ac_iwant_matrix()override{ac_iwant_matrix_extended();}
+  void	   ac_load()override;
+  COMPLEX  ac_involts()const override {itested(); return NOT_VALID;}
+  COMPLEX  ac_amps()const override {itested(); return NOT_VALID;}
 
-  std::string port_name(uint_t n)const { untested();
+  std::string port_name(uint_t n)const override { untested();
     if(n==0){ untested();
       return "p";
     }else if(n==1){ untested();
@@ -276,13 +273,14 @@ protected: // override virtual
       return "cp" + ::to_string(n/2-1);
     }
   }
-public:
-  void set_port_by_index(uint_t num, std::string& ext_name);
+private:
   void alloc_values();
+public:
+  void set_port_by_index(uint_t num, std::string& ext_name)override;
   void set_parameters(const std::string& Label, CARD* Parent,
 		      COMMON_COMPONENT* Common, double Value,
 		      uint_t state_count, double state[],
-		      uint_t node_count, const node_t nodes[]);
+		      uint_t node_count, const node_t nodes[])override;
   //		      const double* inputs[]=0);
   // int param_count()const { return 0 + ELEMENT::param_count(); }
 //   std::string param_name(int i, int)const{ return param_name(i); }
@@ -300,10 +298,10 @@ public:
 //      default: return ELEMENT::param_is_printable(i);
 //    }
 //  }
-  void set_param_by_index(int, std::string&, int);
+  void set_param_by_index(int, std::string&, int)override;
   int set_param_by_name(const std::string, const std::string)override;
-  void expand();
-  void precalc_last();
+  void expand()override;
+  void precalc_last()override;
 protected:
   bool do_tr_con_chk_and_q();
 private:

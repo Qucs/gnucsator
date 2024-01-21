@@ -53,7 +53,7 @@
 static char const* systemstartfile(char const* x)
 {
 	static char buf[512];
-	x = basename((char*) x);
+	x = basename(const_cast<char*>(x));
 
 	sprintf(buf, "%s.rc", x);
 	trace1("systemstartfile", buf);

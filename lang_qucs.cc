@@ -69,17 +69,17 @@ class LANG_QUCSATOR : public LANGUAGE {
 		enum EOB {NO_EXIT_ON_BLANK, EXIT_ON_BLANK};
 
 	public: // override virtual, used by callback
-		std::string arg_front()const {return " ";}
-		std::string arg_mid()const {return "=";}
-		std::string arg_back()const {return "";}
+		std::string arg_front()const override {return " ";}
+		std::string arg_mid()const override {return "=";}
+		std::string arg_back()const override {return "";}
 
 	public: // override virtual, called by commands
-		DEV_COMMENT*	parse_comment(CS&, DEV_COMMENT*);
-		DEV_DOT*	parse_command(CS&, DEV_DOT*);
-		MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*);
-		BASE_SUBCKT* parse_module(CS&, BASE_SUBCKT*);
-		COMPONENT*	parse_instance(CS&, COMPONENT*);
-		std::string	find_type_in_string(CS&) GCUF_CONST;
+		DEV_COMMENT* parse_comment(CS&, DEV_COMMENT*)override;
+		DEV_DOT*	parse_command(CS&, DEV_DOT*)override;
+		MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*)override;
+		BASE_SUBCKT* parse_module(CS&, BASE_SUBCKT*)override;
+		COMPONENT*	parse_instance(CS&, COMPONENT*)override;
+		std::string	find_type_in_string(CS&) GCUF_CONST override;
 	public: // "local?", called by own commands
 		void parse_module_body(CS&, BASE_SUBCKT*, CARD_LIST*, const std::string&,
 				EOB, const std::string&);
@@ -93,11 +93,11 @@ class LANG_QUCSATOR : public LANGUAGE {
 		void parse_logic_using_obsolete_callback(CS&, COMPONENT*);
 		void cmdproc(CS&, CARD_LIST*);
 	private: // override virtual, called by print_item
-		void print_paramset(OMSTREAM&, const MODEL_CARD*);
-		void print_module(OMSTREAM&, const BASE_SUBCKT*);
-		void print_instance(OMSTREAM&, const COMPONENT*);
-		void print_comment(OMSTREAM&, const DEV_COMMENT*);
-		void print_command(OMSTREAM&, const DEV_DOT*);
+		void print_paramset(OMSTREAM&, const MODEL_CARD*)override;
+		void print_module(OMSTREAM&, const BASE_SUBCKT*)override;
+		void print_instance(OMSTREAM&, const COMPONENT*)override;
+		void print_comment(OMSTREAM&, const DEV_COMMENT*)override;
+		void print_command(OMSTREAM&, const DEV_DOT*)override;
 	private: // local
 		void print_args(OMSTREAM&, const MODEL_CARD*);
 		void print_type(OMSTREAM&, const COMPONENT*);
@@ -112,17 +112,17 @@ class LANG_QUCSATOR : public LANGUAGE {
 // (hopefully not!)
 class LANG_QUCS : public LANG_QUCSATOR {
 	public:
-		std::string name()const {return "qucs";}
-		bool case_insensitive()const {return false;}
-		UNITS units()const {return uSI;}
-		void parse_top_item(CS&, CARD_LIST*);
+		std::string name()const override {return "qucs";}
+		bool case_insensitive()const override {return false;}
+		UNITS units()const override {return uSI;}
+		void parse_top_item(CS&, CARD_LIST*)override;
 } lang_qucs;
 DISPATCHER<LANGUAGE>::INSTALL
 ds(&language_dispatcher, lang_qucs.name(), &lang_qucs);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class CMD_SUBCKT : public CMD {
-  void do_it(CS& cmd, CARD_LIST* Scope) {
+  void do_it(CS& cmd, CARD_LIST* Scope)override {
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
     assert(new_module);
     assert(!new_module->owner());
@@ -971,8 +971,7 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 	class CMD_QUCS : public CMD {
 		public:
-			void do_it(CS&, CARD_LIST* Scope)
-			{
+			void do_it(CS&, CARD_LIST* Scope)override {
 				command("options lang=qucs", Scope);
 			}
 	} p9;

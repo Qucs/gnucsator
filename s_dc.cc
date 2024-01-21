@@ -45,12 +45,12 @@ public:
   explicit	SWEEPVAL(const SWEEPVAL& p)
     :COMMON_COMPONENT(p) {}
 		~SWEEPVAL() { trace1("~SWEEPVAL", this);}
-  COMMON_COMPONENT* clone()const {
+  COMMON_COMPONENT* clone()const override {
     return new SWEEPVAL(*this);
   }
 
 private:
-  std::string name()const {return "sweepval";}
+  std::string name()const override {return "sweepval";}
   int set_param_by_name(std::string name, std::string value)override{
     if(name == "value"){
       _value = value;
@@ -61,23 +61,23 @@ private:
   }
 
 private: // override virtual
-  bool operator==(const COMMON_COMPONENT& p) const{
+  bool operator==(const COMMON_COMPONENT& p)const override {
     return dynamic_cast<SWEEPVAL const*>(&p);
   }
-  bool has_tr_eval()const { return true;}
-  bool has_ac_eval()const {return true;}
-  bool use_obsolete_callback_parse()const {return false;}
-  bool use_obsolete_callback_print()const {return false;}
-  bool has_parse_params_obsolete_callback()const {return false;}
+  bool has_tr_eval()const override { return true;}
+  bool has_ac_eval()const override {return true;}
+  bool use_obsolete_callback_parse()const override {return false;}
+  bool use_obsolete_callback_print()const override {return false;}
+  bool has_parse_params_obsolete_callback()const override {return false;}
 
 private:
-  void precalc_last(const CARD_LIST* scope){
+  void precalc_last(const CARD_LIST* scope)override {
     _value.e_val(0, scope);
   }
-  void tr_eval(ELEMENT* d)const {
+  void tr_eval(ELEMENT* d)const override {
     d->_y[0] = FPOLY1(CPOLY1(d->_y[0].x, 0., _value));
   }
-  void ac_eval(ELEMENT* d)const { untested();
+  void ac_eval(ELEMENT* d)const override { untested();
     tr_eval(d);
     d->_ev = d->_y[0].f1;
   }
@@ -95,12 +95,12 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class DCOP : public SIM {
 public:
-  void	finish();
+  void	finish()override;
 protected:
   void	fix_args(int);
   void	options(CS&, int);
 private:
-  void	sweep();
+  void	sweep()override;
   void	precalc();
   void	sweep_recursive(int);
   void	first(int);
@@ -160,9 +160,9 @@ class DC : public DCOP {
 public:
   explicit DC(): DCOP() {}
   ~DC() {}
-  void	do_it(CS&, CARD_LIST*);
+  void	do_it(CS&, CARD_LIST*)override;
 private:
-  void	setup(CS&);
+  void	setup(CS&)override;
   explicit DC(const DC&): DCOP() {unreachable(); incomplete();}
 };
 /*--------------------------------------------------------------------------*/
@@ -170,9 +170,9 @@ class OP : public DCOP {
 public:
   explicit OP(): DCOP() {}
   ~OP() {}
-  void	do_it(CS&, CARD_LIST*);
+  void	do_it(CS&, CARD_LIST*)override;
 private:
-  void	setup(CS&);
+  void	setup(CS&)override;
   explicit OP(const OP&): DCOP() {unreachable(); incomplete();}
 };
 /*--------------------------------------------------------------------------*/

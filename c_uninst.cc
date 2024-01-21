@@ -35,7 +35,7 @@ public:
 		_l.resize(0);
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*) {
+	void do_it(CS& cmd, CARD_LIST*)override {
 		DISPATCHER<CARD>* d=NULL;
 		if (cmd.umatch("command")) {
 			d = (DISPATCHER<CARD>*) &command_dispatcher;

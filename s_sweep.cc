@@ -38,8 +38,8 @@ class SW_WRAP : public CARD, public CMD {
 public:
 	SW_WRAP(): CARD(), CMD() {}
 private:
-	CARD* clone() const {return new SW_WRAP(*this);}
-	std::string value_name()const {unreachable(); return "";}
+	CARD* clone()const override {return new SW_WRAP(*this);}
+	std::string value_name()const override {unreachable(); return "";}
 private:
 	double _start; // PARAMETER?
 	double _stop;
@@ -70,7 +70,7 @@ private:
 		assert(_points);
 	}
 
-	void do_it(CS& cmd, CARD_LIST* Scope) {
+	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		assert(Scope);
 		if(cmd >> "go"){
 			error(bTRACE, "sweep " + cmd.fullstring() + "\n");

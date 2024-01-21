@@ -45,14 +45,14 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
 
     std::string string()const;
     //std::vector<PARAMETER<T> >  _NOT_INPUT() const;
-    void	operator=(const IString& s);
-    void	operator=(const PARAMETER<std::vector<PARAMETER<T> > >& p){ untested();
+    void	operator=(const IString& s)override;
+    void	operator=(const PARAMETER<std::vector<PARAMETER<T> > >& p) { untested();
       _v = p._v; _s = p._s;
     }
     void	operator=(const std::vector<PARAMETER<T> >& v) {
       _v = v; _s = "#";
     }
-    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >&)const{
+    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >&)const {
 		 // incomplete(); yes, but okay
 		 return false;
 	 }
@@ -63,8 +63,8 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     operator std::string()const;
     size_t size()const{return _v.size();}
 
-    bool has_good_value()const {incomplete(); return false;}
-    void parse(CS&) {incomplete();}
+    bool has_good_value()const override{incomplete(); return false;}
+    void parse(CS&)override {incomplete();}
 }; // PARAMETER<std::vector<PARAMETER<T> > >
 /*--------------------------------------------------------------------------*/
 template <class T>

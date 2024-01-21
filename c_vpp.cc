@@ -39,8 +39,7 @@ public:
 		_defs["GNUCAP"];
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*)
-	{
+	void do_it(CS& cmd, CARD_LIST*)override {
 		std::string what;
 		cmd >> what;
 		trace2("def", cmd.fullstring(), what);
@@ -83,7 +82,7 @@ public:
 		assert(!_nest.size());
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope) {
+	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		trace1("if", Scope);
 		if(cmd.umatch("0 ")){
 			if0(cmd, Scope);
@@ -198,7 +197,7 @@ public:
 	CMD_VPP_ELSE() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*) {
+	void do_it(CS& cmd, CARD_LIST*)override {
 		trace1("`else", p_if._nest.size());
 		if(!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "misplaced else");
@@ -223,7 +222,7 @@ DISPATCHER<CMD>::INSTALL d_else(&command_dispatcher, "`else", &p_else);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_ENDIF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST*) {
+	void do_it(CS& cmd, CARD_LIST*)override {
 		trace2("endif", cmd.fullstring(), p_if._nest.size());
 		if(!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "unmatched endif");
@@ -238,8 +237,7 @@ DISPATCHER<CMD>::INSTALL d_endif(&command_dispatcher, "`endif", &p_endif);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_UNDEF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST*)
-	{
+	void do_it(CS& cmd, CARD_LIST*)override {
 		std::string what;
 		cmd >> what;
 		p_define.undef(what);
@@ -252,8 +250,7 @@ public:
 	CMD_VPP_IFDEF() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope)
-	{
+	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		std::string what;
 		cmd >> what;
 		if (p_define.defined(what)){
@@ -270,7 +267,7 @@ public:
 	CMD_VPP_ELSIF() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*) {
+	void do_it(CS& cmd, CARD_LIST*)override {
 		if (!p_if._nest.size()){
 			cmd.warn(bDANGER, 0, "misplaced `elsif");
 		}else if( p_if.is(CMD_VPP_IF::c_past_else ) ){
@@ -299,8 +296,7 @@ DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "`elsif", &p_elif);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_IFNDEF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope)
-	{
+	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		std::string what;
 		cmd >> what;
 		if (p_define.defined(what)){

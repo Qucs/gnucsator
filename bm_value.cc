@@ -44,16 +44,16 @@ public:
   }
 		~EVAL_BM_VALUE()	{ trace0("~EVAL_BM_VALUE");}
 private: // override virtual
-  bool		operator==(const COMMON_COMPONENT&)const;
-  COMMON_COMPONENT* clone()const	{ untested(); return new EVAL_BM_VALUE(*this);}
-  void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const;
-  bool		is_trivial()const;
+  bool		operator==(const COMMON_COMPONENT&)const override;
+  COMMON_COMPONENT* clone()const override { untested(); return new EVAL_BM_VALUE(*this);}
+  void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const override;
+  bool		is_trivial()const override;
 
-  void		precalc_first(const CARD_LIST*);
-  void		tr_eval(ELEMENT*)const;
-  std::string	name()const		{return "value";}
-  bool		ac_too()const		{return false;}
-  bool		parse_numlist(CS&);
+  void		precalc_first(const CARD_LIST*)override;
+  void		tr_eval(ELEMENT*)const override;
+  std::string	name()const override {return "value";}
+  bool		ac_too()const override {return false;}
+  bool		parse_numlist(CS&) override;
 //  bool  	parse_params_obsolete_callback(CS&);
   bool is_constant()const{return true;}
   int set_param_by_name(string Name, string Value)override;

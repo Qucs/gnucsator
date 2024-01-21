@@ -32,11 +32,10 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class DEV_G_POLY_K : public COMPONENT {
 public:
-	std::string value_name() const { return "dummy"; }
-	std::string port_name(uint_t) const { return "dummy"; }
+	std::string value_name()const override { return "dummy"; }
+	std::string port_name(uint_t)const override { return "dummy"; }
 
-	CARD* clone()const
-	{
+	CARD* clone()const override {
 		const CARD* c = device_dispatcher["cpoly_g"];
 		assert(c);
 		CARD* c2 = c->clone();
@@ -51,7 +50,7 @@ public:
 		return d;
 	}
 private:
-	bool print_type_in_spice()const{untested(); return false; }
+	bool print_type_in_spice()const override {untested(); return false; }
 }p1;
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "g_poly_k|G_poly", &p1);
 /*--------------------------------------------------------------------------*/
