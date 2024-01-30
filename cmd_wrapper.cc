@@ -413,14 +413,14 @@ DISPATCHER<CMD>::INSTALL d8(&command_dispatcher, "TR", &p8);
 
 			PARAM_LIST* pl = cl->params();
 			assert(pl);
-			for(auto c : *cl){
-				if(auto cmd=dynamic_cast<CMD*>(c)){
-					auto l = cmd->short_label();
+			for(auto c1 : *cl){
+				if(auto c1cmd=dynamic_cast<CMD*>(c1)){
+					auto l = c1cmd->short_label();
 					auto omit = pl->deep_lookup("__omit_"+l);
 					if(omit.has_hard_value()){
 					}else{
 						CS go(CS::_STRING, "go outfile="+_outfile);
-						cmd->do_it(go, cl);
+						c1cmd->do_it(go, cl);
 					}
 				}else{
 				}

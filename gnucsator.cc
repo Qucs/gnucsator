@@ -330,7 +330,7 @@ int MAIN::operator()(int argc, char *const* argv)
     }
 
     {
-      SET_RUN_MODE xx(rINTERACTIVE);
+      SET_RUN_MODE xxi(rINTERACTIVE);
       CS cmd(CS::_STDIN);
       for (;;) {
         if (!sigsetjmp(env.p, true)) {

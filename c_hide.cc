@@ -53,7 +53,6 @@ public:
 
 //      CARD_LIST::iterator i = Scope->begin();
 
-      size_t here = cmd.cursor();
       auto i=findbranch(cmd, Scope);
 
       while(!i.is_end()){

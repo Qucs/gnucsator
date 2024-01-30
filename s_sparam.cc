@@ -550,7 +550,7 @@ void SPARAM::sweep()
     hack_no_load = true;
     solve();
     hack_no_load = false;
-    unsigned i=0;
+    unsigned ii = 0;
     for(auto& in : _ports){
       std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0.);
       in->stamp_rhs();
@@ -564,7 +564,7 @@ void SPARAM::sweep()
         COMPLEX v=out->ac_involts();
         gsl_complex vv;
         GSL_SET_COMPLEX(&vv, v.real(), v.imag());
-        gsl_matrix_complex_set(_Z, i, j, vv);
+        gsl_matrix_complex_set(_Z, ii, j, vv);
         if(_type==tZ){ untested();
           _out << v << " ";
         }else{
@@ -575,7 +575,7 @@ void SPARAM::sweep()
         std::cout << "\n";
       }else{
       }
-      ++i;
+      ++ii;
     }
     if(_type==tY){ untested();
       unreachable();
@@ -627,10 +627,10 @@ void SPARAM::sweep()
 
       gsl_matrix_complex* S=_Z;
 
-      for(unsigned i=0; i< _Z->size1; ++i){
-        gsl_vector_complex_const_view b = gsl_matrix_complex_const_column(B, i);
-        gsl_vector_complex_view s = gsl_matrix_complex_row(S, i);
-        gsl_linalg_complex_LU_solve (A, p, &b.vector, &s.vector); // FIXME. compute row by row.
+      for(unsigned k=0; k< _Z->size1; ++k){
+        gsl_vector_complex_const_view b = gsl_matrix_complex_const_column(B, k);
+        gsl_vector_complex_view v = gsl_matrix_complex_row(S, k);
+        gsl_linalg_complex_LU_solve (A, p, &b.vector, &v.vector); // FIXME. compute row by row.
       }
 
       //outmatrix(S);

@@ -146,8 +146,8 @@ class MV_POLY : MV_POLY_BASE {
 
       pd*here = _coeffs;
 
-      for (unsigned dim=0; dim<_dim; ++dim) {
-	here->set_ptr( here + spn(td+1, dim ) + 1 );
+      for (unsigned uu=0; uu<_dim; ++uu) {
+	here->set_ptr( here + spn(td+1, uu ) + 1 );
 	here = here->_next;
       }
 

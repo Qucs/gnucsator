@@ -13,9 +13,9 @@ public:
     if(auto x=dynamic_cast<PARAMETER<mystring> const*>(p._p)){
       trace1("clone mystring", x->string());
       _p = new PARAMETER<mystring>(*x);
-    }else if(auto x=dynamic_cast<PARAMETER<double> const*>(p._p)){
-      trace2("clone dbl", x->string(), *x);
-      _p = new PARAMETER<double>(*x);
+    }else if(auto dd=dynamic_cast<PARAMETER<double> const*>(p._p)){
+      trace2("clone dbl", dd->string(), *dd);
+      _p = new PARAMETER<double>(*dd);
     }else{
       incomplete();
     }
@@ -32,9 +32,9 @@ public:
       }else{
 	return false;
       }
-    }else if(auto x=dynamic_cast<PARAMETER<double> const*>(_p)){
+    }else if(auto xx=dynamic_cast<PARAMETER<double> const*>(_p)){
       if(auto y=dynamic_cast<PARAMETER<double> const*>(p._p)){
-	return *x==*y;
+	return *xx==*y;
       }else{
 	return false;
       }
@@ -51,8 +51,8 @@ public:
     if(auto x=dynamic_cast<PARAMETER<mystring>*>(_p)){
       *x = v;
       trace2("assigned", x->string(), v);
-    }else if(auto x=dynamic_cast<PARAMETER<double>*>(_p)){
-      *x = v;
+    }else if(auto dd=dynamic_cast<PARAMETER<double>*>(_p)){
+      *dd = v;
     }else if(_p){ untested();
       incomplete();
       *_p = v;
@@ -98,8 +98,8 @@ public:
 #else
     if(auto x = dynamic_cast<PARAMETER<double> const*>(_p)){
       return x->string();
-    } else if(auto x = dynamic_cast<PARAMETER<mystring> const*>(_p)){
-      return x->string();
+    } else if(auto xx = dynamic_cast<PARAMETER<mystring> const*>(_p)){
+      return xx->string();
     } else { untested();
       return "";
     }
