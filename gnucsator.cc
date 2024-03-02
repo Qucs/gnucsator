@@ -268,12 +268,14 @@ public:
     // CARD_LIST::card_list already gone!
     CKT_BASE::_probe_lists = NULL;
     CKT_BASE::_sim = NULL;
+    CKT_BASE::_attribs = NULL;
   }
 
   int operator()(int argc, char *const*argv);
 private:
   SIM_DATA _sim_data;
   PROBE_LISTS _probe_lists;
+  INDIRECT<ATTRIB_LIST_p> _attrib_list;
   // CARD* _root;
   CARD_LIST* _root_scope;
 };
@@ -311,6 +313,7 @@ int MAIN::operator()(int argc, char *const* argv)
   prepare_env();
   CKT_BASE::_sim = &_sim_data;
   CKT_BASE::_probe_lists = &_probe_lists;
+  CKT_BASE::_attribs = &_attrib_list;
   try {
 
     SET_RUN_MODE xx(rBATCH);
