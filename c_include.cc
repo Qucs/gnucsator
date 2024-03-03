@@ -115,11 +115,19 @@ public:
       }else{ untested();
       }
 
-      std::string full_file_name=findfile(file_name, incl, R_OK);
+      std::string full_file_name;
+
+      if (OS::access_ok(file_name, R_OK)) {
+        // find local, relative or absolute.
+        full_file_name = file_name;
+      }else{
+        full_file_name = findfile(file_name, incl, R_OK);
+      }
+
       trace3("...", full_file_name, incl, base);
+      CS file(CS::_INC_FILE, std::string(full_file_name));
       chdir(dir);
 
-      CS file(CS::_INC_FILE, std::string(full_file_name));
       for (;;) {
         trace3("q CMD_INCLUDE::do_it >", file_name , (OPT::language), Scope );
         if(owner /*hack*/ ){
