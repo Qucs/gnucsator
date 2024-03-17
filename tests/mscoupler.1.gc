@@ -9,10 +9,11 @@ load c_param.so
 load public lang_verilog.so
 load c_vpp.so
 load c_hide.so
+load c_include.so
 load public subst_wrap.so
 load microstrip_wrap.so
 
-include ../include/sources.v
+`include ../include/sources.v
 hidemodule *
 
 qucs

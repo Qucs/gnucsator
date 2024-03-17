@@ -1,0 +1,51 @@
+VPATH = ${srcdir}:${srcdir}/microstrip # HACK
+
+MICROSTRIP_SRC = \
+	bondwire.cpp \
+	circularloop.cpp \
+	cpwgap.cpp \
+	cpwline.cpp \
+	cpwopen.cpp \
+	cpwshort.cpp \
+	cpwstep.cpp \
+	mscorner.cpp \
+	mscoupled.cpp \
+	mscross.cpp \
+	msgap.cpp \
+	mslange.cpp \
+	msline.cpp \
+	msmbend.cpp \
+	msopen.cpp \
+	msrstub.cpp \
+	msstep.cpp \
+	msvia.cpp \
+	spiralinductor.cpp
+
+MICROSTRIP_LATER = \
+	mstee.cpp
+
+OBJS = \
+	mscoupled.o \
+	substrate.o \
+	msline.o \
+	matrix.o \
+	vector.o \
+	complex.o \
+	real.o \
+	fspecial.o \
+	${MICROSTRIP_SRC:%.cpp=%.o}
+
+
+# BUG: sort out later.
+
+all: $(OBJS)
+
+%.o: %.cpp component.h object.h
+
+# 	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I${srcdir} $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@ # qucsator/Make1
+
+substrate.o msline.o: %.o: %.cpp component.h object.h
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@ # qucsator/Make1
+
+fspecial.o real.o complex.o vector.o matrix.o: %.o: %.cpp
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c -fPIC $< -o $@ -DNR_TINY=1e-15 -Dnr_double_t=double -DHAVE_STD_ERF # qucsator/Make1

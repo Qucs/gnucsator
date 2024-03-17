@@ -1,0 +1,48 @@
+
+MKDIR_P = mkdir -p
+am__base_list = cat # for now
+INSTALL = install -m 644
+INSTALL_EXEC = install -m 755
+#------------------------------------------------------------------------
+all:
+#------------------------------------------------------------------------
+install-files: $(INSTALL_FILES)
+	@list='$(INSTALL_FILES)'; test -n "$(INSTALL_DIR)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(INSTALL_DIR)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(INSTALL_DIR)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL) $$files '$(DESTDIR)$(INSTALL_DIR)'"; \
+	  $(INSTALL) $$files "$(DESTDIR)$(INSTALL_DIR)" || exit $$?; \
+	done
+#------------------------------------------------------------------------
+install-programs: $(INSTALL_PROGRAMS)
+	@list='$(INSTALL_PROGRAMS)'; test -n "$(PROGRAMS_DIR)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(PROGRAMS_DIR)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(PROGRAMS_DIR)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_EXEC) $$files '$(DESTDIR)$(PROGRAMS_DIR)'"; \
+	  $(INSTALL_EXEC) $$files "$(DESTDIR)$(PROGRAMS_DIR)" || exit $$?; \
+	done
+#------------------------------------------------------------------------
+install : install-files install-programs $(INSTALL_FILES_1)  $(INSTALL_FILES_2)
+	[ -z "$(INSTALL_DIR_1)" ] || ${MKDIR_P} $(DESTDIR)$(INSTALL_DIR_1)
+	[ -z "$(INSTALL_DIR_2)" ] || ${MKDIR_P} $(DESTDIR)$(INSTALL_DIR_2)
+	[ -z "$(INSTALL_FILES_1)" ] || cp $(INSTALL_FILES_1) $(DESTDIR)$(INSTALL_DIR_1)
+	[ -z "$(INSTALL_FILES_2)" ] || cp $(INSTALL_FILES_2) $(DESTDIR)$(INSTALL_DIR_2)
+#------------------------------------------------------------------------
+%.o: %.cpp
+	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I${srcdir} $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@ # qucsator/Make1
+#------------------------------------------------------------------------
+.PHONY: clean distclean install all uninstall depend install-files install-programs

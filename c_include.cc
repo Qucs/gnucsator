@@ -35,7 +35,7 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class CMD_SI : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST*)override {
+  void do_it(CS& cmd, CARD_LIST*)override { untested();
     std::string optarg;
     cmd >> optarg;
     trace1("CMD_SI", optarg);
@@ -57,7 +57,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "add_includepath", &p1);
 /*--------------------------------------------------------------------------*/
 class CMD_INCLUDE : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope)override {
+  void do_it(CS& cmd, CARD_LIST* Scope)override { untested();
     trace0("CMD_INCLUDE::do_it");
     size_t here = cmd.cursor();
     char* dirtmp=NULL;
@@ -65,7 +65,7 @@ public:
     char buf[PATH_MAX];
     char* cwd;
     cwd = getcwd(buf, PATH_MAX);
-    try {
+    try { untested();
       std::string file_name;
       cmd >> file_name;
       std::string module_name;
@@ -74,7 +74,7 @@ public:
 #if 1
       trace2("include", file_name, module_name);
 
-      if(module_name!=""){
+      if(module_name!=""){ untested();
         auto c = device_dispatcher.clone("subckt");
         assert(c);
         owner = prechecked_cast<BASE_SUBCKT*>(c);
@@ -83,7 +83,7 @@ public:
         owner->precalc_first(); // init mfactor=1
         Scope->push_back(owner);
         Scope = owner->scope();
-      }else{
+      }else{ untested();
       }
 #endif
 
@@ -107,43 +107,43 @@ public:
 
       char* dir=dirname(dirtmp);
       char* base=basename(basetmp);
-      trace1("chdir", dir);
 
       std::string incl(gnucap_includepath);
-      if(const char* x=getenv("GNUCAP_INCLUDEPATH")){
+      if(const char* x=getenv("GNUCAP_INCLUDEPATH")){ untested();
         incl=x;
       }else{ untested();
       }
+      trace3("`include...", incl, dir, file_name);
 
       std::string full_file_name;
 
-      if (OS::access_ok(file_name, R_OK)) {
+      if (OS::access_ok(file_name, R_OK)) { untested();
         // find local, relative or absolute.
         full_file_name = file_name;
-      }else{
+      }else{ untested();
         full_file_name = findfile(file_name, incl, R_OK);
       }
 
-      trace3("...", full_file_name, incl, base);
       CS file(CS::_INC_FILE, std::string(full_file_name));
       chdir(dir);
 
-      for (;;) {
+      for (;;) { untested();
         trace3("q CMD_INCLUDE::do_it >", file_name , (OPT::language), Scope );
-        if(owner /*hack*/ ){
+        if(owner /*hack*/ ){ untested();
           file.get_line("gnucap-qucs>");
           OPT::language->new__instance(file, owner, Scope);
-        }else{
+        }else{ untested();
           OPT::language->parse_top_item(file, Scope);
         }
       }
     }catch (Exception_File_Open& e) { itested();
       cmd.warn(bDANGER, here, e.message() + '\n');
-    }catch (Exception_End_Of_Input& e) {
+    }catch (Exception_End_Of_Input& e) { untested();
       // done
     }
     free(dirtmp);
     free(basetmp);
+    trace1("/chdir", cwd);
     chdir(cwd);
   }
 } p0;

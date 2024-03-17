@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # Convert qucsator .net files to verilog using gnucsator.
 # This is mainly used in tests.
 

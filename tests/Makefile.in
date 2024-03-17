@@ -1,7 +1,7 @@
 include ../Make2
 
 QUCSATOR = qucsator
-GNUCSATOR = ../gnucsator.sh
+GNUCSATOR = ${srcdir}/../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
 DIFF = diff -w -u
@@ -13,7 +13,7 @@ LN_S = ln -s
 
 all: gc qucs
 
-include MakeList
+include ${srcdir}/Make1
 
 check: diff
 
@@ -34,9 +34,9 @@ qucs:
 	[ -e qucs ] || ${LN_S} .. qucs
 
 ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=.:..:@plugpath@${GNUCAP_PLUGPATH:%=:%} \
-	QUCSATOR_PKGINCLUDEDIR=../include \
-	GNUCAP_INCLUDEPATH=../include:.${GNUCAP_INCLUDEPATH:%=:%} \
+	GNUCAP_PLUGPATH=.:..:${plugpath}${GNUCAP_PLUGPATH:%=:%} \
+	QUCSATOR_PKGINCLUDEDIR=${srcdir}/../include \
+	GNUCAP_INCLUDEPATH=${srcdir}/../include:.${GNUCAP_INCLUDEPATH:%=:%} \
 	GNUCAP_SYSCONFDIR=qucs \
    PATH=..:$$PATH
 
@@ -47,8 +47,8 @@ ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
 	${DIFF} $+ | tee $@; exit $${PIPESTATUS[0]}
 
 %.net.v.out: %.net
-	@echo ../net2verilog.sh $< $@
-	@${ENV} ../net2verilog.sh $< $@
+	@echo ${srcdir}/../net2verilog.sh $< $@
+	@${ENV} ${srcdir}/../net2verilog.sh $< $@
 
 %.net.gc.out: %.net
 	@echo "$(GNUCSATOR) -i $< -o /dev/stdout | sed ... > $@"

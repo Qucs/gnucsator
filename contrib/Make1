@@ -1,0 +1,5 @@
+
+INSTALL_PROGRAMS = \
+	qucs_data_convert.py
+PROGRAMS_DIR = ${exec_prefix}/bin
+

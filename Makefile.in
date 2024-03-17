@@ -2,7 +2,7 @@
 # (c) Felix Salfelder 2015-20
 # License: GPLv3+
 #
-# TODO: use autotools (or so) instead, and only use MakeList.
+# TODO: use autotools (or so) instead, and only use Make1.
 
 PACKAGE_NAME = gnucap-qucs
 PACKAGE_VERSION = 0.0.0
@@ -10,21 +10,24 @@ PACKAGE_VERSION = 0.0.0
 GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
 GNUCAP_MODELGEN = gnucap-modelgen
 
-# BUG: use tests/MakeList
+# BUG: use tests/Make1
 TESTFILES_PAT = \
   tests/*.gc \
   tests/*.gc.ref \
   tests/*.gc.out
 
-include MakeList
+srcdir = @srcdir@
+VPATH = ${srcdir}
+
+include ${srcdir}/Make1
 include Make2
 
 ifneq ($(GNUCAP_CONF),)
     $(info asking $(GNUCAP_CONF))
-	 # TODO. complete the move to configure.
+    # TODO. complete the move to configure.
     CXX             = $(shell $(GNUCAP_CONF) --cxx)   # c++
     GNUCAP_CPPFLAGS = $(shell $(GNUCAP_CONF) --cppflags) -DADD_VERSION
-	GNUCAP_LDFLAGS  = $(shell $(GNUCAP_CONF) --ldflags)
+    GNUCAP_LDFLAGS  = $(shell $(GNUCAP_CONF) --ldflags)
     GNUCAP_CXXFLAGS = $(shell $(GNUCAP_CONF) --cxxflags)
 
 else
@@ -33,7 +36,7 @@ endif
 
 GNUCAP_LIBS        = @libs@
 GNUCAP_PLUGPATH    = @plugpath@
-GNUCAP_EXEC_PREFIX = @prefix@
+exec_prefix = @prefix@
 GNUCAP_PKGLIBDIR   = @pkglibdir@
 GNUCSATOR_PKGLIBDIR=${GNUCAP_PKGLIBDIR}/qucs
 GNUCAP_SYSCONFDIR  = @sysconfdir@
@@ -53,10 +56,19 @@ GNUCSATOR_CXXFLAGS = -std=c++11 -fPIC $(GNUCAP_CXXFLAGS) $(CXXFLAGS)
 # TODO: is this platform dependent?
 GSL_LIBS = -lgsl -lblas -lgslcblas
 
+# Make1
 EXECUTABLES = \
-  ${bin_PROGRAMS} ${dist_bin_SCRIPTS} ${contrib_bin_SCRIPTS}
+  ${bin_PROGRAMS} ${dist_bin_SCRIPTS}
 
-all: gnucsator.rc
+RECURSIVE_TARGETS = all install clean depend distclean
+#-----------------------------------------------------------------------------
+${RECURSIVE_TARGETS:%=%-recursive}: %-recursive: %-here
+	for i in ${SUBDIRS}; do \
+	  $(MAKE) -C $${i} $*; \
+	done
+#-----------------------------------------------------------------------------
+${RECURSIVE_TARGETS}: %: %-recursive
+#-----------------------------------------------------------------------------
 
 gnucsator.rc: gnucsator.rc.in
 	@echo "WARNING: gnucsator.rc may be outdated."
@@ -90,15 +102,15 @@ QUCSATOR_OBJS = \
 	qucsator/vector.o
 
 # todo
-MY_CPPFLAGS = -I.
-microstrip_wrap.so: MY_CPPFLAGS=-Iqucsator
+MY_CPPFLAGS = -I. -I${srcdir}
+microstrip_wrap.so: MY_CPPFLAGS=-I${srcdir}/qucsator
 microstrip_wrap.so: OBJS = ${MICROSTRIP_OBJS} ${QUCSATOR_OBJS}
 microstrip_wrap.so: MY_CXXFLAGS = -Wno-suggest-override -Wno-class-memaccess
 
 #does not work.
 #mscoupled_wrap.so: qucsator/mscoupled.o qucsator/msline.o ${QUCSATOR_OBJS}
 
-subst_wrap.so: MY_CPPFLAGS=-Iqucsator
+subst_wrap.so: MY_CPPFLAGS=-I${srcdir}/qucsator
 subst_wrap.so: OBJS = qucsator/substrate.o ${QUCSATOR_OBJS}
 subst_wrap.so: MY_CXXFLAGS = -Wno-suggest-override -Wno-class-memaccess
 
@@ -107,12 +119,12 @@ d_bjt.cc: d_diode.cc
 	$(AM_V_GEN)$(GNUCAP_MODELGEN) $<
 	@touch $*.cc
 
-all-recursive:
-	$(MAKE) -C qucsator GNUCAP_CPPFLAGS="${GNUCAP_CPPFLAGS}"
-
 all: all-recursive $(QUCS_PLUGINS) ${EXECUTABLES}
+	$(MAKE) -C qucsator GNUCAP_CPPFLAGS="${GNUCAP_CPPFLAGS}"
+all: gnucsator.rc
 
 CLEANFILES = $(QUCS_PLUGINS) *.o *~
+DISTCLEANFILES = Make.override Makefile
 
 d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
@@ -129,7 +141,7 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 	$(LDLIBS)
 
 %.so : %.cc
-	$(CXX) $(GNUCSATOR_CXXFLAGS) $(MY_CXXFLAGS) ${MY_CPPFLAGS} $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # 2
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(MY_CXXFLAGS) ${MY_CPPFLAGS} $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # Makefile.in
 
 ${QUCS_PLUGINS}: %.so: %.cc
 
@@ -146,33 +158,28 @@ QUCS_LIBS = -lqucs
 GNUCSATOR_RC = gnucsator.rc
 PKGINCLUDEDIR = @PKGINCLUDEDIR@
 
-install: $(QUCS_PLUGINS) gnucsator.sh gnucsator
+install-here: $(QUCS_PLUGINS)
 	-install -d $(DESTDIR)$(GNUCSATOR_PKGLIBDIR)
-	install $(QUCS_PLUGINS) $(DESTDIR)$(GNUCSATOR_PKGLIBDIR)
-
-	-install -d $(DESTDIR)$(GNUCAP_EXEC_PREFIX)/bin
-	install $(EXECUTABLES) $(DESTDIR)$(GNUCAP_EXEC_PREFIX)/bin
+	install $(QUCS_PLUGINS) $(DESTDIR)$(GNUCSATOR_PKGLIBDIR) # 1
 
 	-install -d $(DESTDIR)$(GNUCAP_SYSCONFDIR)
-	install $(GNUCSATOR_RC) $(DESTDIR)$(GNUCAP_SYSCONFDIR)
+	install $(GNUCSATOR_RC) $(DESTDIR)$(GNUCAP_SYSCONFDIR) # 3
 
 	${MAKE} -C include install PKGINCLUDEDIR=${PKGINCLUDEDIR}
 
 uninstall:
 	(cd $(GNUCAP_LIBDIR)/qucs ; rm $(QUCS_PLUGINS))
 
-clean-recursive:
-	$(MAKE) -C qucsator clean
-
-clean: clean-recursive
+clean-here:
 	rm -f $(CLEANFILES)
+	$(MAKE) -C qucsator clean
 
 info:
 	@echo GNUCAP_PKGLIBDIR: ${GNUCAP_PKGLIBDIR}
 	@echo GNUCAP_PLUGPATH: ${GNUCAP_PLUGPATH}
 
 distclean: clean
-	rm Make.override
+	rm -f ${DISTCLEANFILES}
 
 # BUG: the rule for config.h is missing.
 define NOTICE
@@ -186,24 +193,27 @@ check: all
 	$(MAKE) -C tests check GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \
 		GNUCAP_PKGLIBDIR=${GNUCAP_PKGLIBDIR}
 
-include include/MakeList
-
 DIST_FILES = \
-	MakeList Makefile.in \
-	include/MakeList \
+	Make1 Makefile.in \
+	include/Make1 \
 	${bin_PROGRAMS:%=%.cc} \
 	${dist_bin_SCRIPTS} \
 	${noinst_HEADERS} \
 	${EXTRA_DIST} \
-	${INCLUDE_FILES:%=include/%} \
 	${PLUGIN_CC} \
 	${TEST_EXTRA_DIST}
 
-dist:
-	tar --transform "s|^|${PACKAGE_NAME}-${PACKAGE_VERSION}/|" \
-		-cjf ${PACKAGE_NAME}-${PACKAGE_VERSION}.bz2 ${DIST_FILES}
+# does not work. use git.
+# dist:
+# 	tar --transform "s|^|${PACKAGE_NAME}-${PACKAGE_VERSION}/|" \
+# 		-cjf ${PACKAGE_NAME}-${PACKAGE_VERSION}.bz2 ${DIST_FILES}
 
-.PHONY: all-recursive
-
-Makefile: Makefile.in
+Makefile: ${srcdir}/Makefile.in
 	@echo Makefile is outdated. configure?
+
+.PHONY: ${RECURSIVE_TARGETS} \
+        ${RECURSIVE_TARGETS:%=%-here} \
+        ${RECURSIVE_TARGETS:%=%-recursive} \
+        install install-here check all
+
+include ${srcdir}/Make3

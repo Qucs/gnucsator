@@ -25,11 +25,33 @@ else
     sysconfdir=$( gnucap-conf --sysconfdir )
 fi
 
+gnucap_cppflags=$( gnucap-conf --cppflags )
+
 # TODO: check if gnucap-conf works, then use it.
 libs=-lgnucap # $( gnucap-conf --libs )
 
 # bug. this is not implemented consistently.
 CXX=${CXX-c++}
+
+#------------------------------------------------------------------------
+srcdir=$(dirname $0)
+# abs_srcdir=$(cd $srcdir; pwd)
+if [ ! -f $srcdir/lang_qucs.cc ]; then
+	echo could not find source directory
+	exit 1
+fi
+case $srcdir in
+	[\\/]* | ?:[\\/]*)
+		top_srcdir_="$srcdir"
+		;;
+	\.)
+		top_srcdir_=".."
+		;;
+	*)
+		top_srcdir_="../$srcdir"
+		;;
+esac
+#------------------------------------------------------------------------
 
 STATUS="$*"
 
@@ -41,6 +63,8 @@ PKGINCLUDEDIR=${prefix}/include/gnucap-qucs/
 fill_template() {
   t=$( mktemp );
   sed -e "s#@prefix@#$prefix#g" \
+    -e "s#@srcdir@#$srcdir#g" \
+    -e "s#@top_srcdir@#$top_srcdir_#g" \
     -e "s#@exec_prefix@#$prefix#g" \
     -e "s#@libdir@#$prefix/lib#g" \
     -e "s#@NOTICE@#$NOTICE#g" \
@@ -53,19 +77,67 @@ fill_template() {
     -e "s#@CXXFLAGS@#$CCFLAGS#g" \
     -e "s#@libs@#$libs#g" \
     -e "s#@STATUS@#$STATUS#g" \
-    -e "s#@CXX@#$CXX#g" < $1.in > $t
-  if diff $1 $t 2>&1 > /dev/null; then
+    -e "s#@CXX@#$CXX#g" < $srcdir/$1.in > $t
+  if diff $1 $t 2> /dev/null > /dev/null; then
 	rm $t;
   else
 	mv $t $1;
   fi
 }
 
+mkdir -p tests
+
 fill_template config.h
 fill_template Makefile
 fill_template tests/Makefile
-fill_template qucsator/Makefile
 fill_template gnucsator.rc
+
+SUBDIRS="include qucsator contrib tests"
+#------------------------------------------------------------------------
+sub_configure() {
+	echo sub_configure $1
+	m="$1/Makefile"
+	if [ "$top_srcdir_" = ".." ]; then
+		srcdir_=".";
+	else
+		srcdir_="$top_srcdir_/$1";
+	fi
+	echo '#stub. need to run configure first' > $m
+	echo "srcdir = $top_srcdir_/$1" >> $m
+	echo "prefix = $prefix" >> $m
+	echo '%: ; ${srcdir}/configure --prefix="${prefix}" --srcdir="${srcdir}" && ${MAKE} $@' >> $m
+	echo 'all: ; ${srcdir}/configure --prefix="${prefix}" --srcdir="${srcdir}" && ${MAKE}' >> $m
+	echo '.PHONY: all' >> $m
+}
+#------------------------------------------------------------------------
+sub_makefile() {
+	m="$1/Makefile"
+	echo sub_makefile $m
+	echo \# created by $0 do not edit >$m
+	echo \#------------------------------------------------------------------------ >> $m
+	echo "top_srcdir = $top_srcdir_" >> $m
+	echo "srcdir = $top_srcdir_/$1" >> $m
+	echo "prefix = $prefix" >> $m
+	echo "exec_prefix = $prefix" >> $m
+	echo "VPATH = \${srcdir}" >> $m
+	echo "GNUCAP_CPPFLAGS = ${gnucap_cppflags}" >> $m
+	echo "pkgincludedir = ${PKGINCLUDEDIR}" >> $m
+	echo "include \${srcdir}/Make1" >> $m
+	echo "include ../Make2" >> $m
+	echo "include $top_srcdir_/Make3" >> $m
+	[ -f ${srcdir}/${1}/Make.depend ] && \
+	echo "include \${srcdir}/Make.depend" >> $m
+}
+#------------------------------------------------------------------------
+for i in ${SUBDIRS}; do
+	mkdir -p $i;
+	if [ -f $srcdir/$i/configure ]; then
+		sub_configure $i;
+	else
+		sub_makefile $i;
+	fi
+done
+#------------------------------------------------------------------------
 
 echo -n '# ' > config.log
 date >> config.log

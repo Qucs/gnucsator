@@ -1,5 +1,6 @@
 
-INCLUDE_FILES = \
+INSTALL_DIR = ${pkgincludedir}
+INSTALL_FILES = \
 	all.v \
 	logic.v \
 	lumped.v \

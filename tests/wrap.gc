@@ -8,7 +8,8 @@ load s_sparam.so
 load public lang_verilog.so
 load c_vpp.so
 load c_hide.so
-include ../include/sources.v
+load c_include.so
+`include ../include/sources.v
 verilog
 param u=3
 hidemodule *

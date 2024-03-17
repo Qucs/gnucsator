@@ -1,0 +1,64 @@
+#!/bin/sh
+
+echo -n '# ' > config.log
+date >> config.log
+echo $0 "$@" >> config.log
+
+#-------------  Stuff added to enable --prefix  --------------
+if test "x$1" != "x"; then
+    # echo Found input parameter -- $1
+    #  Now see if the parameter is --prefix=
+    if test "x${1#--prefix=}" != "x$1"; then
+        # echo "Found --prefix in input args.  Setting prefix directory."
+        prefix=${1#--prefix=}
+			shift
+    else
+        # echo "Found unrecognized parameter in input args."
+        #  Just use the default prefix dir.
+        prefix=/usr/local
+    fi
+ 
+else
+    # echo "No input parameter found."
+    #  Just use the default prefix dir
+    prefix=/usr/local
+fi
+
+srcdir=$(dirname $0)
+
+if test "x${1#--srcdir=}" != "x$1"; then
+    srcdir=${1#--srcdir=}
+    # echo "Found --srcdir in input args."
+fi
+
+# abs_srcdir=$(cd $srcdir; pwd)
+if [ ! -f $srcdir/rr.net ]; then
+	echo could not find source directory
+	exit 1
+fi
+
+top_srcdir=$srcdir/..
+plugpath=`gnucap-conf --pkglibdir`
+
+cat <<CAT_EOF >Makefile
+#------------------------------------------------------------------------
+# created by $0 do not edit
+
+CXX = g++
+TARGET_EXT =
+
+plugpath = $plugpath
+srcdir = $srcdir
+top_srcdir = $top_srcdir
+top_builddir = ..
+VPATH = \${srcdir}
+
+CAT_EOF
+
+# fill_template??
+cat ${srcdir}/Makefile.in >> Makefile
+
+[ -d ref ] || ln -sf ${srcdir}/ref
+
+echo src configure done.
+echo srcdir is \"$srcdir\".

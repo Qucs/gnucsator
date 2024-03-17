@@ -1,16 +1,16 @@
 # Make1 for gnucap-qucs
 # (c) Felix Salfelder 2020
 # License: GPLv3+
+#
+all: # HACK
 
+SUBDIRS = qucsator include contrib
 
-bin_PROGRAMS = gnucsator
-
-dist_bin_SCRIPTS = \
+PROGRAMS_DIR = ${exec_prefix}/bin
+INSTALL_PROGRAMS = \
+   gnucsator \
 	gnucsator.sh \
 	net2verilog.sh
-
-contrib_bin_SCRIPTS = \
-	contrib/qucs_data_convert.py
 
 PLUGIN_CC = \
 	bm_poly.cc \

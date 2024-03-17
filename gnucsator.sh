@@ -35,7 +35,8 @@ if [ -z "$infile" ]; then
 	exit 1
 fi
 
-out=${infile}.tmp
+b=$( basename ${infile} )
+out=${b}.tmp
 
 echo "<Qucs Dataset 0.0.19>" > $outfile
 
