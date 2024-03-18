@@ -105,7 +105,7 @@ private: // no ops for prototype
   }
   bool do_tr() override		{if(is_device()){untested(); return BASE_SUBCKT::do_tr();}else{untested(); return true;} }
 
-  bool tr_needs_eval()const override{
+  bool tr_needs_eval()const override{ untested();
     if(is_device()){untested();
       return BASE_SUBCKT::tr_needs_eval();
     }else{untested();
@@ -244,9 +244,9 @@ std::string DEV_MODULE::port_name(int i)const
   }else if(_parent) { untested(); untested();
     // reachable?
     return "";
-  }else if(i<net_nodes()) {
+  }else if(i<net_nodes()) { untested();
     return port_value(i);
-  }else{
+  }else{ untested();
     return "";
   }
 }
@@ -274,7 +274,7 @@ void DEV_MODULE::expand()
     for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
       CARD* d = (*i)->deflate();
 
-      if(d == (*i)){
+      if(d == (*i)){ untested();
       }else{
 	assert(d->owner() == this);
 	delete *i;

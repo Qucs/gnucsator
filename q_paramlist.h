@@ -72,7 +72,7 @@ inline bool COMMON_PARAMLIST::operator==(const COMMON_COMPONENT& x)const
 inline bool COMMON_PARAMLIST::param_is_printable(int i)const
 {
   assert(i < COMMON_PARAMLIST::param_count());
-  if (i >= COMMON_COMPONENT::param_count()) {
+  if (i >= COMMON_COMPONENT::param_count()) { untested();
     return _params.is_printable(COMMON_PARAMLIST::param_count() - 1 - i);
   }else{
     return COMMON_COMPONENT::param_is_printable(i);
@@ -135,7 +135,7 @@ inline int COMMON_PARAMLIST::set_param_by_name(std::string Name, std::string Val
   auto x = _params.find(Name);
   if(x!=_params.end()){
     old = x->second.string();
-  }else{
+  }else{ untested();
   }
   trace3("CPL::spbn", Name, Value, old);
 

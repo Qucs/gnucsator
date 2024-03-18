@@ -49,7 +49,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     void	operator=(const PARAMETER<std::vector<PARAMETER<T> > >& p) { untested();
       _v = p._v; _s = p._s;
     }
-    void	operator=(const std::vector<PARAMETER<T> >& v) {
+    void	operator=(const std::vector<PARAMETER<T> >& v) { untested();
       _v = v; _s = "#";
     }
     bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >&)const {
@@ -69,22 +69,22 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
 /*--------------------------------------------------------------------------*/
 template <class T>
 PARAMETER<std::vector<PARAMETER<T> > >::operator std::string()const
-{
+{ untested();
   return string();
 }
 /*--------------------------------------------------------------------------*/
 template <class T>
 inline std::string PARAMETER<std::vector<PARAMETER<T> > >::string()const
-{
+{ untested();
   std::string ret("");
-  if (PARAMETER<std::vector<PARAMETER<T> > >::_s == "#") {
+  if (PARAMETER<std::vector<PARAMETER<T> > >::_s == "#") { untested();
     ret+= "(";
-  }else if (_s == "") {
+  }else if (_s == "") { untested();
     ret+= "NA(";
   }else{ untested();
     return std::string(_s);
   }
-  for(unsigned  i=0; i<_v.size(); i++){
+  for(unsigned  i=0; i<_v.size(); i++){ untested();
     ret+= (i)?",":"";
     ret+= _v[i].string();
   }
@@ -94,7 +94,7 @@ inline std::string PARAMETER<std::vector<PARAMETER<T> > >::string()const
 /*--------------------------------------------------------------------------*/
 template <class T>
 inline std::vector<PARAMETER<T> > PARAMETER<std::vector<PARAMETER<T> > >::_NOT_INPUT() const
-{
+{ untested();
   return std::vector<PARAMETER< T> > ();
 }
 /*--------------------------------------------------------------------------*/
@@ -110,7 +110,7 @@ PARAMETER<std::vector<PARAMETER<T> > >::e_val(const std::vector<PARAMETER<T> >& 
   // FIXME: accept strings and parse...
   for(unsigned  i=0; i<_v.size()  ; i++){
     PARAMETER<T> D;
-    if (i < def.size()){
+    if (i < def.size()){ untested();
       D = def[i];
     }
     trace3("PARAMETER vector eval", i, _v[i], D);
@@ -132,7 +132,7 @@ void PARAMETER<std::vector<PARAMETER<T> > >::operator=(const IString& s)
   cmd.skipbl();
 
   for(;;){
-    //if (! cmd.umatch("(")){
+    //if (! cmd.umatch("(")){ untested();
     //   untested();
     //   break;
     //}
@@ -157,7 +157,7 @@ template<>
 inline CS& CS::operator>>(std::vector<PARAMETER<std::vector<PARAMETER<double> > > >& x);
 #else
 inline bool operator==(std::vector<PARAMETER<double> >, double)
-{
+{ untested();
 	incomplete();
 	return false;
 }
@@ -165,12 +165,12 @@ inline bool operator==(std::vector<PARAMETER<double> >, double)
 /*--------------------------------------------------------------------------*/
 template <class S>
 inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
-{
+{ untested();
   o << "(";
 
   for ( std::vector<PARAMETER<double> >::const_iterator ci=m.begin();
       ci!=m.end();)
-  {
+  { untested();
     o << " " << *(ci) << " ";
     ++ci;
   }

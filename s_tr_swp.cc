@@ -37,7 +37,7 @@
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 namespace TR {
-  static std::string step_cause[] = {
+  static std::string step_cause[] = { //
     "impossible",
     "user requested",
     "event queue",
@@ -70,7 +70,7 @@ void TRANSIENT::sweep()
   first();
   _sim->_genout = gen();
   
-  if (_sim->uic_now()) {
+  if (_sim->uic_now()) { untested();
     advance_time();
     _sim->zero_voltages();
     _scope->do_tr();    //evaluate_models
@@ -83,7 +83,7 @@ void TRANSIENT::sweep()
     //BUG// UIC needs further analysis.
   }else{
     _converged = solve_with_homotopy(OPT::DCBIAS,_trace);
-    if (!_converged) {
+    if (!_converged) { untested();
       error(bWARNING, "did not converge\n");
     }else{
     }
@@ -97,7 +97,7 @@ void TRANSIENT::sweep()
     int outflags = ofNONE;
     if (printnow) {
       outflags = ofPRINT | ofSTORE | ofKEEP;
-    }else{
+    }else{ untested();
       outflags = ofSTORE;
     }
     outdata(_sim->_time0, outflags);
@@ -135,7 +135,7 @@ void TRANSIENT::sweep()
       int outflags = ofNONE;
       if (printnow) {
 	outflags = ofPRINT | ofSTORE | ofKEEP;
-      }else if (_accepted) {
+      }else if (_accepted) { untested();
 	outflags = ofSTORE;
       }else{
       }
@@ -295,13 +295,13 @@ bool TRANSIENT::next()
     // event queue, events that absolutely will happen
     // exact time.  NOT ok to move or omit, even by _sim->_dtmin
     // some action is associated with it.
-    if (!_sim->_eq.empty() && _sim->_eq.top() < newtime) {
+    if (!_sim->_eq.empty() && _sim->_eq.top() < newtime) { untested();
       newtime = _sim->_eq.top();
       new_dt = newtime - reftime;
       if (new_dt < _sim->_dtmin) {untested();
 	//new_dt = _sim->_dtmin;
 	//newtime = reftime + new_dt;
-      }else{
+      }else{ untested();
       }
       new_control = scEVENTQ;
       fixed_time = newtime;
@@ -341,10 +341,10 @@ bool TRANSIENT::next()
     }
     
     // skip parameter
-    if (new_dt > _dtmax) {
-      if (new_dt > _dtmax + _sim->_dtmin) {
+    if (new_dt > _dtmax) { untested();
+      if (new_dt > _dtmax + _sim->_dtmin) { untested();
 	new_control = scSKIP;
-      }else{
+      }else{ untested();
       }
       new_dt = _dtmax;
       newtime = reftime + new_dt;
@@ -504,11 +504,11 @@ bool TRANSIENT::next()
   
   /* advance event queue (maybe) */
   /* We already looked at it.  Dump what's on top if we took it. */
-  while (!_sim->_eq.empty() && _sim->_eq.top() <= _sim->_time0) {
+  while (!_sim->_eq.empty() && _sim->_eq.top() <= _sim->_time0) { untested();
     trace1("eq", _sim->_eq.top());
     _sim->_eq.pop();
   }
-  while (!_sim->_eq.empty() && _sim->_eq.top() < _sim->_time0 + _sim->_dtmin) {
+  while (!_sim->_eq.empty() && _sim->_eq.top() < _sim->_time0 + _sim->_dtmin) { untested();
     // duplicate events in the queue.  overclocked?
     trace1("eq-extra", _sim->_eq.top());
     _sim->_eq.pop();

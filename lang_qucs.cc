@@ -403,7 +403,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 							cc->parse_numlist(v); // HACK.
 							try{ // to be sure, maybe later.
 							  	xx->set_param_by_name(Name,value);
-							}catch(Exception const&){
+							}catch(Exception const&){ untested();
 							}
 #endif
 						}else{
@@ -426,7 +426,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 		for (size_t i=0; ; ++i) {
 			size_t here = cmd.cursor();
 
-			if (!cmd.more()) {
+			if (!cmd.more()) { untested();
 				break;
 			}else{
 				std::string Name  = cmd.ctos("=", "", "");
@@ -579,7 +579,7 @@ void LANG_QUCSATOR::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 			if ((exit_on_blank==EXIT_ON_BLANK && cmd.is_end()) 
 					|| cmd.umatch(exit_key)) {
 				break;
-//			}else if(cmd.umatch("`include")){
+//			}else if(cmd.umatch("`include")){ untested();
 //				cmd.reset();
 //				CMD::cmdproc(cmd, Scope);
 			}else{
@@ -863,7 +863,7 @@ void LANG_QUCSATOR::print_args(OMSTREAM& o, const COMPONENT* x)
 				if ((ii != x->param_count() - 1) || (x->param_name(ii) != x->value_name())) {
 					// skip name if plain value
 					o << " " << x->param_name(ii) << "=";
-				}else{
+				}else{ untested();
 				}
 				o << x->param_value(ii);
 			}else{

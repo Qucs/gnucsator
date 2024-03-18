@@ -75,7 +75,7 @@ private:
 		if(cmd >> "go"){
 			error(bTRACE, "sweep " + cmd.fullstring() + "\n");
 			auto it = Scope->find_(_sim);
-			if(it==Scope->end()){
+			if(it==Scope->end()){ untested();
 				throw Exception_CS("unknown sim " + _sim, cmd);
 			}else if(auto c=dynamic_cast<CMD*>(*it)){
 				cmd.reset();
@@ -86,7 +86,7 @@ private:
 				                      << " " << (_stop-_start) / (_points - 1);
 				CS xx(CS::_STRING, x.str());
 				c->do_it(xx, Scope);
-			}else{
+			}else{ untested();
 				unreachable();
 			}
 		}else{

@@ -16,7 +16,7 @@ public:
     }else if(auto dd=dynamic_cast<PARAMETER<double> const*>(p._p)){
       trace2("clone dbl", dd->string(), *dd);
       _p = new PARAMETER<double>(*dd);
-    }else{
+    }else{ untested();
       incomplete();
     }
   }
@@ -29,20 +29,20 @@ public:
     }else if(auto x=dynamic_cast<PARAMETER<mystring> const*>(_p)){
       if(auto y=dynamic_cast<PARAMETER<mystring> const*>(p._p)){
 	return *x==*y;
-      }else{
+      }else{ untested();
 	return false;
       }
     }else if(auto xx=dynamic_cast<PARAMETER<double> const*>(_p)){
       if(auto y=dynamic_cast<PARAMETER<double> const*>(p._p)){
 	return *xx==*y;
-      }else{
+      }else{ untested();
 	return false;
       }
     }
     incomplete();
     return false;
   }
-  PARAM_INSTANCE& operator=(PARAM_INSTANCE const&){
+  PARAM_INSTANCE& operator=(PARAM_INSTANCE const&){ untested();
     assert(false);
     incomplete();
     return *this;
@@ -57,7 +57,7 @@ public:
       incomplete();
       *_p = v;
       assert(false);
-    }else{
+    }else{ untested();
       incomplete();
       assert(false);
     }
@@ -90,9 +90,9 @@ public:
 public:
   std::string const string() const{
 #if 0
-    if(_p){
+    if(_p){ untested();
       return _p->string();
-    }else{
+    }else{ untested();
       return "";
     }
 #else
@@ -105,10 +105,10 @@ public:
     }
 #endif
   }
-  bool has_hard_value() const{
-    if(_p){
+  bool has_hard_value() const{ untested();
+    if(_p){ untested();
       return _p->has_hard_value();
-    }else{
+    }else{ untested();
       return false;
     }
   }
@@ -118,12 +118,12 @@ public:
     } else if(dynamic_cast<PARAMETER<mystring> const*>(_p)){
       unreachable();
       return NOT_VALID;
-    }else{
+    }else{ untested();
       incomplete();
     }
     return NOT_VALID;
   }
-  operator const char*() const{
+  operator const char*() const{ untested();
     if(auto ps = dynamic_cast<PARAMETER<mystring> const*>(_p)){ untested();
       trace1("const char*", ps->string());
       std::string s = *ps;
@@ -139,15 +139,15 @@ public:
   operator double() const{
     if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p)){
       return *ps;
-    }else{
+    }else{ untested();
       incomplete();
       return NOT_VALID;
     }
   }
-  operator PARAMETER<double> const&() const{
+  operator PARAMETER<double> const&() const{ untested();
     incomplete();
-    if(_p){
-    }else{
+    if(_p){ untested();
+    }else{ untested();
     }
     static PARAMETER<double> x;
     return x;
@@ -225,10 +225,10 @@ inline bool PARAM_LIST::is_printable(int i)const
 { untested();
   //BUG// ugly linear search
   int i_try = 0;
-  for (const_iterator ii = _pl.begin(); ii != _pl.end(); ++ii) {
-    if (i_try++ == i) {
+  for (const_iterator ii = _pl.begin(); ii != _pl.end(); ++ii) { untested();
+    if (i_try++ == i) { untested();
       return ii->second.has_hard_value();
-    }else{
+    }else{ untested();
     }
   }
   return false;
@@ -236,15 +236,15 @@ inline bool PARAM_LIST::is_printable(int i)const
 /*--------------------------------------------------------------------------*/
 inline const PARAMETER<double>& PARAM_LIST::deep_lookup(std::string Name)const
 {
-  if (OPT::case_insensitive) {
+  if (OPT::case_insensitive) { untested();
     notstd::to_lower(&Name);
   }else{
   }
   const_iterator i = _pl.find(Name);
-  if (i!=_pl.end() && i->second.has_hard_value()) {
+  if (i!=_pl.end() && i->second.has_hard_value()) { untested();
     // found a value, return it
     return i->second;
-  }else if (_try_again) {
+  }else if (_try_again) { untested();
     // didn't find one, look in enclosing scope
     return _try_again->deep_lookup(Name);
   }else{

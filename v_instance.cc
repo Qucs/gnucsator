@@ -124,7 +124,7 @@ protected:
   void		expand()override;
   CARD*		deflate()override;
 private:
-  void		precalc_last()override{
+  void		precalc_last()override{ untested();
     trace1("INSTANCE::precalc_last", long_label());
     unreachable();
   }
@@ -165,11 +165,11 @@ private: // overrides
     assert(i<int(_params.size()));
     return _params[i].second;
   }
-  void set_param_by_index(int i, std::string& value, int) override {
+  void set_param_by_index(int i, std::string& value, int) override { untested();
     int idx = i+1;
 
     // TODO: use common.
-    if(int(_params.size()) == idx){
+    if(int(_params.size()) == idx){ untested();
       _params.push_back(std::make_pair("", value));
     }else{ untested();
       throw Exception(long_label() + ": param assign out of order");
@@ -253,7 +253,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
   COMPONENT* c = prechecked_cast<COMPONENT*>(cl);
   assert(c || !cl);
 
-  if(!cl){
+  if(!cl){ untested();
     return;
   }else if(!c->common()){
     c->set_dev_type(modelname);
@@ -283,11 +283,11 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
 
       if(v[0] == '*'){
 	c->set_port_by_index(i, v);
-      }else{
+      }else{ untested();
 	c->set_port_by_name(v, v);
       }
     }
-    if(Proto->net_nodes() < c->min_nodes()){
+    if(Proto->net_nodes() < c->min_nodes()){ untested();
       throw Exception("not enough nodes, have "
 	    + std::to_string(Proto->net_nodes()) + " need "
 	    + std::to_string(c->min_nodes()) +"\n");
@@ -299,7 +299,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
     for(int i=0; i<int(_params.size()); ++i){
       trace4("stub param fwd", c->long_label(), i, _params[i].first, _params[i].second);
       std::string value = _params[i].second;
-      if(_params[i].first == ""){
+      if(_params[i].first == ""){ untested();
 	int idx = c->param_count() - i - 1;
 	c->set_param_by_index(idx, value, 0);
       }else{
@@ -307,7 +307,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
       }
     }
     Proto->subckt()->push_front(c);
-  }catch(Exception const& e){
+  }catch(Exception const& e){ untested();
     // TODO: include proto name attribute
     error(bLOG, long_label() + " discarded: " + e.message() + "\n");
     delete (CARD*) c;
@@ -357,7 +357,7 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
     MODEL_CARD* m = model_dispatcher[modelname];
     std::string extended_name = modelname;
     int bin_count = 0;
-    while(m){
+    while(m){ untested();
       error(bLOG, long_label() + ": " + extended_name + " from model_dispatcher\n");
       prepare_overload(m, modelname, Proto);
       extended_name = modelname + ':' + to_string(bin_count++);
@@ -379,7 +379,7 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
   if(size_t s = Proto->subckt()->size()){
     error(bTRACE, long_label() + ": " + std::to_string(s) + " candidate" + (s>1?"s":"") +
 	" found for " +modelname+ "\n");
-  }else{
+  }else{ untested();
     error(bDANGER, long_label() + ": no candidates found for " +modelname+ "\n");
     // not in precalc
     // throw Exception(long_label() + ": no candiates found for " + modelname);
@@ -527,7 +527,7 @@ INSTANCE::~INSTANCE()
 /*--------------------------------------------------------------------------*/
 std::string INSTANCE::port_name(int i)const
 {
-  if(size_t(i)<_port_names.size()){
+  if(size_t(i)<_port_names.size()){ untested();
     return _port_names[i];
   }else{
     return ""; // it has no name.
@@ -560,7 +560,7 @@ void INSTANCE::expand()
   trace2("expand I: renew", _parent->scope()->nodes(), _parent->scope()->nodes()->how_many());
   trace2("expand I: renew", _parent->scope()->size(), common()->has_model());
   trace2("expand I: renew", _parent->subckt()->size(), common()->has_model());
-  if(!_parent->scope()->size()){
+  if(!_parent->scope()->size()){ untested();
     std::string modelname = c->modelname();
     throw Exception(long_label() + ": no valid prototype found for " + modelname);
   }else {
@@ -594,7 +594,7 @@ void INSTANCE::expand()
     }
   }
 
-  if(subckt()->size()==0){
+  if(subckt()->size()==0){ untested();
     // reachable?
     throw Exception(long_label() + ": no candidates " + dev_type());
   }else if(subckt()->size()==1){
@@ -613,7 +613,7 @@ void INSTANCE::expand()
     CARD* d = s->deflate();
 
     if(d == s){
-    }else{
+    }else{ untested();
       assert(d->owner() == owner());
       *i = d;
       delete s;
@@ -700,7 +700,7 @@ void INSTANCE::set_port_by_index(int Index, std::string& Value)
 }
 /*--------------------------------------------------------------------------*/
 int INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
-{
+{ untested();
   trace3("INSTANCE::pbn", long_label(), name, ext_name);
 
   int i = net_nodes();
@@ -708,7 +708,7 @@ int INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
   _port_names[net_nodes()] = name;
 
   if(subckt()){ untested();
-  }else{
+  }else{ untested();
   }
   assert(scope());
 

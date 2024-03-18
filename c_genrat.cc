@@ -45,10 +45,10 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class CMD_ : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST*)override {
+  void do_it(CS& cmd, CARD_LIST*)override { untested();
     OMSTREAM where = (cmd.more())  ?  OMSTREAM()  :  IO::mstdout;
     size_t here = cmd.cursor();
-    do{
+    do{ untested();
       ONE_OF
 	|| ::Get(cmd, "f{requency}",&freq,   mPOSITIVE)
 	|| ::Get(cmd, "a{mplitude}",&ampl)
@@ -92,7 +92,7 @@ double gen()
   }else{
   }
   double loctime = CKT_BASE::_sim->_time0 - delay;
-  if (period > 0.) {
+  if (period > 0.) { untested();
     
     loctime = fmod(loctime, period);
   }else{

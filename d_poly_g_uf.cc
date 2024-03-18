@@ -133,7 +133,7 @@ public:
     }
   }
 
-  std::string param_value(int i)const override {
+  std::string param_value(int i)const override { untested();
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
       case 0: return _coeffs.string();
       default: return EVAL_BM_ACTION_BASE::param_value(i);
@@ -168,7 +168,7 @@ public:
   }
   void precalc_last(const CARD_LIST* scope)override {
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
-    if(_poly){
+    if(_poly){ untested();
     }else{
       assert(_n_ports);
       _poly = new MV_POLY<double>(vector<PARAMETER<double> >(_coeffs), _n_ports-1);
@@ -688,7 +688,7 @@ int DEV_CPOLY_G::set_param_by_name(std::string Name, std::string Value)
 
 //   if(retry){ untested();
 //     ELEMENT::set_param_by_name(Name, Value);
-//   }else{
+//   }else{ untested();
 //   }
 }
 /*--------------------------------------------------------------------------*/

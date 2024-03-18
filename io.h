@@ -1,10 +1,10 @@
 
 inline OMSTREAM& operator<<(OMSTREAM& o, COMPLEX c)
-{
+{ untested();
 	o << c.real();
-	if(c.imag() <0){
+	if(c.imag() <0){ untested();
 		o << "-" << -c.imag();
-	}else{
+	}else{ untested();
 		o << "+" << c.imag();
 	}
 	return  o	<< "* i";

@@ -82,15 +82,15 @@ private: // no ops for prototype
   void dc_advance()override	{if(is_device()){ BASE_SUBCKT::dc_advance();}else{} }
   void do_ac()override		{if(is_device()){ BASE_SUBCKT::do_ac();}else{} }
   void ac_load()override	{if(is_device()){ BASE_SUBCKT::ac_load();}else{} }
-  void tr_queue_eval()override{
-    if(is_device()){
+  void tr_queue_eval()override{ untested();
+    if(is_device()){ untested();
       BASE_SUBCKT::tr_queue_eval();
-    }else{
+    }else{ untested();
     }
   }
   bool do_tr() override		{if(is_device()){untested(); return BASE_SUBCKT::do_tr();}else{untested(); return true;} }
 
-  bool tr_needs_eval()const override{
+  bool tr_needs_eval()const override{ untested();
     if(is_device()){untested();
       return BASE_SUBCKT::tr_needs_eval();
     }else{untested();
@@ -116,16 +116,16 @@ DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
 int DEV_SUBCKT::_count = -1;
 /*--------------------------------------------------------------------------*/
 CARD_LIST* DEV_SUBCKT::scope()
-{
-  if(_parent){
+{ untested();
+  if(_parent){ untested();
     return COMPONENT::scope();
-  }else{
+  }else{ untested();
     return subckt();
   }
 }
 /*--------------------------------------------------------------------------*/
 bool DEV_SUBCKT::is_valid() const
-{
+{ untested();
   trace1("DEV_SUBCKT::is_valid", long_label());
   assert(subckt());
   assert(_parent);
@@ -138,18 +138,18 @@ bool DEV_SUBCKT::is_valid() const
 }
 /*--------------------------------------------------------------------------*/
 CARD* DEV_SUBCKT::clone()const
-{
+{ untested();
   DEV_SUBCKT* new_instance = new DEV_SUBCKT(*this);
   assert(!new_instance->subckt());
 
-  if (this == &p1){
+  if (this == &p1){ untested();
     // cloning from static, empty model
     // look out for _parent in expand
     new_instance->new_subckt(); // from DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO
-  }else if(_parent){
+  }else if(_parent){ untested();
     new_instance->_parent = _parent;
     assert(new_instance->is_device());
-  }else{
+  }else{ untested();
     new_instance->_parent = this;
     assert(new_instance->is_device());
   }
@@ -159,7 +159,7 @@ CARD* DEV_SUBCKT::clone()const
 /*--------------------------------------------------------------------------*/
 #if 0
 CARD* DEV_SUBCKT::clone_instance()const
-{
+{ untested();
   DEV_SUBCKT* new_instance = dynamic_cast<DEV_SUBCKT*>(p1.clone());
   //assert(!new_instance->subckt());
 
@@ -170,7 +170,7 @@ CARD* DEV_SUBCKT::clone_instance()const
   }else if(_parent){ untested();
     new_instance->_parent = _parent;
     assert(new_instance->is_device());
-  }else{
+  }else{ untested();
     new_instance->_parent = this;
   }
 
@@ -191,9 +191,9 @@ DEV_SUBCKT::DEV_SUBCKT()
 DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
   :BASE_SUBCKT(p),
    _parent(p._parent)
-{
+{ untested();
   //strcpy(modelname, p.modelname); in common
-  for (int ii = 0;  ii < max_nodes();  ++ii) {
+  for (int ii = 0;  ii < max_nodes();  ++ii) { untested();
     _nodes[ii] = p._nodes[ii];
   }
   _n = _nodes;
@@ -202,22 +202,22 @@ DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
 }
 /*--------------------------------------------------------------------------*/
 int DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
-{
+{ untested();
   assert(_parent);
   assert(_parent->subckt());
 
   PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
-  if(p != _parent->subckt()->params()->end()){
+  if(p != _parent->subckt()->params()->end()){ untested();
     return BASE_SUBCKT::set_param_by_name(Name,Value);
-  }else{
+  }else{ untested();
     throw Exception_No_Match(Name);
   }
 }
 /*--------------------------------------------------------------------------*/
 std::string DEV_SUBCKT::port_name(int i)const
-{
-  if (const DEV_SUBCKT* p=dynamic_cast<const DEV_SUBCKT*>(_parent)) {
-    if (i<p->net_nodes()){
+{ untested();
+  if (const DEV_SUBCKT* p=dynamic_cast<const DEV_SUBCKT*>(_parent)) { untested();
+    if (i<p->net_nodes()){ untested();
       return p->port_value(i);
     }else{untested(); 
       return "";
@@ -231,10 +231,10 @@ std::string DEV_SUBCKT::port_name(int i)const
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::expand()
-{
-  if(!_parent){
+{ untested();
+  if(!_parent){ untested();
     return;
-  }else{
+  }else{ untested();
     trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
   }
   BASE_SUBCKT::expand();
@@ -244,7 +244,7 @@ void DEV_SUBCKT::expand()
     assert(!_parent);
     // proto?
     return;
-  }else{
+  }else{ untested();
     assert(_parent);
   }
   trace5("DEV_SUBCKT::expand", long_label(), net_nodes(), subckt(), _parent, ((COMPONENT const*)_parent)->net_nodes());
@@ -258,7 +258,7 @@ void DEV_SUBCKT::expand()
     }else{ untested();
       _parent = prechecked_cast<const BASE_SUBCKT*>(model);
     }
-  }else{
+  }else{ untested();
     // possible after clone_instance.
     //
     // does not work, because prototypes may have been hidden.
@@ -274,11 +274,11 @@ void DEV_SUBCKT::expand()
   renew_subckt(_parent, &(c->_params));
   subckt()->expand();
 
-  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
+  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){ untested();
     CARD* d = (*i)->deflate();
 
     if(d == (*i)){ untested();
-    }else{
+    }else{ untested();
       assert(d->owner() == this);
       delete *i;
       *i = d;
@@ -287,25 +287,25 @@ void DEV_SUBCKT::expand()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()
-{
+{ untested();
   trace3("DEV_SUBCKT::precalc_first1", long_label(), owner(), is_device());
   BASE_SUBCKT::precalc_first();
   trace2("DEV_SUBCKT::precalc_first2", long_label(), owner());
 
-  if (subckt()) {
-  }else{
+  if (subckt()) { untested();
+  }else{ untested();
     new_subckt();
   }
 
   COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
   assert(c);
 
-  if(_parent){
+  if(_parent){ untested();
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(_parent->subckt()->params());
     assert(pl);
     c->_params.set_try_again(pl);
 
-    for( auto p: c->_params){
+    for( auto p: c->_params){ untested();
       trace2("DEV_SUBCKT::precalc_first att", p.first, p.second.string());
     }
 
@@ -313,11 +313,11 @@ void DEV_SUBCKT::precalc_first()
     trace1("DEV_SUBCKT::precalc_first recurse", long_label());
 //  subckt()->precalc_first();
     assert(!is_constant()); /* because I have more work to do */
-  }else{
+  }else{ untested();
   }
 
   // HACK
-  if(1){
+  if(1){ untested();
   }else if(!is_device()){ untested();
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
     assert(subckt());
@@ -332,13 +332,13 @@ void DEV_SUBCKT::precalc_first()
       }else{ untested();
       }
     }
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_last()
-{
-  if(is_device()){
+{ untested();
+  if(is_device()){ untested();
     BASE_SUBCKT::precalc_last();
     COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);
@@ -346,13 +346,13 @@ void DEV_SUBCKT::precalc_last()
     subckt()->precalc_last();
 
     assert(!is_constant()); /* because I have more work to do */
-  }else{
+  }else{ untested();
     // DEV_SUBCKT_PROTO
   }
 }
 /*--------------------------------------------------------------------------*/
 double DEV_SUBCKT::tr_probe_num(const std::string& x)const
-{
+{ untested();
   if (Umatch(x, "p ")) {untested();
     double power = 0.;
     assert(subckt());
@@ -377,7 +377,7 @@ double DEV_SUBCKT::tr_probe_num(const std::string& x)const
       power += CARD::probe(*ci,"PS");
     }      
     return power;
-  }else{
+  }else{ untested();
     return COMPONENT::tr_probe_num(x);
   }
   /*NOTREACHED*/

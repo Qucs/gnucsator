@@ -70,13 +70,13 @@ private:
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void AC::do_it(CS& Cmd, CARD_LIST* Scope)
-{
+{ untested();
   _scope = Scope;
   _sim->set_command_ac();
   reset_timers();
   ::status.ac.reset().start();
 
-  try {
+  try { untested();
     setup(Cmd);
     _sim->init();
     _scope->precalc_last();
@@ -110,7 +110,7 @@ void AC::do_it(CS& Cmd, CARD_LIST* Scope)
 static int needslinfix;	// flag: lin option needs patch later (spice compat)
 /*--------------------------------------------------------------------------*/
 void AC::setup(CS& Cmd)
-{
+{ untested();
   _out = IO::mstdout;
   _out.reset(); //BUG// don't know why this is needed
   
@@ -130,22 +130,22 @@ void AC::setup(CS& Cmd)
     || (Get(Cmd, "lin",		&_step_in) && (_stepmode = LIN_PTS))
     || (Get(Cmd, "o{ctave}",	&_step_in) && (_stepmode = OCTAVE));
   
-  if (Cmd.match1("'\"({") || Cmd.is_float()) {
+  if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
     Cmd >> _start;
-    if (Cmd.match1("'\"({") || Cmd.is_float()) {
+    if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
       Cmd >> _stop;
-    }else{
+    }else{ untested();
       _stop = _start;
     }
-    if (Cmd.match1("'\"({") || Cmd.is_float()) {
+    if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
       _stepmode = LIN_STEP;
       Cmd >> _step_in;
-    }else{
+    }else{ untested();
     }
   }
   
   unsigned here = Cmd.cursor();
-  do{
+  do{ untested();
     ONE_OF
       || (Get(Cmd, "*",		  &_step_in) && (_stepmode = TIMES))
       || (Get(Cmd, "+",		  &_step_in) && (_stepmode = LIN_STEP))
@@ -196,16 +196,16 @@ void AC::setup(CS& Cmd)
   case OCTAVE:
     if (_step == 0.) {untested();
       _step = 1.;
-    }else{
+    }else{ untested();
     }
     _step = pow(2.00000001, 1./_step);
     needslinfix = false;
     _linswp = false;
     break;
   case DECADE:
-    if (_step == 0.) {
+    if (_step == 0.) { untested();
       _step = 1.;
-    }else{
+    }else{ untested();
     }
     _step = pow(10., 1./_step);
     needslinfix = false;
@@ -219,10 +219,10 @@ void AC::setup(CS& Cmd)
     needslinfix = false;		// but step must be read first
   }else{			// for Spice compatibility
   }		
-  if (_step==0.) {
+  if (_step==0.) { untested();
     _step = _stop - _start;
     _linswp = true;
-  }else{
+  }else{ untested();
   }
 
   IO::plotout = (ploton) ? IO::mstdout : OMSTREAM();
@@ -230,7 +230,7 @@ void AC::setup(CS& Cmd)
 }
 /*--------------------------------------------------------------------------*/
 void AC::solve()
-{
+{ untested();
   _sim->_acx.zero();
   std::fill_n(_sim->_ac, _sim->_total_nodes+1, 0.);
 
@@ -250,18 +250,18 @@ void AC::solve()
 }
 /*--------------------------------------------------------------------------*/
 void AC::sweep()
-{
+{ untested();
   head(_start, _stop, "Freq");
   first();
   _scope->ac_begin();
-  do {
+  do { untested();
     trace1("AC::sweep", _sim->_freq);
     _sim->_jomega = COMPLEX(0., _sim->_freq * M_TWO_PI);
     solve();
 //    outdata(_sim->_freq, ofPRINT | ofSTORE);
-    {
+    { untested();
       //    qucsator style output hack
-      for(auto i: printlist()){
+      for(auto i: printlist()){ untested();
 	_out << "<indep " << _sim->_freq*M_TWO_PI << " 1>\n";
 	_out << i.value() << "\n"
 	  << "</indep>\n";
@@ -272,26 +272,26 @@ void AC::sweep()
 }
 /*--------------------------------------------------------------------------*/
 void AC::first()
-{
+{ untested();
   _sim->_freq = _start;
 }
 /*--------------------------------------------------------------------------*/
 bool AC::next()
-{
+{ untested();
   double realstop = (_linswp)
     ? _stop - _step/100.
     : _stop / pow(_step,.01);
-  if (!in_order(double(_start), _sim->_freq, realstop)) {
+  if (!in_order(double(_start), _sim->_freq, realstop)) { untested();
     return false;
-  }else{
+  }else{ untested();
   }
 
   _sim->_freq = (_linswp)
     ? _sim->_freq + _step
     : _sim->_freq * _step;
-  if (in_order(_sim->_freq, double(_start), double(_stop))) {
+  if (in_order(_sim->_freq, double(_start), double(_stop))) { untested();
     return false;
-  }else{
+  }else{ untested();
     return true;
   }
 }

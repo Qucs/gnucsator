@@ -61,7 +61,7 @@ class DEV_QUCS : public STORAGE {
 	  static int _count;
 	public:
 		CARD*	clone()const;
-		DEV_QUCS(): STORAGE(){
+		DEV_QUCS(): STORAGE(){ untested();
 			_comp = new QUCS_DEVICE();
 		}
 		void tr_iwant_matrix(){ incomplete(); }
@@ -130,12 +130,12 @@ const string DEV_QUCS::current_port_value(uint_t)const
 }
 /*--------------------------------------------------------------------------*/
 void DEV_QUCS::set_port_by_name(std::string& /*name*/, std::string& /*value*/)
-{
+{ untested();
 	incomplete();
 }
 /*--------------------------------------------------------------------------*/
 void DEV_QUCS::set_port_by_index(uint_t /*index*/, std::string& /*value*/)
-{
+{ untested();
 	incomplete();
 }
 /*--------------------------------------------------------------------------*/

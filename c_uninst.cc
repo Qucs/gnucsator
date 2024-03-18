@@ -47,7 +47,7 @@ public:
 			d = (DISPATCHER<CARD>*) &device_dispatcher;
 		}else if(cmd.umatch("bm")){
 			d = (DISPATCHER<CARD>*) &bm_dispatcher;
-		}else{
+		}else{ untested();
 			incomplete();
 			return;
 		}

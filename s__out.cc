@@ -32,19 +32,19 @@
 /* SIM::____list: access probe lists
  */
 const PROBELIST& SIM::alarmlist()const
-{
+{ untested();
   return _probe_lists->alarm[_sim->_mode];
 }
 const PROBELIST& SIM::plotlist()const
-{
+{ untested();
   return _probe_lists->plot[_sim->_mode];
 }
 const PROBELIST& SIM::printlist()const
-{
+{ untested();
   return _probe_lists->print[_sim->_mode];
 }
 const PROBELIST& SIM::storelist()const
-{
+{ untested();
   return _probe_lists->store[_sim->_mode];
 }
 /*--------------------------------------------------------------------------*/
@@ -55,24 +55,24 @@ const PROBELIST& SIM::storelist()const
  * keep = after the command is done, dcop for ac
  */
 void SIM::outdata(double x, int outflags)
-{
+{ untested();
   ::status.output.start();
-  if (outflags & ofKEEP) {
+  if (outflags & ofKEEP) { untested();
     _sim->keep_voltages();
-  }else{
+  }else{ untested();
   }
-  if (outflags & ofPRINT) {
+  if (outflags & ofPRINT) { untested();
     plottr(x, plotlist());
     print_results(x);
     _sim->reset_iteration_counter(iPRINTSTEP);
     ::status.hidden_steps = 0;
-  }else{
+  }else{ untested();
     ++::status.hidden_steps;
   }
-  if (outflags & ofSTORE) {
+  if (outflags & ofSTORE) { untested();
     alarm();
     store_results(x);
-  }else{
+  }else{ untested();
   }
   ::status.output.stop();
 }
@@ -80,16 +80,16 @@ void SIM::outdata(double x, int outflags)
 /* SIM::head: print column headings and draw plot borders
  */
 void SIM::head(double start, double stop, const std::string& col1)
-{
-  if (_sim->_waves) {
+{ untested();
+  if (_sim->_waves) { untested();
     delete [] _sim->_waves;
-  }else{
+  }else{ untested();
   }
 
   _sim->_waves = new WAVE [storelist().size()];
 
 
-  if (!plopen(start, stop, plotlist())) {
+  if (!plopen(start, stop, plotlist())) { untested();
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     int width = std::min(OPT::numdgt+5, BIGBUFLEN-10);
     char format[20];
@@ -99,11 +99,11 @@ void SIM::head(double start, double stop, const std::string& col1)
     _out.form(format, '#', col1.c_str());
 
     for (PROBELIST::const_iterator
-	   p=printlist().begin();  p!=printlist().end();  ++p) {
+	   p=printlist().begin();  p!=printlist().end();  ++p) { untested();
       _out.form(format, ' ', p->label().c_str());
     }
     _out << '\n';
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
@@ -111,30 +111,30 @@ void SIM::head(double start, double stop, const std::string& col1)
  * The argument is the first column (independent variable, aka "x")
  */
 void SIM::print_results(double x)
-{
-  if (!IO::plotout.any()) {
+{ untested();
+  if (!IO::plotout.any()) { untested();
     _out.setfloatwidth(OPT::numdgt, OPT::numdgt+6);
     assert(x != NOT_VALID);
     _out << x;
     for (PROBELIST::const_iterator
-	   p=printlist().begin();  p!=printlist().end();  ++p) {
+	   p=printlist().begin();  p!=printlist().end();  ++p) { untested();
       _out << p->value();
     }
     _out << '\n';
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 /* SIM::alarm: print a message when a probe is out of range
  */
 void SIM::alarm(void)
-{
+{ untested();
   _out.setfloatwidth(OPT::numdgt, OPT::numdgt+6);
   for (PROBELIST::const_iterator
-	 p=alarmlist().begin();  p!=alarmlist().end();  ++p) {
-    if (!p->in_range()) {
+	 p=alarmlist().begin();  p!=alarmlist().end();  ++p) { untested();
+    if (!p->in_range()) { untested();
       _out << p->label() << '=' << p->value() << '\n';
-    }else{
+    }else{ untested();
     }
   }
 }
@@ -142,10 +142,10 @@ void SIM::alarm(void)
 /* SIM::store: store data in preparation for post processing
  */
 void SIM::store_results(double x)
-{
+{ untested();
   int ii = 0;
   for (PROBELIST::const_iterator
-	 p=storelist().begin();  p!=storelist().end();  ++p) {
+	 p=storelist().begin();  p!=storelist().end();  ++p) { untested();
     _sim->_waves[ii++].push(x, p->value());
   }
 }

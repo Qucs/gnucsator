@@ -39,7 +39,7 @@ void TRANSIENT::setup(CS& Cmd)
   _tstop.e_val(NOT_INPUT, _scope);
   _tstrobe.e_val(NOT_INPUT, _scope);
 
-  if (_sim->is_first_expand()) {
+  if (_sim->is_first_expand()) { untested();
     _sim->_last_time = 0;
   }else{
   }
@@ -49,11 +49,11 @@ void TRANSIENT::setup(CS& Cmd)
     Cmd >> arg1;
     if (Cmd.match1("'\"({") || Cmd.is_pfloat()) {
       Cmd >> arg2;
-    }else{
+    }else{ untested();
     }
     if (Cmd.match1("'\"({") || Cmd.is_pfloat()) {
       Cmd >> arg3;
-    }else{
+    }else{ untested();
     }
     
     if (arg3.has_hard_value()) {	    /* 3 args: all */
@@ -123,7 +123,7 @@ void TRANSIENT::setup(CS& Cmd)
     _tstop  = _sim->_last_time + oldrange;
     /* _tstrobe unchanged */
   }
-  if (Cmd.match1("'\"({") || Cmd.is_pfloat()) {
+  if (Cmd.match1("'\"({") || Cmd.is_pfloat()) { untested();
     Cmd >> _dtmax_in;
   }else{
   }
@@ -138,7 +138,7 @@ void TRANSIENT::setup(CS& Cmd)
   }
 
   _tstrobe.e_val(NOT_INPUT, _scope);
-  if (_tstrobe <= 0.) {
+  if (_tstrobe <= 0.) { untested();
     _tstrobe.set_default(NOT_INPUT);
   }else{
   }
@@ -147,15 +147,15 @@ void TRANSIENT::setup(CS& Cmd)
   if  (_cold || _tstart < _sim->_last_time  ||  _sim->_last_time <= 0.) {
     _cont = false;
     _time1 = _sim->_time0 = 0.;
-  }else{
+  }else{ untested();
     _cont = true;
     _time1 = _sim->_time0 = _sim->_last_time;
   }
   _sim->_freq = ((_tstop > _tstart) ? (1 / (_tstop - _tstart)) : (0.));
 
-  if (_dtmax_in.has_hard_value()) {
+  if (_dtmax_in.has_hard_value()) { untested();
     _dtmax = _dtmax_in;
-  }else if (_skip_in.has_hard_value()) {
+  }else if (_skip_in.has_hard_value()) { untested();
     _dtmax = _tstrobe / double(_skip_in);
   }else{
     _dtmax = std::min(_dtmax_in, _tstrobe);

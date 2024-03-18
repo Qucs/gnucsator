@@ -45,14 +45,14 @@ public:
   explicit	SWEEPVAL(const SWEEPVAL& p)
     :COMMON_COMPONENT(p) {}
 		~SWEEPVAL() { trace1("~SWEEPVAL", this);}
-  COMMON_COMPONENT* clone()const override {
+  COMMON_COMPONENT* clone()const override { untested();
     return new SWEEPVAL(*this);
   }
 
 private:
   std::string name()const override {return "sweepval";}
-  int set_param_by_name(std::string name, std::string value)override{
-    if(name == "value"){
+  int set_param_by_name(std::string name, std::string value)override{ untested();
+    if(name == "value"){ untested();
       _value = value;
       return 0;
     }else{ untested();
@@ -61,7 +61,7 @@ private:
   }
 
 private: // override virtual
-  bool operator==(const COMMON_COMPONENT& p)const override {
+  bool operator==(const COMMON_COMPONENT& p)const override { untested();
     return dynamic_cast<SWEEPVAL const*>(&p);
   }
   bool has_tr_eval()const override { return true;}
@@ -71,10 +71,10 @@ private: // override virtual
   bool has_parse_params_obsolete_callback()const override {return false;}
 
 private:
-  void precalc_last(const CARD_LIST* scope)override {
+  void precalc_last(const CARD_LIST* scope)override { untested();
     _value.e_val(0, scope);
   }
-  void tr_eval(ELEMENT* d)const override {
+  void tr_eval(ELEMENT* d)const override { untested();
     d->_y[0] = FPOLY1(CPOLY1(d->_y[0].x, 0., _value));
   }
   void ac_eval(ELEMENT* d)const override { untested();
@@ -116,7 +116,7 @@ protected:
       PARAM_LIST* pl = _scope->params();
       assert(pl);
       pl->set(n, v);
-    }else if(_zap[i]){
+    }else if(_zap[i]){ untested();
       assert(_ctrl[i]);
       _ctrl[i]->set_param_by_name("value", v);
     }else{
@@ -124,7 +124,7 @@ protected:
     *_sweepval[i] = d;
     ::status.set_up.stop();
   }
-  double get_sweepval(int i) const{
+  double get_sweepval(int i) const{ untested();
     assert(_sweepval[i]);
     return *_sweepval[i];
   }
@@ -240,7 +240,7 @@ void DCOP::finish(void)
 {
   for (int ii = 0;  ii < _n_sweeps;  ++ii) {
     std::string n = _param_name[ii];
-    if (_zap[ii]) {
+    if (_zap[ii]) { untested();
       _stash[ii].restore();
       _zap[ii]->precalc_first();
       _zap[ii]->precalc_last();
@@ -270,11 +270,11 @@ void OP::setup(CS& Cmd)
   _sweepval[0] = &(_sim->_temp_c);
   _have_param = true; // temp requires precalc
 
-  if (Cmd.match1("'\"({") || Cmd.is_float()) {
+  if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
     Cmd >> _start[0];
-    if (Cmd.match1("'\"({") || Cmd.is_float()) {
+    if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
       Cmd >> _stop[0];
-    }else{
+    }else{ untested();
       _stop[0] = _start[0];
     }
   }else{
@@ -312,7 +312,7 @@ void DC::setup(CS& Cmd)
       // CARD_LIST::fat_iterator ci = findbranch(Cmd, _scope);
       if (SWEEP_COMP /*&& !ci.is_end()*/) {	unreachable();		// sweep a component
 #if 0
-	if (ELEMENT* c = dynamic_cast<ELEMENT*>(*ci)) {
+	if (ELEMENT* c = dynamic_cast<ELEMENT*>(*ci)) { untested();
 	  _zap[_n_sweeps] = c;
 	  _param_name[_n_sweeps] = ""; // not used.
 	  trace2("_zap", c->value(), c->value().string());
@@ -358,7 +358,7 @@ void DC::setup(CS& Cmd)
       _sim->_genout = 0.;
       options(Cmd,_n_sweeps);
     }
-  }else{
+  }else{ untested();
   }
   Cmd.check(bWARNING, "what's this?");
 
@@ -422,7 +422,7 @@ void DCOP::fix_args(int Nest)
   case DECADE:
     if (_step[Nest] == 0.) {untested();
       _step[Nest] = 1.;
-    }else{
+    }else{ untested();
     }
     _step[Nest] = pow(10., 1./_step[Nest]);
     _linswp[Nest] = false;
@@ -509,7 +509,7 @@ void DCOP::precalc()
     _scope->precalc_last();
   }else{
     for (int ii = 0;  ii < _n_sweeps;  ++ii) {
-      if (_zap[ii]) {
+      if (_zap[ii]) { untested();
 	// only sweep elements
 	_zap[ii]->precalc_last();
       }else{
@@ -588,18 +588,18 @@ bool DCOP::next(int Nest)
 	sweepval = *(_sweepval[Nest]) + _step[Nest];
 	fixzero(&sweepval, _step[Nest]);
 	ok = in_order(_start[Nest]-fudge, sweepval, _stop[Nest]+fudge);
-	if (!ok  &&  _loop[Nest]) {
+	if (!ok  &&  _loop[Nest]) { untested();
 	  // turn around
 	  _reverse[Nest] = true;
 	}else{
 	  // forward
 	}
-      }else{
+      }else{ untested();
 	assert(_reverse[Nest]);
 	assert(!ok);
 	assert(sweepval == NOT_VALID);
       }
-      if (_reverse[Nest]) {
+      if (_reverse[Nest]) { untested();
 	assert(!ok);
 	//assert(sweepval == NOT_VALID);
 	sweepval = *(_sweepval[Nest]) - _step[Nest];
@@ -609,21 +609,21 @@ bool DCOP::next(int Nest)
 	// not sure of status
       }
     }
-  }else{
+  }else{ untested();
     // not linswp
     double fudge = pow(_step[Nest], .1);
     if (_step[Nest] == 1.) {untested();
       // not stepping
       assert(!ok);
       assert(sweepval == NOT_VALID);
-    }else{
-      if (!_reverse[Nest]) {
+    }else{ untested();
+      if (!_reverse[Nest]) { untested();
 	sweepval = get_sweepval(Nest) * _step[Nest];
 	ok = in_order(_start[Nest]/fudge, sweepval, _stop[Nest]*fudge);
 	if (!ok  &&  _loop[Nest]) {untested();
 	  // turn around
 	  _reverse[Nest] = true;
-	}else{
+	}else{ untested();
 	  // forward
 	}
       }else{untested();
@@ -636,7 +636,7 @@ bool DCOP::next(int Nest)
 	assert(sweepval == NOT_VALID);
 	sweepval = get_sweepval(Nest) / _step[Nest];
 	ok = in_order(_start[Nest]/fudge, sweepval, _stop[Nest]*fudge);
-      }else{
+      }else{ untested();
 	// not sure of status
       }
     }

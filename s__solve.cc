@@ -51,7 +51,7 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
   _sim->_damp = OPT::dampmax;
  
   do{
-    if (trace >= tITERATION) {
+    if (trace >= tITERATION) { untested();
       print_results(static_cast<double>(-_sim->iteration_number()));
     }
     set_flags();
@@ -97,19 +97,19 @@ bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
 {
   solve(itl, trace);
   trace2("plain", _sim->_iter[iSTEP], OPT::gmin);
-  if (!converged && OPT::itl[OPT::SSTEP] > 0) {
+  if (!converged && OPT::itl[OPT::SSTEP] > 0) { untested();
     int save_itermin = OPT::itermin;
     OPT::itermin = 0;
     double save_gmin = OPT::gmin;
     OPT::gmin = 1;
-    while (_sim->_iter[iPRINTSTEP] < OPT::itl[OPT::SSTEP] && OPT::gmin > save_gmin) {
+    while (_sim->_iter[iPRINTSTEP] < OPT::itl[OPT::SSTEP] && OPT::gmin > save_gmin) { untested();
       //_scope->precalc();
       _sim->set_inc_mode_no();
       solve(itl, trace);
-      if (!converged) {
+      if (!converged) { untested();
 	trace2("fail", _sim->_iter[iSTEP], OPT::gmin);
 	OPT::gmin *= 3.5;
-      }else{
+      }else{ untested();
 	trace2("success", _sim->_iter[iSTEP], OPT::gmin);
 	OPT::gmin /= 4;
       }
@@ -118,9 +118,9 @@ bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
     OPT::gmin = save_gmin;
     //_scope->precalc();
     solve(itl, trace);
-    if (!converged) {
+    if (!converged) { untested();
       trace2("final fail", _sim->_iter[iSTEP], OPT::gmin);
-    }else{
+    }else{ untested();
       trace2("final success", _sim->_iter[iSTEP], OPT::gmin);
     }
   }else{
@@ -184,7 +184,7 @@ void SIM::set_flags()
   _sim->_limiting = false;
   _sim->_fulldamp = false;
   
-  if (OPT::incmode == false) {
+  if (OPT::incmode == false) { untested();
     _sim->set_inc_mode_no();
   }else if (_sim->inc_mode_is_bad()) {
     _sim->set_inc_mode_no();
@@ -226,7 +226,7 @@ void SIM::evaluate_models()
       converged &= _sim->_evalq->front()->do_tr();
       _sim->_evalq->pop_front();
     }
-  }else{
+  }else{ untested();
     _sim->_evalq_uc->clear();
     converged = _scope->do_tr();
   }
@@ -239,11 +239,11 @@ void SIM::evaluate_models()
 /*--------------------------------------------------------------------------*/
 void SIM::set_damp()
 {
-  if (_sim->is_second_iteration() && !converged && OPT::dampstrategy&dsINIT) {
+  if (_sim->is_second_iteration() && !converged && OPT::dampstrategy&dsINIT) { untested();
     _sim->_damp = OPT::dampmin;
   }else if (_sim->is_first_iteration()  ||  converged) {
     _sim->_damp = OPT::dampmax;
-  }else if (_sim->_fulldamp) {
+  }else if (_sim->_fulldamp) { untested();
     _sim->_damp = OPT::dampmin;
   }else{
     _sim->_damp = OPT::dampmax;
@@ -286,7 +286,7 @@ void SIM::solve_equations()
     for (int ii = _sim->_lu.size(); ii >= 1; --ii) {
       _sim->_nstat[ii].set_a_iter();
     }
-  }else{
+  }else{ untested();
     // pure analog
     untested();
   }

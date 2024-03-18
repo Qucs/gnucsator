@@ -78,10 +78,10 @@ bool EVAL_BM_TRIVIAL::is_trivial()const
 void EVAL_BM_TRIVIAL::precalc_first(const CARD_LIST* Scope)
 { untested();
   trace2("QUCS_TRIVIAL, precalc_first", modelname(), _value);
-  if (modelname() != "") {
+  if (modelname() != "") { untested();
     // no. we use set_param stuff.
   //  _value = modelname();
-  }else{
+  }else{ untested();
   }
   EVAL_BM_BASE::precalc_first(Scope);
 }
@@ -97,20 +97,20 @@ bool EVAL_BM_TRIVIAL::parse_numlist(CS& cmd)
   size_t here = cmd.cursor();
   PARAMETER<double> new_value(NOT_VALID);
   cmd >> new_value;
-  if (cmd.gotit(here)) {
+  if (cmd.gotit(here)) { untested();
     _value = new_value;
     return true;
-  }else{
+  }else{ untested();
     return false;
   }
 }
 /*--------------------------------------------------------------------------*/
 int EVAL_BM_TRIVIAL::set_param_by_name(string Name, string Value)
 { untested();
-  if(Umatch(_name,Name)) {
+  if(Umatch(_name,Name)) { untested();
     _value = Value;
     return 0;
-  }else{
+  }else{ untested();
     return EVAL_BM_BASE::set_param_by_name(Name, Value);
   }
 }

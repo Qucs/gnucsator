@@ -104,13 +104,13 @@ static void parse_type(CS& cmd, CARD* x)
 }
 /*--------------------------------------------------------------------------*/
 static void parse_args_paramset(CS& cmd, MODEL_CARD* x)
-{
+{ untested();
   assert(x);
 
-  while (cmd >> '.') {
+  while (cmd >> '.') { untested();
     size_t here = cmd.cursor();
     std::string name, value;
-    try{
+    try{ untested();
       cmd >> name >> '=' >> value >> ';';
       x->set_param_by_name(name, value);
     }catch (Exception_No_Match&) { untested();
@@ -204,11 +204,11 @@ static void parse_ports(CS& cmd, COMPONENT* x, bool all_new)
 	}
       }else{
       }
-    }else{ untested();
+    }else{
       // by name
-      while (cmd >> '.') { untested();
+      while (cmd >> '.') {
 	size_t here = cmd.cursor();
-	try{ untested();
+	try{
 	  std::string name, value;
 	  cmd >> name >> '(' >> value >> ')' >> ',';
 	  x->set_port_by_name(name, value);
@@ -216,11 +216,11 @@ static void parse_ports(CS& cmd, COMPONENT* x, bool all_new)
 	  cmd.warn(bDANGER, here, "mismatch, ignored");
 	}
       }
-      for (int iii = 0;  iii < x->min_nodes();  ++iii) { untested();
+      for (int iii = 0;  iii < x->min_nodes();  ++iii) {
 	if (!(x->node_is_connected(iii))) {untested();
 	  cmd.warn(bDANGER, x->port_name(iii) + ": port unconnected, grounding");
 	  x->set_port_to_ground(iii);
-	}else{ untested();
+	}else{
 	}
       }
     }
@@ -281,7 +281,7 @@ DEV_DOT* LANG_VERILOG::parse_command(CS& cmd, DEV_DOT* x)
 //BUG// no paramset_item_declaration, falls back to spice mode
 
 MODEL_CARD* LANG_VERILOG::parse_paramset(CS& cmd, MODEL_CARD* x)
-{
+{ untested();
   assert(x);
   cmd.reset();
   cmd >> "paramset ";
@@ -289,11 +289,11 @@ MODEL_CARD* LANG_VERILOG::parse_paramset(CS& cmd, MODEL_CARD* x)
   parse_type(cmd, x);
   cmd >> ';';
 
-  for (;;) {
+  for (;;) { untested();
     parse_args_paramset(cmd, x);
-    if (cmd >> "endparamset ") {
+    if (cmd >> "endparamset ") { untested();
       break;
-    }else if (!cmd.more()) {
+    }else if (!cmd.more()) { untested();
       cmd.get_line("verilog-paramset>");
     }else{untested();
       cmd.check(bWARNING, "what's this?");
@@ -542,7 +542,7 @@ void LANG_VERILOG::print_command(OMSTREAM& o, const DEV_DOT* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class CMD_PARAMSET : public CMD {
-  void do_it(CS& cmd, CARD_LIST* Scope)override {
+  void do_it(CS& cmd, CARD_LIST* Scope)override { untested();
     // already got "paramset"
     std::string my_name, base_name;
     cmd >> my_name;
@@ -551,9 +551,9 @@ class CMD_PARAMSET : public CMD {
 
     //const MODEL_CARD* p = model_dispatcher[base_name];
     const CARD* p = lang_verilog.find_proto(base_name, NULL);
-    if (p) {
+    if (p) { untested();
       MODEL_CARD* new_card = dynamic_cast<MODEL_CARD*>(p->clone());
-      if (new_card) {
+      if (new_card) { untested();
 	assert(!new_card->owner());
 	lang_verilog.parse_paramset(cmd, new_card);
 	Scope->push_back(new_card);

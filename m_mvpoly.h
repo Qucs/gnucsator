@@ -53,7 +53,7 @@ inline unsigned row(unsigned dim, unsigned pos)
 /*--------------------------------------------------------------------------*/
 inline unsigned total_degree( unsigned dim, size_t s )
 {
-  if(!s){
+  if(!s){ untested();
     return 0;
   }else{
     return row(dim, unsigned(s-1));
@@ -125,9 +125,9 @@ class MV_POLY : MV_POLY_BASE {
       _dim(dim), _size(unsigned(poly.size()))
     {
       if (!_dim){ untested();
-	if(poly.size()){
+	if(poly.size()){ untested();
 	  _coeffs = new pd(poly[0]);
-	}else{
+	}else{ untested();
 	  _coeffs = new pd(0);
 	}
 	return;
@@ -154,7 +154,7 @@ class MV_POLY : MV_POLY_BASE {
       pd* seekend = convert_poly(_coeffs+2, poly); // , _dim - 1);
       _coeffs[1].set_ptr( seekend );
     }
-//    MV_POLY(unsigned s) : _coeffs( new T[s] ){
+//    MV_POLY(unsigned s) : _coeffs( new T[s] ){ untested();
 //      if(!s)_coeffs=0;
 //    }
   public:
@@ -165,19 +165,19 @@ class MV_POLY : MV_POLY_BASE {
     void set_size(unsigned x){ _size = x; }
     T eval(double* x)const;
     T eval(const double* x)const;
-    MV_POLY& eval_tail(T x, MV_POLY<T>* deriv=0){
+    MV_POLY& eval_tail(T x, MV_POLY<T>* deriv=0){ untested();
       assert(0);
       return(*this);
     }
     template<class X>
-    MV_POLY<T>& operator=(const vector<X>& c){
+    MV_POLY<T>& operator=(const vector<X>& c){ untested();
       _size = (unsigned)c.size();
-      for(unsigned i=0; i<_size; i++){
+      for(unsigned i=0; i<_size; i++){ untested();
 	_coeffs[i] = c[i];
       }
       return *this;
     }
-//    MV_POLY<T>& operator=(const T& c){
+//    MV_POLY<T>& operator=(const T& c){ untested();
 //      // hmm check real size?
 //      _dim = 0;
 //      _size = 1;
@@ -185,15 +185,15 @@ class MV_POLY : MV_POLY_BASE {
 //      _coeffs[0] = c;
 //      return *this;
 //    }
-//    T value()const{
+//    T value()const{ untested();
 //      assert(!_dim);
 //      return _coeffs[0]._val;
 //    }
     template<class S>
 #ifdef DEBUG_POLY
-    void print(S& s){
+    void print(S& s){ untested();
       s << "poly in " << dim() << " total degree " << degree() << " size " << size() << " ds " << _datasize << "\n (";
-      for(unsigned i=0; i< _datasize; i++){
+      for(unsigned i=0; i< _datasize; i++){ untested();
 	pd t = _coeffs[i];
 	if(t._p)
 	  if(t._next)
@@ -206,7 +206,7 @@ class MV_POLY : MV_POLY_BASE {
       s << " )\n";
     }
 #else
-    void print(S& s, pd* here=0){
+    void print(S& s, pd* here=0){ untested();
       if(!here) here=_coeffs;
       s << " ->" << ( here - _coeffs) << "\n";
       s << " )\n";
@@ -280,7 +280,7 @@ T MV_POLY<T>::_eval(const pd* p, unsigned d, const double* x)const
   double a = 0;
   intptr_t size = p[1]._next - p[0]._next;
   if(size)
-  for( pd* i = p[1]._next; ; ){
+  for( pd* i = p[1]._next; ; ){ untested();
     --i;
     a += _eval(i, d-1, x CORDER 1);
     if(i==p[0]._next)break;

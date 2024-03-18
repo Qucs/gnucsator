@@ -69,38 +69,38 @@ struct JMP_BUF{
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static void read_startup_files(char *const* argv, CARD_LIST* scope)
-{
-  {
+{ untested();
+  { untested();
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
     trace2("read_startup_files", SYSTEMSTARTFILE, SYSTEMSTARTPATH);
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
-    if (name != "") {
+    if (name != "") { untested();
       trace2("", name, scope);
       CMD::command("include " + name, scope);
     }else{ untested();
       CMD::command(std::string("load " DEFAULT_PLUGINS), scope);
     }
   }
-  {
+  { untested();
     // TODO: also scan parent directories
     std::string name = findfile(USERSTARTFILE, USERSTARTPATH, R_OK);
     if (name != "") {untested();
       CMD::command("include " + name, scope);
-    }else{
+    }else{ untested();
     }
   }
   //CMD::command("clear", scope);
-  if (!OPT::language) {
+  if (!OPT::language) { untested();
     OPT::language = language_dispatcher[DEFAULT_LANGUAGE];
 
     for(DISPATCHER<LANGUAGE>::const_iterator i=language_dispatcher.begin();
         !OPT::language && i!=language_dispatcher.end(); ++i) {untested();
       OPT::language = prechecked_cast<LANGUAGE*>(i->second);
     }
-  }else{
+  }else{ untested();
     // already have a language specified in a startup file
   }
-  if (OPT::language) {
+  if (OPT::language) { untested();
     OPT::case_insensitive = OPT::language->case_insensitive();
     OPT::units            = OPT::language->units();
   }else{ untested();
@@ -151,7 +151,7 @@ extern "C" {
 }
 /*--------------------------------------------------------------------------*/
 static void setup_traps(void)
-{
+{ untested();
   signal(SIGFPE,sig_fpe);
   signal(SIGINT,sig_int);
   //signal(SIGABRT,sig_abrt);
@@ -165,17 +165,17 @@ static void setup_traps(void)
  * Should be in a destructor, so it doesn't need to be explicitly called.
  */
 static void finish(void)
-{
+{ untested();
   plclose();
   outreset();
 }
 /*--------------------------------------------------------------------------*/
 static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
-{
+{ untested();
   int opt;
   CS cmd(CS::_STRING, "");
 
-  try{
+  try{ untested();
     while ((opt = getopt(argc, argv, "a:b:c:i:vI:D:U:")) != -1) { untested();
       switch (opt) {
         case 'a': untested();
@@ -226,8 +226,8 @@ static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
   if (optind > argc) { untested();
     fprintf(stderr, "Expected argument after options\n");
     exit(EXIT_FAILURE);
-  }else if(optind < argc){
-    try {
+  }else if(optind < argc){ untested();
+    try { untested();
       CMD::command(std::string("include ") + argv[optind++], scope);
     }catch (Exception& e) {itested();
       error(bDANGER, e.message() + '\n');
@@ -245,26 +245,26 @@ static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
 class MAIN{
 public:
   explicit MAIN();
-  void uninit(){
+  void uninit(){ untested();
     plclose();
     outreset();
 
     CMD::command("clear", _root_scope);
-    for(auto i: *_root_scope){
+    for(auto i: *_root_scope){ untested();
       unreachable();
       std::cout << i->short_label() << "\n";
     }
     trace1("erase", _root_scope);
     _root_scope->erase_all();
     CMD::command("delete all", _root_scope);
-    try{
+    try{ untested();
       CMD::command("detach_all", _root_scope);
-    }catch(Exception_CS const& e){
+    }catch(Exception_CS const& e){ untested();
       incomplete();
       std::cerr << e.message();
     }
   }
-  ~MAIN() {
+  ~MAIN() { untested();
     // CARD_LIST::card_list already gone!
     CKT_BASE::_probe_lists = NULL;
     CKT_BASE::_sim = NULL;
@@ -281,7 +281,7 @@ private:
 };
 /*--------------------------------------------------------------------------*/
 MAIN::MAIN()
-{
+{ untested();
 #if 0 // later?
   _root = device_dispatcher.clone("subckt");
   assert(_root);
@@ -301,7 +301,7 @@ MAIN::MAIN()
 }
 /*--------------------------------------------------------------------------*/
 int main(int argc, char *const* argv)
-{
+{ untested();
   MAIN main_;
   int r=main_(argc, argv);
   main_.uninit(); // required before ~MAIN
@@ -309,18 +309,18 @@ int main(int argc, char *const* argv)
 }
 /*--------------------------------------------------------------------------*/
 int MAIN::operator()(int argc, char *const* argv)
-{
+{ untested();
   prepare_env();
   CKT_BASE::_sim = &_sim_data;
   CKT_BASE::_probe_lists = &_probe_lists;
   CKT_BASE::_attribs = &_attrib_list;
-  try {
+  try { untested();
 
     SET_RUN_MODE xx(rBATCH);
-    if (!sigsetjmp(env.p, true)) {
+    if (!sigsetjmp(env.p, true)) { untested();
       read_startup_files(argv, _root_scope);
       setup_traps();
-      try {
+      try { untested();
         process_cmd_line(argc, argv, _root_scope);
       }catch (Exception_Quit& e) { untested();
         throw;
@@ -332,24 +332,24 @@ int MAIN::operator()(int argc, char *const* argv)
       return 0; // check?
     }
 
-    {
+    { untested();
       SET_RUN_MODE xxi(rINTERACTIVE);
       CS cmd(CS::_STDIN);
-      for (;;) {
-        if (!sigsetjmp(env.p, true)) {
-          try {
-            if (OPT::language) {
+      for (;;) { untested();
+        if (!sigsetjmp(env.p, true)) { untested();
+          try { untested();
+            if (OPT::language) { untested();
               OPT::language->parse_top_item(cmd, _root_scope);
             }else{untested();
               CMD::cmdproc(cmd.get_line(I_PROMPT), _root_scope);
             }
-          }catch (Exception_End_Of_Input& e) {
+          }catch (Exception_End_Of_Input& e) { untested();
             error(bDANGER, e.message() + '\n');
             break;
           }catch (Exception& e) { untested();
             error(bDANGER, e.message() + '\n');
           }
-        }else{
+        }else{ untested();
         }
       }
     }

@@ -39,13 +39,13 @@ public:
 		_defs["GNUCAP"];
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*)override {
+	void do_it(CS& cmd, CARD_LIST*)override { untested();
 		std::string what;
 		cmd >> what;
 		trace2("def", cmd.fullstring(), what);
-		if(defined(what)){
+		if(defined(what)){ untested();
 			error(bPICKY, "already defined: %s\n", what.c_str());
-		}else{
+		}else{ untested();
 			_defs[what];
 		}
 	}
@@ -54,11 +54,11 @@ public:
 		trace2("defined", what, v);
 		return v;
 	}
-	void undef(std::string const& what){
+	void undef(std::string const& what){ untested();
 		auto v=_defs.find(what);
-		if(v!=_defs.end()){
+		if(v!=_defs.end()){ untested();
 			_defs.erase(v);
-		}else{
+		}else{ untested();
 			error(bPICKY, "not defined: %s\n", what.c_str());
 		}
 	}
@@ -96,8 +96,8 @@ public:
 	void if0(CS& cmd, CARD_LIST* Scope){
 		status_t t = c_disabled;
 		if(!_nest.size()){
-		}else if(c_active & _nest.top()){
-		}else{
+		}else if(c_active & _nest.top()){ untested();
+		}else{ untested();
 			t = status_t(t | c_done);
 		}
 		_nest.push(t);
@@ -118,7 +118,7 @@ private:
 	void cond_block(CS& cmd, CARD_LIST* scope, bool allow_else){
 
 		BASE_SUBCKT* o=NULL;
-		if(scope!=&CARD_LIST::card_list){
+		if(scope!=&CARD_LIST::card_list){ untested();
 			assert(!owner_hack.empty());
 			trace1("not toplevel, need owner", scope->parent());
 			o = prechecked_cast<BASE_SUBCKT*>(owner_hack.top());
@@ -139,16 +139,16 @@ private:
 
 			if(_nest.top() & c_active){
 				OPT::language->new__instance(cmd, o, scope);
-			}else if(cmd.umatch("`elsif ")){
+			}else if(cmd.umatch("`elsif ")){ untested();
 				cmd.reset();
 				OPT::language->new__instance(cmd, o, scope);
-			}else if(cmd.umatch("`ifdef|`ifndef ")){
+			}else if(cmd.umatch("`ifdef|`ifndef ")){ untested();
 				cmd.reset();
 				OPT::language->new__instance(cmd, o, scope);
 			}else if(cmd.umatch("`if ")){
 				cmd.reset();
 				OPT::language->new__instance(cmd, o, scope);
-			}else if(cmd.umatch("`else ")){
+			}else if(cmd.umatch("`else ")){ untested();
 				cmd.reset();
 				OPT::language->new__instance(cmd, o, scope);
 			}else if(cmd.umatch("`endif ")){
@@ -199,16 +199,16 @@ public:
 public:
 	void do_it(CS& cmd, CARD_LIST*)override {
 		trace1("`else", p_if._nest.size());
-		if(!p_if._nest.size()){
+		if(!p_if._nest.size()){ untested();
 			cmd.warn(bDANGER, 0, "misplaced else");
-		}else if(p_if.is(CMD_VPP_IF::c_past_else)){
+		}else if(p_if.is(CMD_VPP_IF::c_past_else)){ untested();
 			cmd.warn(bDANGER, 0, "double else");
 		}else if(p_if.is(CMD_VPP_IF::c_done)){
 			p_if.set( CMD_VPP_IF::c_past_else );
 			p_if.unset( CMD_VPP_IF::c_active );
 		}else if(p_if.is(CMD_VPP_IF::c_active)){ untested();
 			unreachable(); // implies "done".
-		}else{
+		}else{ untested();
 			trace1("top is else branch", p_if._nest.size());
 			// no further else please.
 			// p_if._nest.pop();
@@ -224,9 +224,9 @@ class CMD_VPP_ENDIF : public CMD {
 public:
 	void do_it(CS& cmd, CARD_LIST*)override {
 		trace2("endif", cmd.fullstring(), p_if._nest.size());
-		if(!p_if._nest.size()){
+		if(!p_if._nest.size()){ untested();
 			cmd.warn(bDANGER, 0, "unmatched endif");
-		}else if(p_if._nest.top() & p_if.c_active){
+		}else if(p_if._nest.top() & p_if.c_active){ untested();
 			p_if._nest.pop();
 		}else{
 			p_if._nest.pop();
@@ -237,7 +237,7 @@ DISPATCHER<CMD>::INSTALL d_endif(&command_dispatcher, "`endif", &p_endif);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_UNDEF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST*)override {
+	void do_it(CS& cmd, CARD_LIST*)override { untested();
 		std::string what;
 		cmd >> what;
 		p_define.undef(what);
@@ -253,7 +253,7 @@ public:
 	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		std::string what;
 		cmd >> what;
-		if (p_define.defined(what)){
+		if (p_define.defined(what)){ untested();
 			p_if.if1(cmd, Scope);
 		}else{
 			p_if.if0(cmd, Scope);
@@ -267,23 +267,23 @@ public:
 	CMD_VPP_ELSIF() : CMD(){
 	}
 public:
-	void do_it(CS& cmd, CARD_LIST*)override {
-		if (!p_if._nest.size()){
+	void do_it(CS& cmd, CARD_LIST*)override { untested();
+		if (!p_if._nest.size()){ untested();
 			cmd.warn(bDANGER, 0, "misplaced `elsif");
-		}else if( p_if.is(CMD_VPP_IF::c_past_else ) ){
+		}else if( p_if.is(CMD_VPP_IF::c_past_else ) ){ untested();
 			cmd.warn(bDANGER, 0, "`elsif after else?");
 			p_if.unset(CMD_VPP_IF::c_active);
-		}else if(p_if.is(CMD_VPP_IF::c_done)){
+		}else if(p_if.is(CMD_VPP_IF::c_done)){ untested();
 			// no need to evaluate, TODO: parse
 			p_if.unset(CMD_VPP_IF::c_active);
-		}else if(!(p_if.is(CMD_VPP_IF::c_active))){
+		}else if(!(p_if.is(CMD_VPP_IF::c_active))){ untested();
 
 			std::string w;
 			cmd >> w;
-			if(p_define.defined(w)){
+			if(p_define.defined(w)){ untested();
 				p_if.set(CMD_VPP_IF::c_active);
 				p_if.set(CMD_VPP_IF::c_done);
-			}else{
+			}else{ untested();
 			}
 
 		}else{ untested();
@@ -296,12 +296,12 @@ DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "`elsif", &p_elif);
 /*--------------------------------------------------------------------------*/
 class CMD_VPP_IFNDEF : public CMD {
 public:
-	void do_it(CS& cmd, CARD_LIST* Scope)override {
+	void do_it(CS& cmd, CARD_LIST* Scope)override { untested();
 		std::string what;
 		cmd >> what;
-		if (p_define.defined(what)){
+		if (p_define.defined(what)){ untested();
 			p_if.if0(cmd, Scope);
-		}else{
+		}else{ untested();
 			p_if.if1(cmd, Scope);
 		}
 	}

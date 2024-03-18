@@ -30,8 +30,8 @@
 #include "ap.h"
 /*--------------------------------------------------------------------------*/
 void PROBE_LISTS::purge(CKT_BASE* brh)
-{
-  for (int i = 0;  i < sCOUNT;  ++i) {
+{ untested();
+  for (int i = 0;  i < sCOUNT;  ++i) { untested();
     alarm[i].remove_one(brh);
     plot[i] .remove_one(brh);
     print[i].remove_one(brh);
@@ -40,21 +40,21 @@ void PROBE_LISTS::purge(CKT_BASE* brh)
 }
 /*--------------------------------------------------------------------------*/
 void PROBELIST::listing(const std::string& label)const
-{
+{ untested();
   IO::mstdout.form("%-7s", label.c_str());
-  for (const_iterator p = begin();  p != end();  ++p) {
+  for (const_iterator p = begin();  p != end();  ++p) { untested();
     IO::mstdout << ' ' << p->label();
     if (p->range() != 0.) {untested();
       IO::mstdout.setfloatwidth(5) 
 	<< '(' << p->lo() << ',' << p->hi() << ')';
-    }else{
+    }else{ untested();
     }
   }
   IO::mstdout << '\n';
 }
 /*--------------------------------------------------------------------------*/
 void PROBELIST::clear(void)
-{
+{ untested();
   erase(begin(), end());
 }
 /*--------------------------------------------------------------------------*/
@@ -63,7 +63,7 @@ void PROBELIST::clear(void)
  * both are needed to support different versions of STL
  */
 bool operator==(const PROBE& prb, const std::string& par)
-{
+{ untested();
   return wmatch(prb.label(), par);
 }
 bool operator!=(const PROBE& prb, const std::string& par)
@@ -86,11 +86,11 @@ void PROBELIST::remove_list(CS& cmd)
     cmd.warn(bWARNING, "need )");
   }else if (parameter.empty()) {untested();
     cmd.warn(bWARNING, "what's this?");
-  }else{
+  }else{ untested();
   }
 
   iterator x = remove(begin(), end(), parameter);
-  if (x != end()) {
+  if (x != end()) { untested();
     erase(x, end());
   }else{itested();
     cmd.warn(bWARNING, mark, "probe isn't set -- can't remove");
@@ -102,7 +102,7 @@ void PROBELIST::remove_list(CS& cmd)
  * both are needed to support different versions of stl
  */
 bool operator==(const PROBE& prb, const CKT_BASE* brh)
-{
+{ untested();
   return (prb.object() == brh);
 }
 bool operator!=(const PROBE& prb, const CKT_BASE* brh)
@@ -114,7 +114,7 @@ bool operator!=(const PROBE& prb, const CKT_BASE* brh)
  * removes all probes on brh
  */
 void PROBELIST::remove_one(CKT_BASE *brh)
-{
+{ untested();
   assert(brh);
   erase(remove(begin(), end(), brh), end());
   // remove .. removes all that match and compacts the list, leaving blanks at the end
@@ -128,45 +128,45 @@ void PROBELIST::remove_one(CKT_BASE *brh)
  * It also takes care of setting the range for plot or alarm.
  */
 void PROBELIST::add_list(CS& cmd, CARD_LIST* scope)
-{
+{ untested();
   assert(scope);
-  if(scope==&CARD_LIST::card_list){
-  }else{
+  if(scope==&CARD_LIST::card_list){ untested();
+  }else{ untested();
   }
   int oldcount = size();
   std::string what(cmd.ctos(TOKENTERM));/* parameter */
   if (what.empty()) {untested();
     cmd.warn(bWARNING, "need a probe");
-  }else{
+  }else{ untested();
   }
 
   int paren = cmd.skip1b('(');		/* device, node, etc. */
-  if (cmd.umatch("nodes ")) {
+  if (cmd.umatch("nodes ")) { untested();
     // all nodes
     add_all_nodes(what, scope);
-  }else if (cmd.umatch("0")) {
+  }else if (cmd.umatch("0")) { untested();
     // node 0 means system stuff
     push_new_probe(what, 0);
-  }else if (cmd.is_alnum() || cmd.match1("*?")) {
+  }else if (cmd.is_alnum() || cmd.match1("*?")) { untested();
     // branches or named nodes
     size_t here1 = cmd.cursor();
     bool found_something = add_branches(cmd.ctos(), what, scope);
-    if (!found_something) {
+    if (!found_something) { untested();
       cmd.warn(bWARNING, here1, "no match");
-    }else{
+    }else{ untested();
     }
-    for (;;) {
+    for (;;) { untested();
       // a list, as in v(r1,r2,r3) or v(1,2,3)
-      if (!(cmd.is_alnum() || cmd.match1("*?"))) {
+      if (!(cmd.is_alnum() || cmd.match1("*?"))) { untested();
 	break;
-      }else{
+      }else{ untested();
       }
       size_t here2 = cmd.cursor();
       found_something = add_branches(cmd.ctos(), what, scope);
       if (!found_something) {itested();
 	cmd.reset(here2);
 	break;
-      }else{
+      }else{ untested();
       }
     }
   }else{itested();
@@ -175,44 +175,44 @@ void PROBELIST::add_list(CS& cmd, CARD_LIST* scope)
   paren -= cmd.skip1b(')');
   if (paren != 0) {itested();
     cmd.warn(bWARNING, "need )");
-  }else{
+  }else{ untested();
   }
 
   if (cmd.skip1b('(')) {	/* range for plotting and alarm */
     double lo = cmd.ctof();
     double hi = cmd.ctof();
-    for (iterator p = begin() + oldcount;  p != end();  ++p) {
+    for (iterator p = begin() + oldcount;  p != end();  ++p) { untested();
       p->set_limit(lo,hi);
     }    
     if (!cmd.skip1b(')')) {untested();
       cmd.check(bWARNING, "need )");
-    }else{
+    }else{ untested();
     }
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
 void PROBELIST::push_new_probe(const std::string& param,const CKT_BASE* object)
-{
+{ untested();
   bag.push_back(PROBE(param, object));
 }
 /*--------------------------------------------------------------------------*/
 void PROBELIST::add_all_nodes(const std::string& what, CARD_LIST* scope)
-{
+{ untested();
   assert(scope);
-  if(scope==&CARD_LIST::card_list){
-  }else{
+  if(scope==&CARD_LIST::card_list){ untested();
+  }else{ untested();
   }
   for (NODE_MAP::const_iterator
        i = scope->nodes()->begin();
        i != scope->nodes()->end();
-       ++i) {
+       ++i) { untested();
     trace1("node probe", i->first);
-    if ((i->first != "0") && (i->first.find('.') == std::string::npos)) {
+    if ((i->first != "0") && (i->first.find('.') == std::string::npos)) { untested();
       NODE* node = i->second;
       assert (node);
       push_new_probe(what, node);
-    }else{
+    }else{ untested();
     }
   }
 }
@@ -223,7 +223,7 @@ void PROBELIST::add_all_nodes(const std::string& what, CARD_LIST* scope)
 bool PROBELIST::add_branches(const std::string&device, 
 			     const std::string&param,
 			     const CARD_LIST* scope)
-{
+{ untested();
   assert(scope);
   if(scope==&CARD_LIST::card_list){untested();
   }else{ untested();
@@ -231,19 +231,19 @@ bool PROBELIST::add_branches(const std::string&device,
   bool found_something = false;
 
   std::string::size_type dotplace = device.find_first_of(".");
-  if (dotplace != std::string::npos) {
+  if (dotplace != std::string::npos) { untested();
     // has a dot, look deeper
     { // forward (Verilog style)
       std::string dev = device.substr(dotplace+1, std::string::npos);
       std::string container = device.substr(0, dotplace);
       for (CARD_LIST::const_iterator
-	     i = scope->begin();  i != scope->end();  ++i) {
+	     i = scope->begin();  i != scope->end();  ++i) { untested();
 	CARD* card = *i;
 	if (card->is_device()
 	    && card->subckt()
-	    && wmatch(card->short_label(), container)) {
+	    && wmatch(card->short_label(), container)) { untested();
 	  found_something |= add_branches(dev, param, card->subckt());
-	}else{
+	}else{ untested();
 	}
       }
     }
@@ -252,64 +252,64 @@ bool PROBELIST::add_branches(const std::string&device,
       std::string container = device.substr(dotplace+1, std::string::npos);
       std::string dev = device.substr(0, dotplace);
       for (CARD_LIST::const_iterator
-	     i = scope->begin();  i != scope->end();  ++i) {
+	     i = scope->begin();  i != scope->end();  ++i) { untested();
 	CARD* card = *i;
 	if (card->is_device()
 	    && card->subckt()
-	    && wmatch(card->short_label(), container)) {
+	    && wmatch(card->short_label(), container)) { untested();
 	  found_something |= add_branches(dev, param, card->subckt());
-	}else{
+	}else{ untested();
 	}
       }
     }
-  }else{
+  }else{ untested();
     // no dots, look here
-    if (device.find_first_of("*?") != std::string::npos) {
+    if (device.find_first_of("*?") != std::string::npos) { untested();
       // there's a wild card.  do linear search for all
       { // nodes
 	for (NODE_MAP::const_iterator 
 	     i = scope->nodes()->begin();
 	     i != scope->nodes()->end();
-	     ++i) {
-	  if (i->first != "0") {
+	     ++i) { untested();
+	  if (i->first != "0") { untested();
 	    NODE* node = i->second;
 	    assert (node);
-	    if (wmatch(node->short_label(), device)) {
+	    if (wmatch(node->short_label(), device)) { untested();
 	      push_new_probe(param, node);
 	      found_something = true;
-	    }else{
+	    }else{ untested();
 	    }
-	  }else{
+	  }else{ untested();
 	  }
 	}
       }
       {// components
 	for (CARD_LIST::const_iterator 
-	     i = scope->begin();  i != scope->end();  ++i) {
+	     i = scope->begin();  i != scope->end();  ++i) { untested();
 	  CARD* card = *i;
-	  if (wmatch(card->short_label(), device)) {
+	  if (wmatch(card->short_label(), device)) { untested();
 	    push_new_probe(param, card);
 	    found_something = true;
-	  }else{
+	  }else{ untested();
 	  }
 	}
       }
-    }else{
+    }else{ untested();
       // no wild card.  do fast search for one
       { // nodes
 	NODE* node = (*scope->nodes())[device];
-	if (node) {
+	if (node) { untested();
 	  push_new_probe(param, node);
 	  found_something = true;
-	}else{
+	}else{ untested();
 	}
       }
       { //components
 	CARD_LIST::const_iterator i = scope->find_(device);
-	if (i != scope->end()) {
+	if (i != scope->end()) { untested();
 	  push_new_probe(param, *i);
 	  found_something = true;
-	}else{
+	}else{ untested();
 	}
       }
     }

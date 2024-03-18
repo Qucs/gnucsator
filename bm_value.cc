@@ -93,16 +93,16 @@ bool EVAL_BM_VALUE::is_trivial()const
 void EVAL_BM_VALUE::precalc_first(const CARD_LIST* Scope)
 { untested();
   trace2("QUCS_VALUE, precalc_first", modelname(), _value);
-  if (modelname() != "") {
+  if (modelname() != "") { untested();
     // no. we use set_param stuff.
   //  _value = modelname();
-  }else{
+  }else{ untested();
   }
   EVAL_BM_ACTION_BASE::precalc_first(Scope);
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_VALUE::tr_eval(ELEMENT* d)const
-{
+{ untested();
   tr_finish_tdv(d, _value);
 }
 /*--------------------------------------------------------------------------*/
@@ -111,10 +111,10 @@ bool EVAL_BM_VALUE::parse_numlist(CS& cmd)
   size_t here = cmd.cursor();
   PARAMETER<double> new_value(NOT_VALID);
   cmd >> new_value;
-  if (cmd.gotit(here)) {
+  if (cmd.gotit(here)) { untested();
     _value = new_value;
     return true;
-  }else{
+  }else{ untested();
     return false;
   }
 }
@@ -131,9 +131,9 @@ map<string, const char*> EVAL_BM_VALUE::_param_dict =
 int EVAL_BM_VALUE::set_param_by_name(string Name, string Value)
 { untested();
   const char* n = _param_dict[Name];
-  if(n) {
+  if(n) { untested();
     Name = n;
-  }else{
+  }else{ untested();
   }
   trace2("value wrapper", Name, Value);
   return EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);

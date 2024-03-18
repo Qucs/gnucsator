@@ -78,7 +78,7 @@ template<class T>
 WAVE_<T>::WAVE_(const WAVE_<T>& w)
   :_w(w._w),
    _delay(w._delay)
-{ untested();
+{
 }
 /*--------------------------------------------------------------------------*/
 // constructor -- argument is the delay
@@ -92,7 +92,7 @@ WAVE_<T>::WAVE_(double d)
 /*--------------------------------------------------------------------------*/
 template<class T>
 WAVE_<T>& WAVE_<T>::set_delay(double d) 
-{
+{ untested();
   _delay = d; 
   return *this;
 }
@@ -102,7 +102,7 @@ WAVE_<T>& WAVE_<T>::set_delay(double d)
 //
 template<class T>
 inline FPOLY1 WAVE_<T>::v_out(double t)const
-{
+{ untested();
   return interpolate(_w.begin(), _w.end(), t, 0., 0.);
 }
 /*--------------------------------------------------------------------------*/
@@ -113,7 +113,7 @@ inline FPOLY1 WAVE_<T>::v_out(double t)const
 //
 template<class T>
 inline double WAVE_<T>::v_reflect(double t, double v_total)const
-{
+{ untested();
   // return (v_total*2 - v_out(t)); // de-noised
   return dn_diff(v_total*2, v_out(t).f0);
 }

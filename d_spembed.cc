@@ -32,7 +32,7 @@
 // /*--------------------------------------------------------------------------*/
 // bool operator<(std::pair<double, qucs::matrix> const& a,
 //                std::pair<double, qucs::matrix> const& b)
-// {
+// { untested();
 //   return a.first<b.first;
 // }
 // /*--------------------------------------------------------------------------*/
@@ -57,7 +57,7 @@ bool operator<(matrix const&, matrix const&)
 
 bool operator<(std::pair<double, matrix> const& a,
                std::pair<double, matrix> const& b)
-{ untested();
+{
   return a.first<b.first;
 }
 
@@ -101,7 +101,7 @@ qucs::matrix interpolate(Iterator begin, Iterator end, double x)
 {
   qucs::matrix m = 0;
   qucs::matrix f1 = 0;
-  if (begin == end) {
+  if (begin == end) { untested();
     untested();
     throw Exception("interpolate table is empty");
   }else{
@@ -139,7 +139,6 @@ qucs::matrix interpolate(Iterator begin, Iterator end, double x)
       f1 = ((*upper).second-(*lower).second) / ((*upper).first-(*lower).first);
     }
 
-    untested();
     m = (*lower).second + (x - (*lower).first) * f1;
   }
   return m;
@@ -211,11 +210,11 @@ private: // overrides
   void    ac_load() override;
 //  double tr_probe_num(std::string const&)const override;
     //XPROBE  ac_probe_ext(CS&)const;//CKT_BASE/nothing
-  int int_nodes()const override {untested(); return 0; }
-  int min_nodes()const override {untested(); return 0; }
-  int max_nodes()const override {untested(); return 10; }
+  int int_nodes()const override { return 0; }
+  int min_nodes()const override { return 0; }
+  int max_nodes()const override { return 10; }
   int net_nodes()const override {return _net_nodes;}
-  int ext_nodes()const override {untested(); return _net_nodes;}
+  int ext_nodes()const override { return _net_nodes;}
   int matrix_nodes()const override { return _net_nodes; }
   std::string value_name()const override {itested(); return "";}
   bool print_type_in_spice()const override {itested(); return false;}
@@ -229,13 +228,13 @@ private: // overrides
 /*--------------------------------------------------------------------------*/
 COMMON_SPEMBED::COMMON_SPEMBED(int c)
   :COMMON_COMPONENT(c)
-{ untested();
+{
 }
 /*--------------------------------------------------------------------------*/
 COMMON_SPEMBED::COMMON_SPEMBED(const COMMON_SPEMBED& p)
   :COMMON_COMPONENT(p),
    _filename(p._filename) , _spwave(p._spwave)
-{ untested();
+{
   trace2("copy", _spwave.size(), p._spwave.size());
 }
 /*--------------------------------------------------------------------------*/
@@ -244,7 +243,7 @@ COMMON_SPEMBED::~COMMON_SPEMBED()
 }
 /*--------------------------------------------------------------------------*/
 bool COMMON_SPEMBED::operator==(const COMMON_COMPONENT& x)const
-{ untested();
+{
   const COMMON_SPEMBED* p = dynamic_cast<const COMMON_SPEMBED*>(&x);
   return (p
     && _filename == p->_filename
@@ -266,12 +265,12 @@ int COMMON_SPEMBED::set_param_by_name(std::string Name, std::string Value)
 //   if(Name == "$mfactor"){ untested();
 //     incomplete();
 //     Name = "m";
-//   }else{
+//   }else{ untested();
 //   }
-  if(Name == "File") { untested();
+  if(Name == "File") {
     _filename = Value;
     trace2("spbn", Name, std::string(_filename));
-  }else{ untested();
+  }else{
     incomplete();
   }
 
@@ -340,37 +339,37 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
   trace1("common_spembed", std::string(_filename));
   CS f(CS::_INC_FILE, _filename);
   f.get_line("spfile>");
-  while(f.match1("!") || !f.more()){ untested();
+  while(f.match1("!") || !f.more()){
     f.get_line("spfile>");
   }
 
 // # HZ S RI R 50
-  if(!(f>>"#")){
+  if(!(f>>"#")){ untested();
     f.check(bWARNING, "need '#'");
   }else{
   }
   if(f>>"HZ"){
   }else if(f>>"Hz"){
-  }else{
+  }else{ untested();
     f.check(bWARNING, "need 'Hz'");
   }
-  if(!(f>>"S")){
+  if(!(f>>"S")){ untested();
     incomplete(); // Y, Z?
     f.check(bWARNING, "need 'S'");
   }else{
   }
-  if(!(f>>"RI")){
+  if(!(f>>"RI")){ untested();
     f.check(bWARNING, "need 'RI'"); // what else?
   }else{
   }
-  if(!(f>>"R")){
+  if(!(f>>"R")){ untested();
     f.check(bWARNING, "need 'R'"); // what else?
   }else{
   }
   double impedance;
-  if(!(f >> impedance)){
+  if(!(f >> impedance)){ untested();
     f.check(bWARNING, "need impedance");
-  }else if(!impedance){
+  }else if(!impedance){ untested();
     f.check(bWARNING, "need nonzero impedance");
   }else{
   }
@@ -386,14 +385,14 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
       qucs::matrix m(ref);
       for(int ii=0; ii<ref; ++ii){
 	for(int jj=0; jj<ref; ++jj){
-	  if(!f.more()){ untested();
+	  if(!f.more()){
 	    f.get_line("spfile-contd>");
-	  }else{ untested();
+	  }else{
 	  }
 	  f >> real;
 	  if(!f.more()){ untested();
 	    f.get_line("spfile-contd>");
-	  }else{ untested();
+	  }else{
 	  }
 	  f >> imag;
 	  m.set(ii, jj, nr_complex_t(real,imag));
@@ -417,7 +416,7 @@ void COMMON_SPEMBED::precalc_first(const CARD_LIST* par_scope)
 {
   assert(par_scope);
   trace1("cpf", std::string(_filename));
-  if(_filename.size()<2){
+  if(_filename.size()<2){ untested();
   }else if(_filename[0] == '"'){
     _filename = _filename.substr(1, _filename.size()-2);
   }else{
@@ -443,7 +442,7 @@ static COMMON_SPEMBED Default_spembed(CC_STATIC);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 //double SPEMBED::tr_probe_num(std::string const& n) const
-//{
+//{ untested();
 //  return NOT_VALID;
 //}
 /*--------------------------------------------------------------------------*/
@@ -455,13 +454,13 @@ SPEMBED::SPEMBED() : COMPONENT()
 // seq blocks
 /*--------------------------------------------------------------------------*/
 //bool SPEMBED::tr_needs_eval()const
-//{
+//{ untested();
 //  incomplete();
 //  return false;
 //};
 /*--------------------------------------------------------------------------*/
 //bool SPEMBED::do_tr()
-//{
+//{ untested();
 //  incomplete();
 //  return true;
 //}
@@ -475,13 +474,13 @@ inline void SPEMBED::dc_advance()
 }
 /*--------------------------------------------------------------------------*/
 // inline void SPEMBED::tr_advance()
-// {
+// { untested();
 //   set_not_converged();
 //   return ELEMENT::tr_advance();
 // }
 /*--------------------------------------------------------------------------*/
 std::string SPEMBED::port_name(int i)const
-{ untested();
+{
   assert(i >= 0);
   assert(i < max_nodes());
   return "p" + to_string(i);
@@ -491,24 +490,24 @@ SPEMBED m_spembed;
 DISPATCHER<CARD>::INSTALL d0(&device_dispatcher, "SPfile", &m_spembed);
 /*--------------------------------------------------------------------------*/
 CARD* SPEMBED::clone()const
-{ untested();
+{
   return new SPEMBED(*this);
 }
 /*--------------------------------------------------------------------------*/
 SPEMBED::SPEMBED(SPEMBED const&p) : COMPONENT(p)
 {
   _node_capacity = net_nodes();
-  if(_node_capacity){
+  if(_node_capacity){ untested();
     _n = new node_t[_node_capacity];
   }else{
     assert(_n == NULL);
   }
   if(p.is_device()){
-    for (int ii = 0;  ii < net_nodes();  ++ii) {
+    for (int ii = 0;  ii < net_nodes();  ++ii) { untested();
       _n[ii] = p._n[ii];
     }
-  }else{
-    for (int ii = 0;  ii < net_nodes();  ++ii) {
+  }else{ untested();
+    for (int ii = 0;  ii < net_nodes();  ++ii) { untested();
       assert(!_n[ii].n_());
     }
   }
@@ -539,7 +538,7 @@ void SPEMBED::ac_begin()
 }
 /*--------------------------------------------------------------------------*/
 void SPEMBED::do_ac()
-{ untested();
+{
   auto cc = prechecked_cast<COMMON_SPEMBED const*>(common());
   assert(cc);
   cc->ac_eval_(this);
@@ -556,8 +555,8 @@ void SPEMBED::ac_load()
     }
   }
 
-  if(_n[ref].is_grounded()){ untested();
-  }else{ untested();
+  if(_n[ref].is_grounded()){
+  }else{
     COMPLEX sum=0.;
     COMPLEX sum2=0.;
     for (int ii=0; ii<ref; ++ii) {

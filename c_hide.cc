@@ -76,14 +76,14 @@ public:
 	      i = findbranch(cmd, ++i); // next match
 	      *j = nullptr;
 	      Scope->erase(j);
-	    }else{
+	    }else{ untested();
 	      i = findbranch(cmd, ++i); // next match
 	      unreachable(); // for now.
 	    }
 
 	//    break;
 	  }
-	}else{
+	}else{ untested();
 	  i = findbranch(cmd, ++i); // next match
 	}
       }

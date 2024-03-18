@@ -606,7 +606,7 @@ void SPARAM::sweep()
       std::vector<double> sy0(size);
       unsigned i=0;
       for(auto p : _ports){
-        if(!p->impedance()){
+        if(!p->impedance()){ untested();
           error(bDANGER, "zero impedance in " + p->long_label() + "\n");
         }else{
         }

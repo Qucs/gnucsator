@@ -74,7 +74,7 @@ EVAL_BM_POLY::EVAL_BM_POLY(int c)
    _max(_default_max),
    _abs(_default_abs),
    _degree(_default_degree)
-{
+{ untested();
 }
 /*--------------------------------------------------------------------------*/
 EVAL_BM_POLY::EVAL_BM_POLY(const EVAL_BM_POLY& p)
@@ -84,11 +84,11 @@ EVAL_BM_POLY::EVAL_BM_POLY(const EVAL_BM_POLY& p)
    _abs(p._abs),
    _c(p._c),
    _degree(p._degree)
-{
+{ untested();
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_POLY::operator==(const COMMON_COMPONENT& x)const
-{
+{ untested();
   const EVAL_BM_POLY* p = dynamic_cast<const EVAL_BM_POLY*>(&x);
   bool rv = p
     && _min == p->_min
@@ -101,11 +101,11 @@ bool EVAL_BM_POLY::operator==(const COMMON_COMPONENT& x)const
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_POLY::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE* lang)const
-{
+{ untested();
   assert(lang);
   o << ' ' << name() << '(';
   for (std::vector<PARAMETER<double> >::const_iterator
-	 p = _c.begin();  p != _c.end();  ++p) {
+	 p = _c.begin();  p != _c.end();  ++p) { untested();
     o << *p << ' ';
   }
   o << ')';
@@ -116,12 +116,12 @@ void EVAL_BM_POLY::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE* lang)co
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_POLY::precalc_last(const CARD_LIST* Scope)
-{
+{ untested();
   assert(Scope);
   EVAL_BM_ACTION_BASE::precalc_last(Scope);
 
   for (std::vector<PARAMETER<double> >::const_iterator
-	 p = _c.begin();  p != _c.end();  ++p) {
+	 p = _c.begin();  p != _c.end();  ++p) { untested();
     (*p).e_val(0, Scope);
   }
   _min.e_val(_default_min, Scope);
@@ -130,12 +130,12 @@ void EVAL_BM_POLY::precalc_last(const CARD_LIST* Scope)
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_POLY::tr_eval(ELEMENT* d)const
-{
+{ untested();
   double x = ioffset(d->_y[0].x);
   double f0 = 0.;
   double f1 = 0.;
   assert(_c.size());
-  for (size_t i=_c.size()-1; i>0; --i) {
+  for (size_t i=_c.size()-1; i>0; --i) { untested();
     f0 += _c[i];
     f0 *= x;
     f1 *= x;
@@ -143,15 +143,15 @@ void EVAL_BM_POLY::tr_eval(ELEMENT* d)const
   }
   f0 += _c[0];
 
-  if (_abs && f0 < 0) {
+  if (_abs && f0 < 0) { untested();
     f0 = -f0;
     f1 = -f1;
   }
 
-  if (f0 > _max) {
+  if (f0 > _max) { untested();
     f0 = _max;
     f1 = 0;
-  }else if (f0 < _min) {
+  }else if (f0 < _min) { untested();
     f0 = _min;
     f1 = 0;
   }
@@ -161,27 +161,27 @@ void EVAL_BM_POLY::tr_eval(ELEMENT* d)const
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_POLY::parse_numlist(CS& cmd)
-{
+{ untested();
   size_t start = cmd.cursor();
   size_t here = cmd.cursor();
-  for (;;) {
+  for (;;) { untested();
     size_t old_here = here;
     PARAMETER<double> val;
     cmd >> val;
-    if (cmd.stuck(&here)) {
+    if (cmd.stuck(&here)) { untested();
       // no more, graceful finish
       break;
-    }else{
-      if (cmd.match1('=')) {
+    }else{ untested();
+      if (cmd.match1('=')) { untested();
 	// got one that doesn't belong, back up
 	cmd.reset(old_here);
 	break;
-      }else{
+      }else{ untested();
 	_c.push_back(val);
       }
     }
   }
-  if (cmd.gotit(start)) {
+  if (cmd.gotit(start)) { untested();
   }else{ untested();
   }
   return cmd.gotit(start);
@@ -194,19 +194,19 @@ std::map<std::string, PARA_BASE EVAL_BM_POLY::*> EVAL_BM_POLY::param_dict =
     ("abs",  (PARA_BASE EVAL_BM_POLY::*) &EVAL_BM_POLY::_abs);
 /*--------------------------------------------------------------------------*/
 int EVAL_BM_POLY::set_param_by_name(std::string Name, std::string Value)
-{
+{ untested();
   PARA_BASE EVAL_BM_POLY::* x = (param_dict[Name]);
-  if(x) {
+  if(x) { untested();
     PARA_BASE* p = &(this->*x);
     *p = Value;
     return 0; // TODO
-  } else {
+  } else { untested();
     return EVAL_BM_ACTION_BASE::set_param_by_name(Name, Value);
   }
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_POLY::parse_params_obsolete_callback(CS& cmd)
-{
+{ untested();
   return ONE_OF
     || Get(cmd, "min", &_min)
     || Get(cmd, "max", &_max)
@@ -216,11 +216,11 @@ bool EVAL_BM_POLY::parse_params_obsolete_callback(CS& cmd)
 }
 /*--------------------------------------------------------------------------*/
 #if 0
-void EVAL_BM_POLY::parse_type_tail(CS& cmd) {
+void EVAL_BM_POLY::parse_type_tail(CS& cmd) { untested();
   untested();
-  if(cmd.umatch("(1)")){
+  if(cmd.umatch("(1)")){ untested();
     _degree = 1;
-  }else{
+  }else{ untested();
     untested();
   }
 }

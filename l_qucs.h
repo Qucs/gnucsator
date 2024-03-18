@@ -33,7 +33,7 @@ template <class T>
 inline bool QucsGet(CS& cmd, const std::string& key, T* val)
 {
   if(OPT::language->name() == "qucs") {
-  }else{
+  }else{ untested();
   }
   if (cmd.umatch(key + " {=}")){
     // only qucs??
@@ -95,7 +95,7 @@ bool QucsGuessParam(std::string& s)
       // pass through
       temp.append(1, p[i]);
       break;
-    }else if( p[i] == 'm' ){
+    }else if( p[i] == 'm' ){ untested();
       // this could be "meter". ignore.
     }else if( p[i] == 'A' ){
       // this could be "Ampere". ignore.
@@ -109,7 +109,7 @@ bool QucsGuessParam(std::string& s)
 	   || p[i] == 'h' // 2
 	   || p[i] == 'P' // 15
 	   || p[i] == 'E' // 18
-	   ){
+	   ){ untested();
       incomplete();
       error(bDANGER, "what is %s?\n", p);
       break;
