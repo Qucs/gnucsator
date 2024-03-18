@@ -1,0 +1,90 @@
+<Qucs Dataset>
+default plugins: ignored
+clear: already installed, replacing
+stashing as clear:0
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+C:C1 gnd _net7 C="0.5nF" V="" 
+                         ^ ? C1: V has no value?
+# Eqn:Eqn2 T="twoport(S,'S','T')" Export="yes" 
+^ ? # Eqn: no match
+.SP:SP1 Type="l ... p="6e9" Points="11" Noise="no" NoiseIP="1" NoiseOP="2" s
+                                        ^ ? what's this (incomplete)?
+Gnucap   System status
+iterations: op=3, dc=0, tran=0, fourier=0, total=14
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=3, subckt=2, model=0, total=5
+dctran density=68.0%, ac density=68.0%
+
+<indep frequency 11>
+ 500.E+6
+ 641.0444E+6
+ 821.8759E+6
+ 1.053718E+9
+ 1.35096E+9
+ 1.732051E+9
+ 2.220643E+9
+ 2.847062E+9
+ 3.650186E+9
+ 4.679863E+9
+ 6.E+9
+</indep>
+<dep S[1,1] frequency>
+-0.04989476-j 0.06866016
+-0.07228946-j 0.0700992
+-0.09626809-j 0.06040567
+-0.110604-j 0.03612985
+-0.09715657-j 0.008701285
+-0.05573518-j 0.0193002
+-0.06124124-j 0.09731062
+-0.1768697-j 0.1102915
+-0.1785907-j 0.01515757
+-0.2435135-j 0.08241814
+-0.260315+j 0.07440631
+</dep>
+<dep S[1,2] frequency>
+ 0.7283533-j 0.6852013
+ 0.5615827-j 0.8212705
+ 0.3197607-j 0.9406576
+-0.02079308-j 0.9929899
+-0.450494-j 0.8874345
+-0.8665461-j 0.4955995
+-0.9670115+j 0.2273081
+-0.3713576+j 0.9047908
+ 0.7198086+j 0.6706349
+ 0.6497591-j 0.7153472
+-0.9048491-j 0.3285542
+</dep>
+<dep S[2,1] frequency>
+ 0.7234002-j 0.6852222
+ 0.5615827-j 0.8212705
+ 0.3197607-j 0.9406576
+-0.02079308-j 0.9929899
+-0.450494-j 0.8874345
+-0.8665461-j 0.4955995
+-0.9670115+j 0.2273081
+-0.3713576+j 0.9047908
+ 0.7198086+j 0.6706349
+ 0.6497591-j 0.7153472
+-0.9048491-j 0.3285542
+</dep>
+<dep S[2,2] frequency>
+-0.06559455-j 0.05349198
+-0.09154924-j 0.04193328
+-0.113138-j 0.01077842
+-0.1089946+j 0.04072821
+-0.05031879+j 0.08356513
+ 0.04489557+j 0.03825306
+ 0.0114752-j 0.1144035
+-0.2033535-j 0.04576526
+ 0.02773584+j 0.1770738
+-0.1053844-j 0.2344903
+ 0.1519286+j 0.2240935
+</dep>

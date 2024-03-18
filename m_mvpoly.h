@@ -296,14 +296,14 @@ T MV_POLY<T>::_eval(const pd* p, unsigned d, double* x)const
   if(!d) return p[0]._val;
 
   assert(d>0);
-  double _xsave[d-1];
+  double* _xsave = new double[d-1];
   double* xsave = _xsave-1;
   for(unsigned l=1; l<d; l++){
     xsave[l] = *(x CORDER l);
   }
 
   double ret = 0;
-  double df[d];
+  double* df = new double[d];
   for(unsigned l=0; l<d; l++){
     df[l] = 0;
   }
@@ -332,6 +332,9 @@ T MV_POLY<T>::_eval(const pd* p, unsigned d, double* x)const
   for(unsigned l=0; l<d; l++){
     *(x CORDER l) = df[l];
   }
+
+  delete[] _xsave;
+  delete[] df;
   return ret;
 }
 /*--------------------------------------------------------------------------*/

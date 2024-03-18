@@ -25,7 +25,7 @@
  */
 #include "u_sim_data.h"
 #include "u_status.h"
-#include "m_wave.h"
+#include <m_wave.h>
 #include "u_prblst.h"
 #include "declare.h"	/* plottr, plopen */
 #include "s__.h"

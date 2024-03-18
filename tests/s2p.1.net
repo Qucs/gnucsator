@@ -1,0 +1,9 @@
+# does not work yet...
+
+Pac:P1 _net0 gnd Num="1" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
+Pac:P2 _net5 gnd Num="2" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
+C:C1 gnd _net7 C="0.5nF" V=""
+# Eqn:Eqn2 T="twoport(S,'S','T')" Export="yes"
+SPfile:line _net0 _net5 _net7 File="line.0.s2p"
+
+.SP:SP1 Type="log" Start="0.5e9" Stop="6e9" Points="11" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"

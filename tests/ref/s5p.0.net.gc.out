@@ -1,0 +1,65 @@
+<Qucs Dataset>
+default plugins: ignored
+clear: already installed, replacing
+stashing as clear:0
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+# https://github.com/Qucs/qucsator/issues/42 
+^ ? # https: no match
+.SP:SP1 Type="l ... "10 GHz" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s
+                                        ^ ? what's this (incomplete)?
+# Eqn:Eqn1 S11dB="dB(S[1,1])" S21dB="dB(S[2,1])" Export="yes" 
+^ ? # Eqn: no match
+Gnucap   System status
+iterations: op=3, dc=0, tran=0, fourier=0, total=5
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=5, subckt=3, model=0, total=8
+dctran density=59.4%, ac density=62.5%
+
+<indep frequency 2>
+ 10.E+6
+ 10.E+9
+</indep>
+<dep S[1,1] frequency>
+ 0.06331084-j 68.0553E-6
+ 0.2516633+j 0.1921375
+</dep>
+<dep S[1,2] frequency>
+ 0.9275759-j 0.003380312
+-0.5590408+j 0.6133297
+</dep>
+<dep S[1,3] frequency>
+-29.82681E-6-j 39.50062E-6
+ 0.06603916+j 0.01005712
+</dep>
+<dep S[2,1] frequency>
+ 0.9276892-j 0.003471186
+-0.5619661+j 0.6164144
+</dep>
+<dep S[2,2] frequency>
+ 0.06392708+j 11.68318E-6
+ 0.1014046+j 0.3205726
+</dep>
+<dep S[2,3] frequency>
+-58.89841E-6-j 23.58681E-6
+ 0.0443575+j 0.01125295
+</dep>
+<dep S[3,1] frequency>
+ 4.285543E-6-j 48.25412E-6
+ 0.06564939+j 0.008798533
+</dep>
+<dep S[3,2] frequency>
+-58.38146E-6-j 19.29801E-6
+ 0.04403276+j 0.01103934
+</dep>
+<dep S[3,3] frequency>
+-0.007868031-j 98.90618E-6
+ 0.1844961+j 0.4528591
+</dep>

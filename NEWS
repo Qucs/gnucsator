@@ -4,6 +4,8 @@
 * Eqn command
 * drop bm_wrapper
 * MOSFET BJT polarity by parameter
+* new build system
+* S-param embedding, SPFile
 * preparations...
 
 0.0.2

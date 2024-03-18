@@ -1,0 +1,11 @@
+
+module main ();
+//# provided by zodoczi 
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(ANTENNA),.2(0));
+Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(SUP_2200_6000MHz),.2(0));
+Pac #(.Num(3),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(SUB_2220MHz),.2(0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(0),.n(_net0));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(0),.n(RESERVED));
+SPembed #(.File(File)) rfsw1 (.p0(ANTENNA),.p1(SUP_2200_6000MHz),.p2(SUB_2220MHz),.p3(RESERVED),.p4(_net0),.p5(0));
+endmodule // main
+

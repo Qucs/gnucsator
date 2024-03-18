@@ -1,0 +1,9 @@
+
+module main ();
+//# does not work yet... 
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
+Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net5),.2(0));
+C #(.C(0.5nF)) C1 (.p(0),.n(_net7));
+SPembed #(.File(File)) line (.p0(_net0),.p1(_net5),.p2(_net7));
+endmodule // main
+

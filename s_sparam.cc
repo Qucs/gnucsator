@@ -460,11 +460,17 @@ void SPARAM::store_results(double x)
 template<class T, class O>
 void qfl(T const& t, O& o, size_t){
   for( auto i : t){
-    o << i << "\n";
+//    o << i << "\n";
+    char s='+';
+    double v=i.imag();
+    if(v<0){
+      s = '-';
+      v = -v;
+    }
+    o << i.real() << s << "j" << v << "\n";
   }
 }
 /*--------------------------------------------------------------------------*/
-
 void SPARAM::flush()
 {
   trace1("flush", _data.size());
@@ -492,8 +498,9 @@ void SPARAM::outmatrix(gsl_matrix_complex const* M)
   for(unsigned i=0; i< M->size1; ++i){ untested();
     for(unsigned j=0; j< M->size2; ++j){ untested();
       gsl_complex vv=gsl_matrix_complex_get(M, i, j);
-      COMPLEX x=COMPLEX(GSL_REAL(vv), GSL_IMAG(vv));
-      _out << x << " ";
+//      COMPLEX x=COMPLEX(GSL_REAL(vv), GSL_IMAG(vv));
+//      _out << x << " ";
+      _out << GSL_REAL(vv) << " + j" << GSL_IMAG(vv) << " ";
     }
     _out <<"\n";
   }
@@ -599,7 +606,10 @@ void SPARAM::sweep()
       std::vector<double> sy0(size);
       unsigned i=0;
       for(auto p : _ports){
-        assert(p->impedance());
+        if(!p->impedance()){
+          error(bDANGER, "zero impedance in " + p->long_label() + "\n");
+        }else{
+        }
         double yy = 1./p->impedance();
         assert(yy>0);
         sy0[i++] = sqrt(yy);

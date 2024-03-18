@@ -39,6 +39,9 @@ COMMON_TESTS = \
 	rr.net \
 	sawtooth-discreet.net \
 	schmitt.net \
+	s2p.0.net \
+	s2p.1.net \
+	s5p.0.net \
 	sparam.0.net \
 	sparam.1.net \
 	sparam_e.net \
@@ -66,6 +69,7 @@ GC_TESTS = \
 	list.1.gc \
 	wrap.gc \
 	wrap.bad.gc \
+	s2p.0.gc \
 	rect.gc
 
 NOTYET_GC_TESTS = \

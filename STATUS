@@ -18,7 +18,7 @@ SIMULATION COMMANDS
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
 │ operating point │  DC             │   M            │ TEI  │                │
 │ transient       │  TR             │   UO           │ TEI  │ mixed signal   │
-│ s-parameter     │  SP             │   C            │ TEI  │ uses ac command│
+│ s-parameter     │  SP             │   C            │ TEI  │ uses ac matrix │
 │ ac analysis     │  AC             │   M            │ TEI  │ needs output   │
 │ sweep           │  SW             │   C            │ TEI  │ DC parameters  │
 │ pz              │  ?              │   C            │      │ gnucap-python  │
@@ -30,7 +30,7 @@ SIMULATION COMMANDS
 COMPONENTS (table ripped from [1])
 
 - implementation column
-    N  native
+    N  native gnucap plugin
     S  sckt based ("macro") model
     W  sckt wrapper, bultin component
     B  built in component + wrapper
@@ -140,7 +140,8 @@ COMPONENTS (table ripped from [1])
 │ equation device │ Eqn             │  C             │ T    │ probe access?  │
 │ equation RF dev │                 │  ?             │      │                │
 │ eqn RF 2 port   │                 │  ?             │      │                │
-│ S-parameter data│                 │  ?             │      │                │
+│ SP embedding    │ SPFile          │  C             │ TE   │ S only         │
+│ SP de-embedding │ SPDFile         │ (C)            │      │                │
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
 │ voltage pulse   │ Vpulse          │  W             │ E    │                │
 │ voltage rect    │ Vrect           │  W             │ T    │                │

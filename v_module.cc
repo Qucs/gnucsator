@@ -57,7 +57,7 @@ static COMMON_PARAMLIST Default_SUBCKT(CC_STATIC);
 class DEV_MODULE : public BASE_SUBCKT {
 private:
   const BASE_SUBCKT* _parent;
-  size_t _node_capacity;
+  size_t _node_capacity{0};
 private:
   explicit	DEV_MODULE(const DEV_MODULE&);
 public:

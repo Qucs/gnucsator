@@ -140,8 +140,12 @@ $(QUCS_DEVS_SO): d_qucs_%.so: qucs_wrapper.cc
 		$< $(QUCS_LDFLAGS) $(QUCS_LIBS) \
 	$(LDLIBS)
 
+d_spembed.so: MORE_CPPFLAGS=-Dnr_double_t=double -DHAVE_STD_ERF
+d_spembed.so: MORE_OBJS=${QUCSATOR_OBJS}
+
 %.so : %.cc
-	$(CXX) $(GNUCSATOR_CXXFLAGS) $(MY_CXXFLAGS) ${MY_CPPFLAGS} $(CPPFLAGS) $(GNUCAP_CPPFLAGS) -o $@ $< $(LDLIBS) $(OBJS) -shared # Makefile.in
+	$(CXX) $(GNUCSATOR_CXXFLAGS) $(MY_CXXFLAGS) ${MY_CPPFLAGS} $(CPPFLAGS) $(GNUCAP_CPPFLAGS) \
+		${MORE_CPPFLAGS} ${MORE_OBJS} -o $@ $< $(LDLIBS) $(OBJS) -shared # Makefile.in
 
 ${QUCS_PLUGINS}: %.so: %.cc
 

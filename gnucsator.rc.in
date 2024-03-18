@@ -63,6 +63,7 @@ load qucs/s_sparam.so
 load qucs/s_sweep.so
 load qucs/c_include.so
 load qucs/d_eqn.so
+load qucs/d_spembed.so
 
 load public qucs/subst_wrap.so
 load qucs/microstrip_wrap.so

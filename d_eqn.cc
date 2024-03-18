@@ -106,7 +106,7 @@ DISPATCHER<CARD>::INSTALL
 /*--------------------------------------------------------------------------*/
 static PARAM_LIST::iterator pick(PARAM_LIST& list, const std::string& name)
 {
-#if HAVE_PARAM_PICK
+#ifdef HAVE_PARAM_PICK
   incomplete();
 #else
   //BUG: linear search

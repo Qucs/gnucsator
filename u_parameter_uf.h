@@ -180,15 +180,15 @@ inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
 /*--------------------------------------------------------------------------*/
 class mystring : public std::string{
 public:
-	explicit mystring() : std::string() {}
+	explicit mystring() : std::string() {untested();}
 	mystring(mystring const& x) : std::string(x) {}
-	explicit mystring(std::string const& x) : std::string(x) {}
+	explicit mystring(std::string const& x) : std::string(x) {untested();}
 	explicit mystring(const char* c) : std::string(c) {}
-	explicit mystring(const double& c) : std::string("INVALID") {
-		assert(c==NOT_VALID);
+	explicit mystring(const double& c) : std::string("INVALID") { untested();
+		assert(c==NOT_INPUT || c==NOT_VALID);
 	}
 
-	mystring operator=(mystring const& m){
+	mystring operator=(mystring const& m){ untested();
 		std::string::operator=(m);
 		return *this;
 	}
@@ -205,6 +205,7 @@ public:
 			return false;
 		}
 	}
+//	virtual not_input()const override { return NOT_VALID; }
 
 	void parse(CS& a){ untested();
 		incomplete();

@@ -1,0 +1,11 @@
+# provided by zodoczi
+# https://github.com/Qucs/qucsator/issues/42
+
+Pac:P1 ANTENNA gnd Num="1" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
+Pac:P2 SUP_2200_6000MHz gnd Num="2" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
+Pac:P3 SUB_2220MHz gnd Num="3" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
+R:R1 gnd _net0 R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R2 gnd RESERVED R="50 Ohm" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+.SP:SP1 Type="lin" Start="0.01 GHz" Stop="10 GHz" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" saveCVs="no" saveAll="no"
+# Eqn:Eqn1 S11dB="dB(S[1,1])" S21dB="dB(S[2,1])" Export="yes"
+SPfile:rfsw1 ANTENNA SUP_2200_6000MHz SUB_2220MHz RESERVED _net0 gnd File="line.s5p" Data="rectangular" Interpolator="linear" duringDC="open"

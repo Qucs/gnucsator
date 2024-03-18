@@ -216,13 +216,15 @@ private:
 		t._stop = _stop;
 
 		double range = _stop - _start;
-		if (_type == tLin) {
+		if (_type == tLin) { untested();
 			assert(_points>1);
 			double step = range / (_points-1);
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
 		}else if (_type == tLog) { untested();
-			double step = log(range / (_points-1));
+			double range = _stop / _start;
+			double step = exp ( log(range)  / (_points-1));
+			trace3("SP sweep log", range, _points, step);
 			t._args = "* " + to_string(step) + " ";
 		}else{ untested();
 			incomplete();
