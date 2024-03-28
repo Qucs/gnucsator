@@ -30,6 +30,7 @@ COMMON_TESTS = \
 	lang_qucs.3.net \
 	mixer.net \
 	mscoupler.1.net \
+	mline.0.net \
 	MUT.net \
 	notch.1.net \
 	pac.net \
