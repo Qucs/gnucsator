@@ -30,6 +30,7 @@ PLUGIN_CC = \
 	d_probe.cc \
 	d_spembed.cc \
 	d_subckt.cc \
+	d_trln.cc \
 	functions.cc \
 	lang_qucs.cc \
 	lang_verilog.cc \

@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 # https://github.com/Qucs/qucsator/issues/42 
 ^ ? # https: no match
 .SP:SP1 Type="l ... "10 GHz" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s

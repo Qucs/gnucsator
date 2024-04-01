@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 C:C1 pos _net0 C="2p" V="" 
                       ^ ? C1: V has no value?
 C:C2 neg _net0 C="2p" V="" 

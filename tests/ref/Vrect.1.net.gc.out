@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 Gnucap   System status
 iterations: op=0, dc=0, tran=235, fourier=0, total=330
 transient timesteps: accepted=63, rejected=32, total=95

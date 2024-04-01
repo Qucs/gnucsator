@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 parameter TESTSUB not specified, using default
 parameter TESTSUB value is "NOT_INPUT"
 parameter TESTSUB not specified, using default

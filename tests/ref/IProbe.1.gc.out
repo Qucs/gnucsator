@@ -55,6 +55,7 @@ stashing as R:0
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB" 
 // is it lumped? 
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85" 
+//                                           is ignored  ^^ 
 //* sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1" 
 //* sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1" 
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 

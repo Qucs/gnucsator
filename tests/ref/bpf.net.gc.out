@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 # Eqn:Eqn1 dB_S21="dB(S[2,1])" dB_S11="dB(S[1,1])" Export="yes" 
 ^ ? # Eqn: no match
 .SP:SP1 Type="l ... 5 GHz" Points="150" Noise="no" NoiseIP="1" NoiseOP="2" s

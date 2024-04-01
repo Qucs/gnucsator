@@ -77,8 +77,8 @@ COMPONENTS (table ripped from [1])
 │ current probe   │  IProbe         │  C             │ TE   │                │
 │ voltage probe   │  VProbe         │  C             │ T    │                │
 │ power probe     │  WProbe         │                │      │                │
-│ ideal transline │  TLIN           │  U             │ TE   │no loss, but tr │
-│ 4-term tline    │                 │                │      │                │
+│ ideal transline │  TLIN           │  U             │ TE   │ no tr loss     │
+│ 4-term tline    │  TLIN4P         │  U             │ TE   │ also ideal     │
 │ tpair line      │                 │                │      │                │
 │ coaxial line    │                 │                │      │                │
 │ rect waveguide  │                 │                │      │                │

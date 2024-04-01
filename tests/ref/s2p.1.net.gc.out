@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 C:C1 gnd _net7 C="0.5nF" V="" 
                          ^ ? C1: V has no value?
 # Eqn:Eqn2 T="twoport(S,'S','T')" Export="yes" 

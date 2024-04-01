@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 C:C1 gnd _net2 C="1 m" V="" 
                        ^ ? C1: V has no value?
 Gnucap   System status

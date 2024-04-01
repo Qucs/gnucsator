@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 >>>>>.SW:SW1 Sim="DC1" Type="lin" Param="R1" Start="10m" Stop="50m" Points="5" 
 >>>>>Eqn:Eqn1 R1="1" Export="yes" 
 >>>>>.DC:DC1 Temp="26.85" reltol="0.001" abstol="1 pA" vntol="1 uV" saveOPs="no" MaxIter="150" saveAll="no" convHelper="none" Solver="CroutLU" 

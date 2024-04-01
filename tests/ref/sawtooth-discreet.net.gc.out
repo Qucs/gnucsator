@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 C:C1 gnd OUT C="680 pF" V="" 
                         ^ ? C1: V has no value?
 parameter Z_Diodes_1N4728A not specified, using default

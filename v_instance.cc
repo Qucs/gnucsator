@@ -307,7 +307,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
       }
     }
     Proto->subckt()->push_front(c);
-  }catch(Exception const& e){ untested();
+  }catch(Exception const& e){
     // TODO: include proto name attribute
     error(bLOG, long_label() + " discarded: " + e.message() + "\n");
     delete (CARD*) c;

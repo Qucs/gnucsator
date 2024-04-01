@@ -10,6 +10,10 @@ stashing as *:0
 stashing as ':0
 ": already installed, replacing
 stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
 C:C1 gnd _net0 C="30 pF" V="" 
                          ^ ? C1: V has no value?
 .SP:SP1 Type="l ... ="5 GHz" Points="3" Noise="no" NoiseIP="1" NoiseOP="2" s

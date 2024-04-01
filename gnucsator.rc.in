@@ -59,6 +59,7 @@ load qucs/c_vpp.so
 load qucs/functions.so
 load qucs/s_dc.so
 load qucs/s_tr.so
+load qucs/d_trln.so
 load qucs/s_sparam.so
 load qucs/s_sweep.so
 load qucs/c_include.so

@@ -2,7 +2,7 @@
 module main ();
 //# trln 
 Vac #(.Phase(0),.Theta(0),.U(1),.f(1G)) V1 (.1(_net0),.2(0));
-TLIN #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.a(_net0),.b(_net1));
+TLIN4P #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.a(_net0),.b(_net1),.c(0),.d(0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(0));
 endmodule // main
 

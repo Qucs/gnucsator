@@ -1,0 +1,36 @@
+<Qucs Dataset>
+default plugins: ignored
+clear: already installed, replacing
+stashing as clear:0
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
+.AC:AC1 Type="l ... 10 GHz" Points="10" Noise="no" 
+                                        ^ ? what's this (incomplete)?
+Gnucap   System status
+iterations: op=2, dc=0, tran=0, fourier=0, total=12
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=2, subckt=0, model=0, total=2
+dctran density=50.0%, ac density=100.0%
+
+#Freq                      vr(_net0)                 vr(_net1)                 vi(_net0)                 vi(_net1)                
+ 100.E+6                   0.99999980000003994007   -0.99261600064000390375    0.                        1.7308332064009550599    
+ 1.1999999999999997335E+9  0.99999980000003994007    1.9940540008652721581     0.                       -0.069417251025709560963  
+ 2.3000000000000002664E+9  0.99999980000003994007   -1.1105751305741498047     0.                       -1.65761666028577892      
+ 3.399999999999999467E+9   0.99999980000003994007   -0.82269567047050724539    0.                        1.8177573949501212524    
+ 4.5000000000000008881E+9  0.9999998000000401177     1.9782979891682623829     0.                       -0.25962892589150108335   
+ 5.6000000000000005329E+9  0.9999998000000401177    -1.2638771023391166536     0.                       -1.5439186452950326433    
+ 6.7000000000000001776E+9  0.99999980000003994007   -0.64524727367571959035    0.                        1.888048216789184508     
+ 7.8000000000000007105E+9  0.99999980000003994007    1.9444395860261071362     0.                       -0.44746486946059853551   
+ 8.8999999999999985789E+9  0.99999980000003994007   -1.4056139822066868738     0.                       -1.416093021708610955     
+ 10.E+9                    0.9999998000000401177    -0.46189454963034952683    0.                        1.9410624766164909615    
