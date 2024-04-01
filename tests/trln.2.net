@@ -1,0 +1,12 @@
+# Qucs
+
+#Pac:P1 _net0 gnd Num="1" Z="50 Ohm" P="0" f="1 GHz" Temp="26.85"
+
+Pac:P2 _net0 gnd Num="1" Z="50 Ohm" P="1" f="1 GHz" Temp="26.85"
+TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
+TLIN:Line2 _net1 _net2 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
+
+R:R1 gnd _net2 R="100 Ohm"
+R:R2 gnd _net1 R="100 Ohm"
+
+.AC:SP1 Type="log" Start="1e5" Stop="1e9" Points="6"

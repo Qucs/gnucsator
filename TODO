@@ -1,4 +1,5 @@
 - extend the component library, see STATUS
+- ac dump qucs format
 - add the missing simulations or command wrappers
 - Eqn: access probes
 - complex, vector, matrix parameters
@@ -6,7 +7,6 @@
 - get rid of wrapper gnucsator.sh
 - write directly to output file. and only output
 - fix logic. multiport and process
-- try other build system. contrib/?
 
 - problems in qucs to be addressed:
  - dataset format

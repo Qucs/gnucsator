@@ -1,0 +1,16 @@
+
+module main ();
+//# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_microstrip_prj/microstrip.sch 
+Pac #(.Num(3),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P3 (.1(_net0),.2(0));
+Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net1),.2(0));
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net2),.2(0));
+C #(.C(30p)) C1 (.p(0),.n(_net0));
+MLIN #(.DispModel(Kirschning),.L(10m),.Model(Hammerstad),.Subst(Aluminia),.Temp(26.85),.W(1m)) MS1 (.p0(_net2),.p1(_net4));
+MLIN #(.DispModel(Kirschning),.L(10m),.Model(Hammerstad),.Subst(Aluminia),.Temp(26.85),.W(1m)) MS2 (.p0(_net4),.p1(_net1));
+paramset Aluminia SUBST;\
+ .er=9.8; .h=1m; .t=35u; .tand=1e-3; .rho=0.022e-6; .D=0.15e-6; .tnom=tnom;\
+endparmset
+
+MLIN #(.DispModel(Kirschning),.L(10m),.Model(Hammerstad),.Subst(Aluminia),.Temp(26.85),.W(0.5m)) Stub (.p0(_net0),.p1(_net4));
+endmodule // main
+

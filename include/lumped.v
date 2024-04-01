@@ -58,14 +58,15 @@ endmodule
 // is it lumped?
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
 module TLIN (a, b)
-parameter Z=50
-parameter L=100m
-parameter Alpha=1
-parameter Temp=26.85
+  parameter Z=50
+  parameter L=100m
+  parameter Alpha=1
+  parameter Temp=26.85
 
 // local??
-parameter c0=299792458.0
-tline #(.z(Z), .f(c0), .nl(L) t(a 0 b 0);
+  parameter c0=299792458.0
+  // tline #(.z(Z), .td(L/c0) t(a 0 b 0);
+  tline #(.z(Z), .td(1./c0), .len(L) t(a 0 b 0);
 endmodule
 
 module Tr (outp inp inn outn);

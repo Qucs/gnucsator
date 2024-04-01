@@ -77,16 +77,16 @@ COMPONENTS (table ripped from [1])
 │ current probe   │  IProbe         │  C             │ TE   │                │
 │ voltage probe   │  VProbe         │  C             │ T    │                │
 │ power probe     │  WProbe         │                │      │                │
-│ ideal transline │  TLIN           │  U             │ TE   │different model?│
+│ ideal transline │  TLIN           │  U             │ TE   │no loss, but tr │
 │ 4-term tline    │                 │                │      │                │
 │ tpair line      │                 │                │      │                │
 │ coaxial line    │                 │                │      │                │
 │ rect waveguide  │                 │                │      │                │
-│ microstrip line │                 │  Q             │      │                │
-│ microstrip open │                 │  Q             │      │                │
+│ microstrip line │ MLIN            │  Q             │ TE   │                │
+│ microstrip open │ MOPEN           │  Q             │ TE   │                │
 │ mstrip cross    │                 │  Q             │      │                │
 │ mstrip mit bend │                 │  Q             │      │                │
-│ microstrip step │                 │  Q             │      │                │
+│ microstrip step │ MSTEP           │  Q             │ TE   │ bpf test       │
 │ microstrip tee  │                 │  Q             │      │                │
 │ mstrip corner   │                 │  Q             │      │                │
 │ microstrip gap  │                 │  Q             │      │                │

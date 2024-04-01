@@ -110,8 +110,8 @@ public:
 
   void ac_load() override{
     double Z = value();
-    double g = 1/Z;
-    double I = std::sqrt(8 * _pwr / Z);
+    double g = 1./Z;
+    double I = std::sqrt(8. * _pwr / Z);
     trace3("PAC::ac_load", I, g, _pwr);
     _acg = I;
     ac_load_source();

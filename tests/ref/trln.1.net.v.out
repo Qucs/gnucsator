@@ -1,0 +1,8 @@
+
+module main ();
+//# Qucs 0.0.19  /home/felix/extern/gnucap-qucs/examples/resonance.sch 
+Pac #(.Num(1),.P(1),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
+TLIN #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.a(_net0),.b(_net1));
+Pac #(.Num(2),.P(1),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(_net1),.2(0));
+endmodule // main
+

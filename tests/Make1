@@ -52,6 +52,12 @@ COMMON_TESTS = \
 	supply.net \
 	Switch.0.net \
 	single_balanced.net \
+	trln.ac0.net \
+	trln.ac0a.net \
+	trln.ac1.net \
+	trln.0.net \
+	trln.1.net \
+	trln.2.net \
 	TTL_NAND.net \
 	Vrect.1.net \
 	Vrect.2.net \

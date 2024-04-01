@@ -157,7 +157,7 @@ parameter Temp
 parameter U={sqrt(8 * P * Z)}
 Vac #(.U(U) .f(f)) sine(1, i);
 y_dctr #(.y({1/Z})) Y1(i 2);
-pac_ #(.Num(Num) .Z(Z) .P(P)) sp(1, 2);
+pac_ #(.Num(Num) .Z(Z) .P(P)) sp(2, 1);
 endmodule
 
 simulator lang=acs

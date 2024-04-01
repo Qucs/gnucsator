@@ -1,0 +1,35 @@
+# ported from gnucap
+
+
+# parameter c0=299792458.0
+
+# matched
+R:R1s _1 _11 R="70 Ohm"
+TLIN:T1 _11 _12 Z="70 Ohm" L="7.49481145"
+R:R1l _12 gnd R="70 Ohm"
+
+# open stub
+R:R2s _1 _21 R="70 Ohm"
+TLIN:T2 _21 _22 Z="70 Ohm" L="7.49481145"
+R:R2l _22 gnd R="999999999999999 Ohm"
+
+# shorted stub
+R:R3s _1 _31 R="70 Ohm"
+TLIN:T3 _31 _32 Z="70 Ohm" L="7.49481145"
+R:R3l _32 gnd R="0.001 Ohm"
+
+# lo-z load
+R:R4s _1 _41 R="70 Ohm"
+TLIN:T4 _41 _42 Z="70 Ohm" L="7.49481145"
+R:R4l _42 gnd R="35 Ohm"
+
+# hi-z load
+R:R5s _1 _51 R="70 Ohm"
+TLIN:T5 _51 _52 Z="70 Ohm" L="7.49481145"
+R:R5l _52 gnd R="140 Ohm"
+
+# alternative drive: missing
+
+Vac:v1 _1 gnd U="1 V" f="1 GHz" Phase="0" Theta="0"
+
+.AC:SP1 Type="lin" Start="0" Stop="40e6" Points="21"

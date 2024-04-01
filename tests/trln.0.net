@@ -1,0 +1,6 @@
+# Qucs 0.0.19  /home/felix/extern/gnucap-qucs/examples/resonance.sch
+
+Vac:V1 _net0 gnd U="1 V" f="1 GHz" Phase="0" Theta="0"
+TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
+R:R1 _net1 gnd R="50" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+.AC:AC1 Type="lin" Start=".1 GHz" Stop="10 GHz" Points="10" Noise="no"
