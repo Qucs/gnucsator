@@ -44,7 +44,6 @@
 #include <e_node.h>
 #include <e_elemnt.h>
 #include <u_nodemap.h>
-#include "e_va.h"
 #include <u_limit.h>
 #include <u_parameter_uf.h>
 
