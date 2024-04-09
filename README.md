@@ -9,7 +9,8 @@ Your support is gratefully received.
 
 [![donate](https://liberapay.com/assets/widgets/donate.svg "donate through lp")](https://liberapay.com/felixs/donate)
 
-For chat, feedback and questions, visit #gnucap:matrix.org.
+For chat, feedback and questions, visit #gnucap:matrix.org, and/or use the
+gnucap-devel mailing list.
 
 ## gnucsator.sh
 
@@ -25,7 +26,7 @@ Convert qucsator "net" files into verilog. Embedded commands will be ignored.
 Binary executable. equivalent to gnucap, but loads a different run time
 configuration file (gnucsator.rc).
 
-## setup
+## setup, see also INSTALL.
 
 - install qucs (the gui).
 - install gnucap (>=20210107)

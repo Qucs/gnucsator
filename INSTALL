@@ -1,10 +1,12 @@
-This package has no (standard) build system yet.
+This package has a standard "./configure; make" build system
 
-The static Makefile has a catchall target to build, a "check" and an "install"
+It has a catchall target to build, a "check" and an "install"
 target with the usual semantics. gnucap related options are pulled in from the
-executable "gnucap-conf${SUFFIX}" shipped with gnucap (develop branch).
+executable "gnucap-conf" shipped with gnucap.
 
-you may want to override some settings, use the makefile snipped "Make2".
-SUFFIX=-uf                # program-suffix of your gnucap installation
+More options will be added as needed, and as the Gnucap build system
+progresses. For now you may want to override some settings, edit the makefile
+snippet "Make2", created by configure.
+
 CPPFLAGS=-DTRACE_UNTESTED # whatever flags go here
 QUCS_PREFIX= ...          # this might be not relevant yet.
