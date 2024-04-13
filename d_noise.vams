@@ -1,0 +1,16 @@
+
+`include "disciplines.vams"
+`include "constants.vams"
+
+module Inoise(p, n);
+	electrical p, n;
+	inout p, n;
+	parameter real i=1e-6 from [0.:inf);
+	parameter real e=0.;
+  // { "a", PROP_REAL, { 0, PROP_NO_STR }, PROP_POS_RANGE },
+  // { "c", PROP_REAL, { 1, PROP_NO_STR }, PROP_POS_RANGE },
+  // nr_double_t ipsd = i / (a + c * qucs::pow (frequency, e)) / kB / T0;
+	analog begin
+		I(p,n) <+ flicker_noise(i, e);
+	end
+endmodule

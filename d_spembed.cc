@@ -45,7 +45,7 @@
 #include <e_elemnt.h>
 #include <u_nodemap.h>
 #include <u_limit.h>
-#include <u_parameter_uf.h>
+// #include <u_parameter_uf.h>
 
 namespace qucs {
 

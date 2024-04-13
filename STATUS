@@ -163,7 +163,7 @@ COMPONENTS (table ripped from [1])
 │ inductor        │ L               │  W             │      │                │
 │ corr noise srcs │                 │                │      │                │
 │ corr noise vs   │                 │                │      │                │
-│ corr noise cs   │                 │                │      │                │
+│ noise cs        │  Inoise         │  V             │ ET   │ need modelgen  │
 │ digital source  │                 │ (L)            │      │                │
 │ logical OR      │  OR             │  W             │      │ preliminary    │
 │ logical NOR     │  NOR            │  W             │      │ preliminary    │

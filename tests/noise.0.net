@@ -1,0 +1,10 @@
+# Qucs
+
+R:R1 _net1 gnd R="1" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R2 _net2 gnd R="1" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+R:R3 _net3 gnd R="1" Temp="26.85" Tc1="0.0" Tc2="0.0" Tnom="26.85"
+Inoise:N0 _net1 gnd i=1
+Inoise:N1 _net1 gnd i=1
+Inoise:N2 _net2 gnd i=2
+Inoise:N3 _net3 gnd i=1 e=2
+.AC:AC1 Type="lin" Start="1 MHz" Stop="2 MHz" Points="3" Noise="yes"

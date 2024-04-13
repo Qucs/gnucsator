@@ -3,6 +3,8 @@ MKDIR_P = mkdir -p
 am__base_list = cat # for now
 INSTALL = install -m 644
 INSTALL_EXEC = install -m 755
+MODELGEN = gnucap-mg-vams
+TARGET_LIBS =
 #------------------------------------------------------------------------
 all:
 #------------------------------------------------------------------------
@@ -44,5 +46,14 @@ install : install-files install-programs $(INSTALL_FILES_1)  $(INSTALL_FILES_2)
 #------------------------------------------------------------------------
 %.o: %.cpp
 	$(CXX) $(GNUCAP_CPPFLAGS) $(CPPFLAGS) -I${srcdir} $(LOCAL_CXXFLAGS) $(CXXFLAGS) -c $< -fPIC -o $@ # qucsator/Make1
+#------------------------------------------------------------------------
+MAKE_LIB = $(CXX) -fPIC $(GNUCAP_CPPFLAGS) ${CPPFLAGS} -I${srcdir}  $(MY_CXXFLAGS) ${MY_CPPFLAGS} ${GNUCAP_CXXFLAGS} ${MORE_CPPFLAGS} $(LDFLAGS) $< $(OBJS) $(MORE_OBJS) $(TARGET_LIBS) ${LDLIBS} -shared
+%.cc: %.vams
+	${MODELGEN} -I ${GNUCAP_INCLUDEDIR} -I ${srcdir} --cc $< > $@ # Makefile_
+%.cc: %.va
+	${MODELGEN} -I ${GNUCAP_INCLUDEDIR} -I ${srcdir} --cc $< > $@ # Makefile_
+#------------------------------------------------------------------------
+%.so: %.cc
+	$(MAKE_LIB) -o $@ # Make3
 #------------------------------------------------------------------------
 .PHONY: clean distclean install all uninstall depend install-files install-programs

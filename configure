@@ -26,6 +26,8 @@ else
 fi
 
 gnucap_cppflags=$( gnucap-conf --cppflags )
+gnucap_cxxflags="$( gnucap-conf --cxxflags ) -fPIC"
+gnucap_includedir=$( gnucap-conf --includedir )
 
 # TODO: check if gnucap-conf works, then use it.
 libs=-lgnucap # $( gnucap-conf --libs )
@@ -121,6 +123,8 @@ sub_makefile() {
 	echo "exec_prefix = $prefix" >> $m
 	echo "VPATH = \${srcdir}" >> $m
 	echo "GNUCAP_CPPFLAGS = ${gnucap_cppflags}" >> $m
+	echo "GNUCAP_CXXFLAGS = ${gnucap_cxxflags}" >> $m
+	echo "GNUCAP_INCLUDEDIR = ${gnucap_includedir}" >> $m
 	echo "pkgincludedir = ${PKGINCLUDEDIR}" >> $m
 	echo "include \${srcdir}/Make1" >> $m
 	echo "include ../Make2" >> $m

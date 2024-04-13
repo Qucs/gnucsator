@@ -1,5 +1,5 @@
 - extend the component library, see STATUS
-- ac dump qucs format
+- ac dump qucs format, possibly include noise
 - add the missing simulations or command wrappers
 - Eqn: access probes
 - complex, vector, matrix parameters

@@ -12,6 +12,9 @@ INSTALL_PROGRAMS = \
 	gnucsator.sh \
 	net2verilog.sh
 
+PLUGIN_VAMS = \
+	d_noise.vams
+
 PLUGIN_CC = \
 	bm_poly.cc \
 	bm_trivial.cc \

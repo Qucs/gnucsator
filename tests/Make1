@@ -6,6 +6,7 @@
 # Ideally produce similar output
 # WIP: should cover all netlist.txt files from qucs-test
 COMMON_TESTS = \
+	noise.0.net \
 	AM_Mod.1.net \
 	active_mixer.net \
 	bjt_pulse0.net \
@@ -33,6 +34,7 @@ COMMON_TESTS = \
 	mline.0.net \
 	MUT.net \
 	notch.1.net \
+	noise.0.net \
 	pac.net \
 	rc.net \
 	resonance_ac.net \
@@ -67,6 +69,7 @@ COMMON_TESTS = \
 
 # These tests run with vanilla gnucap
 GC_TESTS = \
+	noise.0.gc \
 	lang_verilog.param1.gc \
 	lang_verilog.range.0.gc \
 	lang_qucs.1.gc \

@@ -1,0 +1,30 @@
+load c_include.so
+load d_trln.so
+load d_noise.so
+load s_sparam.so
+load mgsim/d_va_noise.so
+load mgsim/d_vaflow.so
+
+`include ../include/sources.v
+`include ../include/lumped.v
+
+verilog
+
+module main ();
+// TODO: ground //
+R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(net1),.n(0));
+R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(net2),.n(0));
+Inoise #(.i(1.)) N1 (.p(net1),.n(0));
+Inoise #(.i(1.)) N1 (.p(net1),.n(0));
+Inoise #(.i(1), .e(2.)) N2 (.p(net2),.n(0));
+meas_noise #() n1(net1);
+meas_noise #() n2(net2);
+endmodule // main
+
+main #() m()
+
+// BUG: need dc.
+dc
+
+print ac nv(m.n*)
+ac 1e6 2e6 * {sqrt(2)}

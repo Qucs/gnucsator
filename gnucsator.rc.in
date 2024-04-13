@@ -13,6 +13,7 @@
 * (default=3, cubic)
 * options trsteporder=1
 
+* todo: split
 load gnucap-default-plugins.so
 
 attach qucs/c_uninst.so
@@ -39,6 +40,7 @@ uninstall comp X
 uninstall comp subckt
 unload qucs/c_uninst.so
 
+* todo: use upstream infrastructure.
 load qucs/d_subckt.so
 load qucs/v_module.so
 load qucs/v_instance.so
@@ -52,6 +54,7 @@ load qucs/c_list.so
 load qucs/cmd_wrapper.so
 load qucs/d_poly_g_uf.so
 load qucs/d_probe.so
+load qucs/d_noise.so
 *load d_qucs_opamp.so
 load qucs/lang_qucs.so
 load public qucs/lang_verilog.so
@@ -68,6 +71,10 @@ load qucs/d_spembed.so
 
 load public qucs/subst_wrap.so
 load qucs/microstrip_wrap.so
+
+* requires modelgen.
+load mgsim/d_va_noise.so
+load mgsim/d_vaflow.so
 
 acs
 
