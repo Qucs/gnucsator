@@ -162,7 +162,7 @@ COMPONENTS (table ripped from [1])
 │ three mutual    │ MUT2            │  S             │      │                │
 │ inductor        │ L               │  W             │      │                │
 │ corr noise srcs │                 │                │      │                │
-│ corr noise vs   │                 │                │      │                │
+│ noise vs        │  Vnoise         │  V             │ ET   │ need modelgen  │
 │ noise cs        │  Inoise         │  V             │ ET   │ need modelgen  │
 │ digital source  │                 │ (L)            │      │                │
 │ logical OR      │  OR             │  W             │      │ preliminary    │

@@ -1,0 +1,26 @@
+<Qucs Dataset>
+default plugins: ignored
+clear: already installed, replacing
+stashing as clear:0
+;: already installed, replacing
+stashing as ;:0
+*: already installed, replacing
+stashing as *:0
+': already installed, replacing
+stashing as ':0
+": already installed, replacing
+stashing as ":0
+T: already installed, replacing
+stashing as T:0
+tline: already installed, replacing
+stashing as tline:0
+.AC:AC1 Type="l ... ="2 MHz" Points="3" Noise="yes" 
+                                        ^ ? what's this (incomplete)?
+Cannot find va_pot. Load module?
+Gnucap   System status
+iterations: op=0, dc=0, tran=0, fourier=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=4, subckt=0, model=1, total=5
+dctran density=0.0%, ac density=0.0%
+

@@ -1,0 +1,9 @@
+
+module main ();
+//# Qucs 
+Vnoise #(.u(1)) N0 (.p(_net0),.n(0));
+Vnoise #(.u(1)) N1 (.p(_net1),.n(_net0));
+Vnoise #(.u(2)) N2 (.p(_net2),.n(0));
+Vnoise #(.u(1),.e(2)) N3 (.p(_net3),.n(0));
+endmodule // main
+

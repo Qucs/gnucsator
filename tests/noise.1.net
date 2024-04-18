@@ -1,0 +1,7 @@
+# Qucs
+
+Vnoise:N0 _net0 gnd u=1
+Vnoise:N1 _net1 _net0 u=1
+Vnoise:N2 _net2 gnd u=2
+Vnoise:N3 _net3 gnd u=1 e=2
+.AC:AC1 Type="lin" Start="1 MHz" Stop="2 MHz" Points="3" Noise="yes"
