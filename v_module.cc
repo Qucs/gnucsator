@@ -255,7 +255,7 @@ void DEV_MODULE::expand()
 {
   if(!_parent){
     // not a device. probably a prototype
-  }else{ untested();
+  }else{
     BASE_SUBCKT::expand();
     COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);

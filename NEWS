@@ -1,12 +1,14 @@
-0.0.3 (WIP)
-=====
+20240430-dev
+============
 * parameter sweeps in dc
 * Eqn command
 * drop bm_wrapper
 * MOSFET BJT polarity by parameter
 * new build system
 * S-param embedding, SPFile
-* preparations...
+* noise sources
+* new version number scheme
+* add several devices (see STATUS)
 
 0.0.2
 =====
