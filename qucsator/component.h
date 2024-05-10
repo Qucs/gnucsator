@@ -343,14 +343,16 @@ private: // COMPONENT
 		// assert(_num_param = c->_params.size()); //?
 		return COMPONENT::param_count(); //  + int(_num_param);
 	}
-   bool param_is_printable(int i)const override{
+#if 0
+   bool param_is_printable(int i)const override{ untested();
 		int s = circuit::param_count() - 1 - i;
-		if(s < _num_param){
+		if(0 <=s && s < _num_param){
 			return true;
 		}else{
 			return COMPONENT::param_is_printable(i);
 		}
 	}
+#endif
 	void set_param_by_index(int i, std::string& b, int j) override{ untested();
 		trace3("circuit::set_param_by_index", i, b, j);
 		int s = circuit::param_count() - 1 - i;

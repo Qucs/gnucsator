@@ -26,7 +26,18 @@ R.dev: resistor from device_dispatcher
 R.dev: 1 candidate found for resistor
 sweep go outfile=dc_sweep.1.net.tmp
 sweep go outfile=dc_sweep.1.net.tmp R1 10 30 10
-calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dc>>>>>status notime 
+calling op: R1 10 30 10 I1 0.01 0.02 0.01 trace=n basic > dc_sweep.1.net.tmp.dc
+I1 already set. replacing
+R1 already set. replacing
+R1 already set. replacing
+R1 already set. replacing
+I1 already set. replacing
+R1 already set. replacing
+R1 already set. replacing
+R1 already set. replacing
+R1 already set. replacing
+I1 already set. replacing
+>>>>>status notime 
 Gnucap   System status
 iterations: op=2, dc=12, tran=0, fourier=0, total=14
 transient timesteps: accepted=0, rejected=0, total=0

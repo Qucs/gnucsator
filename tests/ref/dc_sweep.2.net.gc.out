@@ -23,7 +23,14 @@ Idc.dev: 1 candidate found for isource
 R.dev: resistor from device_dispatcher
 R.dev: 1 candidate found for resistor
 sweep go outfile=dc_sweep.2.net.tmp
-calling op: I1 0.01 0.05 0.01 trace=n basic > dc_sweep.2.net.tmp.dc>>>>>status notime 
+calling op: I1 0.01 0.05 0.01 trace=n basic > dc_sweep.2.net.tmp.dc
+I1 already set. replacing
+I1 already set. replacing
+I1 already set. replacing
+I1 already set. replacing
+I1 already set. replacing
+I1 already set. replacing
+>>>>>status notime 
 Gnucap   System status
 iterations: op=2, dc=10, tran=0, fourier=0, total=12
 transient timesteps: accepted=0, rejected=0, total=0

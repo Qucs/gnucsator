@@ -11,14 +11,17 @@ load mgsim/d_vaflow.so
 verilog
 
 module main ();
-// TODO: ground //
-R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(net1),.n(0));
-R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(net2),.n(0));
-Inoise #(.i(1.)) N1 (.p(net1),.n(0));
-Inoise #(.i(1.)) N1 (.p(net1),.n(0));
-Inoise #(.i(1), .e(2.)) N2 (.p(net2),.n(0));
-meas_noise #() n1(net1);
-meas_noise #() n2(net2);
+  // TODO: ground //
+  R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(net1),.n(0));
+  R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(net2),.n(0));
+  R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(net3),.n(0));
+  Inoise #(.i(1.)) N1 (.p(net1),.n(0));
+  Inoise #(.i(1.)) N1 (.p(net1),.n(0));
+  Inoise #(.i(1.) .$mfactor(2)) N1 (.p(net2),.n(0));
+  Inoise #(.i(1), .e(2.)) N2 (.p(net3),.n(0));
+  meas_noise #() n1(net1);
+  meas_noise #() n2(net2);
+  meas_noise #() n3(net3);
 endmodule // main
 
 main #() m()

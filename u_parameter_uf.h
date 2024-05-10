@@ -45,7 +45,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
 
     std::string string()const;
     //std::vector<PARAMETER<T> >  _NOT_INPUT() const;
-    void	operator=(const IString& s)override;
+    PARA_BASE& operator=(const IString& s)override;
     void	operator=(const PARAMETER<std::vector<PARAMETER<T> > >& p) { untested();
       _v = p._v; _s = p._s;
     }
@@ -121,7 +121,7 @@ PARAMETER<std::vector<PARAMETER<T> > >::e_val(const std::vector<PARAMETER<T> >& 
 }
 /*--------------------------------------------------------------------------*/
 template<class T>
-void PARAMETER<std::vector<PARAMETER<T> > >::operator=(const IString& s)
+PARA_BASE& PARAMETER<std::vector<PARAMETER<T> > >::operator=(const IString& s)
 {
   trace1("PARAMETER dv::operator=" , s);
 
@@ -150,6 +150,7 @@ void PARAMETER<std::vector<PARAMETER<T> > >::operator=(const IString& s)
   }
   _s = "#";
   trace2("PARAMETER done vector loop", cmd.tail(), *this);
+  return *this;
 }
 /*--------------------------------------------------------------------------*/
 #ifdef UF_PARAM_HACKS

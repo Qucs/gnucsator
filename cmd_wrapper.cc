@@ -164,7 +164,7 @@ private:
 			auto o = command_dispatcher["dc"];
 //			auto o = command_dispatcher["op"];
 			assert(o);
-			error(bTRACE, "calling op: " + wcmd.fullstring());
+			error(bTRACE, "calling op: " + wcmd.fullstring() + "\n");
 			o->do_it(wcmd, Scope);
 
 		}else{
@@ -222,7 +222,7 @@ private:
 			incomplete();
 			t._args = "step " + to_string(step) + " ";
 		}else if (_type == tLog) {
-			double range = _stop / _start;
+			range = _stop / _start;
 			double step = exp ( log(range)  / (_points-1));
 			trace3("SP sweep log", range, _points, step);
 			t._args = "* " + to_string(step) + " ";
