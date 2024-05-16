@@ -150,6 +150,12 @@ class SPEMBED;
 class COMMON_SPEMBED : public COMMON_COMPONENT {
   std::string _filename;
   WAVE_<qucs::matrix> _spwave;
+  typedef enum{
+    c_UNKNOWN = 0,
+    c_RIR = 1,
+    c_MA = 2
+  } column_type;
+  column_type _column{c_UNKNOWN};
 public:
   explicit COMMON_SPEMBED(const COMMON_SPEMBED& p);
   explicit COMMON_SPEMBED(int c=0);
@@ -232,7 +238,7 @@ COMMON_SPEMBED::COMMON_SPEMBED(int c)
 /*--------------------------------------------------------------------------*/
 COMMON_SPEMBED::COMMON_SPEMBED(const COMMON_SPEMBED& p)
   :COMMON_COMPONENT(p),
-   _filename(p._filename) , _spwave(p._spwave)
+   _filename(p._filename), _spwave(p._spwave), _column(p._column)
 {
   trace2("copy", _spwave.size(), p._spwave.size());
 }
@@ -332,15 +338,22 @@ std::string COMMON_SPEMBED::param_value(int i)const
   return COMMON_COMPONENT::param_value(i);
 }
 /*--------------------------------------------------------------------------*/
+void skipcom(CS& f)
+{
+  while(f.match1("!") || !f.more()){
+    f.get_line("spfile>");
+  }
+}
+/*--------------------------------------------------------------------------*/
 void COMMON_SPEMBED::expand(const COMPONENT* d)
 {
+  double fscale = 1.;
   COMMON_COMPONENT::expand(d);
   trace1("common_spembed", std::string(_filename));
   CS f(CS::_INC_FILE, _filename);
   f.get_line("spfile>");
-  while(f.match1("!") || !f.more()){
-    f.get_line("spfile>");
-  }
+
+  skipcom(f);
 
 // # HZ S RI R 50
   if(!(f>>"#")){ untested();
@@ -349,21 +362,30 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
   }
   if(f>>"HZ"){
   }else if(f>>"Hz"){
+  }else if(f>>"GHz"){ untested();
+    fscale = 1e9;
   }else{ untested();
-    f.check(bWARNING, "need 'Hz'");
+    f.check(bWARNING, "need 'Hz' or 'GHz'");
   }
   if(!(f>>"S")){ untested();
     incomplete(); // Y, Z?
     f.check(bWARNING, "need 'S'");
   }else{
   }
-  if(!(f>>"RI")){ untested();
-    f.check(bWARNING, "need 'RI'"); // what else?
+  if(f>>"RI"){ untested();
+    if(f>>"R"){ untested();
+      _column = c_RIR;
+    }else{
+      f.check(bWARNING, "need 'R'");
+    }
+  }else if(f>>"MA"){ untested();
+    if(f>>"R"){ untested();
+      _column = c_MA;
+    }else{
+      f.check(bWARNING, "need 'R'");
+    }
   }else{
-  }
-  if(!(f>>"R")){ untested();
-    f.check(bWARNING, "need 'R'"); // what else?
-  }else{
+    f.check(bWARNING, "need 'RI' or 'MA'"); // what else?
   }
   double impedance;
   if(!(f >> impedance)){ untested();
@@ -373,11 +395,12 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
   }else{
   }
 
-  double key, real, imag;
+  double key, real, arg1;
   int ref = d->net_nodes()-1;
   try{
     while(1){
       f.get_line("spfile>");
+      skipcom(f);
       trace2("spembed", d->net_nodes(), f.fullstring().substr(0,20));
 
       f >> key;
@@ -393,8 +416,15 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
 	    f.get_line("spfile-contd>");
 	  }else{
 	  }
-	  f >> imag;
-	  m.set(ii, jj, nr_complex_t(real,imag));
+	  f >> arg1;
+	  nr_complex_t value(real, arg1);
+	  if(_column == c_RIR){
+	  }else if(_column == c_MA){
+	    value = std::polar(real, arg1);
+	  }else{
+	    incomplete();
+	  }
+	  m.set(ii, jj, value);
 	}
       }
       if(f.more()){ itested();
@@ -402,7 +432,7 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
 	    to_string(2*ref*ref + 1) + " values.\n", f);
       }else{
       }
-      _spwave.push(key, stoy(m, impedance));
+      _spwave.push(fscale*key, stoy(m, impedance));
       trace2("spembed", d->net_nodes(), _spwave.size());
 
     }

@@ -43,6 +43,7 @@ COMMON_TESTS = \
 	rr.net \
 	sawtooth-discreet.net \
 	schmitt.net \
+	s1p.0.net \
 	s2p.0.net \
 	s2p.1.net \
 	s5p.0.net \
@@ -90,3 +91,9 @@ NOTYET_GC_TESTS = \
 	sym_osci.net \
 	bjt_switch.net \
 	mscoupler.1.gc
+
+# stuff that needs symlinking when testing out of tree
+LINKS = \
+	${PWD}/line.0.s1p \
+	${PWD}/line.0.s2p \
+	${PWD}/line.s5p

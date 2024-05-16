@@ -1,0 +1,6 @@
+
+module main ();
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(_net0),.2(0));
+SPembed #(.File(File)) line (.p0(_net0),.p1(0));
+endmodule // main
+

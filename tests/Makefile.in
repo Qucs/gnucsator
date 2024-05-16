@@ -29,7 +29,6 @@ $(COMMON_TESTS:%.net=%.net.gc.out): qucs
 $(GC_TESTS:%.net=%.gc.out): qucs
 $(COMMON_TESTS:%.net=%.net.v.out): qucs
 
-LINKS = ${PWD}/line.0.s2p ${PWD}/line.s5p
 ${LINKS}: ${PWD}/%:
 	-${LN_S} ${srcdir}/$*
 
