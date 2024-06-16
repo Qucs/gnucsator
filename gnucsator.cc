@@ -268,7 +268,6 @@ public:
     // CARD_LIST::card_list already gone!
     CKT_BASE::_probe_lists = NULL;
     CKT_BASE::_sim = NULL;
-    CKT_BASE::_attribs = NULL;
   }
 
   int operator()(int argc, char *const*argv);
@@ -313,7 +312,6 @@ int MAIN::operator()(int argc, char *const* argv)
   prepare_env();
   CKT_BASE::_sim = &_sim_data;
   CKT_BASE::_probe_lists = &_probe_lists;
-  CKT_BASE::_attribs = &_attrib_list;
   try { untested();
 
     SET_RUN_MODE xx(rBATCH);
