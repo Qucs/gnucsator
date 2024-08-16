@@ -1,5 +1,7 @@
 # Qucs 0.0.19  /home/qucs/prjs/TTL_NAND_prj/TTL_NAND_spice.sch
 
+.options method=gear
+
 .Def:NAND_GATE_cir _netA _netVCC _netB _netY _ref
   .Def:NAND _ref _netA _netB _netY _netVCC
   Diode:D1 _netA _ref Is="1e-15" Cj0="1e-12" Bv="8" N="1" M="0.5" Vj="0.7"
