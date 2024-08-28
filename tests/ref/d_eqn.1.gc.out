@@ -1,13 +1,3 @@
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-dev_comment: already installed, replacing
-stashing as dev_comment:0
  a= 3. b=foo+1 bar=foo+a baz=time*time foo=1+2 more=b+baz+bar t=time
 #Time       foo(Eq1)   baz(Eq1)   more(Eq1)  t(Eq1)    
  0.         3.         0.         10.        0.        

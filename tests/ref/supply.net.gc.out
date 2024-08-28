@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 C:C1 gnd dc_voltage C="1000 uF" V="" 
                                 ^ ? C1: V has no value?
 Gnucap   System status

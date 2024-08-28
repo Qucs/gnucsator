@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 Gnucap   System status
 iterations: op=0, dc=0, tran=81, fourier=0, total=91
 transient timesteps: accepted=10, rejected=0, total=10

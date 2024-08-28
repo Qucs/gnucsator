@@ -1,35 +1,3 @@
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-dev_comment: already installed, replacing
-stashing as dev_comment:0
-list: already installed, replacing
-stashing as list:0
-save: already installed, replacing
-stashing as save:0
-verilog: already installed, replacing
-stashing as verilog:0
-paramset: already installed, replacing
-stashing as paramset:0
-module: already installed, replacing
-stashing as module:0
-macromodule: already installed, replacing
-stashing as macromodule:0
-verilog: already installed, replacing
-stashing as verilog:0
-C: already installed, replacing
-stashing as C:0
-L: already installed, replacing
-stashing as L:0
-R: already installed, replacing
-stashing as R:0
   R:R1 gnd _net1   R=50 Tc1=0.0 Tc2=0.0 Temp=26.85 Tnom=26.85
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(0),.n(_net1));
 

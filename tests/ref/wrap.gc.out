@@ -1,21 +1,3 @@
-X: already installed, replacing
-stashing as X:0
-subckt: already installed, replacing
-stashing as subckt:0
-module: already installed, replacing
-stashing as module:0
-clear: already installed, replacing
-stashing as clear:0
-verilog: already installed, replacing
-stashing as verilog:0
-paramset: already installed, replacing
-stashing as paramset:0
-module: already installed, replacing
-stashing as module:0
-macromodule: already installed, replacing
-stashing as macromodule:0
-verilog: already installed, replacing
-stashing as verilog:0
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 

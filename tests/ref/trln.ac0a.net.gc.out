@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 # alternative drive: missing 
 ^ ? # alternative drive: no match
 Gnucap   System status

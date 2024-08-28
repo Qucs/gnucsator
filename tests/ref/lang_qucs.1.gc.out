@@ -1,13 +1,3 @@
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-dev_comment: already installed, replacing
-stashing as dev_comment:0
 module tst (1,2);
 resistor #() r (.p(1),.n(2));
 endmodule // tst

@@ -35,35 +35,6 @@ ${LINKS}: ${PWD}/%:
 qucs: ${LINKS}
 	[ -e qucs ] || ${LN_S} .. qucs
 
-ENV=LD_LIBRARY_PATH=..${LD_LIBRARY_PATH:%=:%} \
-	GNUCAP_PLUGPATH=.:..:${plugpath}${GNUCAP_PLUGPATH:%=:%} \
-	QUCSATOR_PKGINCLUDEDIR=${srcdir}/../include \
-	GNUCAP_INCLUDEPATH=${srcdir}/../include:.${GNUCAP_INCLUDEPATH:%=:%} \
-	GNUCAP_SYSCONFDIR=qucs \
-   PATH=..:$$PATH
-
-%.gc.diff: %.gc.out ${REF}/%.gc.out
-	${NUMDIFF} $+ | tee $@; exit $${PIPESTATUS[0]}
-
-%.v.diff: %.v.out ${REF}/%.v.out
-	${DIFF} $+ | tee $@; exit $${PIPESTATUS[0]}
-
-%.net.v.out: %.net
-	@echo ${srcdir}/../net2verilog.sh $< $@
-	@${ENV} ${srcdir}/../net2verilog.sh $< $@
-
-%.net.gc.out: %.net
-	@echo "$(GNUCSATOR) -i $< -o /dev/stdout | sed ... > $@"
-	@${ENV} $(GNUCSATOR) -i $< -o /dev/stdout | sed -e '/default plugins:/s/:.*/: ignored/' \
-	                                                -e '/<Qucs Dataset/s/t .*/t>/' > $@
-%.gc.out: %.gc
-	@echo "$(GNUCAP) < $< | ... | > $@"
-	@${ENV} $(GNUCAP) < $< | grep -v ^@@ | sed -e '1,/^core-lib version/d' \
-					                            -e '/default plugins/d' > $@
-
-%.net.qucs.out: %.net
-	$(QUCSATOR) -i $< -o $@
-
 $(COMMON_TESTS:%=%.gc.out) $(COMMON_TESTS:%=%.v.out) $(GC_TESTS:%=%.out): .P
 
 .PHONY: .P check diff
@@ -75,3 +46,5 @@ clean:
 	rm -rf ${CLEANFILES}
 
 CLEANFILES = *.out *.dc *.diff *.tr *.sp
+
+include ${srcdir}/Make3

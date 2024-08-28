@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 Vac:V1 _net0 gnd U="1 V" f="" Phase="0" Theta="0" 
                          ^ ? V1: f has no value?
 Gnucap   System status

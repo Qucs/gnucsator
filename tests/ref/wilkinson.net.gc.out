@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 .SP:SP1 Type="l ... p="1e9" Points="17" Noise="no" NoiseIP="1" NoiseOP="2" s
                                         ^ ? what's this (incomplete)?
 # Eqn:Eqn1 Attenuation2="dB(S[2,1])" Reflect="dB(S[1,1])" Attenuation3

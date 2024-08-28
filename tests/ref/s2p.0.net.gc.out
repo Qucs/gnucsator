@@ -1,19 +1,5 @@
 <Qucs Dataset>
 default plugins: ignored
-clear: already installed, replacing
-stashing as clear:0
-;: already installed, replacing
-stashing as ;:0
-*: already installed, replacing
-stashing as *:0
-': already installed, replacing
-stashing as ':0
-": already installed, replacing
-stashing as ":0
-T: already installed, replacing
-stashing as T:0
-tline: already installed, replacing
-stashing as tline:0
 # Eqn:Eqn2 T="twoport(S,'S','T')" Export="yes" 
 ^ ? # Eqn: no match
 .SP:SP1 Type="l ... p="6e9" Points="11" Noise="no" NoiseIP="1" NoiseOP="2" s
