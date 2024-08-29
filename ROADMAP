@@ -1,17 +1,26 @@
-== Qucsator i/o compatibility
-
-The i/o related functionality in gnucsator will be gradually moved into output
-plugins. With this, additional glue code, as well as duplicated ("hacked")
-plugins will be removed. Future Qucs might support alternative simulator
-kernels. Then, Gnucap could be linked into a simulator driver for Qucs
-directly, without gnucsator executable. Then, gnucsator can still serve as an
-example, and facilitate testing.
-
 == Component library
 
-The main purpose of this package is to support projects built for and with
-qucsator, the default simulator in Qucs. Future Qucs might ship such models
-for devices available in qucsator that also work with other simulators.
-This component library will be freed from binaries, and may be regarded as
-platform independent simulator input. Some of the models could be implemented
-in a neutral language (such as verilog-A).
+The main purpose of this package is to provide components compatible with
+Qucsator, the default simulator of the Qucs project. With these, the Qucs
+schematics hardwired for use with Qucsator retain their use in Gnucap.
+
+== Qucsator i/o compatibility
+
+Gnucsator provides plugins that allow Gnucap to read and process Qucsator
+input. This is meant to facilitate the transition and enables testing of
+common features and compare the performances between *csators.
+
+== Schematic format
+
+Once Qucs has moved on to a suitable schematic format there will be no more
+need for Qucsator style intermediate netlists with partial data. The idea here
+is to pass circuit models from one tool to another wihout losing information,
+following an established standard.  See Qucs/ROADMAP for details.
+
+== User supplied component models
+
+As the support for standards in Free Software is growing, it will become more
+practical for users to add their own models to the system. Some simulators
+implement compact modelling features from Verilog-A, others implement
+Verilog-95. Gnucsator inherits language compliance from Gnucap, which is
+currently moving towards Verilog-AMS.
