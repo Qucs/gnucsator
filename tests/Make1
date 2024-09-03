@@ -42,6 +42,7 @@ COMMON_TESTS = \
 	rr1.net \
 	rr.net \
 	sawtooth-discreet.net \
+	selective_amp.net \
 	schmitt.net \
 	s1p.0.net \
 	s2p.0.net \
@@ -71,6 +72,7 @@ COMMON_TESTS = \
 
 # These tests run with vanilla gnucap
 GC_TESTS = \
+	dcblock.0.gc \
 	noise.0.gc \
 	noise.1.gc \
 	lang_verilog.param1.gc \

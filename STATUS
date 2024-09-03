@@ -64,7 +64,7 @@ COMPONENTS (table ripped from [1])
 │ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
 │ ground          │   -             │                │      │ BUG, hidden    │
-│ DC block        │                 │                │      │                │
+│ DC block        │   DCBlock       │  V             │ T    │ no ac_eval yet |
 │ DC feed         │                 │                │      │                │
 │ bias T          │   BiasT         │  S             │      │                │
 │ attenuator      │                 │                │      │                │

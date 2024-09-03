@@ -1,0 +1,17 @@
+// (c) Felix Salfelder 2024
+// GPLv3+
+
+`include "disciplines.vams"
+`include "constants.vams"
+
+module DCBlock(p, n);
+	electrical p, n;
+	(*desc=""*) real v;
+	parameter real C=1e-6; // why?
+	analog begin
+		if(analysis("dc"))
+			v = V(p,n);
+		else
+			V(p,n) <+ v;
+	end
+endmodule

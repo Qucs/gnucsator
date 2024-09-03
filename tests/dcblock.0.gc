@@ -1,0 +1,31 @@
+load c_include.so
+load d_trln.so
+load d_dcblock.so
+load s_sparam.so
+load mgsim/d_va_noise.so
+load mgsim/d_vaflow.so
+load mgsim/d_vapot_br.so
+
+`include ../include/sources.v
+`include ../include/lumped.v
+
+verilog
+
+module main (1,2,3);
+  // TODO: ground //
+  Vac #(.ampl(1)) v(1, 1a)
+  Vdc #(.U(1.)) v(1a, 0)
+  DCBlock #() d(1, 2)
+  resistor #(.r(1)) r(2, 0)
+endmodule // main
+
+main #() m(1,2,3)
+
+print dc v(m.d)
+dc
+
+print tran v(nodes)
+tran 1
+
+print ac vr(nodes) vp(nodes) vm(nodes)
+ac 1e6 2e6 * {sqrt(2)}

@@ -13,6 +13,7 @@ INSTALL_PROGRAMS = \
 	net2verilog.sh
 
 PLUGIN_VAMS = \
+	d_dcblock.vams \
 	d_noise.vams
 
 PLUGIN_CC = \
