@@ -144,7 +144,7 @@ COMPONENTS (table ripped from [1])
 │ SP de-embedding │ SPDFile         │ (C)            │      │                │
 │ SPICE netlist   │                 │                │      │ lang_spice?    │
 │ voltage pulse   │ Vpulse          │  W             │ E    │                │
-│ voltage rect    │ Vrect           │  W             │ T    │                │
+│ voltage rect    │ Vrect           │  V             │ T    │                │
 │ current pulse   │ Ipulse          │  W             │ EI   │                │
 │ current rect    │ Irect           │  W             │ EI   │                │
 │ vs exp          │                 │ (E)            │      │                │

@@ -1,0 +1,30 @@
+// (c) Felix Salfelder 2024
+// GPLv3+
+`include "disciplines.vams"
+`include "constants.vams"
+
+module Vrect(p, n);
+	output p, n;
+	electrical p, n;
+	parameter real TH =1e-3;
+	parameter real TL =1e-3;
+	parameter real Td =1e-6;
+	parameter real Tf =1e-9;
+	parameter real Tr =1e-9;
+	parameter real U =1;
+	localparam real period = TH + Tr + TL + Tf;
+	(*desc="v"*) real v;
+	analog begin
+		begin : evt
+			@(timer(Td + TH + Tr, period)) begin
+				v = 0.;
+			end
+			@(timer(Td,  period)) begin
+				v = U;
+			end
+		end
+
+		V(p,n) <+ transition(v, 0., Tr, Tf);
+		// i = I(p,n);
+	end
+endmodule

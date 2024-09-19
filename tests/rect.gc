@@ -3,6 +3,10 @@ load s_sparam.so
 load c_hide.so
 load d_subckt.so
 load c_include.so
+load Vrect.so
+load mgsim/d_va_absdelay.so
+load mgsim/d_vapot_br.so
+load mgsim/d_vapot.so
 `include ../include/sources.v
 verilog
 hidemodule *

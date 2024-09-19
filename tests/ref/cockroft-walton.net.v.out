@@ -17,6 +17,6 @@ C #(.C(1n)) C9 (.p(Out1),.n(_net4));
 Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(0.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D8 (.1(Out1),.2(_net5));
 C #(.C(1n)) C10 (.p(Out2),.n(_net5));
 Diode #(.Af(1.0),.Area(1.0),.Bv(0),.Cj0(10f),.Cp(0.0f),.Eg(1.11),.Fc(0.5),.Ffe(1.0),.Ibv(1m),.Ikf(0),.Is(1e-15),.Isr(0.0),.Kf(0.0),.M(0.5),.N(1),.Nr(2.0),.Rs(0.0),.Tbv(0.0),.Temp(26.85),.Tm1(0.0),.Tm2(0.0),.Tnom(26.85),.Trs(0.0),.Tt(0.0p),.Ttt1(0.0),.Ttt2(0.0),.Vj(0.7),.Xti(3.0)) D9 (.1(Out2),.2(Out1));
-Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1u),.Tr(1u),.U(10)) V1 (.1(0),.2(input));
+Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1u),.Tr(1u),.U(10)) V1 (.p(0),.n(input));
 endmodule // main
 

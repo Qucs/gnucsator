@@ -2,11 +2,14 @@
 default plugins: ignored
 .AC:AC1 Type="l ... ="2 MHz" Points="3" Noise="yes" 
                                         ^ ? what's this (incomplete)?
-Cannot find va_pot. Load module?
 Gnucap   System status
-iterations: op=0, dc=0, tran=0, fourier=0, total=0
+iterations: op=3, dc=0, tran=0, fourier=0, total=6
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
-nodes: user=4, subckt=0, model=1, total=5
-dctran density=0.0%, ac density=0.0%
+nodes: user=4, subckt=0, model=4, total=8
+dctran density=65.6%, ac density=65.6%
 
+#Freq                      vr(_net0)                 vr(_net1)                 vr(_net2)                 vr(_net3)                 vi(_net0)                 vi(_net1)                 vi(_net2)                 vi(_net3)                
+ 1.E+6                     0.                        0.                        0.                        0.                        0.                        0.                        0.                        0.                       
+ 1.5E+6                    0.                        0.                        0.                        0.                        0.                        0.                        0.                        0.                       
+ 2.E+6                     0.                        0.                        0.                        0.                        0.                        0.                        0.                        0.                       

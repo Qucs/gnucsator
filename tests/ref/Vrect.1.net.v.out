@@ -5,6 +5,6 @@ R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net0),.n(0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(_net0));
 VProbe #() Pr1 (.p(_net0),.n(0));
 VProbe #() Pr0 (.p(_net1),.n(0));
-Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1n),.Tr(1n),.U(1)) V1 (.1(_net1),.2(0));
+Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1n),.Tr(1n),.U(1)) V1 (.p(_net1),.n(0));
 endmodule // main
 

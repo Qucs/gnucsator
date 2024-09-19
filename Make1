@@ -14,7 +14,8 @@ INSTALL_PROGRAMS = \
 
 PLUGIN_VAMS = \
 	d_dcblock.vams \
-	d_noise.vams
+	d_noise.vams \
+	Vrect.vams
 
 PLUGIN_CC = \
 	bm_poly.cc \

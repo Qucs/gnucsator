@@ -56,6 +56,7 @@ load qucs/d_poly_g_uf.so
 load qucs/d_probe.so
 load qucs/d_dcblock.so
 load qucs/d_noise.so
+load qucs/Vrect.so
 *load d_qucs_opamp.so
 load qucs/lang_qucs.so
 load public qucs/lang_verilog.so
@@ -76,7 +77,9 @@ load qucs/microstrip_wrap.so
 * requires modelgen.
 load mgsim/d_va_noise.so
 load mgsim/d_vaflow.so
+load mgsim/d_vapot.so
 load mgsim/d_vapot_br.so
+load mgsim/d_va_absdelay.so
 
 acs
 
