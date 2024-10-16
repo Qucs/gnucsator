@@ -33,7 +33,7 @@ using std::string;
 class EVAL_BM_TRIVIAL : public EVAL_BM_BASE {
 private:
   const string   _name;
-  explicit	EVAL_BM_TRIVIAL(const EVAL_BM_TRIVIAL& p):EVAL_BM_BASE(p), _name(p._name) {}
+  explicit	EVAL_BM_TRIVIAL(const EVAL_BM_TRIVIAL& p):EVAL_BM_BASE(p), _name(p._name) { untested();}
 public:
   explicit      EVAL_BM_TRIVIAL(int c=0, string name="value") :EVAL_BM_BASE(c), _name(name) {
     trace0("EVAL_BM_TRIVIAL(c)");
@@ -47,11 +47,11 @@ private: // override virtual
 
   void		precalc_first(const CARD_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
-  string	name()const override {return _name;}
-  bool		ac_too()const {return false;}
+  string	name()const override { untested();return _name;}
+  bool		ac_too()const { untested();return false;}
   bool		parse_numlist(CS&)override;
 //  bool  	parse_params_obsolete_callback(CS&);
-  bool is_constant()const {return true;}
+  bool is_constant()const { untested();return true;}
   int set_param_by_name(string Name, string Value) override;
   // doesnt make sense. set value through device
   // void   set_param_by_name(string Name, string Value);

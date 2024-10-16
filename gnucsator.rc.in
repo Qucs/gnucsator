@@ -80,6 +80,7 @@ load mgsim/d_vaflow.so
 load mgsim/d_vapot.so
 load mgsim/d_vapot_br.so
 load mgsim/d_va_absdelay.so
+load mgsim/c_param.so
 
 acs
 

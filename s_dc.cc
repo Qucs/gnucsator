@@ -43,14 +43,14 @@ public:
   explicit	SWEEPVAL(int c=0)
     :COMMON_COMPONENT(c) {}
   explicit	SWEEPVAL(const SWEEPVAL& p)
-    :COMMON_COMPONENT(p) {}
+    :COMMON_COMPONENT(p) { untested();}
 		~SWEEPVAL() { trace1("~SWEEPVAL", this);}
   COMMON_COMPONENT* clone()const override { untested();
     return new SWEEPVAL(*this);
   }
 
 private:
-  std::string name()const override {return "sweepval";}
+  std::string name()const override { untested();return "sweepval";}
   int set_param_by_name(std::string name, std::string value)override{ untested();
     if(name == "value"){ untested();
       _value = value;
@@ -64,11 +64,11 @@ private: // override virtual
   bool operator==(const COMMON_COMPONENT& p)const override { untested();
     return dynamic_cast<SWEEPVAL const*>(&p);
   }
-  bool has_tr_eval()const override { return true;}
-  bool has_ac_eval()const override {return true;}
-  bool use_obsolete_callback_parse()const override {return false;}
-  bool use_obsolete_callback_print()const override {return false;}
-  bool has_parse_params_obsolete_callback()const override {return false;}
+  bool has_tr_eval()const override { untested(); return true;}
+  bool has_ac_eval()const override { untested();return true;}
+  bool use_obsolete_callback_parse()const override { untested();return false;}
+  bool use_obsolete_callback_print()const override { untested();return false;}
+  bool has_parse_params_obsolete_callback()const override { untested();return false;}
 
 private:
   void precalc_last(const CARD_LIST* scope)override { untested();
@@ -105,7 +105,7 @@ private:
   void	sweep_recursive(int);
   void	first(int);
   bool	next(int);
-  explicit DCOP(const DCOP&): SIM() {unreachable(); incomplete();}
+  explicit DCOP(const DCOP&): SIM() { untested();unreachable(); incomplete();}
 protected:
   void set_sweepval(int i, double d){
     ::status.set_up.start();
@@ -163,7 +163,7 @@ public:
   void	do_it(CS&, CARD_LIST*)override;
 private:
   void	setup(CS&)override;
-  explicit DC(const DC&): DCOP() {unreachable(); incomplete();}
+  explicit DC(const DC&): DCOP() { untested();unreachable(); incomplete();}
 };
 /*--------------------------------------------------------------------------*/
 class OP : public DCOP {
@@ -173,7 +173,7 @@ public:
   void	do_it(CS&, CARD_LIST*)override;
 private:
   void	setup(CS&)override;
-  explicit OP(const OP&): DCOP() {unreachable(); incomplete();}
+  explicit OP(const OP&): DCOP() { untested();unreachable(); incomplete();}
 };
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -329,7 +329,7 @@ void DC::setup(CS& Cmd)
 	size_t here = Cmd.cursor();
         Cmd >> pname;
 	trace2("pname?", _n_sweeps, pname);
-	PARAMETER<double> zap = _scope->params()->deep_lookup(pname);
+	PARAM_INSTANCE zap = _scope->params()->deep_lookup(pname);
 	if(zap.has_hard_value()){
 	  _param_zap[_n_sweeps] = zap;
 	  trace2("pname", _n_sweeps, pname);

@@ -36,7 +36,7 @@ namespace{
 /*--------------------------------------------------------------------------*/
 class EVAL_BM_VALUE : public EVAL_BM_ACTION_BASE {
 private:
-  explicit	EVAL_BM_VALUE(const EVAL_BM_VALUE& p):EVAL_BM_ACTION_BASE(p) {}
+  explicit	EVAL_BM_VALUE(const EVAL_BM_VALUE& p):EVAL_BM_ACTION_BASE(p) { untested();}
   static std::map<string, const char*> _param_dict;
 public:
   explicit      EVAL_BM_VALUE(int c=0) :EVAL_BM_ACTION_BASE(c) {
@@ -51,11 +51,11 @@ private: // override virtual
 
   void		precalc_first(const CARD_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
-  std::string	name()const override {return "value";}
-  bool		ac_too()const override {return false;}
+  std::string	name()const override { untested();return "value";}
+  bool		ac_too()const override { untested();return false;}
   bool		parse_numlist(CS&) override;
 //  bool  	parse_params_obsolete_callback(CS&);
-  bool is_constant()const{return true;}
+  bool is_constant()const{ untested();return true;}
   int set_param_by_name(string Name, string Value)override;
   // doesnt make sense. set value through device
   // void   set_param_by_name(string Name, string Value);

@@ -56,7 +56,7 @@ public:
 		~DEV_SUBCKT()		{--_count;}
   CARD*		clone()const override	{return new DEV_SUBCKT(*this);}
 private: // override virtual
-  char		id_letter()const override	{return 'X';}
+  char		id_letter()const override	{ untested();return 'X';}
   bool		print_type_in_spice()const override {return true;}
   std::string   value_name()const override	{return "#";}
   int		max_nodes()const override	{return PORTS_PER_SUBCKT;}
@@ -64,14 +64,14 @@ private: // override virtual
   int		matrix_nodes()const override	{return 0;}
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
-  bool		makes_own_scope()const override  {return false;}
+  bool		makes_own_scope()const override  { untested();return false;}
   bool		is_valid() const override;
 
   void		expand() override;
 private:
   void		precalc_last()override;
   double	tr_probe_num(const std::string&)const override;
-  int param_count_dont_print()const override {return common()->COMMON_COMPONENT::param_count();}
+  int param_count_dont_print()const override { untested();return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const override;
 public:
@@ -93,7 +93,7 @@ public:
 public: // override virtual
   char		id_letter()const override	{untested();return '\0';}
   CARD*		clone_instance()const override;
-  bool		print_type_in_spice()const override {unreachable(); return false;}
+  bool		print_type_in_spice()const override { untested();unreachable(); return false;}
   std::string   value_name()const override	{untested();incomplete(); return "";}
   std::string   dev_type()const override		{untested(); return "";}
   int		max_nodes()const override	{return PORTS_PER_SUBCKT;}
@@ -115,13 +115,13 @@ private: // no-ops for prototype
   TIME_PAIR tr_review() override { return TIME_PAIR(NEVER, NEVER);}
   void tr_accept()override {}
   void tr_advance()override {}
-  void tr_restore()override {}
+  void tr_restore()override { untested();}
   void tr_regress()override {}
   void dc_advance()override {}
   void ac_begin()override {}
   void do_ac()override {}
   void ac_load()override {}
-  bool do_tr()override { return true;}
+  bool do_tr()override { untested(); return true;}
   bool tr_needs_eval()const override {untested(); return false;}
   void tr_queue_eval()override {}
   std::string port_name(int)const override{untested();return "";}
@@ -255,14 +255,24 @@ void DEV_SUBCKT::expand()
 /*--------------------------------------------------------------------------*/
 bool DEV_SUBCKT::is_valid() const
 {
-  assert(scope());
+  assert(subckt());
   assert(_parent);
   assert(_parent->subckt());
   PARAM_LIST const* params = _parent->subckt()->params();
-  PARAMETER<double> v = params->deep_lookup("_..is_valid");
-  trace1("DEV_SUBCKT::is_valid I", v.string());
-  double x = v.e_val(1., subckt());
-  return x==1.;
+  PARAM_INSTANCE v = params->deep_lookup("_..is_valid");
+  trace2("DEV_MODULE::is_valid I", long_label(), v.string());
+  Base const* x = v.e_val(nullptr, subckt());
+  Integer c;
+  Integer* res = c.assign(x);
+  if(!res) {
+    return true;
+  }else{
+    assert(x);
+    trace1("DEV_MODULE::is_valid I", typeid(*x).name());
+    int a = res->value();
+    delete res;
+    return a;
+  }
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()

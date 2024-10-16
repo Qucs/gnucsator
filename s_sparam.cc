@@ -46,16 +46,16 @@ static bool hack_no_load=false;
 typedef int uint_t;
 #endif
 /*--------------------------------------------------------------------------*/
-void SIM::outdata(double, int){ incomplete(); }
+void SIM::outdata(double, int){ untested(); incomplete(); }
 void SIM::head(double, double, const std::string&){ }
-void SIM::print_results(double) {}
-void SIM::alarm() {}
-void SIM::store_results(double) {}
-//void SIM::plot_results(double) {}
-void SIM::setup(CS&){}
-//void SIM::sweep(){}
-//void SIM::reset_timers(){}
-// SIM::~SIM(){}
+void SIM::print_results(double) { untested();}
+void SIM::alarm() { untested();}
+void SIM::store_results(double) { untested();}
+//void SIM::plot_results(double) { untested();}
+void SIM::setup(CS&){ untested();}
+//void SIM::sweep(){ untested();}
+//void SIM::reset_timers(){ untested();}
+// SIM::~SIM(){ untested();}
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
@@ -65,19 +65,19 @@ private:
 public:
   explicit PAC()		:ELEMENT(), _num(-1u) {}
 private: // override virtual
-  char	   id_letter()const override{return '\0';}
-  std::string value_name()const override{return "Z";}
+  char	   id_letter()const override{ untested();return '\0';}
+  std::string value_name()const override{ untested();return "Z";}
   std::string dev_type()const override{return "pac_";}
   uint_t	   max_nodes()const override{return 2;}
   uint_t	   min_nodes()const override{return 2;}
-  uint_t	   matrix_nodes()const override{return 2;}
+  uint_t	   matrix_nodes()const override{ untested();return 2;}
   uint_t	   net_nodes()const override{return 2;}
   CARD*	   clone()const	override{return new PAC(*this);}
   void	   tr_iwant_matrix()override	{}
   void	   ac_iwant_matrix()override	{}
   void     precalc_last()override;
-  double   tr_involts()const override   {return dn_diff(_n[IN1].v0(), _n[IN2].v0());}
-  double   tr_involts_limited()const override{return tr_involts();}
+  double   tr_involts()const override   { untested();return dn_diff(_n[IN1].v0(), _n[IN2].v0());}
+  double   tr_involts_limited()const override{ untested();return tr_involts();}
   double   tr_probe_num(const std::string&)const override;
 
   std::string port_name(uint_t i)const override{ untested();
@@ -130,7 +130,7 @@ public:
   }
 private:
   PARAMETER<double> _pwr;
-  PARAMETER<unsigned> _num;
+  PARAMETER<int> _num;
 }pp;
 static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
 /*--------------------------------------------------------------------------*/
@@ -187,7 +187,7 @@ public:
 
   ~SPARAM() {}
 private:
-  explicit SPARAM(const SPARAM&):SIM() {unreachable(); incomplete();}
+  explicit SPARAM(const SPARAM&):SIM() { untested();unreachable(); incomplete();}
   void sweep() override;
   void first();
   bool next();
@@ -343,7 +343,7 @@ void SPARAM::setup(CS& Cmd)
     //  _output.add_list(Cmd);
     //}
     //catch(Exception_Cant_Find)
-    //{}
+    //{ untested();}
     ONE_OF
       || (Get(Cmd, "*",		  &_step_in) && (_stepmode = TIMES))
       || (Get(Cmd, "+",		  &_step_in) && (_stepmode = LIN_STEP))

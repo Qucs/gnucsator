@@ -104,7 +104,7 @@ void TRANSIENT::sweep()
   first();
   _sim->_genout = gen();
   
-  if (_sim->uic_now()) {
+  if (_sim->uic_now()) { untested();
     advance_time();
     _sim->zero_voltages();
     _scope->do_tr();    //evaluate_models
@@ -117,7 +117,7 @@ void TRANSIENT::sweep()
     //BUG// UIC needs further analysis.
   }else{
     _converged = solve_with_homotopy(OPT::DCBIAS,_trace);
-    if (!_converged) {
+    if (!_converged) { untested();
       error(bWARNING, "did not converge\n");
     }else{
     }
@@ -131,7 +131,7 @@ void TRANSIENT::sweep()
     int outflags = ofNONE;
     if (printnow) {
       outflags = ofPRINT | ofSTORE | ofKEEP;
-    }else{
+    }else{ untested();
       outflags = ofSTORE;
     }
     outdata(_sim->_time0, outflags);
@@ -169,7 +169,7 @@ void TRANSIENT::sweep()
       int outflags = ofNONE;
       if (printnow) {
 	outflags = ofPRINT | ofSTORE | ofKEEP;
-      }else if (_accepted) {
+      }else if (_accepted) { untested();
 	outflags = ofSTORE;
       }else{
       }
@@ -337,7 +337,7 @@ bool TRANSIENT::next()
   }
   
   // skip, dtmax user parameter
-  if (TIME_t(_dtmax) < new_dt) {
+  if (TIME_t(_dtmax) < new_dt) { untested();
     new_dt = TIME_t(_dtmax);
     newtime = reftime + new_dt;
     new_control = scSKIP;
@@ -423,7 +423,7 @@ bool TRANSIENT::next()
       assert(reftime >  time1);
       if (new_control == scTE) {
 	assert(reftime >  time1);
-      }else if (new_control == scSKIP) {
+      }else if (new_control == scSKIP) { untested();
 	assert(reftime >  time1);
       }else{untested();
 	assert(reftime >  time1);
@@ -432,13 +432,13 @@ bool TRANSIENT::next()
       newtime = reftime + new_dt;
       if (newtime > almost_fixed_time) {untested();
 	unreachable();
-      }else if (newtime == TIME_t(_time_by_user_request)) {
+      }else if (newtime == TIME_t(_time_by_user_request)) { untested();
 	new_control = scUSER;
-      }else if (newtime + TIME_t(_sim->_dtmin) >= TIME_t(_time_by_user_request)) {
+      }else if (newtime + TIME_t(_sim->_dtmin) >= TIME_t(_time_by_user_request)) { untested();
 	newtime = TIME_t(_time_by_user_request);
 	new_dt = newtime - reftime;
 	new_control = scUSER;
-      }else if (newtime == fixed_time) {
+      }else if (newtime == fixed_time) { untested();
 	new_control = scEVENTQ;
       }else if (newtime == almost_fixed_time) {
 	new_control = scAMBEVENT;
@@ -453,7 +453,7 @@ bool TRANSIENT::next()
       // removing minor changes that are supposedly irrelevant.
       // Solution is faster when time step stays the same over multiple steps.
       if (new_control == scTE) {
-      }else if (new_control == scSKIP) {
+      }else if (new_control == scSKIP) { untested();
       }else if (new_control == scINITIAL) {
       }else{untested();
       }

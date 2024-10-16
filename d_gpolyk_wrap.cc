@@ -32,8 +32,8 @@ namespace {
 /*--------------------------------------------------------------------------*/
 class DEV_G_POLY_K : public COMPONENT {
 public:
-	std::string value_name()const override { return "dummy"; }
-	std::string port_name(uint_t)const override { return "dummy"; }
+	std::string value_name()const override { untested(); return "dummy"; }
+	std::string port_name(uint_t)const override { untested(); return "dummy"; }
 
 	CARD* clone()const override { untested();
 		const CARD* c = device_dispatcher["cpoly_g"];

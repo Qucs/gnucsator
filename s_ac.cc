@@ -47,11 +47,11 @@ public:
     _linswp(false),
     _prevopppoint(false),
     _stepmode(ONE_PT)
-  {}
+  { untested();}
 
-  ~AC() {}
+  ~AC() { untested();}
 private:
-  explicit AC(const AC&):SIM() {unreachable(); incomplete();}
+  explicit AC(const AC&):SIM() { untested();unreachable(); incomplete();}
   void	sweep();
   void	first();
   bool	next();

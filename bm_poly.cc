@@ -46,25 +46,25 @@ private:
   PARAMETER<bool>   _abs;
   static std::map<std::string, PARA_BASE EVAL_BM_POLY::*> param_dict;
   std::vector<PARAMETER<double> > _c;
-  PARAMETER<unsigned> _degree;
+  PARAMETER<int> _degree;
   explicit	EVAL_BM_POLY(const EVAL_BM_POLY& p);
 public:
   explicit      EVAL_BM_POLY(int c=0);
-		~EVAL_BM_POLY()		{}
+		~EVAL_BM_POLY()		{ untested();}
 private: // override vitrual
   bool		operator==(const COMMON_COMPONENT&)const override;
-  COMMON_COMPONENT* clone()const override {return new EVAL_BM_POLY(*this);}
+  COMMON_COMPONENT* clone()const override { untested();return new EVAL_BM_POLY(*this);}
   void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const override;
-// not yet  bool use_obsolete_callback_print()const {return false;}
+// not yet  bool use_obsolete_callback_print()const { untested();return false;}
 
   void		precalc_last(const CARD_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
-  std::string	name()const override {return "poly";}
+  std::string	name()const override { untested();return "poly";}
   bool		ac_too()const override {untested();return false;}
   bool		parse_numlist(CS&)override;
   int		set_param_by_name(std::string Name, std::string Value)override;
   bool		parse_params_obsolete_callback(CS&)override;
-  void		skip_type_tail(CS& cmd)const override{cmd.umatch("(1)");}
+  void		skip_type_tail(CS& cmd)const override{ untested();cmd.umatch("(1)");}
 };
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

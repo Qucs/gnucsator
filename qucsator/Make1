@@ -36,10 +36,11 @@ OBJS = \
 	fspecial.o \
 	${MICROSTRIP_SRC:%.cpp=%.o}
 
-
 # BUG: sort out later.
 
 all: $(OBJS)
+
+${MICROSTRIP_SRC:%.cpp=%.o}: component.h
 
 %.o: %.cpp component.h object.h
 

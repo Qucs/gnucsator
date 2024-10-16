@@ -11,238 +11,226 @@ T2.n.mynmos: is - js conflict
 T2.n.mynmos: nsub < ni, treating as if not input
 parameter pos.Vt-neg.Vt not specified, using default
 parameter pos.Vt-neg.Vt value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) not specified, using default
-parameter dB(Time2Freq(Vout,time)) value is "NOT_INPUT"
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
-parameter dB(Time2Freq(Vout,time)) recursion too deep
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
+parameter pos.Vt-neg.Vt not specified, using default
+parameter pos.Vt-neg.Vt value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=0, dc=0, tran=822, fourier=0, total=938
 transient timesteps: accepted=116, rejected=2, total=118

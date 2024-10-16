@@ -10,6 +10,36 @@ default plugins: ignored
 ^ ? # R: no match
 # .AC:SPTC1 Type="lin" Start="1e10" Stop="1e12" Points="10" 
 ^ ? # .AC: no match
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
+parameter Kirschning not specified, using default
+parameter Kirschning not specified, using default
+parameter SubstTC1 not specified, using default
 Gnucap   System status
 iterations: op=3, dc=0, tran=0, fourier=0, total=13
 transient timesteps: accepted=0, rejected=0, total=0

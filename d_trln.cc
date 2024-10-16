@@ -81,7 +81,7 @@ private:
 public:
   explicit	DEV_TRANSLINE(COMMON_COMPONENT* c=NULL);
 private: // override virtual
-  char		id_letter()const override	{return 'T';}
+  char		id_letter()const override	{ untested();return 'T';}
   std::string   value_name()const override	{return "#";}
   std::string	dev_type()const override	{itested(); return "tline";}
   int		max_nodes()const override	{return 4;}
@@ -130,7 +130,7 @@ inline double DEV_TRANSLINE::tr_involts()const
 }
 /*--------------------------------------------------------------------------*/
 inline double DEV_TRANSLINE::tr_involts_limited()const
-{
+{ untested();
   unreachable();
   return volts_limited(_n[IN1],_n[IN2]);
 }
@@ -242,7 +242,7 @@ void COMMON_TRANSLINE::set_param_by_index(int I, std::string& Value, int Offset)
 }
 /*--------------------------------------------------------------------------*/
 bool COMMON_TRANSLINE::param_is_printable(int I)const
-{
+{ untested();
   switch (COMMON_TRANSLINE::param_count() - 1 - I) {
   case 0:  return len.has_hard_value();
   case 1:  return R.has_hard_value();
@@ -263,7 +263,7 @@ bool COMMON_TRANSLINE::param_is_printable(int I)const
     for (int i = 0;  i < NUM_INIT_COND;  ++i) {untested();
       o << ic[i] << ' ';
     }
-  }else{
+  }else{ untested();
   }
 #endif
 }
@@ -298,14 +298,14 @@ std::string COMMON_TRANSLINE::param_name(int I, int j)const
     case 9:  return (j==1) ? "alpha" : "";
     default: return "";
     }
-  }else{
+  }else{ untested();
     return COMMON_COMPONENT::param_name(I, j);
   }
   //BUG// does not print IC
 }
 /*--------------------------------------------------------------------------*/
 std::string COMMON_TRANSLINE::param_value(int I)const
-{
+{ untested();
   switch (COMMON_TRANSLINE::param_count() - 1 - I) {
   case 0:  return len.string();
   case 1:  return R.string();
@@ -348,7 +348,7 @@ void COMMON_TRANSLINE::precalc_last(const CARD_LIST* Scope)
 	}
       }else{
       }
-    }else if (f.has_hard_value()) {
+    }else if (f.has_hard_value()) { untested();
       real_td = len * nl / f;      
     }else if (L.has_hard_value() && C.has_hard_value()) {untested();
       real_td = len * sqrt(L * C);
@@ -443,7 +443,7 @@ void DEV_TRANSLINE::dc_advance()
   _ir0 = _reflect.v_out(_sim->_time0).f0/c->real_z0;
 }
 void DEV_TRANSLINE::tr_advance()
-{
+{ untested();
   ELEMENT::tr_advance();
   const COMMON_TRANSLINE* c=prechecked_cast<const COMMON_TRANSLINE*>(common());
   assert(c);
@@ -451,7 +451,7 @@ void DEV_TRANSLINE::tr_advance()
   _ir0 = _reflect.v_out(_sim->_time0).f0/c->real_z0;
 }
 void DEV_TRANSLINE::tr_regress()
-{
+{ untested();
   ELEMENT::tr_regress();
   const COMMON_TRANSLINE* c=prechecked_cast<const COMMON_TRANSLINE*>(common());
   assert(c);
@@ -464,13 +464,13 @@ void DEV_TRANSLINE::tr_regress()
  * very short line means delay is less than internal time step.
  */
 bool DEV_TRANSLINE::do_tr()
-{
+{ untested();
   // code to deal with short lines goes here.
-  //if (_if0 != _if1  ||  _ir0 != _ir1) {
+  //if (_if0 != _if1  ||  _ir0 != _ir1) { untested();
   if (!conchk(_if0, _if1, OPT::abstol, OPT::reltol*.01)
-       || !conchk(_ir0, _ir1, OPT::abstol, OPT::reltol*.01)) {
+       || !conchk(_ir0, _ir1, OPT::abstol, OPT::reltol*.01)) { untested();
     q_load();
-  }else{
+  }else{ untested();
   }
   assert(converged());
   return true;
@@ -488,29 +488,29 @@ void DEV_TRANSLINE::tr_load()
     _sim->_aa.load_symmetric(_n[IN1].m_(),  _n[IN2].m_(),  mfactor()/c->real_z0);
     lvf = _if0;
     lvr = _ir0;
-  }else{
+  }else{ untested();
     lvf = dn_diff(_if0, _if1);
     lvr = dn_diff(_ir0, _ir1);
   }
-  if (lvf != 0.) {
-    if (_n[OUT1].m_() != 0) {
+  if (lvf != 0.) { untested();
+    if (_n[OUT1].m_() != 0) { untested();
       _n[OUT1].i() += mfactor() * lvf;
     }else{untested();
     }
     if (_n[OUT2].m_() != 0) {untested();
       _n[OUT2].i() -= mfactor() * lvf;
-    }else{
+    }else{ untested();
     }
   }else{
   }
-  if (lvr != 0.) {
-    if (_n[IN1].m_() != 0) {
+  if (lvr != 0.) { untested();
+    if (_n[IN1].m_() != 0) { untested();
       _n[IN1].i() += mfactor() * lvr;
     }else{untested();
     }
     if (_n[IN2].m_() != 0) {untested();
       _n[IN2].i() -= mfactor() * lvr;
-    }else{
+    }else{ untested();
     }
   }else{
   }
@@ -521,7 +521,7 @@ void DEV_TRANSLINE::tr_load()
 /* limit the time step to no larger than a line length.
  */
 TIME_PAIR DEV_TRANSLINE::tr_review()
-{
+{ untested();
   q_accept();
   const COMMON_TRANSLINE* c=prechecked_cast<const COMMON_TRANSLINE*>(common());
   assert(c);

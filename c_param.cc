@@ -152,7 +152,7 @@ public:
       _range = range_expr;
       pl->set(Name, Value.string());
 
-      PARAMETER<double> v = pl->deep_lookup(IS_VALID);
+      PARAM_INSTANCE const& v = pl->deep_lookup(IS_VALID);
       if(v.has_hard_value()){
 	range_expr = v.string() + "*" + range_expr;
 	pl->set(IS_VALID, range_expr);
@@ -163,7 +163,7 @@ public:
     }
     cmd.check(bDANGER, "syntax error");
   }
-  std::string const& range() const {return _range;}
+  std::string const& range() const { untested();return _range;}
 private:
   std::string _range;
 } p;

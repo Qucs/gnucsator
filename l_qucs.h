@@ -73,6 +73,20 @@ bool QucsGuessParam(std::string& s)
 {
   char const* p = s.c_str();
   std::string temp;
+
+  // yikes. some variables seem to be strings.
+  if(s == "Aluminia"){
+    s = '"' + s + '"';
+    return true;
+  }else if(s == "Kirschning"){
+    s = '"' + s + '"';
+    return true;
+  }else if(s == "Hammerstad"){
+    s = '"' + s + '"';
+    return true;
+  }else{
+  }
+
   for (unsigned i = 0; p[i] != '\0'; i++){
     if (p[i] != ' '){
       temp.append(1, p[i]);

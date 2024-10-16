@@ -63,10 +63,12 @@ EXECUTABLES = \
 
 RECURSIVE_TARGETS = all install clean depend distclean
 #-----------------------------------------------------------------------------
-${RECURSIVE_TARGETS:%=%-recursive}: %-recursive: %-here
+${RECURSIVE_TARGETS:%=%-recursive}: %-recursive:
 	for i in ${SUBDIRS}; do \
 	  $(MAKE) -C $${i} $*; \
 	done
+	$(MAKE) $*-here
+
 #-----------------------------------------------------------------------------
 ${RECURSIVE_TARGETS}: %: %-recursive
 #-----------------------------------------------------------------------------
@@ -95,12 +97,6 @@ GNUCSATOR_CPPFLAGS+= -DDEFAULT_PLUGINS=\"gnucap-default-plugins.so\"
 GNUCSATOR_CPPFLAGS+= -DDEFAULT_LANGUAGE=\"acs\"
 
 QUCS_PLUGINS = ${PLUGIN_CC:%.cc=%.so} ${PLUGIN_MODEL:%.model=%.so} ${PLUGIN_VAMS:%.vams=%.so}
-QUCSATOR_OBJS = \
-	qucsator/fspecial.o \
-	qucsator/complex.o \
-	qucsator/matrix.o \
-	qucsator/real.o \
-	qucsator/vector.o
 
 # todo
 MY_CPPFLAGS = -I. -I${srcdir}
@@ -120,12 +116,12 @@ d_bjt.cc: d_diode.cc
 	$(AM_V_GEN)$(GNUCAP_MODELGEN) $<
 	@touch $*.cc
 
-all: all-recursive $(QUCS_PLUGINS) ${EXECUTABLES}
-	$(MAKE) -C qucsator GNUCAP_CPPFLAGS="${GNUCAP_CPPFLAGS}"
-all: gnucsator.rc
+all: all-recursive
 
-CLEANFILES = $(QUCS_PLUGINS) *.o *~
-DISTCLEANFILES = Make.override Makefile
+all-here: $(QUCS_PLUGINS) ${EXECUTABLES} gnucsator
+
+#	$(MAKE) -C qucsator GNUCAP_CPPFLAGS="${GNUCAP_CPPFLAGS}"
+all: gnucsator.rc
 
 d_poly_g_uf.so: u_parameter_uf.h m_mvpoly.h
 
@@ -163,7 +159,7 @@ QUCS_LIBS = -lqucs
 GNUCSATOR_RC = gnucsator.rc
 PKGINCLUDEDIR = @PKGINCLUDEDIR@
 
-install-here: $(QUCS_PLUGINS)
+install-here: all-recursive
 	-install -d $(DESTDIR)$(GNUCSATOR_PKGLIBDIR)
 	install $(QUCS_PLUGINS) $(DESTDIR)$(GNUCSATOR_PKGLIBDIR) # 1
 

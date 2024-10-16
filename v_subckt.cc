@@ -57,12 +57,12 @@ public:
 //  CARD*		clone_instance()const override;
 private: // override virtual
   bool		is_device()const override	{return _parent;}
-  char		id_letter()const override	{return 'X';}
-  bool		print_type_in_spice()const override {return true;}
-  std::string   value_name()const override	{return "#";}
+  char		id_letter()const override	{ untested();return 'X';}
+  bool		print_type_in_spice()const override { untested();return true;}
+  std::string   value_name()const override	{ untested();return "#";}
   int		max_nodes()const override	{return PORTS_PER_SUBCKT;}
   int		min_nodes()const override	{return 0;}
-  int		matrix_nodes()const override	{return 0;}
+  int		matrix_nodes()const override	{ untested();return 0;}
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
   bool		makes_own_scope()const override  {return !_parent;}
@@ -73,15 +73,15 @@ private: // override virtual
   void		expand() override;
 
 private: // no ops for prototype
-  void map_nodes()override	{if(is_device()){ BASE_SUBCKT::map_nodes();}else{} }
-  void tr_begin()override	{if(is_device()){ BASE_SUBCKT::tr_begin();}else{} }
-  void ac_begin()override	{if(is_device()){ BASE_SUBCKT::ac_begin();}else{} }
-  void tr_load()override	{if(is_device()){ BASE_SUBCKT::tr_load();}else{} }
-  void tr_accept()override	{if(is_device()){ BASE_SUBCKT::tr_accept();}else{} }
-  void tr_advance()override	{if(is_device()){ BASE_SUBCKT::tr_advance();}else{} }
-  void dc_advance()override	{if(is_device()){ BASE_SUBCKT::dc_advance();}else{} }
-  void do_ac()override		{if(is_device()){ BASE_SUBCKT::do_ac();}else{} }
-  void ac_load()override	{if(is_device()){ BASE_SUBCKT::ac_load();}else{} }
+  void map_nodes()override	{ untested();if(is_device()){ BASE_SUBCKT::map_nodes();}else{} }
+  void tr_begin()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_begin();}else{} }
+  void ac_begin()override	{ untested();if(is_device()){ BASE_SUBCKT::ac_begin();}else{} }
+  void tr_load()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_load();}else{} }
+  void tr_accept()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_accept();}else{} }
+  void tr_advance()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_advance();}else{} }
+  void dc_advance()override	{ untested();if(is_device()){ BASE_SUBCKT::dc_advance();}else{} }
+  void do_ac()override		{ untested();if(is_device()){ BASE_SUBCKT::do_ac();}else{} }
+  void ac_load()override	{ untested();if(is_device()){ BASE_SUBCKT::ac_load();}else{} }
   void tr_queue_eval()override{ untested();
     if(is_device()){ untested();
       BASE_SUBCKT::tr_queue_eval();
@@ -100,7 +100,7 @@ private: // no ops for prototype
 private:
   void		precalc_last()override;
   double	tr_probe_num(const std::string&)const override;
-  int param_count_dont_print()const override{return common()->COMMON_COMPONENT::param_count();}
+  int param_count_dont_print()const override{ untested();return common()->COMMON_COMPONENT::param_count();}
 
   std::string port_name(int i)const override;
   int set_param_by_name(std::string Name, std::string Value)override;
@@ -116,33 +116,43 @@ DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
 int DEV_SUBCKT::_count = -1;
 /*--------------------------------------------------------------------------*/
 CARD_LIST* DEV_SUBCKT::scope()
-{ untested();
+{
   if(_parent){ untested();
     return COMPONENT::scope();
-  }else{ untested();
+  }else{
     return subckt();
   }
 }
 /*--------------------------------------------------------------------------*/
 bool DEV_SUBCKT::is_valid() const
 { untested();
-  trace1("DEV_SUBCKT::is_valid", long_label());
   assert(subckt());
   assert(_parent);
   assert(_parent->subckt());
   PARAM_LIST const* params = _parent->subckt()->params();
-  PARAMETER<double> v = params->deep_lookup("_..is_valid");
-  trace1("DEV_SUBCKT::is_valid I", v.string());
-  double x = v.e_val(1., subckt());
-  return x==1.;
+  PARAM_INSTANCE v = params->deep_lookup("_..is_valid");
+  trace2("DEV_MODULE::is_valid I", long_label(), v.string());
+  Base const* x = v.e_val(nullptr, subckt());
+  Integer c;
+  Integer* res = c.assign(x);
+  if(!res) { untested();
+    return true;
+  }else{ untested();
+    assert(x);
+    trace1("DEV_MODULE::is_valid I", typeid(*x).name());
+    int a = res->value();
+    delete res;
+    return a;
+  }
 }
 /*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 CARD* DEV_SUBCKT::clone()const
-{ untested();
+{
   DEV_SUBCKT* new_instance = new DEV_SUBCKT(*this);
   assert(!new_instance->subckt());
 
-  if (this == &p1){ untested();
+  if (this == &p1){
     // cloning from static, empty model
     // look out for _parent in expand
     new_instance->new_subckt(); // from DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO
@@ -191,9 +201,9 @@ DEV_SUBCKT::DEV_SUBCKT()
 DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
   :BASE_SUBCKT(p),
    _parent(p._parent)
-{ untested();
+{
   //strcpy(modelname, p.modelname); in common
-  for (int ii = 0;  ii < max_nodes();  ++ii) { untested();
+  for (int ii = 0;  ii < max_nodes();  ++ii) {
     _nodes[ii] = p._nodes[ii];
   }
   _n = _nodes;
@@ -287,12 +297,12 @@ void DEV_SUBCKT::expand()
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SUBCKT::precalc_first()
-{ untested();
+{
   trace3("DEV_SUBCKT::precalc_first1", long_label(), owner(), is_device());
   BASE_SUBCKT::precalc_first();
   trace2("DEV_SUBCKT::precalc_first2", long_label(), owner());
 
-  if (subckt()) { untested();
+  if (subckt()) {
   }else{ untested();
     new_subckt();
   }
@@ -313,11 +323,11 @@ void DEV_SUBCKT::precalc_first()
     trace1("DEV_SUBCKT::precalc_first recurse", long_label());
 //  subckt()->precalc_first();
     assert(!is_constant()); /* because I have more work to do */
-  }else{ untested();
+  }else{
   }
 
   // HACK
-  if(1){ untested();
+  if(1){
   }else if(!is_device()){ untested();
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(scope()->params());
     assert(subckt());

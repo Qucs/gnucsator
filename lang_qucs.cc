@@ -69,9 +69,9 @@ class LANG_QUCSATOR : public LANGUAGE {
 		enum EOB {NO_EXIT_ON_BLANK, EXIT_ON_BLANK};
 
 	public: // override virtual, used by callback
-		std::string arg_front()const override {return " ";}
-		std::string arg_mid()const override {return "=";}
-		std::string arg_back()const override {return "";}
+		std::string arg_front()const override { untested();return " ";}
+		std::string arg_mid()const override { untested();return "=";}
+		std::string arg_back()const override { untested();return "";}
 
 	public: // override virtual, called by commands
 		DEV_COMMENT* parse_comment(CS&, DEV_COMMENT*)override;
@@ -353,8 +353,8 @@ void LANG_QUCSATOR::parse_type(CS& cmd, CARD* x)
 /*--------------------------------------------------------------------------*/
 void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 {
-	trace1("LANG_QUCSATOR::parse_args (card)", cmd);
 	assert(x);
+	trace2("LANG_QUCSATOR::parse_args (card)", cmd.tail(), x->long_label());
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
 		COMMON_COMPONENT* cc = xx->mutable_common(); // probably bug. clone and reattach
@@ -392,7 +392,6 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 						                                             // maybe write smarter wrappers instead...
 						OPT::case_insensitive = false;
 
-						trace3("LANG_QUCSATOR value_name", xx->value_name(), value, Name);
 						if(value==""){
 							// bug in qucs?
 						}else if (cc && isame) {untested();
@@ -407,6 +406,7 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 							}
 #endif
 						}else{
+							trace2("LANG_QUCSATOR spbn", Name, value);
 							xx->set_param_by_name(Name, value);
 						}
 
@@ -419,8 +419,8 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 //		xx->attach_common(cc);
 
 	}else if (auto mm = dynamic_cast<MODEL_CARD*>(x)) {
-		unreachable(); // used only for "table"
-		trace2("model parse", cmd.tail(), cmd.fullstring());
+		trace3("model parse", mm->long_label(), cmd.tail(), cmd.fullstring());
+//		unreachable(); // used only for "table"
 		int paren = cmd.skip1b('(');
 		bool in_error = false;
 		for (size_t i=0; ; ++i) {
@@ -432,14 +432,15 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 				std::string Name  = cmd.ctos("=", "", "");
 				cmd >> '=';
 				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
-				trace2("model parse", Name, value);
+				trace2("model parse spbn", Name, value);
 
 				if (QucsGuessParam(value)){
 					trace1("guessed value", value);
 				}else{ untested();
 				}
 
-				mm->set_param_by_name(Name,value);
+				trace2("LANG_QUCSATOR spbn2", Name, value);
+				mm->set_param_by_name(Name, value);
 			}
 
 
@@ -528,6 +529,7 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 /*--------------------------------------------------------------------------*/
 MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
 {
+	trace0(("LANG_QUCSATOR::parse_paramset " + cmd.tail()) );
 	assert(x);
 	cmd.reset();
 

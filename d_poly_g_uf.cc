@@ -74,9 +74,9 @@ public:
 
   int param_count()const override {return 1 + EVAL_BM_ACTION_BASE::param_count(); }
   void parse_type_tail(CS&);
-  bool use_obsolete_callback_parse()const override {return false;}
-  bool use_obsolete_callback_print()const override {return false;}
-  bool has_parse_params_obsolete_callback()const override {return false;}
+  bool use_obsolete_callback_parse()const override { untested();return false;}
+  bool use_obsolete_callback_print()const override { untested();return false;}
+  bool has_parse_params_obsolete_callback()const override { untested();return false;}
   std::string name()const override { untested();
     if(_n_ports){ untested();
       return "poly(" + ::to_string(_n_ports-1) + ")";
@@ -108,7 +108,7 @@ public:
     }
     return 0; // TODO
   }
-  std::string param_name(int i, int j)const override{return j?"":param_name(i); }
+  std::string param_name(int i, int j)const override{ untested();return j?"":param_name(i); }
   std::string param_name(int i)const override
   { untested();
     switch (COMMON_G_POLY_K::param_count() - 1 - i) {
@@ -232,9 +232,9 @@ public:
   explicit DEV_CPOLY_G();
   ~DEV_CPOLY_G();
 protected: // override virtual
-  char id_letter()const	override{return 'G';}
-  bool print_type_in_spice()const override{return false;}
-  std::string value_name()const	override{return "p0";}
+  char id_letter()const	override{ untested();return 'G';}
+  bool print_type_in_spice()const override{ untested();return false;}
+  std::string value_name()const	override{ untested();return "p0";}
   std::string dev_type()const override{return _dev_type;}
   void  set_dev_type(const std::string& new_type) override{
     _dev_type = new_type;
@@ -254,8 +254,8 @@ protected: // override virtual
   //   untested();
   // }
   void	   tr_unload()override;
-  double   tr_involts()const override{unreachable(); return NOT_VALID;}
-  double   tr_involts_limited()const override{unreachable(); return NOT_VALID;}
+  double   tr_involts()const override{ untested();unreachable(); return NOT_VALID;}
+  double   tr_involts_limited()const override{ untested();unreachable(); return NOT_VALID;}
   double   tr_amps()const override;
   void	   ac_iwant_matrix()override{ac_iwant_matrix_extended();}
   void	   ac_load()override;
@@ -282,8 +282,8 @@ public:
 		      uint_t state_count, double state[],
 		      uint_t node_count, const node_t nodes[])override;
   //		      const double* inputs[]=0);
-  // int param_count()const { return 0 + ELEMENT::param_count(); }
-//   std::string param_name(int i, int)const{ return param_name(i); }
+  // int param_count()const { untested(); return 0 + ELEMENT::param_count(); }
+//   std::string param_name(int i, int)const{ untested(); return param_name(i); }
 //   std::string param_name(int i)const
 //   { untested();
 //     switch (DEV_CPOLY_G::param_count() - 1 - i) {
@@ -400,13 +400,13 @@ void COMMON_G_POLY_K::tr_eval(ELEMENT* e) const
 class DEV_FPOLY_G : public DEV_CPOLY_G {
 private:
   explicit DEV_FPOLY_G(const DEV_FPOLY_G& p)
-    :DEV_CPOLY_G(p) {incomplete(); unreachable();}
+    :DEV_CPOLY_G(p) { untested();incomplete(); unreachable();}
 public:
   explicit DEV_FPOLY_G() :DEV_CPOLY_G() {untested();}
 private: // override virtual
-  char	   id_letter()const	{unreachable(); return '\0';}
-  std::string dev_type()const	{unreachable(); return "fpoly_g";}
-  CARD*	   clone()const		{unreachable(); return new DEV_FPOLY_G(*this);}
+  char	   id_letter()const	{ untested();unreachable(); return '\0';}
+  std::string dev_type()const	{ untested();unreachable(); return "fpoly_g";}
+  CARD*	   clone()const		{ untested();unreachable(); return new DEV_FPOLY_G(*this);}
   bool	   do_tr();
 };
 #endif

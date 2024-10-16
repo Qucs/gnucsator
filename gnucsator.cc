@@ -69,24 +69,24 @@ struct JMP_BUF{
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static void read_startup_files(char *const* argv, CARD_LIST* scope)
-{ untested();
-  { untested();
+{
+  {
     // TODO: look in $HOME/.gnucap/config:/etc/gnucap/config
     trace2("read_startup_files", SYSTEMSTARTFILE, SYSTEMSTARTPATH);
     std::string name = findfile(SYSTEMSTARTFILE, SYSTEMSTARTPATH, R_OK);
-    if (name != "") { untested();
+    if (name != "") {
       trace2("", name, scope);
       CMD::command("include " + name, scope);
     }else{ untested();
       CMD::command(std::string("load " DEFAULT_PLUGINS), scope);
     }
   }
-  { untested();
+  {
     // TODO: also scan parent directories
     std::string name = findfile(USERSTARTFILE, USERSTARTPATH, R_OK);
     if (name != "") {untested();
       CMD::command("include " + name, scope);
-    }else{ untested();
+    }else{
     }
   }
   //CMD::command("clear", scope);
@@ -97,10 +97,10 @@ static void read_startup_files(char *const* argv, CARD_LIST* scope)
         !OPT::language && i!=language_dispatcher.end(); ++i) {untested();
       OPT::language = prechecked_cast<LANGUAGE*>(i->second);
     }
-  }else{ untested();
+  }else{
     // already have a language specified in a startup file
   }
-  if (OPT::language) { untested();
+  if (OPT::language) {
     OPT::case_insensitive = OPT::language->case_insensitive();
     OPT::units            = OPT::language->units();
   }else{ untested();
@@ -151,7 +151,7 @@ extern "C" {
 }
 /*--------------------------------------------------------------------------*/
 static void setup_traps(void)
-{ untested();
+{
   signal(SIGFPE,sig_fpe);
   signal(SIGINT,sig_int);
   //signal(SIGABRT,sig_abrt);
@@ -171,11 +171,11 @@ static void finish(void)
 }
 /*--------------------------------------------------------------------------*/
 static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
-{ untested();
+{
   int opt;
   CS cmd(CS::_STRING, "");
 
-  try{ untested();
+  try{
     while ((opt = getopt(argc, argv, "a:b:c:i:vI:D:U:")) != -1) { untested();
       switch (opt) {
         case 'a': untested();
@@ -245,7 +245,7 @@ static void process_cmd_line(int argc, char * const*argv, CARD_LIST* scope)
 class MAIN{
 public:
   explicit MAIN();
-  void uninit(){ untested();
+  void uninit(){
     plclose();
     outreset();
 
@@ -257,7 +257,7 @@ public:
     trace1("erase", _root_scope);
     _root_scope->erase_all();
     CMD::command("delete all", _root_scope);
-    try{ untested();
+    try{
       CMD::command("detach_all", _root_scope);
     }catch(Exception_CS const& e){ untested();
       incomplete();
@@ -280,7 +280,7 @@ private:
 };
 /*--------------------------------------------------------------------------*/
 MAIN::MAIN()
-{ untested();
+{
 #if 0 // later?
   _root = device_dispatcher.clone("subckt");
   assert(_root);
@@ -300,7 +300,7 @@ MAIN::MAIN()
 }
 /*--------------------------------------------------------------------------*/
 int main(int argc, char *const* argv)
-{ untested();
+{
   MAIN main_;
   int r=main_(argc, argv);
   main_.uninit(); // required before ~MAIN
@@ -308,17 +308,17 @@ int main(int argc, char *const* argv)
 }
 /*--------------------------------------------------------------------------*/
 int MAIN::operator()(int argc, char *const* argv)
-{ untested();
+{
   prepare_env();
   CKT_BASE::_sim = &_sim_data;
   CKT_BASE::_probe_lists = &_probe_lists;
-  try { untested();
+  try {
 
     SET_RUN_MODE xx(rBATCH);
-    if (!sigsetjmp(env.p, true)) { untested();
+    if (!sigsetjmp(env.p, true)) {
       read_startup_files(argv, _root_scope);
       setup_traps();
-      try { untested();
+      try {
         process_cmd_line(argc, argv, _root_scope);
       }catch (Exception_Quit& e) { untested();
         throw;
@@ -330,18 +330,18 @@ int MAIN::operator()(int argc, char *const* argv)
       return 0; // check?
     }
 
-    { untested();
+    {
       SET_RUN_MODE xxi(rINTERACTIVE);
       CS cmd(CS::_STDIN);
-      for (;;) { untested();
-        if (!sigsetjmp(env.p, true)) { untested();
-          try { untested();
-            if (OPT::language) { untested();
+      for (;;) {
+        if (!sigsetjmp(env.p, true)) {
+          try {
+            if (OPT::language) {
               OPT::language->parse_top_item(cmd, _root_scope);
             }else{untested();
               CMD::cmdproc(cmd.get_line(I_PROMPT), _root_scope);
             }
-          }catch (Exception_End_Of_Input& e) { untested();
+          }catch (Exception_End_Of_Input& e) {
             error(bDANGER, e.message() + '\n');
             break;
           }catch (Exception& e) { untested();

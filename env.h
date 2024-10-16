@@ -2,12 +2,12 @@
 #include "config.h"
 /*--------------------------------------------------------------------------*/
 static void prepare_env()
-{ untested();
+{
   static const char* plugpath="PLUGPATH=" GNUCAP_PLUGPATH
                               "\0         (reserved space)                 ";
 
   std::string ldlpath = OS::getenv("LD_LIBRARY_PATH");
-  if (ldlpath != "") { untested();
+  if (ldlpath != "") {
     ldlpath += ":";
   }else{ untested();
   }

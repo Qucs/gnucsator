@@ -39,7 +39,7 @@ public:
 	SW_WRAP(): CARD(), CMD() {}
 private:
 	CARD* clone()const override {return new SW_WRAP(*this);}
-	std::string value_name()const override {unreachable(); return "";}
+	std::string value_name()const override { untested();unreachable(); return "";}
 private:
 	double _start; // PARAMETER?
 	double _stop;

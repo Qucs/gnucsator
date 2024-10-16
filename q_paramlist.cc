@@ -1,4 +1,4 @@
-#define COMMON_PARAMLIST Q_PARAMLIST
+//#define COMMON_PARAMLIST Q_PARAMLIST
 #include "q_paramlist.h"
 /*--------------------------------------------------------------------------*/
 int COMMON_PARAMLIST::_count = -1;

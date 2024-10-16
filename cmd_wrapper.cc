@@ -128,7 +128,7 @@ public:
 	DC_WRAP(): CMD() {}
 private:
 	DC_WRAP* clone()const override{return new DC_WRAP(*this);}
-	std::string value_name()const override{unreachable(); return "";}
+	std::string value_name()const override{ untested();unreachable(); return "";}
 public:
 	typedef struct{
 		double _start;

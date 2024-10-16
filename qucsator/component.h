@@ -12,6 +12,7 @@
 #include <complex>
 #include <string.h>
 #include "../q_paramlist.h"
+#include <e_paramlist.h> // "../q_paramlist.h"
 
 typedef double nr_double_t;
 typedef std::complex<double> nr_complex_t;
@@ -83,7 +84,7 @@ typedef enum {
 	VSRC_4 = 3,
 	VSRC_5 = 4 } vsrc_number;
 
-static Q_PARAMLIST Default_PARAMS(CC_STATIC);
+static COMMON_PARAMLIST Default_PARAMS(CC_STATIC);
 
 class circuit : public COMPONENT{
 protected:
@@ -134,7 +135,7 @@ protected: // qucsator globals
 		incomplete();
 	}
 	double getPropertyDouble(std::string const& s){
-		Q_PARAMLIST const* c = prechecked_cast<Q_PARAMLIST const*>(common());
+		COMMON_PARAMLIST const* c = prechecked_cast<COMMON_PARAMLIST const*>(common());
 		assert(c);
 		auto pp = c->_params.find(s);
 		if(pp == c->_params.end()){ untested();
@@ -162,11 +163,12 @@ protected: // qucsator globals
 #endif
 	}
 	const char* getPropertyString(std::string const& s){
-		Q_PARAMLIST const* c = prechecked_cast<Q_PARAMLIST const*>(common());
-		assert(c);
 		trace1("getPropertyString", s);
-		auto pp = c->_params.find(s);
+		COMMON_PARAMLIST const* c = prechecked_cast<COMMON_PARAMLIST const*>(common());
+		assert(c);
+		PARAM_LIST::const_iterator pp = c->_params.find(s);
 		if(pp == c->_params.end()){ untested();
+			unreachable();
 			incomplete();
 			return NULL;
 		}else{
@@ -507,7 +509,7 @@ inline void circuit::init()
 		// BUG init once only. not here.
 	}else{
 
-		Q_PARAMLIST* mc = prechecked_cast<Q_PARAMLIST*>(Default_PARAMS.clone());
+		COMMON_PARAMLIST* mc = prechecked_cast<COMMON_PARAMLIST*>(Default_PARAMS.clone());
 		assert(mc);
 		unsigned i=0;
 		_num_param = 0;
@@ -515,15 +517,17 @@ inline void circuit::init()
 			auto p = cd()->required[i];
 			auto k = p.key;
 
+			PARAM_INSTANCE pi;
 			if(p.type == PROP_REAL){
 				++_num_param;
-				mc->_params.set(k, PARAMETER<double>());
+				pi = PARAMETER<double>();
 			}else if(p.type == PROP_STR){
 				++_num_param;
-				mc->_params.set(k, PARAMETER<mystring>(mystring("")));
+				pi = PARAMETER<String>();
 			}else{ untested();
 				incomplete();
 			}
+			mc->_params.set(k, pi);
 		}
 		unsigned j=0;
 		for(;;++j){

@@ -33,6 +33,17 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
   private:
     mutable std::vector<PARAMETER<T> > _v;
     std::vector<PARAMETER<T> > _NOT_INPUT() const;
+	 PARA_BASE* clone()const override {unreachable(); return nullptr; }
+	 PARA_BASE* pclone(void*)const override {assert(0); unreachable(); return nullptr;}
+	 bool operator==(const PARA_BASE&)const override {unreachable(); return false;}
+	 PARA_BASE& operator=(Base const*)override {unreachable(); return *this; }
+	// std::string string()const override {unreachable(); return "";}
+
+	 Base const* e_val_(const Base* def, const CARD_LIST* scope, int recursion=0)const override {
+		 unreachable();
+		 return nullptr;
+	 }
+	 Base const* value()const { unreachable(); return nullptr; }
   public:
     operator std::vector<PARAMETER<T> >()const { return _v;}
     explicit PARAMETER(T v) : PARA_BASE("#"), _v(v) {}
@@ -43,7 +54,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     //		void	print(OMSTREAM& o)const		{o << string();}
     //		void	print(ostream& o)const		{o << string();}
 
-    std::string string()const;
+    std::string string()const override;
     //std::vector<PARAMETER<T> >  _NOT_INPUT() const;
     PARA_BASE& operator=(const IString& s)override;
     void	operator=(const PARAMETER<std::vector<PARAMETER<T> > >& p) { untested();
@@ -179,42 +190,10 @@ inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
   return o;
 }
 /*--------------------------------------------------------------------------*/
-class mystring : public std::string{
-public:
-	explicit mystring() : std::string() {untested();}
-	mystring(mystring const& x) : std::string(x) {}
-	explicit mystring(std::string const& x) : std::string(x) {untested();}
-	explicit mystring(const char* c) : std::string(c) {}
-	explicit mystring(const double& c) : std::string("INVALID") { untested();
-		assert(c==NOT_INPUT || c==NOT_VALID);
-	}
-
-	mystring operator=(mystring const& m){ untested();
-		std::string::operator=(m);
-		return *this;
-	}
-	bool operator!=(const double& d) const{ untested();
-		return !operator==(d);
-	}
-	bool operator==(const double& d) const{ untested();
-		if(d==NOT_VALID){ untested();
-			return std::string(*this) == "invalid";
-		}else if(d==NOT_INPUT){ untested();
-			return std::string(*this) == "not_input";
-		}else{ untested();
-			unreachable();
-			return false;
-		}
-	}
-//	virtual not_input()const override { return NOT_VALID; }
-
-	void parse(CS& a){ untested();
-		incomplete();
-		trace1("mystring parse", a.tail());
-	}
-};
+typedef String mystring;
 /*--------------------------------------------------------------------------*/
-inline std::string to_string(mystring const& a){
+inline std::string to_string(mystring const& a)
+{
 	return std::string(a);
 }
 /*--------------------------------------------------------------------------*/

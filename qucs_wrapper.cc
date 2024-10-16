@@ -64,54 +64,54 @@ class DEV_QUCS : public STORAGE {
 		DEV_QUCS(): STORAGE(){ untested();
 			_comp = new QUCS_DEVICE();
 		}
-		void tr_iwant_matrix(){ incomplete(); }
-		void ac_iwant_matrix(){ incomplete(); }
-		std::string value_name()const {return "nothing";}
+		void tr_iwant_matrix(){ untested(); incomplete(); }
+		void ac_iwant_matrix(){ untested(); incomplete(); }
+		std::string value_name()const { untested();return "nothing";}
 	public: // ports
-		std::string port_name(uint_t)const {incomplete(); return "";}
+		std::string port_name(uint_t)const { untested();incomplete(); return "";}
 		void set_port_by_name(std::string& name, std::string& value);
 		void set_port_by_index(uint_t index, std::string& value);
-		bool port_exists(uint_t i)const {return i < net_nodes();}
+		bool port_exists(uint_t i)const { untested();return i < net_nodes();}
 		const std::string port_value(uint_t i)const;
 		void set_port_to_ground(uint_t index);
 
-		std::string current_port_name(uint_t)const {return "";}
+		std::string current_port_name(uint_t)const { untested();return "";}
 		const std::string current_port_value(uint_t)const;
-		void set_current_port_by_index(uint_t, const std::string&) {unreachable();}
-		bool current_port_exists(uint_t i)const {return i < num_current_ports();}
+		void set_current_port_by_index(uint_t, const std::string&) { untested();unreachable();}
+		bool current_port_exists(uint_t i)const { untested();return i < num_current_ports();}
 
-		uint_t max_nodes()const {unreachable(); return 0;}
-		uint_t min_nodes()const {unreachable(); return 0;}
-		uint_t num_current_ports()const {return 0;}
-		uint_t tail_size()const {return 0;}
+		uint_t max_nodes()const { untested();unreachable(); return 0;}
+		uint_t min_nodes()const { untested();unreachable(); return 0;}
+		uint_t num_current_ports()const { untested();return 0;}
+		uint_t tail_size()const { untested();return 0;}
 
 		uint_t net_nodes()const {return 0;} //override
-		uint_t ext_nodes()const {return max_nodes();}
-		uint_t int_nodes()const {return 0;}
-		uint_t matrix_nodes()const {return 0;}
+		uint_t ext_nodes()const { untested();return max_nodes();}
+		uint_t int_nodes()const { untested();return 0;}
+		uint_t matrix_nodes()const { untested();return 0;}
 
-		bool has_inode()const {return false;}
-		bool has_iv_probe()const {return false;}
-		bool is_source()const {return false;}
-		bool f_is_value()const {return false;}
+		bool has_inode()const { untested();return false;}
+		bool has_iv_probe()const { untested();return false;}
+		bool is_source()const { untested();return false;}
+		bool f_is_value()const { untested();return false;}
 
-		bool node_is_grounded(uint_t)const {incomplete(); return false;}
-		bool node_is_connected(uint_t)const {incomplete(); return false;}
+		bool node_is_grounded(uint_t)const { untested();incomplete(); return false;}
+		bool node_is_connected(uint_t)const { untested();incomplete(); return false;}
 		//--------------------------------------------------------------------
 	public:
 		double tr_review_trunc_error(const FPOLY1* q);
 		double tr_review_check_and_convert(double timestep);
 
-		double tr_involts()const {unreachable(); return 0;}
-		//double  tr_input()const {return tr_involts();}
-		double tr_involts_limited()const {unreachable(); return 0.;}
-		double tr_input_limited()const {return tr_involts_limited();}
+		double tr_involts()const { untested();unreachable(); return 0;}
+		//double  tr_input()const { untested();return tr_involts();}
+		double tr_involts_limited()const { untested();unreachable(); return 0.;}
+		double tr_input_limited()const { untested();return tr_involts_limited();}
 		//double  tr_amps()const;
-		COMPLEX ac_involts()const {unreachable(); return COMPLEX();}
+		COMPLEX ac_involts()const { untested();unreachable(); return COMPLEX();}
 		//COMPLEX ac_amps()const;
 
 		// int order()const return _trsteporder;}
-		// double error_factor()const {return OPT::trstepcoef[_trsteporder];}
+		// double error_factor()const { untested();return OPT::trstepcoef[_trsteporder];}
 	private:
 		qucs::circuit* _comp;
 }p0;

@@ -49,7 +49,7 @@ private: // a default for most elements
 private:
   std::string dev_type()const override {return "Eqn";}
   std::string value_name()const override {return "";}
-  std::string port_name(uint_t)const override {return "";}
+  std::string port_name(uint_t)const override { untested();return "";}
 public: // override virtual
   bool print_type_in_spice()const override {return false;}
   void precalc_last()override;
@@ -80,7 +80,7 @@ protected: // inline, below
 public: // step control. maybe later?
 //  double   tr_review_trunc_error(const FPOLY1* q);
 //  double   tr_review_check_and_convert(double timestep);
-//  double error_factor()const	{return OPT::trstepcoef[_trsteporder];}
+//  double error_factor()const	{ untested();return OPT::trstepcoef[_trsteporder];}
 public:
   PARAM_LIST const& params() const{
     return _params;
@@ -190,7 +190,7 @@ XPROBE EQN::ac_probe_ext(const std::string&)const
 double EQN::tr_probe_num(const std::string& what) const
 {
   try{
-    PARAMETER<double> x = _params[what];
+    PARAM_INSTANCE const& x = _params[what];
     return x;
   }catch(Exception const&){untested();
     return NOT_VALID;
@@ -223,7 +223,7 @@ void EQN::parm_eval()
       assert(scope());
       trace3("parm_eval1", p->first, p->second.string(), scope());
       try{
-	p->second.e_val(NOT_INPUT, scope());
+	p->second.e_val(nullptr, scope());
       }catch(Exception_No_Match const&){ untested();
       }catch(Exception const&){
       }

@@ -362,7 +362,7 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
   }
   if(f>>"HZ"){
   }else if(f>>"Hz"){
-  }else if(f>>"GHz"){ untested();
+  }else if(f>>"GHz"){
     fscale = 1e9;
   }else{ untested();
     f.check(bWARNING, "need 'Hz' or 'GHz'");
@@ -372,19 +372,19 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
     f.check(bWARNING, "need 'S'");
   }else{
   }
-  if(f>>"RI"){ untested();
-    if(f>>"R"){ untested();
+  if(f>>"RI"){
+    if(f>>"R"){
       _column = c_RIR;
-    }else{
+    }else{ untested();
       f.check(bWARNING, "need 'R'");
     }
-  }else if(f>>"MA"){ untested();
-    if(f>>"R"){ untested();
+  }else if(f>>"MA"){
+    if(f>>"R"){
       _column = c_MA;
-    }else{
+    }else{ untested();
       f.check(bWARNING, "need 'R'");
     }
-  }else{
+  }else{ untested();
     f.check(bWARNING, "need 'RI' or 'MA'"); // what else?
   }
   double impedance;
@@ -421,7 +421,7 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
 	  if(_column == c_RIR){
 	  }else if(_column == c_MA){
 	    value = std::polar(real, arg1);
-	  }else{
+	  }else{ untested();
 	    incomplete();
 	  }
 	  m.set(ii, jj, value);

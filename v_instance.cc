@@ -93,9 +93,9 @@ public:
     return new_instance;
   }
 private: // override virtual
-  char		id_letter()const override{return 'X';}
-  bool		print_type_in_spice()const override{return true;}
-  std::string   value_name()const override{return "#";}
+  char		id_letter()const override{ untested();return 'X';}
+  bool		print_type_in_spice()const override{ untested();return true;}
+  std::string   value_name()const override{ untested();return "#";}
 protected:
   int		max_nodes()const override{
     // INT_MAX results in arithmetic overflow in lang_spice
@@ -112,13 +112,13 @@ protected:
   // override. the base class does not know about _parent.
   int set_port_by_name(std::string& name, std::string& ext_name)override;
   int		min_nodes()const override {return 0;}
-  int		ext_nodes()const override {return net_nodes();}
-  int		matrix_nodes()const override {return 0;}
+  int		ext_nodes()const override { untested();return net_nodes();}
+  int		matrix_nodes()const override { untested();return 0;}
 protected:
   int		net_nodes()const override {return _net_nodes;}
   void		precalc_first() override;
 private:
-  bool		makes_own_scope()const override {return false;}
+  bool		makes_own_scope()const override { untested();return false;}
 
 protected:
   void		expand()override;
@@ -128,8 +128,8 @@ private:
     trace1("INSTANCE::precalc_last", long_label());
     unreachable();
   }
-  double	tr_probe_num(const std::string&)const override{unreachable(); return 0.;}
-  int param_count_dont_print()const override{return 0;}
+  double	tr_probe_num(const std::string&)const override{ untested();unreachable(); return 0.;}
+  int param_count_dont_print()const override{ untested();return 0;}
   int param_count() const override {
     return int(_params.size());
   }
@@ -211,12 +211,12 @@ private:
   CARD* clone() const override;
   CARD* clone_instance()const override{ untested(); return clone();}
 public:
-  void precalc_first() override { unreachable(); }
-  void precalc_last() override { unreachable(); }
+  void precalc_first() override { untested(); unreachable(); }
+  void precalc_last() override { untested(); unreachable(); }
   CARD_LIST*	   scope()override	{ return subckt(); }
   const CARD_LIST* scope()const	override{ return subckt(); }
 
-  bool do_tr() override { unreachable(); return true; }
+  bool do_tr() override { untested(); unreachable(); return true; }
 
 public:
   void set_port_by_index(int Index, std::string& Value)override {
@@ -228,7 +228,7 @@ public:
     unreachable();
     return 0;
   }
-//  int		max_nodes()const	{ return int(_nodes.size());}
+//  int		max_nodes()const	{ untested(); return int(_nodes.size());}
 
   int set_param_by_name(std::string name, std::string value)override { untested();
     trace3("proto:spbn", long_label(), name, value);
@@ -733,13 +733,36 @@ void DEV_INSTANCE_PROTO::cleanup()
   }
 }
 /*--------------------------------------------------------------------------*/
+// TODO: need a better stash and mechanism
 class CLEANUP : public CMD {
-  void do_it(CS&, CARD_LIST*)override {
-    DEV_INSTANCE_PROTO::cleanup();
-    CMD::command("clear:0", &CARD_LIST::card_list);
+  void do_it(CS&, CARD_LIST* Scope)override {
+    DEV_INSTANCE_PROTO::cleanup(); // TODO: more generic approach
+    switch (ENV::run_mode) {
+    case rPRE_MAIN:
+      // unreachable(); // call from DETACH_HACK
+      exit(0);
+      break;
+    case rINTERACTIVE:
+	// fall through
+    case rSCRIPT:
+	// fall through
+    case rBATCH:        command("clear", Scope); exit(0); break;
+    case rPRESET:       untested(); /*nothing*/ break;
+    }
   }
 }p3;
-DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "clear", &p3);
+DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, "quit|exit", &p3);
+/*--------------------------------------------------------------------------*/
+// need this, because "quit" is not called from main.cc
+// this effectively breaks "detach_all". don't use it for now.
+class DETACH_HACK : public CMD {
+  void do_it(CS&, CARD_LIST* Scope)override {
+    // CMD::command("detach_all:0", Scope); segfault, currently executed code
+    CMD::command("quit", Scope);
+  }
+}p3b;
+DISPATCHER<CMD>::INSTALL d3_hack(&command_dispatcher, "detach_all", &p3b);
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 } // namespace
 /*--------------------------------------------------------------------------*/

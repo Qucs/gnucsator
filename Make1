@@ -93,3 +93,15 @@ MICROSTRIP_OBJS = \
 	qucsator/msopen.o \
 	qucsator/msstep.o \
 	qucsator/msline.o
+
+microstrip_wrap.so: ${MICROSTRIP_OBJS}
+
+QUCSATOR_OBJS = \
+	qucsator/fspecial.o \
+	qucsator/complex.o \
+	qucsator/matrix.o \
+	qucsator/real.o \
+	qucsator/vector.o
+
+CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator
+DISTCLEANFILES = Make.override Makefile
