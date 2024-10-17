@@ -117,10 +117,13 @@ private: // no-ops for prototype
   void tr_advance()override {}
   void tr_restore()override { untested();}
   void tr_regress()override {}
+  void dc_final()override {}
+  void tr_final()override {}
   void dc_advance()override {}
   void ac_begin()override {}
   void do_ac()override {}
   void ac_load()override {}
+  void ac_final()override {}
   bool do_tr()override { untested(); return true;}
   bool tr_needs_eval()const override {untested(); return false;}
   void tr_queue_eval()override {}

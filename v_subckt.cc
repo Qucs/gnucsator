@@ -80,8 +80,12 @@ private: // no ops for prototype
   void tr_accept()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_accept();}else{} }
   void tr_advance()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_advance();}else{} }
   void dc_advance()override	{ untested();if(is_device()){ BASE_SUBCKT::dc_advance();}else{} }
+  void tr_regress()override	{if(is_device()){ BASE_SUBCKT::tr_regress();}else{} }
+  void dc_final()override	{if(is_device()){ BASE_SUBCKT::dc_final();}else{}}
+  void tr_final()override	{if(is_device()){ BASE_SUBCKT::tr_final();}else{}}
   void do_ac()override		{ untested();if(is_device()){ BASE_SUBCKT::do_ac();}else{} }
   void ac_load()override	{ untested();if(is_device()){ BASE_SUBCKT::ac_load();}else{} }
+  void ac_final()override	{if(is_device()){ BASE_SUBCKT::ac_final();}else{}}
   void tr_queue_eval()override{ untested();
     if(is_device()){ untested();
       BASE_SUBCKT::tr_queue_eval();

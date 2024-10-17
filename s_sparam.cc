@@ -170,6 +170,8 @@ private:
   };
 public:
   void do_it(CS&, CARD_LIST*) override;
+  void	final()override		{_scope->ac_final();}
+  void	finish()override        { untested(); }
 
   explicit SPARAM():
     SIM(),
