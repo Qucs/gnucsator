@@ -9,14 +9,14 @@ simulator language=verilog
 // -------------------------------------------------------------------- //
 // AM_Mod:V1 _net1 gnd _net2 U="1 V" f="1 Hz" Phase="0" m="1.0"
 // Phase is broken in qucsator?
-module AM_Mod(1, 2, 3);
+module AM_Mod(\1 , \2 , \3 );
 parameter U=1
 parameter f=1
 parameter Phase=0
 parameter m=1
-Vac #(.U(U) .f(f) .Phase(Phase)) V1(1 2i);
-g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(1, 2j, 1, 2i, 3, 0);
-CCVS h(2j 1 2 1);
+Vac #(.U(U) .f(f) .Phase(Phase)) V1(\1 , \2i );
+g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , \0 );
+CCVS h(\2j , \1 , \2 , \1 );
 endmodule;
 // -------------------------------------------------------------------- //
 // OpAmp:OP1 gnd _net0 _net4 G="1e6" Umax="15 V"
@@ -44,7 +44,7 @@ simulator lang=spice
 
 `if 1
 // TODO: this is actually a paramset
-module Diode(1 2);
+module Diode(\1 , \2 );
 parameter N=1
 parameter Cj0=15f
 parameter M=0.5
@@ -60,7 +60,7 @@ parameter Ikf=0 Kf=0. Af=1. Ffe=1. Bv=0. Ibv=1m Temp=26.85 Xti=3.
 parameter Eg=1.11 Tbv=0. Trs=0. Ttt1=0. Ttt2=0. Tm1=0. Tm2=0.
 parameter Tnom=26.85
 
-  spice_diode #( .area(Area) .Is(Is) .rs(Rs) .N(N) .cjo(Cj0) .vj(Vj) .M(M) .tt(Tt)) d1(2 1);
+  spice_diode #( .area(Area) .Is(Is) .rs(Rs) .N(N) .cjo(Cj0) .vj(Vj) .M(M) .tt(Tt)) d1(\2 , \1 );
 endmodule
 `else
 paramset Diode spice_diode

@@ -79,6 +79,16 @@ public: // override virtual, called by commands
   BASE_SUBCKT*  parse_module(CS&, BASE_SUBCKT*)override;
   COMPONENT*	parse_instance(CS&, COMPONENT*)override;
   std::string	find_type_in_string(CS&)override;
+private: // local
+  void skip_attributes(CS& cmd);
+  std::string  parse_attributes(CS& cmd);
+  void store_attributes(std::string attrib_string, tag_t x);
+  void parse_attributes(CS& cmd, tag_t x);
+//  void parse_type(CS& cmd, CARD* x);
+//  void parse_args_paramset(CS& cmd, MODEL_CARD* x);
+//  void parse_args_instance(CS& cmd, CARD* x); 
+//  void parse_label(CS& cmd, CARD* x);
+  void parse_ports(CS& cmd, COMPONENT* x, bool all_new);
 
 private: // override virtual, called by print_item
   void print_paramset(OMSTREAM&, const MODEL_CARD*)override;
@@ -94,6 +104,42 @@ private: // local
 DISPATCHER<LANGUAGE>::INSTALL
 	d(&language_dispatcher, lang_verilog.name(), &lang_verilog);
 /*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+void LANG_VERILOG::skip_attributes(CS& cmd)
+{ untested();
+  while (cmd >> "(*") { untested();
+    cmd.skipto1('*') && (cmd >> "*)");
+  }
+}
+/*--------------------------------------------------------------------------*/
+std::string LANG_VERILOG::parse_attributes(CS& cmd)
+{ untested();
+  std::string attrib_string = "";
+  std::string comma = "";
+  while (cmd >> "(*") { untested();
+    attrib_string += comma;
+    while(cmd.ns_more() && !(cmd >> "*)")) { untested();
+      attrib_string += cmd.ctoc();
+    }
+    comma = ", ";
+  }
+  return attrib_string;
+}
+/*--------------------------------------------------------------------------*/
+void LANG_VERILOG::store_attributes(std::string attrib_string, tag_t x)
+{ untested();
+  assert(x);
+  if(attrib_string!=""){ untested();
+    set_attributes(x).add_to(attrib_string, x);
+  }else{ untested();
+  }
+}
+/*--------------------------------------------------------------------------*/
+void LANG_VERILOG::parse_attributes(CS& cmd, tag_t x)
+{ untested();
+  assert(x);
+  store_attributes(parse_attributes(cmd), x);
+}
 /*--------------------------------------------------------------------------*/
 static void parse_type(CS& cmd, CARD* x)
 {
@@ -168,70 +214,163 @@ static void parse_label(CS& cmd, CARD* x)
   }
 }
 /*--------------------------------------------------------------------------*/
-static void parse_ports(CS& cmd, COMPONENT* x, bool all_new)
+// map to verilog representation
+std::string mangle(std::string const& name)
 {
+  if(isdigit(name[0])) {
+    return '\\' + name + " ";
+  }else if(name[0] == '\\') {
+    return name + " ";
+  }else{
+    // ok, for now.
+    // probably need '\\' ... ' ' whenever special characters are used.
+    return name;
+  }
+}
+/*--------------------------------------------------------------------------*/
+// get identifier and turn into internal representation
+// "\1 " -> "1"     -- so it also works with spice
+// "\a " -> "a"     -- identical, use simple form
+// "\$ " -> "\$"   -- not sure
+// "\a* " -> "\a*" -- keep escaped string
+// "\\\ " -> "\\\" -- keep escaped string
+std::string get_identifier(CS& cmd, std::string const& term)
+{
+  cmd.skipbl();
+  std::string id;
+
+  if(cmd.is_digit()) {
+    cmd.warn(bDANGER, "invalid identifier");
+  }else{
+  }
+
+  if(cmd >> "\\") {
+    id = cmd.get_to(" \t\f");
+    trace1("got to", cmd.peek());
+    cmd.skip();
+
+    {
+      bool plain = true;
+      for(size_t i = 0; plain && i<id.size() ; ++i) {
+	if (isalnum(id[i])) {
+	}else if (id[i] == '$') {
+	  plain = false;
+	}else{
+	  plain = false;
+	}
+      }
+
+      if(plain) {
+	// don't touch, for now.
+      }else{
+	// store escaped string.
+	id = "\\" + id;
+      }
+    }
+  }else{
+    id = cmd.ctos(term, "", "");
+  }
+
+  trace1("identifier", id);
+  return id;
+}
+/*--------------------------------------------------------------------------*/
+void LANG_VERILOG::parse_ports(CS& cmd, COMPONENT* x, bool all_new)
+{ untested();
   assert(x);
 
-  if (cmd >> '(') {
-    if (cmd.is_alnum()) {
+  if (cmd >> '(') { untested();
+    std::string attribs = parse_attributes(cmd);
+    size_t here = cmd.cursor();
+    
+    if (cmd.match1('.')) { untested();
+      // by name
+      while (cmd >> '.') { untested();
+	std::string Name = get_identifier(cmd, "(");
+	int paren = cmd.skip1b('(');
+	std::string value = get_identifier(cmd, ")");
+	if (!paren){ untested();
+	  //?
+	}else if( cmd.skip1b(')')) { untested();
+	}else{untested();
+	  cmd.warn(bDANGER, here, x->long_label() + ": need ')'");
+	}
+	cmd >> ',';
+	try{ untested();
+	  int Index = x->set_port_by_name(Name, value);
+	  store_attributes(attribs,  x->port_id_tag(Index));
+	}catch (Exception_No_Match&) { untested();
+	  cmd.warn(bDANGER, here, x->long_label() + ": mismatch " + Name + " ignored");
+	}catch (Exception_Clash&) {untested();
+	  cmd.warn(bDANGER, here, x->long_label() + ": already set " + Name + ", ignored");
+	}
+	attribs = parse_attributes(cmd);
+	here = cmd.cursor();
+      }
+      for (int Index = 0;  Index < x->min_nodes();  ++Index) { untested();
+	//BUG// This may be a bad idea.
+	//BUG// It's definitely wrong with all_new.
+	//BUG// What should we do with unconnected ports?
+	if (!(x->node_is_connected(Index))) {untested();
+	  cmd.warn(bDANGER, x->port_name(Index) + ": port unconnected, grounding");
+	  x->set_port_to_ground(Index);
+	}else{ untested();
+	}
+      }
+    }else{ untested();
       // by order
-      int index = 0;
-      while (cmd.is_alnum()) {
-	size_t here = cmd.cursor();
-	try{
-	  std::string value;
-	  cmd >> value;
-	  x->set_port_by_index(index, value);
-	  if (all_new) {
-	    if (x->node_is_grounded(index)) { untested();
+      int Index;
+      for (Index = 0;  cmd.is_alnum() || cmd.peek() == '\\';  ++Index) { untested();
+	try{ untested();
+	  std::string value = get_identifier(cmd, ",)");
+	  cmd >> ',';
+	  x->set_port_by_index(Index, value);
+	  store_attributes(attribs,  x->port_id_tag(Index));
+	  if (all_new) { untested();
+	    if (x->node_is_grounded(Index)) { untested();
 	      cmd.warn(bDANGER, here, "node 0 not allowed here");
-	    }else if (x->subckt() && x->subckt()->nodes()->how_many() != index+1) { untested();
+	      --Index;
+	    }else if (x->subckt() && x->subckt()->nodes()->how_many() != Index+1) { untested();
 	      cmd.warn(bDANGER, here, "duplicate port name, skipping");
-	    }else{
-	      ++index;
+	      --Index;
+	    }else{ untested();
 	    }
-	  }else{
-	    ++index;
+	  }else{ untested();
 	  }
 	}catch (Exception_Too_Many& e) { untested();
 	  cmd.warn(bDANGER, here, e.message());
+	}catch (Exception_Clash&) {untested();
+	  unreachable();
+	  cmd.warn(bDANGER, here, x->long_label() + ": already set, ignored");
 	}
+	attribs = parse_attributes(cmd);
+	here = cmd.cursor();
       }
-      if (index < x->min_nodes()) { untested();
-	cmd.warn(bDANGER, "need " + to_string(x->min_nodes()-index) +" more nodes, grounding");
-	for (int iii = index;  iii < x->min_nodes();  ++iii) { untested();
-	  x->set_port_to_ground(iii);
+      if (Index < x->min_nodes()) { untested();
+	//BUG// This may be a bad idea.
+	//BUG// It's definitely wrong with all_new.
+	//BUG// What should we do with unconnected ports?
+	if (all_new) {untested();
+	}else{ untested();
 	}
-      }else{
-      }
-    }else{
-      // by name
-      while (cmd >> '.') {
-	size_t here = cmd.cursor();
-	try{
-	  std::string name, value;
-	  cmd >> name >> '(' >> value >> ')' >> ',';
-	  x->set_port_by_name(name, value);
-	}catch (Exception_No_Match&) {untested();
-	  cmd.warn(bDANGER, here, "mismatch, ignored");
+	cmd.warn(bDANGER, "need " + to_string(x->min_nodes()-Index) +" more nodes, grounding");
+	for (  ;  Index < x->min_nodes();  ++Index) { untested();
+	  x->set_port_to_ground(Index);
 	}
-      }
-      for (int iii = 0;  iii < x->min_nodes();  ++iii) {
-	if (!(x->node_is_connected(iii))) {untested();
-	  cmd.warn(bDANGER, x->port_name(iii) + ": port unconnected, grounding");
-	  x->set_port_to_ground(iii);
-	}else{
-	}
+      }else{ untested();
       }
     }
     cmd >> ')';
   }else{ untested();
     cmd.warn(bDANGER, "'(' required (parse ports) (grounding)");
-    for (int iii = 0;  iii < x->min_nodes();  ++iii) { untested();
-      if (!(x->node_is_connected(iii))) { untested();
-	cmd.warn(bDANGER, x->port_name(iii) + ": port unconnected, grounding");
-	x->set_port_to_ground(iii);
-      }else{ untested();
+    for (int Index = 0;  Index < x->min_nodes();  ++Index) { untested();
+      if (!(x->node_is_connected(Index))) { untested();
+	if (all_new) {untested();
+	}else{ untested();
+	}
+	cmd.warn(bDANGER, x->port_name(Index) + ": port unconnected, grounding");
+	x->set_port_to_ground(Index);
+      }else{untested();
 	unreachable();
       }
     }
@@ -394,7 +533,7 @@ void LANG_VERILOG::parse_top_item(CS& cmd, CARD_LIST* Scope)
 void LANG_VERILOG::print_args(OMSTREAM& o, const MODEL_CARD* x)
 {
   assert(x);
-  if (x->use_obsolete_callback_print()) {untested();
+  if (x->use_obsolete_callback_print()) {
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
   }else{
     for (int ii = x->param_count() - 1;  ii >= 0;  --ii) {
@@ -450,9 +589,9 @@ static void print_ports_long(OMSTREAM& o, const COMPONENT* x)
   for (int ii = 0;  x->port_exists(ii);  ++ii) {
     o << sep;
     if(x->port_name(ii) != ""){
-      o << "." << x->port_name(ii) << '(' << x->port_value(ii) << ')';
+      o << '.' << mangle(x->port_name(ii)) << '(' << mangle(x->port_value(ii)) << ')';
     }else{
-      o << x->port_value(ii);
+      o << mangle(x->port_value(ii));
     }
     sep = ",";
   }
@@ -575,8 +714,22 @@ class CMD_MODULE : public CMD {
     assert(new_module->subckt());
     assert(new_module->subckt()->is_empty());
     assert(!new_module->is_device());
-    lang_verilog.parse_module(cmd, new_module);
-    Scope->push_back(new_module);
+    try {
+      lang_verilog.parse_module(cmd, new_module);
+      Scope->push_back(new_module);
+    }catch(Exception const& e) {
+      cmd.warn(bDANGER, e.message());
+      for (;;) {
+	cmd.get_line("verilog-module>");
+
+	if (cmd >> "endmodule ") {
+	  break;
+	}else{
+	}
+      }
+      delete new_module;
+    //  cmd.warn(bDANGER, e.message());
+    }
   }
 } p2;
 DISPATCHER<CMD>::INSTALL d2(&command_dispatcher, "module|macromodule", &p2);

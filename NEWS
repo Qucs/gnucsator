@@ -1,3 +1,11 @@
+2024****-dev
+============
+* more devices
+* verilog port syntax
+* magnitude/angle in sparam file
+* refine ROADMAP
+* various sync
+
 20240430-dev
 ============
 * parameter sweeps in dc

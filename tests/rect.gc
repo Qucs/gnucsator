@@ -14,7 +14,7 @@ hidemodule *
 param u=3
 param foo=TH+TL+Tr+Tf
 
-Vrect #(.TH(1) .TL(2) .Tr(0.1) .Tf(0.1) .U(u) .Td(1)) foo(1,0);
+Vrect #(.TH(1) .TL(2) .Tr(0.1) .Tf(0.1) .U(u) .Td(1)) foo(\1 , \0 );
 
 list
 

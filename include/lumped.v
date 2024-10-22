@@ -32,27 +32,27 @@ endmodule // R
 
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
 // Zref is some sparam hack.. ignore for now
-module Gyrator(1 2 3 4);
+module Gyrator(\1 , \2 , \3 , \4 );
 parameter R=50
 
-ccvs #(.gain(R)) vs1(2 3i vp2);
-vsource #(.dc(0)) vp1(3i 3);
+ccvs #(.gain(R)) vs1(\2 , \3i , vp2);
+vsource #(.dc(0)) vp1(\3i , \3 );
 
-ccvs #(.gain(R)) vs2(4i 1 vp1);
-vsource #(.dc(0)) vp2(4i 4);
+ccvs #(.gain(R)) vs2(\4i , \1 , vp1);
+vsource #(.dc(0)) vp2(\4i , \4 );
 endmodule
 
 
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB"
-module Amp(1 2);
+module Amp(\1 , \2 );
 	parameter G=10;
 	parameter Z1=50;
 	parameter Z2=50;
 	parameter NF=1;
 
 	// almost?
-	resistor #(.r(Z1)) r(2i 2);
-	vcvs #(.gain(G)) vs1(2i 0 1 0);
+	resistor #(.r(Z1)) r(\2i , \2 );
+	vcvs #(.gain(G)) vs1(\2i , \0 , \1 , \0 );
 endmodule
 
 // is it lumped?
@@ -66,7 +66,7 @@ module TLIN (a, b)
 
 // local??
   parameter c0=299792458.0
-  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t(a 0 b 0);
+  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t(a , \0 , b , \0 );
 endmodule
 
 module TLIN4P (a, b, c, d)
@@ -88,21 +88,21 @@ endmodule
 
 * sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1"
 * sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1"
-module sTr (outp inp inn 4 5 outn);
+module sTr (outp inp inn, \4 , \5 , outn);
 parameter T1=1.
 parameter T2=1.
 CCCS #(.gain(T1)) v(outp_ inp inn outp);
 vcvs #(.gain(T1) e(outp_ outn inp inn);
 
-CCCS #(.gain(T2)) v(5_ inp inn 5);
-vcvs #(.gain(T2) e(5_ 4 inp inn);
+CCCS #(.gain(T2)) v(\5_ , inp, inn, \5 );
+vcvs #(.gain(T2) e(\5_ , \4 , inp, inn);
 endmodule
 
-module BiasT(1 2 3)
+module BiasT(\1 , \2 , \3 )
 parameter C=1
 parameter L=1
-capacitor #(.c(C)) c1(1, 2);
-inductor #(.l(L)) l1(3, 2);
+capacitor #(.c(C)) c1(\1 , \2 );
+inductor #(.l(L)) l1(\3 , \2 );
 endmodule
 
 simulator lang=spice

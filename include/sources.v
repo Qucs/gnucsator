@@ -6,27 +6,27 @@ simulator language=verilog
 // mapping qucsator names to actual devices
 // "sources" section
 
-module Idc(1 2);
+module Idc(\1 , \2 );
 parameter I=1m
-isource #(.dc(I)) dev(2 1);
+isource #(.dc(I)) dev(\2 , \1 );
 endmodule
 
-module Vdc(p n);
+module Vdc(p, n);
 // it's missing a probe
 	parameter U=1m
 	parameter Temp
-	vsource #(.dc(U)) dev(p n);
+	vsource #(.dc(U)) dev(p, n);
 endmodule
 
-module VCCS(1 2 3 4);
+module VCCS(\1 , \2 , \3 , \4 );
 parameter G=1
-vccs #(.gm(G)) v(2 3 1 4);
+vccs #(.gm(G)) v(\2 , \3  ,\1 , \4 );
 endmodule
 
-module VCVS(1 2 3 4);
+module VCVS(\1 , \2 , \3 , \4 );
 parameter G=1
 parameter T=0.
-vcvs #(.gain(G)) v(2 3 1 4);
+vcvs #(.gain(G)) v(\2 , \3 , \1 , \4 );
 endmodule
 
 simulator lang=spice
@@ -134,7 +134,7 @@ Y1 1 2 ac {0} dc {y} tran {y}
 
 .simulator lang=verilog
 
-module Pac(1 2);
+module Pac(\1 , \2 );
 parameter Z=50
 parameter P=1
 parameter f=1
@@ -143,9 +143,9 @@ parameter Temp
 
 // U is local...
 parameter U={sqrt(8 * P * Z)}
-Vac #(.U(U) .f(f)) sine(1, i);
-y_dctr #(.y({1/Z})) Y1(i 2);
-pac_ #(.Num(Num) .Z(Z) .P(P)) sp(2, 1);
+Vac #(.U(U) .f(f)) sine(\1 , i);
+y_dctr #(.y({1/Z})) Y1(i, \2 );
+pac_ #(.Num(Num) .Z(Z) .P(P)) sp(\2 , \1 );
 endmodule
 
 simulator lang=acs

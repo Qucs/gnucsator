@@ -8,10 +8,10 @@ load c_include.so
 
 verilog
 
-Pac #(.Num(1),.P(1 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.1(net0),.2(0));
-Pac #(.Num(2),.P(2 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.1(net5),.2(0));
+Pac #(.Num(1),.P(1 ),.Temp(26.85),.Z(50),.f(1G)) P1 (.\1 (net0),.\2 (\0 ));
+Pac #(.Num(2),.P(2 ),.Temp(26.85),.Z(50),.f(1G)) P2 (.\1 (net5),.\2 (\0 ));
 
-SPfile #(.File("line.0.s2p")) line (net0 net5 0)
+SPfile #(.File("line.0.s2p")) line (\net0 , \net5 , \0 )
 
 dc
 sp port * 5e8 6e9 * {6.41044426993407607079/5}

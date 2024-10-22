@@ -4,8 +4,8 @@ load ../lang_qucs.so
 
 verilog
 
-module tst(1, 2);
-resistor r(1 2);
+module tst(\1 , \2 );
+resistor r(\1 , \2 );
 endmodule
 
 list

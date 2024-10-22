@@ -38,8 +38,8 @@
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 
 //* MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9" 
 //* TODO: check port order 
-Vdc #(.U(u)) src (.p(1),.n(0));
-R #(.R(1)) res (.p(1),.n(2));
-IProbe #() p1 (.p(2),.n(0));
+Vdc #(.U(u)) src (.p(\1 ),.n(\0 ));
+R #(.R(1)) res (.p(\1 ),.n(\2 ));
+IProbe #() p1 (.p(\2 ),.n(\0 ));
 #           v(1)       v(2)       v(p1)      i(p1)      i(p1)     
  0.         3.         29.999u    29.999u    2.9999     2.9999    

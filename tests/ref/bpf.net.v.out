@@ -13,8 +13,8 @@ MCOUPLED #(.DispModel(Kirschning),.L(4.72mm),.Model(Kirschning),.S(712um),.Subst
 MSTEP #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Subst(Subst1),.W1(1.08mm),.W2(384um)) MS19 (.p0(_net15),.p1(_net16));
 MCOUPLED #(.DispModel(Kirschning),.L(5.24mm),.Model(Kirschning),.S(482um),.Subst(Subst1),.Temp(26.85),.W(384um)) MS5 (.p0(_net16),.p1(_net17),.p2(_net18),.p3(_net19));
 MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(Subst1),.W(384u)) MS9 (.p0(_net17));
-Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P2 (.1(_net18),.2(0));
-Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P1 (.1(_net0),.2(0));
+Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P2 (.\1 (_net18),.\2 (\0 ));
+Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P1 (.\1 (_net0),.\2 (\0 ));
 paramset Subst1 SUBST;\
  .er=2.56; .h=0.76m; .t=18u; .tand=3e-3; .rho=0.022e-6; .D=100; .tnom=tnom;\
 endparmset
