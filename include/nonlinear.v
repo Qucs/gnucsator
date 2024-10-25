@@ -10,10 +10,10 @@ simulator language=verilog
 // AM_Mod:V1 _net1 gnd _net2 U="1 V" f="1 Hz" Phase="0" m="1.0"
 // Phase is broken in qucsator?
 module AM_Mod(\1 , \2 , \3 );
-parameter U=1
-parameter f=1
-parameter Phase=0
-parameter m=1
+parameter U=1;
+parameter f=1;
+parameter Phase=0;
+parameter m=1;
 Vac #(.U(U) .f(f) .Phase(Phase)) V1(\1 , \2i );
 g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , \0 );
 CCVS h(\2j , \1 , \2 , \1 );
@@ -45,26 +45,26 @@ simulator lang=spice
 `if 1
 // TODO: this is actually a paramset
 module Diode(\1 , \2 );
-parameter N=1
-parameter Cj0=15f
-parameter M=0.5
-parameter Vj=0.7
-parameter Rs=0.
-parameter Is=1e-15
-parameter Area=1.
-parameter Tt=0.
+parameter N=1;
+parameter Cj0=15f;
+parameter M=0.5;
+parameter Vj=0.7;
+parameter Rs=0.;
+parameter Is=1e-15;
+parameter Area=1.;
+parameter Tt=0.;
 
 // ignored, but somehow used in .net files revisit later.
-parameter Fc=.5 Cp=0. Isr=0. Nr=2.
-parameter Ikf=0 Kf=0. Af=1. Ffe=1. Bv=0. Ibv=1m Temp=26.85 Xti=3.
-parameter Eg=1.11 Tbv=0. Trs=0. Ttt1=0. Ttt2=0. Tm1=0. Tm2=0.
-parameter Tnom=26.85
+parameter Fc=.5, Cp=0., Isr=0., Nr=2.;
+parameter Ikf=0, Kf=0., Af=1., Ffe=1., Bv=0., Ibv=1m, Temp=26.85, Xti=3.;
+parameter Eg=1.11, Tbv=0., Trs=0., Ttt1=0., Ttt2=0., Tm1=0., Tm2=0.;
+parameter Tnom=26.85;
 
   spice_diode #( .area(Area) .Is(Is) .rs(Rs) .N(N) .cjo(Cj0) .vj(Vj) .M(M) .tt(Tt)) d1(\2 , \1 );
 endmodule
 `else
 paramset Diode spice_diode
-  parameter N=1 Cj0=15f M=0.5 Vj=0.7 Rs=0.  Is=1e-15 area=1
+  parameter N=1, Cj0=15f, M=0.5, Vj=0.7, Rs=0., Is=1e-15, area=1;
  .area=area
  .Is=Is
  .Rs=Rs
@@ -91,8 +91,8 @@ S1 1 3 2 4 sss
 .ends
 
 ******************************************************************************
-.parameter npn=1
-.parameter pnp=-1
+* .parameter npn=1
+* .parameter pnp=-1
 
 * wrap "spice model" into subckt to expose device parameters.
 .subckt spice_bjt (c, b, e, s)
@@ -154,12 +154,12 @@ S1 1 3 2 4 sss
 //
 module BJT (b, c, e, s);
   parameter Area=1;
-  parameter Type;
-  parameter Temp=26.85 Is=3.834e-14 Nf=1.008 Nr=1.005 Ikf=0.08039 Ikr=0.047 Vaf=21.11 Var=32.02;
-  parameter Ise=1.219e-14 Ne=1.528 Isc=2.852e-13 Nc=1.28 Bf=344.4 Br=14.84 Rbm=1 Irb=1e-06 Rc=0.5713;
-  parameter Re=0.6202 Rb=1 Cje=1.23e-11 Vje=0.6106 Mje=0.378 Cjc=1.084e-11 Vjc=0.1022 Mjc=0.3563;
-  parameter Xcjc=0.6288 Cjs=0 Vjs=0.75 Mjs=0.333 Fc=0.8027 Tf=5.595e-10 Xtf=3.414 Vtf=5.23 Itf=0.1483;
-  parameter Tr=1e-32 Kf=0 Af=1 Ffe=1 Kb=0 Ab=1 Fb=1 Ptf=0 Xtb=0 Xti=3 Eg=1.11;
+  parameter string Type;
+  parameter Temp=26.85, Is=3.834e-14, Nf=1.008, Nr=1.005, Ikf=0.08039, Ikr=0.047, Vaf=21.11, Var=32.02;
+  parameter Ise=1.219e-14, Ne=1.528, Isc=2.852e-13, Nc=1.28, Bf=344.4, Br=14.84, Rbm=1, Irb=1e-06, Rc=0.5713;
+  parameter Re=0.6202, Rb=1, Cje=1.23e-11, Vje=0.6106, Mje=0.378, Cjc=1.084e-11, Vjc=0.1022, Mjc=0.3563;
+  parameter Xcjc=0.6288, Cjs=0, Vjs=0.75, Mjs=0.333, Fc=0.8027, Tf=5.595e-10, Xtf=3.414, Vtf=5.23, Itf=0.1483;
+  parameter Tr=1e-32, Kf=0, Af=1, Ffe=1, Kb=0, Ab=1, Fb=1, Ptf=0, Xtb=0, Xti=3, Eg=1.11;
   parameter Tnom;
 
 // .fb=  Fb;
@@ -175,12 +175,8 @@ module BJT (b, c, e, s);
       .isc( Isc) .nc(  Nc) .bf(  Bf) .br(  Br) .rbm( Rbm) .irb( Irb) .rc(  Rc) .re(  Re) .rb(  Rb) .cje( Cje) \
       .vje( Vje) .mje( Mje) .cjc( Cjc) .vjc( Vjc) .mjc( Mjc) .xcjc(Xcjc) .cjs( Cjs) .vjs( Vjs) .mjs( Mjs) \
       .fc(  Fc) .tf(  Tf) .xtf( Xtf) .vtf( Vtf) .itf( Itf) .tr(  Tr) .kf(  Kf) .af(  Af) .ptf( Ptf) \
-      .xtb( Xtb) .xti( Xti) .eg(  Eg) .area(Area) .polarity(Type) .temp(Temp)) npn(c, b, e, s);
+      .xtb( Xtb) .xti( Xti) .eg(  Eg) .area(Area) .polarity(Type=="npn"?1:-1) .temp(Temp)) npn(c, b, e, s);
 endmodule // BJT
-
-// d'oh. in qucsator, "MOSFET" is both, nFET and pFET.
-parameter nfet=1
-parameter pfet=-1
 
 spice
 .options noinsensitive
@@ -246,15 +242,16 @@ module MOSFET(g, d, s, b);
   parameter Ad=100.p, As=100.p, Pd=50.u, Ps=50.u, Kf=0, Af=1, Temp=26.85, Tnom=26.85;
   parameter Ffe=1; // ignored
 
-  parameter Type;
+  parameter string Type;
 
-  spice_mos #(.w(W) .polarity(Type) .l(L) .temp(Temp) \
+  spice_mos #(.w(W) .polarity((Type=="nfet")?1:-1) .l(L) .temp(Temp) \
     .kp(Kp) .gamma(Gamma) .phi(Phi) .lambda(Lambda) .rd(Rd) .rs(Rs) .is(Is) .ld(Ld) .tox(Tox) \
     .cgso(Cgso) .cgdo(Cgdo) .cgbo(Cgbo) .cbd(Cbd) .cbs(Cbs) .pb(Pb) .mj(Mj) .fc(Fc) .cjsw(Cjsw) .mjsw(Mjsw) \
     .nsub(Nsub) .nss(Nss) .tpg(Tpg) .uo(Uo) .rsh(Rsh) .cj(Cj) .js(Js) .kf(Kf) .af(Af) .tnom(Tnom) .vto(Vt0) \
    ) n(d, g, s, b);
 endmodule // MOSFET
 
+* BUG
 parameter on=1
 parameter off=0
 spice
@@ -263,11 +260,13 @@ spice
 *
 .subckt Switch(1 2);
 .parameter init=1
+* .parameter real init_={(init=="on")?1.:0.}
 .parameter time=1m
 .parameter Roff=1e12
 .parameter Ron=0
 V1 c 0 pulse rise={2*time} pv={2-6*init} iv={2*init}
 .model  sss  sw  ( vt=0  vh=1  ron={if(Ron,Ron,1e-10)}  roff=Roff)
+*.model  sss  sw  ( vt=0  vh=1  ron={Ron?Ron :1e-10}  roff=Roff) ?
 S1 1 2 c 0 sss
 
 .ends

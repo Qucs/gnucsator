@@ -7,25 +7,25 @@ simulator language=verilog
 // "sources" section
 
 module Idc(\1 , \2 );
-parameter I=1m
+parameter I=1m;
 isource #(.dc(I)) dev(\2 , \1 );
 endmodule
 
 module Vdc(p, n);
 // it's missing a probe
-	parameter U=1m
-	parameter Temp
+	parameter U=1m;
+	parameter Temp;
 	vsource #(.dc(U)) dev(p, n);
 endmodule
 
 module VCCS(\1 , \2 , \3 , \4 );
-parameter G=1
+parameter G=1;
 vccs #(.gm(G)) v(\2 , \3  ,\1 , \4 );
 endmodule
 
 module VCVS(\1 , \2 , \3 , \4 );
-parameter G=1
-parameter T=0.
+parameter G=1;
+parameter T=0.;
 vcvs #(.gain(G)) v(\2 , \3 , \1 , \4 );
 endmodule
 
@@ -135,16 +135,16 @@ Y1 1 2 ac {0} dc {y} tran {y}
 .simulator lang=verilog
 
 module Pac(\1 , \2 );
-parameter Z=50
-parameter P=1
-parameter f=1
-parameter Num=1
-parameter Temp
+parameter real Z=50.;
+parameter P=1;
+parameter f=1;
+parameter Num=1;
+parameter Temp;
 
 // U is local...
-parameter U={sqrt(8 * P * Z)}
+parameter U=sqrt(8 * P * Z);
 Vac #(.U(U) .f(f)) sine(\1 , i);
-y_dctr #(.y({1/Z})) Y1(i, \2 );
+y_dctr #(.y(1/Z)) Y1(i, \2 );
 pac_ #(.Num(Num) .Z(Z) .P(P)) sp(\2 , \1 );
 endmodule
 

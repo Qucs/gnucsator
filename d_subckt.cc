@@ -117,8 +117,8 @@ private: // no-ops for prototype
   void tr_advance()override {}
   void tr_restore()override { untested();}
   void tr_regress()override {}
-  void dc_final()override {}
-  void tr_final()override {}
+  void dc_final()override { untested();}
+  void tr_final()override { untested();}
   void dc_advance()override {}
   void ac_begin()override {}
   void do_ac()override {}
@@ -267,7 +267,7 @@ bool DEV_SUBCKT::is_valid() const
   Base const* x = v.e_val(nullptr, subckt());
   Integer c;
   Integer* res = c.assign(x);
-  if(!res) {
+  if(!res) { untested();
     return true;
   }else{
     assert(x);

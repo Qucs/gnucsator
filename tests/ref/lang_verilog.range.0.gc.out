@@ -1,18 +1,18 @@
 module a (1,2);
-parameter _..is_valid={1*((.1<=dc)*(dc<=1))};
-parameter dc={ 1.};
+parameter _..is_valid=1*(( 0.1<=dc)*(dc<=1));
+parameter dc=1;
 vsource #(.dc(dc)) v1 (\1 ,\2 );
 endmodule // a
 
 module a (1,2);
-parameter _..is_valid={1*((1<=dc)*(dc<=10))};
-parameter dc={ 20.};
+parameter _..is_valid=1*((1<=dc)*(dc<=10));
+parameter dc=20;
 vsource #(.dc(dc)) v2 (\1 ,\2 );
 endmodule // a
 
 module a (1,2);
-parameter _..is_valid={1*((10<=dc)*(dc<=100))};
-parameter dc={ 100.};
+parameter _..is_valid=1*((10<=dc)*(dc<=100));
+parameter dc=100;
 vsource #(.dc(dc)) v3 (\1 ,\2 );
 endmodule // a
 

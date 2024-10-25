@@ -15,7 +15,7 @@ common features and compare the performances between *csators.
 Once Qucs has moved on to a suitable schematic format there will be no more
 need for Qucsator style intermediate netlists with partial data. The idea here
 is to pass circuit models from one tool to another wihout losing information,
-following an established standard.  See Qucs/ROADMAP for details.
+following an established standard [1]. See Qucs/ROADMAP for details.
 
 == User supplied component models
 
@@ -24,3 +24,5 @@ practical for users to add their own models to the system. Some simulators
 implement compact modelling features from Verilog-A, others implement
 Verilog-95. Gnucsator inherits language compliance from Gnucap, which is
 currently moving towards Verilog-AMS.
+
+[1] http://gnucap.org/dokuwiki/doku.php/gnucap:user:netlist_import_and_export

@@ -170,7 +170,7 @@ private:
   };
 public:
   void do_it(CS&, CARD_LIST*) override;
-  void	final()override		{_scope->ac_final();}
+  void	final()override		{ untested();_scope->ac_final();}
   void	finish()override        { untested(); }
 
   explicit SPARAM():
@@ -288,17 +288,17 @@ void SPARAM::setup(CS& Cmd)
   size_t here = Cmd.cursor();
   do{
     if (Cmd.match1("'\"({") || Cmd.is_float()) {
-      Cmd >> _start;
+      _start.obsolete_parse(Cmd);
       trace1("SPARAM got start", _start);
       if (Cmd.match1("'\"({") || Cmd.is_float()) {
-        Cmd >> _stop;
+        _stop.obsolete_parse(Cmd);
       }else{ untested();
         _stop = _start;
         trace1("SPARAM got stop", _stop);
       }
       if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
         _stepmode = LIN_STEP;
-        Cmd >> _step_in;
+        _step_in.obsolete_parse(Cmd);
         trace1("SPARAM got step", _step);
       }else{
       }

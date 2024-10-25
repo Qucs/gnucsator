@@ -92,7 +92,7 @@ private: // no ops for prototype
   void tr_accept()override	{if(is_device()){ BASE_SUBCKT::tr_accept();}else{} }
   void tr_regress()override	{if(is_device()){ BASE_SUBCKT::tr_regress();}else{} }
   void dc_final()override	{if(is_device()){ BASE_SUBCKT::dc_final();}else{}}
-  void tr_final()override	{if(is_device()){ BASE_SUBCKT::tr_final();}else{}}
+  void tr_final()override	{ untested();if(is_device()){ BASE_SUBCKT::tr_final();}else{}}
   void tr_advance()override	{if(is_device()){ BASE_SUBCKT::tr_advance();}else{} }
   TIME_PAIR tr_review() override { if(is_device()){return BASE_SUBCKT::tr_review();}else{
                             return TIME_PAIR(NEVER, NEVER);}}

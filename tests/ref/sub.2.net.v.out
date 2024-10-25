@@ -2,7 +2,7 @@
 module main ();
 //# Qucs 0.0.19  /tmp/neur.sch 
 module TESTSUB (_net0,_net1);
-parameter RES={1};
+parameter RES=1;
 R #(.R(RES)) a (.p(_net0),.n(_net1));
 endmodule // TESTSUB
 

@@ -149,7 +149,7 @@ int EQN::set_param_by_name(std::string Name, std::string Value)
     p = Value;
     CS cs(CS::_STRING, Name+"={"+Value+"}");
     trace2("EQN parse", Name, Value);
-    _params.parse(cs);
+    _params.obsolete_parse(cs);
     assert(pick(_params, Name) != _params.end()); // incomplete?
     _param_order.push_back(pick(_params, Name));
     trace1("EQN parse", _params.size());
@@ -260,7 +260,7 @@ class CMD_EQN : public CMD {
       auto Name = x.first;
       auto Value = x.second.string();
       CS cs(CS::_STRING, Name+"={"+Value+"}");
-      pl.parse(cs);
+      pl.obsolete_parse(cs);
     }
   }
 }p0;

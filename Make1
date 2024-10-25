@@ -47,6 +47,7 @@ PLUGIN_CC = \
 	subst_wrap.cc \
 	v_instance.cc \
 	v_module.cc \
+	v_paramset.cc \
 	v_subckt.cc
 
 PLUGIN_MODEL =

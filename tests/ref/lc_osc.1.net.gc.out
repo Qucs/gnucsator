@@ -8,8 +8,14 @@ L:L2 _net2 _net0 L="3n" I=""
                         ^ ? L2: I has no value?
 L:L1 _net1 _net0 L="3n" I="" 
                         ^ ? L1: I has no value?
+# MOSFET:T1 neg pos _net3 _net3 Type="nfet" Vt0="1.0 V" Kp="1e-3" Gamm
+^ ? # MOSFET: no match
 # Eqn:Eqn1 Vout="pos.Vt-neg.Vt" Spectrum="dB(Time2Freq(Vout,time))" Ex
 ^ ? # Eqn: no match
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
 T1.T1.n.mynmos: rsh - rs - rd conflict: using rsh
 T1.T1.n.mynmos: is - js conflict
 T1.T1.n.mynmos: nsub < ni, treating as if not input
@@ -19,6 +25,18 @@ T2.n.mynmos: nsub < ni, treating as if not input
 T3.n.mynmos: rsh - rs - rd conflict: using rsh
 T3.n.mynmos: is - js conflict
 T3.n.mynmos: nsub < ni, treating as if not input
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
+parameter mynpn not specified, using default
+parameter mynpn value is "NOT_INPUT"
 Gnucap   System status
 iterations: op=0, dc=0, tran=1195, fourier=0, total=1363
 transient timesteps: accepted=168, rejected=4, total=172

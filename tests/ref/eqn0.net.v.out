@@ -1,7 +1,7 @@
 
 module main ();
-parameter RR0={25};
-parameter RR1={100};
+parameter RR0=25;
+parameter RR1=100;
 //# Qucs 0.0.19 
 Eqn #() Eqn1 ();
 Eqn #() Eqn2 ();

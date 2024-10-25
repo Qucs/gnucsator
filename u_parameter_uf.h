@@ -75,7 +75,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     size_t size()const{return _v.size();}
 
     bool has_good_value()const override{incomplete(); return false;}
-    void parse(CS&)override {incomplete();}
+    void obsolete_parse(CS&)override {incomplete();}
 }; // PARAMETER<std::vector<PARAMETER<T> > >
 /*--------------------------------------------------------------------------*/
 template <class T>
@@ -177,7 +177,7 @@ inline bool operator==(std::vector<PARAMETER<double> >, double)
 /*--------------------------------------------------------------------------*/
 template <class S>
 inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
-{ untested();
+{
   o << "(";
 
   for ( std::vector<PARAMETER<double> >::const_iterator ci=m.begin();

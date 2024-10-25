@@ -4,7 +4,7 @@ load ../lang_verilog.so
 verilog
 
 module a (\1 , \2 );
-parameter p1=1
+parameter p1=1;
 endmodule
 
 list

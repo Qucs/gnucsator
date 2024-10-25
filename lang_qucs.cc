@@ -368,8 +368,13 @@ void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 				std::string value = cmd.ctos(",=;)", "\"'{[(", "\"'}])");
 				if(!value.size()) {
 				}else if(value[0]=='['){
-					value[0]='{';
-					value[value.size()-1]='}';
+					// value[0]='{';
+					// value[value.size()-1]='}';
+					// value = "'" + value;
+					//  BUG. need a Switch that takes a list.
+					//  unpack, for now.
+					assert(value.size()>1);
+					value = value.substr(1, value.size()-2);
 				}else{
 				}
 				trace2("LANG_QUCSATOR::parse_args", Name, value);
@@ -546,7 +551,7 @@ MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
 /*--------------------------------------------------------------------------*/
 BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 {
-	trace0(("LANG_QUCSATOR::parse_module " + cmd.tail()) );
+	trace1("LANG_QUCSATOR::parse_module", cmd.tail());
 	assert(x);
 
 	// header
@@ -563,7 +568,7 @@ BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, true/*all new*/);
 	}
-	x->subckt()->params()->parse(cmd);
+	x->subckt()->params()->obsolete_parse(cmd);
 
 	// body
 	parse_module_body(cmd, x, x->subckt(), name() + "-subckt>", NO_EXIT_ON_BLANK, ".Def:End ");
@@ -603,6 +608,7 @@ COMPONENT* LANG_QUCSATOR::parse_instance(CS& cmd, COMPONENT* x)
 	cmd.reset();
 	parse_type(cmd, x);
 	string id_string = cmd.get_to(":");
+	trace1("got type", id_string);
 
 	COMMON_COMPONENT * c = NULL;
 

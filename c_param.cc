@@ -36,25 +36,25 @@ public:
     return PARAMETER<double>::operator=(s);
   }
 public:
-  void parse(CS& cmd)override {
+  void obsolete_parse(CS& cmd)override {
   double new_val;
   cmd >> new_val;
   if (cmd) {
     PARAMETER<double>::operator=(new_val);
     assert(_s == "#");
-  }else{
+  }else{ untested();
     std::string name;
     //cmd >> name;
     name = cmd.ctos(",=();", "'{\"", "'}\"");
-    if (cmd) {
+    if (cmd) { untested();
       if (cmd.match1('(')) { untested();
 	_s = name + '(' + cmd.ctos("", "(", ")") + ')';
-      }else{
+      }else{ untested();
 	_s = name;
       }
       if (name == "NA") {untested();
         _s = "";
-      }else{
+      }else{ untested();
       }
     }else{ untested();
     }
@@ -77,6 +77,7 @@ public:
   }
 
   void parse(CS& cmd, PARAM_LIST* pl) {
+	trace1("c_param::parse", cmd.tail());
     (cmd >> "real |integer "); // ignore type
     size_t here = cmd.cursor();
     for (;;) {
@@ -89,7 +90,7 @@ public:
       std::string range_type;
       cmd >> Name;
       if(cmd >> "="){
-	Value.parse(cmd);
+	Value.obsolete_parse(cmd);
       }else{
       }
 
@@ -159,7 +160,7 @@ public:
       }else{
 	pl->set(IS_VALID, range_expr);
       }
-      trace3("valid?", Name, Value, range_expr);
+      trace3("IS_VALID?", Name, Value, range_expr);
     }
     cmd.check(bDANGER, "syntax error");
   }

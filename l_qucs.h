@@ -84,6 +84,15 @@ bool QucsGuessParam(std::string& s)
   }else if(s == "Hammerstad"){
     s = '"' + s + '"';
     return true;
+  }else if(s == "npn"
+        || s == "pnp"
+        || s == "nfet"
+        || s == "pfet"
+        //|| s == "on"
+        //|| s == "off"
+	 ){
+    s = '"' + s + '"';
+    return true;
   }else{
   }
 

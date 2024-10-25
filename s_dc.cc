@@ -103,7 +103,7 @@ private:
   void	sweep_recursive(int);
   void	first(int);
   bool	next(int);
-  void	final()override		{_scope->dc_final();}
+  void	final()override		{ untested();_scope->dc_final();}
   void	finish()override;
 
   explicit DCOP(const DCOP&): SIM() { untested();unreachable(); incomplete();}
@@ -272,9 +272,9 @@ void OP::setup(CS& Cmd)
   _have_param = true; // temp requires precalc
 
   if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
-    Cmd >> _start[0];
+    _start[0].obsolete_parse(Cmd);
     if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
-      Cmd >> _stop[0];
+      _stop[0].obsolete_parse(Cmd);
     }else{ untested();
       _stop[0] = _start[0];
     }
@@ -350,7 +350,8 @@ void DC::setup(CS& Cmd)
       if (Cmd.match1("'\"({") || Cmd.is_float()) {	// set up parameters
 	_start[_n_sweeps] = "NA";
 	_stop[_n_sweeps] = "NA";
-	Cmd >> _start[_n_sweeps] >> _stop[_n_sweeps];
+	_start[_n_sweeps].obsolete_parse(Cmd);
+	_stop[_n_sweeps].obsolete_parse(Cmd);
 	_step[_n_sweeps] = 0.;
       }else{
 	// leave it as it was .. repeat Cmd with no args
@@ -443,8 +444,8 @@ void DCOP::options(CS& Cmd, int Nest)
   size_t here = Cmd.cursor();
   do{
     ONE_OF
-      || (Cmd.match1("'\"({")	&& ((Cmd >> _step_in[Nest]), (_stepmode[Nest] = LIN_STEP)))
-      || (Cmd.is_float()	&& ((Cmd >> _step_in[Nest]), (_stepmode[Nest] = LIN_STEP)))
+      || (Cmd.match1("'\"({")	&& ((_step_in[Nest].obsolete_parse(Cmd)), (_stepmode[Nest] = LIN_STEP)))
+      || (Cmd.is_float()	&& ((_step_in[Nest].obsolete_parse(Cmd)), (_stepmode[Nest] = LIN_STEP)))
       || (Get(Cmd, "*",		  &_step_in[Nest]) && (_stepmode[Nest] = TIMES))
       || (Get(Cmd, "+",		  &_step_in[Nest]) && (_stepmode[Nest] = LIN_STEP))
       || (Get(Cmd, "by",	  &_step_in[Nest]) && (_stepmode[Nest] = LIN_STEP))
