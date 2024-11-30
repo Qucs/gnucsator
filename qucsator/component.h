@@ -87,6 +87,9 @@ typedef enum {
 static COMMON_PARAMLIST Default_PARAMS(CC_STATIC);
 
 class circuit : public COMPONENT{
+	node_t* _n{nullptr};
+	node_t& n_(int i)const override { return _n[i]; }
+
 protected:
 	circuit(circuit const& c) : COMPONENT(c), _num_ports(c._num_ports) {
 		assert(_num_ports);

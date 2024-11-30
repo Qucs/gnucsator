@@ -106,6 +106,9 @@ private:
   double	tr_probe_num(const std::string&)const override;
   int param_count_dont_print()const override{ untested();return common()->COMMON_COMPONENT::param_count();}
 
+  node_t& n_(int i)const {
+    assert(_nodes); assert(i>=0); assert(i<PORTS_PER_SUBCKT); return _nodes[i];
+  }
   std::string port_name(int i)const override;
   int set_param_by_name(std::string Name, std::string Value)override;
 public:
@@ -113,7 +116,7 @@ public:
 protected:
   const BASE_SUBCKT* _parent;
 private:
-  node_t	_nodes[PORTS_PER_SUBCKT];
+  mutable node_t _nodes[PORTS_PER_SUBCKT];
   static int	_count;
 } p1;
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
@@ -198,7 +201,6 @@ DEV_SUBCKT::DEV_SUBCKT()
    _parent(NULL)
 {
   attach_common(&Default_SUBCKT);
-  _n = _nodes;
   ++_count;
 }
 /*--------------------------------------------------------------------------*/
@@ -210,7 +212,6 @@ DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
   for (int ii = 0;  ii < max_nodes();  ++ii) {
     _nodes[ii] = p._nodes[ii];
   }
-  _n = _nodes;
   assert(!subckt());
   ++_count;
 }

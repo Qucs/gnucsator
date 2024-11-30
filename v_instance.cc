@@ -69,6 +69,7 @@ static COMMON_INSTANCE Default_SUBCKT(CC_STATIC);
 // TODO: cleanup/rename?
 class INSTANCE : public BASE_SUBCKT {
   friend class DEV_INSTANCE_PROTO; // has to do with _parent.
+  node_t* _n{nullptr};
 protected: // HACK
   static int	_count;
 
@@ -180,6 +181,9 @@ private:
   void collect_overloads(DEV_INSTANCE_PROTO* scope) const;
   void prepare_overload(CARD* proto, std::string modelname, DEV_INSTANCE_PROTO* p) const;
 
+  node_t& n_(int i)const {
+    assert(_n); assert(i>=0); assert(i<_node_capacity); return _n[i];
+  }
 protected:
   std::string port_name(int i)const override;
 public:

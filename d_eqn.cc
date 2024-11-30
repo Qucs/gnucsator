@@ -28,6 +28,7 @@
 #include <u_xprobe.h>
 #include <globals.h>
 #include <map>
+#include <e_node.h>
 
 #ifndef HAVE_UINT_T
 typedef int uint_t;
@@ -36,6 +37,8 @@ typedef int uint_t;
 namespace{
 
 class INTERFACE EQN : public COMPONENT {
+       node_t* _n{nullptr};
+       node_t& n_(int i)const override { return _n[i]; }
 public:
   explicit EQN();
   ~EQN() {}

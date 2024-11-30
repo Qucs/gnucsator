@@ -31,19 +31,19 @@
 namespace{
 /*--------------------------------------------------------------------------*/
 // components with one node are unlikely.
-const size_t node_capacity_floor = 2;
+const int node_capacity_floor = 2;
 /*--------------------------------------------------------------------------*/
-static void grow_nodes(size_t Index, node_t*& n, size_t& capacity, size_t capacity_floor)
+static void grow_nodes(int Index, node_t*& n, int& capacity, int capacity_floor)
 {
   if(Index < capacity){
   }else{
-    size_t new_capacity = std::max(capacity, capacity_floor);
+    int new_capacity = std::max(capacity, capacity_floor);
     while(new_capacity <= Index) {
       assert(new_capacity < new_capacity * 2);
       new_capacity *= 2;
     }
     node_t* new_nodes = new node_t[new_capacity];
-    for(size_t i=0; i<capacity; ++i){
+    for(int i=0; i<capacity; ++i){
       new_nodes[i] = n[i];
     }
     delete[] n;
@@ -55,9 +55,10 @@ static void grow_nodes(size_t Index, node_t*& n, size_t& capacity, size_t capaci
 static COMMON_PARAMLIST Default_SUBCKT(CC_STATIC);
 /*--------------------------------------------------------------------------*/
 class DEV_MODULE : public BASE_SUBCKT {
+  node_t* _n{nullptr};
 private:
   const BASE_SUBCKT* _parent;
-  size_t _node_capacity{0};
+  int _node_capacity{0};
 private:
   explicit	DEV_MODULE(const DEV_MODULE&);
 public:
@@ -120,6 +121,9 @@ private:
   double	tr_probe_num(const std::string&)const override;
   int param_count_dont_print()const override{return common()->COMMON_COMPONENT::param_count();}
 
+  node_t& n_(int i)const {
+    assert(_n); assert(i>=0); assert(i<_node_capacity); return _n[i];
+  }
   std::string port_name(int i)const override;
   int set_param_by_name(std::string Name, std::string Value)override;
 } p1;

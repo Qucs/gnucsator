@@ -28,7 +28,7 @@
 namespace{
 /*--------------------------------------------------------------------------*/
 // components with one node are unlikely.
-const size_t node_capacity_floor = 2;
+const int node_capacity_floor = 2;
 /*--------------------------------------------------------------------------*/
 static COMMON_PARAMLIST Default_PARAMSET(CC_STATIC);
 /*--------------------------------------------------------------------------*/
@@ -65,10 +65,11 @@ static CARD const* find_proto(const std::string& Name, const CARD* Scope)
 } // find_proto
 /*--------------------------------------------------------------------------*/
 class PARAMSET : public BASE_SUBCKT {
+  node_t* _n{nullptr};
 private: // partly redudant
   PARAMSET const* _parent; // use _dev?
   COMPONENT const* _dev; // owned by paramset instance.
-  size_t _node_capacity;
+  int _node_capacity;
 public:
   PARAMSET();
   PARAMSET(PARAMSET const& p);
@@ -77,6 +78,9 @@ private:
   bool is_device() const override { untested(); return owner(); }
   std::string value_name()const override{ untested();unreachable(); return "";}
   std::string port_name(int)const override;
+  node_t& n_(int i)const {
+    assert(_n); assert(i>=0); assert(i<_node_capacity); return _n[i];
+  }
   bool print_type_in_spice()const override { untested();unreachable(); return false; }
   int set_port_by_name(std::string& name, std::string& value)override{ untested();
     assert(_dev);
@@ -231,7 +235,7 @@ private: // no ops for top level
 private:
   COMPONENT const* prepare_dev(CARD const* proto);
 private: // base class?
-  void grow_nodes(size_t);
+  void grow_nodes(int);
 }ps;
 DISPATCHER<CARD>::INSTALL ds(&device_dispatcher, "paramset", &ps);
 /*--------------------------------------------------------------------------*/
@@ -314,17 +318,17 @@ bool PARAMSET::is_valid() const
   }
 }
 /*--------------------------------------------------------------------------*/
-void PARAMSET::grow_nodes(size_t Index)
+void PARAMSET::grow_nodes(int Index)
 { untested();
   if(Index<_node_capacity){ untested();
   }else{ untested();
-    size_t new_capacity = std::max(_node_capacity, node_capacity_floor);
+    int new_capacity = std::max(_node_capacity, node_capacity_floor);
     while(new_capacity <= Index) { untested();
       assert(new_capacity < new_capacity * 2);
       new_capacity *= 2;
     }
     node_t* new_nodes = new node_t[new_capacity];
-    for(size_t i=0; i<_node_capacity; ++i){ untested();
+    for(int i=0; i<_node_capacity; ++i){ untested();
       new_nodes[i] = _n[i];
     }
     delete[] _n;

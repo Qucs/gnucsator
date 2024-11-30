@@ -76,7 +76,7 @@ private: // override virtual
   void	   tr_iwant_matrix()override	{}
   void	   ac_iwant_matrix()override	{}
   void     precalc_last()override;
-  double   tr_involts()const override   { untested();return dn_diff(_n[IN1].v0(), _n[IN2].v0());}
+  double   tr_involts()const override   { untested();return dn_diff(n_(IN1).v0(), n_(IN2).v0());}
   double   tr_involts_limited()const override{ untested();return tr_involts();}
   double   tr_probe_num(const std::string&)const override;
 

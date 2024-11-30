@@ -202,6 +202,7 @@ void COMMON_G_POLY_K::parse_type_tail(CS& cmd)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class DEV_CPOLY_G : public ELEMENT {
+  node_t* _n{nullptr};
 public: // TMP HACK
   double*  _values;
 protected:
@@ -262,6 +263,8 @@ protected: // override virtual
   COMPLEX  ac_involts()const override {itested(); return NOT_VALID;}
   COMPLEX  ac_amps()const override {itested(); return NOT_VALID;}
 
+public:
+  node_t& n_(int i)const override { return _n[i]; }
   std::string port_name(uint_t n)const override { untested();
     if(n==0){ untested();
       return "p";

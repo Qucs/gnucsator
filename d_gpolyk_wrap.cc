@@ -23,6 +23,7 @@
 /*--------------------------------------------------------------------------*/
 #include <globals.h>
 #include <e_compon.h>
+#include <e_node.h>
 /*--------------------------------------------------------------------------*/
 #ifndef HAVE_UINT_T
 typedef int uint_t;
@@ -31,6 +32,8 @@ typedef int uint_t;
 namespace {
 /*--------------------------------------------------------------------------*/
 class DEV_G_POLY_K : public COMPONENT {
+	node_t* _n{nullptr};
+	node_t& n_(int i)const override { return _n[i]; }
 public:
 	std::string value_name()const override { untested(); return "dummy"; }
 	std::string port_name(uint_t)const override { untested(); return "dummy"; }

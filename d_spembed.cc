@@ -183,6 +183,8 @@ public: // input parameters
 }cl; //COMMON_SPEMBED
 /*--------------------------------------------------------------------------*/
 class SPEMBED : public COMPONENT {
+  node_t* _n{nullptr};
+  node_t& n_(int i)const override { return _n[i]; }
 public:
   qucs::matrix _m;
 private:
