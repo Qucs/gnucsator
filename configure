@@ -126,7 +126,7 @@ sub_makefile() {
 	echo "GNUCAP_CXXFLAGS = ${gnucap_cxxflags}" >> $m
 	echo "GNUCAP_INCLUDEDIR = ${gnucap_includedir}" >> $m
 	echo "pkgincludedir = ${PKGINCLUDEDIR}" >> $m
-	echo "include \${srcdir}/Make1" >> $m
+	echo "include \${srcdir}/MakeList" >> $m
 	echo "include ../Make2" >> $m
 	echo "include $top_srcdir_/Make3" >> $m
 	[ -f ${srcdir}/${1}/Make.depend ] && \

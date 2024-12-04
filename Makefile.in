@@ -2,7 +2,7 @@
 # (c) Felix Salfelder 2015-20
 # License: GPLv3+
 #
-# TODO: use autotools (or so) instead, and only use Make1.
+# TODO: use autotools (or so) instead, and only use MakeList.
 
 PACKAGE_NAME = gnucap-qucs
 PACKAGE_VERSION = 0.0.0
@@ -10,7 +10,7 @@ PACKAGE_VERSION = 0.0.0
 GNUCAP_CONF = $(shell which gnucap-conf$(SUFFIX))
 GNUCAP_MODELGEN = gnucap-modelgen
 
-# BUG: use tests/Make1
+# BUG: use tests/MakeList
 TESTFILES_PAT = \
   tests/*.gc \
   tests/*.gc.ref \
@@ -19,7 +19,7 @@ TESTFILES_PAT = \
 srcdir = @srcdir@
 VPATH = ${srcdir}
 
-include ${srcdir}/Make1
+include ${srcdir}/MakeList
 include Make2
 
 ifneq ($(GNUCAP_CONF),)
@@ -57,7 +57,7 @@ GNUCSATOR_CXXFLAGS = -std=c++11 -fPIC $(GNUCAP_CXXFLAGS) $(CXXFLAGS)
 # TODO: is this platform dependent?
 GSL_LIBS = -lgsl -lblas -lgslcblas
 
-# Make1
+# MakeList
 EXECUTABLES = \
   ${bin_PROGRAMS} ${dist_bin_SCRIPTS}
 
@@ -195,8 +195,8 @@ check: all
 		GNUCAP_PKGLIBDIR=${GNUCAP_PKGLIBDIR}
 
 DIST_FILES = \
-	Make1 Makefile.in \
-	include/Make1 \
+	MakeList Makefile.in \
+	include/MakeList \
 	${bin_PROGRAMS:%=%.cc} \
 	${dist_bin_SCRIPTS} \
 	${noinst_HEADERS} \

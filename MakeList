@@ -1,4 +1,4 @@
-# Make1 for gnucap-qucs
+# MakeList for gnucap-qucs
 # (c) Felix Salfelder 2020
 # License: GPLv3+
 #
@@ -80,7 +80,7 @@ OBSOLETE_EXTRA_DIST = \
 	s_tr_out.cc \
 	s_tr_swp.cc
 
-# BUG: use tests/Make1
+# BUG: use tests/MakeList
 TEST_EXTRA_DIST = \
 	tests/Makefile.in \
 	tests/*.net \

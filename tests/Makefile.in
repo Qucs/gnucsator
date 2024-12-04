@@ -13,7 +13,7 @@ LN_S = ln -s
 
 all: gc qucs
 
-include ${srcdir}/Make1
+include ${srcdir}/MakeList
 
 check: diff
 
