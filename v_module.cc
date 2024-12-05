@@ -186,7 +186,7 @@ bool DEV_MODULE::is_valid() const
 }
 /*--------------------------------------------------------------------------*/
 CARD* DEV_MODULE::clone()const
-{
+{ untested();
   DEV_MODULE* new_instance = new DEV_MODULE(*this);
   assert(!new_instance->subckt());
 

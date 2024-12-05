@@ -86,9 +86,9 @@ public: // override virtual, called by commands
 private: // local
   void skip_attributes(CS& cmd);
   std::string  parse_attributes(CS& cmd);
+  void parse_type(CS& cmd, CARD* x);
   void store_attributes(std::string attrib_string, tag_t x);
   void parse_attributes(CS& cmd, tag_t x);
-//  void parse_type(CS& cmd, CARD* x);
 //  void parse_args_paramset(CS& cmd, MODEL_CARD* x);
   void parse_args_paramset(CS& cmd, /* MODEL_*/ CARD* x);
 //  void parse_args_instance(CS& cmd, CARD* x); 
@@ -115,7 +115,7 @@ DISPATCHER<LANGUAGE>::INSTALL
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::skip_attributes(CS& cmd)
-{ untested();
+{
   while (cmd >> "(*") { untested();
     cmd.skipto1('*') && (cmd >> "*)");
   }
@@ -145,12 +145,12 @@ void LANG_VERILOG::store_attributes(std::string attrib_string, tag_t x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::parse_attributes(CS& cmd, tag_t x)
-{ untested();
+{
   assert(x);
   store_attributes(parse_attributes(cmd), x);
 }
 /*--------------------------------------------------------------------------*/
-static void parse_type(CS& cmd, CARD* x)
+void LANG_VERILOG::parse_type(CS& cmd, CARD* x)
 {
   assert(x);
   std::string new_type;
@@ -403,10 +403,16 @@ DEV_DOT* LANG_VERILOG::parse_command(CS& cmd, DEV_DOT* x)
   // owner is a BASE_SUBCKT....
   // how can i set _subckt in a BASE_SUBCKT?
   CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
+  cmd.reset();
+  cmd.skipbl();
+  if(cmd.peek() == '`'){
+  }else{
+    // "module" etc gets here.
+  }
+  parse_attributes(cmd, x->id_tag());
 
   // if cmd is a `preprocessor directive, then x->owner will be useful...
 
-  cmd.reset();
   if(cmd.peek()=='`'){
     trace1("PUSH SCOPE", cmd.fullstring());
     owner_hack.push(x->owner());
@@ -893,10 +899,12 @@ COMPONENT* LANG_VERILOG::parse_paramset_(CS& cmd, BASE_SUBCKT* x)
 
 BASE_SUBCKT* LANG_VERILOG::parse_module(CS& cmd, BASE_SUBCKT* x)
 {
-  assert(x);
+  assert(x->subckt());
+  x->subckt()->set_verilog_math();
 
   // header
   cmd.reset();
+  parse_attributes(cmd, x->id_tag());
   (cmd >> "module |macromodule ");
   parse_label(cmd, x);
   parse_ports(cmd, x, true/*all new*/);
@@ -940,6 +948,7 @@ COMPONENT* LANG_VERILOG::parse_instance(CS& cmd, COMPONENT* x)
 {
   assert(x);
   cmd.reset();
+  parse_attributes(cmd, x->id_tag());
   parse_type(cmd, x);
   parse_args_instance(cmd, x);
   parse_label(cmd, x);
@@ -951,18 +960,19 @@ COMPONENT* LANG_VERILOG::parse_instance(CS& cmd, COMPONENT* x)
 /*--------------------------------------------------------------------------*/
 std::string LANG_VERILOG::find_type_in_string(CS& cmd)
 {
+  skip_attributes(cmd);
   size_t here = cmd.cursor();
   std::string type;
   if ((cmd >> "//")) {
-    assert(here == 0);
+    //assert(here == 0);
     type = "dev_comment";
   }else{
     cmd >> type;
   }
-  cmd.reset(here);
-  trace2("LANG_VERILOG::find_type_in_string", cmd.fullstring(), type);
+  cmd.reset(here); // where the type is.
   return type;
 }
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::parse_top_item(CS& cmd, CARD_LIST* Scope)
 {

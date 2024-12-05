@@ -1,0 +1,35 @@
+
+* load public ../lang_verilog.so
+* load public ../v_instance.so
+load ../v_module.so
+load ../lang_spice.so
+
+verilog
+
+(* spice_caneda="V%label %port{p} %port{n} DC %property{Va} AC %property{Va} 0 SIN( %property{Voff} %property{Va} %property{freq} %property{td} %property{theta} )" *) module vsine(p, n);
+parameter real Va = 1.;
+parameter real Voff = 0.;
+parameter real td = 0.;
+parameter real theta = 0.;
+parameter real freq = 10.;
+// behavioural model could go here.
+// analog begin
+//   if($analysis("ac"))
+//     V(p,n)<+ac_stim(...);
+//   else
+//     V(p,n)<+ sin(...)
+//   endif
+// end
+endmodule;
+
+module my_schematic();
+  vsine #(.Va(5.), .freq(3), .td(0.), .theta(0.), .Voff(0.) ) v(a, b);
+  resistor #(4k) r1(a, b);
+  (* spice_caneda="Voverride somethingelse x y" *) vsine #(.Va(5.), .freq(3)) v(a, b);
+endmodule
+
+list
+
+spice
+.op
+.list my_schematic

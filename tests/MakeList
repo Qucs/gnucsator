@@ -83,6 +83,7 @@ GC_TESTS = \
 	d_eqn.1.gc \
 	mscoupler.1.gc \
 	qucs.gc \
+	spice_dump.0.gc \
 	list.1.gc \
 	wrap.gc \
 	wrap.bad.gc \

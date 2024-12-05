@@ -38,6 +38,7 @@ PLUGIN_CC = \
 	d_trln.cc \
 	functions.cc \
 	lang_qucs.cc \
+	lang_spice.cc \
 	lang_verilog.cc \
 	microstrip_wrap.cc \
 	s_dc.cc \
