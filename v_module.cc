@@ -186,7 +186,7 @@ bool DEV_MODULE::is_valid() const
 }
 /*--------------------------------------------------------------------------*/
 CARD* DEV_MODULE::clone()const
-{ untested();
+{
   DEV_MODULE* new_instance = new DEV_MODULE(*this);
   assert(!new_instance->subckt());
 
@@ -260,7 +260,7 @@ std::string DEV_MODULE::port_name(int i)const
   }else if(_parent) { untested(); untested();
     // reachable?
     return "";
-  }else if(i<net_nodes()) { untested();
+  }else if(i<net_nodes()) {
     return port_value(i);
   }else{ untested();
     return "";

@@ -22,6 +22,7 @@ class SUBST : public CMD {
 		OPT::language->parse_paramset(cmd, x);
 		// parse_model...
 		incomplete();
+		x->set_owner(nullptr);
 		scope->push_back(x);
 	}
 }c1;

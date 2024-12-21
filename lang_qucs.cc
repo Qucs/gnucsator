@@ -125,7 +125,8 @@ class CMD_SUBCKT : public CMD {
   void do_it(CS& cmd, CARD_LIST* Scope)override {
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
     assert(new_module);
-    assert(!new_module->owner());
+    // assert(!new_module->owner());
+    new_module->set_owner(nullptr);
     assert(new_module->subckt());
     assert(new_module->subckt()->is_empty());
     assert(!new_module->is_device());
@@ -899,10 +900,6 @@ void LANG_QUCSATOR::print_ports(OMSTREAM& o, const COMPONENT* x)
 		}else{
 		   o << x->port_value(ii);
 		}
-		sep = " ";
-	}
-	for (unsigned ii = 0;  x->current_port_exists(ii);  ++ii) { untested();
-		o << sep << x->current_port_value(ii);
 		sep = " ";
 	}
 	o << " ";

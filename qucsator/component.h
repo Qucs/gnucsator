@@ -430,7 +430,7 @@ private: // COMPONENT
 //	bool node_is_connected(int a) const override { incomplete(); return false; }
 	std::string dev_type()const override {return cd()->type;}
 	const std::string port_value(int i)const 
-	{ untested();
+	{
 		/// ????
 		assert(_n);
 		assert(i >= 0);

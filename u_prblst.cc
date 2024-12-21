@@ -29,7 +29,7 @@
 #include "u_nodemap.h"
 #include "ap.h"
 /*--------------------------------------------------------------------------*/
-void PROBE_LISTS::purge(CKT_BASE* brh)
+void PROBE_LISTS::purge(CARD* brh)
 { untested();
   for (int i = 0;  i < sCOUNT;  ++i) { untested();
     alarm[i].remove_one(brh);
@@ -113,7 +113,7 @@ bool operator!=(const PROBE& prb, const CKT_BASE* brh)
 /* remove a brh from a PROBELIST
  * removes all probes on brh
  */
-void PROBELIST::remove_one(CKT_BASE *brh)
+void PROBELIST::remove_one(CARD *brh)
 { untested();
   assert(brh);
   erase(remove(begin(), end(), brh), end());
@@ -192,7 +192,7 @@ void PROBELIST::add_list(CS& cmd, CARD_LIST* scope)
   }
 }
 /*--------------------------------------------------------------------------*/
-void PROBELIST::push_new_probe(const std::string& param,const CKT_BASE* object)
+void PROBELIST::push_new_probe(const std::string& param,const CARD* object)
 { untested();
   bag.push_back(PROBE(param, object));
 }

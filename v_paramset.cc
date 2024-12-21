@@ -34,7 +34,7 @@ static COMMON_PARAMLIST Default_PARAMSET(CC_STATIC);
 /*--------------------------------------------------------------------------*/
 // from u_lang.cc, cut down a bit.
 static CARD const* find_proto(const std::string& Name, const CARD* Scope)
-{ untested();
+{
   return OPT::language->find_proto(Name, Scope);
 
   const CARD* p = NULL;
@@ -75,19 +75,22 @@ public:
   PARAMSET(PARAMSET const& p);
   ~PARAMSET(){ delete[] _n; _node_capacity = 0; }
 private:
-  bool is_device() const override { untested(); return owner(); }
+  bool is_device() const override { return true; }
+
   std::string value_name()const override{ untested();unreachable(); return "";}
   std::string port_name(int)const override;
-  node_t& n_(int i)const {
+  node_t& n_(int i)const override {
     assert(_n); assert(i>=0); assert(i<_node_capacity); return _n[i];
   }
   bool print_type_in_spice()const override { untested();unreachable(); return false; }
-  int set_port_by_name(std::string& name, std::string& value)override{ untested();
+#ifndef NDEBUG
+  int set_port_by_name(std::string& name, std::string& value)override{
     assert(_dev);
     trace4("PARAMSET::spbn", long_label(), name, value, max_nodes());
     return BASE_SUBCKT::set_port_by_name(name, value);
   }
-  void set_port_by_index(int Index, std::string& Value)override{ untested();
+#endif
+  void set_port_by_index(int Index, std::string& Value)override{
     grow_nodes(Index);
     BASE_SUBCKT::set_port_by_index(Index, Value);
   }
@@ -95,6 +98,7 @@ private:
 private:
 
   CARD* clone() const override;
+  CARD* clone_instance() const override;
 
   bool is_valid() const override;
 /*--------------------------------------------------------------------------*/
@@ -108,25 +112,25 @@ private:
 //    return const_cast<PARAMSET*>(this)->scope();
 //  }
 
-  int net_nodes()const override { untested();
-    if(_dev){ untested();
+  int net_nodes()const override {
+    if(_dev){
       // trace3("PARAMSET::net_nodes", _dev->long_label(), _dev->net_nodes(), _dev->max_nodes());
       return _net_nodes; // dev->net_nodes(); // problem with chain
       return _dev->net_nodes(); // problem with bjt
-    }else{ untested();
+    }else{
       return BASE_SUBCKT::net_nodes();
     }
   }
-  int min_nodes()const override{ untested();
-    if(_dev){ untested();
+  int min_nodes()const override{
+    if(_dev){
       return _dev->min_nodes();
     }else{ untested();
       assert(_parent);
       return _parent->min_nodes();
     }
   }
-  int max_nodes()const override{ untested();
-    if(_dev){ untested();
+  int max_nodes()const override{
+    if(_dev){
       return _dev->max_nodes();
     }else{ untested();
       assert(_parent);
@@ -251,84 +255,91 @@ PARAMSET::PARAMSET(PARAMSET const& p)
   :BASE_SUBCKT(p)
   ,_parent(p._parent)
   ,_dev(p._dev)
-{ untested();
+{
   assert(has_common());
   _node_capacity = net_nodes();
-  if(_node_capacity){ untested();
+  if(_node_capacity){
     _n = new node_t[_node_capacity];
-  }else{ untested();
+  }else{
     assert(_n == NULL);
   }
-  if(p.is_device()){ untested();
-    for (int ii = 0;  ii < net_nodes();  ++ii) { untested();
-      _n[ii] = p._n[ii];
-    }
-  }else{ untested();
-    for (int ii = 0;  ii < net_nodes();  ++ii) { untested();
-      assert(!_n[ii].n_());
-    }
+  for (int ii = 0;  ii < net_nodes();  ++ii) {
+    _n[ii] = p._n[ii];
   }
   new_subckt();
 
-  if(scope()){ untested();
-  }else{ untested();
-  }
+  // if(scope()){ untested();
+  // }else{ untested();
+  // }
 }
 /*--------------------------------------------------------------------------*/
-CARD* PARAMSET::clone() const
-{ untested();
+CARD* PARAMSET::clone_instance() const
+{
   PARAMSET* n = new PARAMSET(*this);
   assert(n->has_common());
   assert(has_common());
-  if(owner() == NULL){ untested();
+  auto c = prechecked_cast<COMMON_PARAMLIST*>(common()->clone());
+  assert(c);
+  c->_params = PARAM_LIST();
+  n->attach_common(c);
+  n->_parent = this;
+  return n;
+}
+/*--------------------------------------------------------------------------*/
+CARD* PARAMSET::clone() const
+{
+  PARAMSET* n = new PARAMSET(*this);
+  assert(n->has_common());
+  assert(has_common());
+  if(this == &ps) {
     auto c = prechecked_cast<COMMON_PARAMLIST*>(common()->clone());
     assert(c);
     c->_params = PARAM_LIST();
     n->attach_common(c);
     n->_parent = this;
-  }else{ untested();
+  }else{
     // TODO: hand out raw device if already precalcd?
   }
   return n;
 }
 /*--------------------------------------------------------------------------*/
 bool PARAMSET::is_valid() const
-{ untested();
-  assert(scope());
+{
+  // assert(scope());
   assert(_parent);
   trace1("PARAMSET::is_valid", long_label());
-  if(_parent->subckt()){ untested();
+  if(_parent->subckt()){
     PARAM_LIST const* params = _parent->subckt()->params();
     PARAM_INSTANCE v = params->deep_lookup("_..is_valid");
     Base const* x = v.e_val(nullptr, subckt());
     Integer c;
     Integer* res = c.assign(x);
-    if(!res) { untested();
+    if(!res) {
       return true;
-    }else{ untested();
+    }else{
       assert(x);
       trace3("PARAMSET::valid?", long_label(), v.string(), res->value());
       int a = res->value();
       delete res;
       return a;
     }
-  }else{ untested();
+  }else{
     trace1("PARAMSET::invalid?", long_label());
     return false;
   }
 }
 /*--------------------------------------------------------------------------*/
 void PARAMSET::grow_nodes(int Index)
-{ untested();
-  if(Index<_node_capacity){ untested();
-  }else{ untested();
+{
+  if(Index<_node_capacity){
+  }else{
     int new_capacity = std::max(_node_capacity, node_capacity_floor);
-    while(new_capacity <= Index) { untested();
+    while(new_capacity <= Index) {
       assert(new_capacity < new_capacity * 2);
       new_capacity *= 2;
     }
     node_t* new_nodes = new node_t[new_capacity];
-    for(int i=0; i<_node_capacity; ++i){ untested();
+    for(int i=0; i<_node_capacity; ++i){
       new_nodes[i] = _n[i];
     }
     delete[] _n;
@@ -338,32 +349,31 @@ void PARAMSET::grow_nodes(int Index)
 }
 /*--------------------------------------------------------------------------*/
 int PARAMSET::set_param_by_name(std::string Name, std::string Value)
-{ untested();
-  assert(_parent);
+{
+//  assert(_parent);
 
-  if(Name=="$mfactor"){ untested();
+  if(Name=="$mfactor"){
     return BASE_SUBCKT::set_param_by_name(Name, Value);
   }else if(Name==""){ untested();
     throw Exception_No_Match("invalid parameter: " + Name);
-  }else if(_parent->subckt()){ untested();
+  }else if(_parent && _parent->subckt()){
     trace2("PARAMSET::spbn2", long_label(), _parent->long_label());
     PARAM_LIST const* p = _parent->subckt()->params();
 
     if(p->find(Name) == p->end()){ untested();
       throw Exception_No_Match("invalid parameter: " + Name);
-    }else{ untested();
+    }else{
     }
     return BASE_SUBCKT::set_param_by_name(Name, Value);
-  }else{ untested();
+  }else{
     return BASE_SUBCKT::set_param_by_name(Name, Value);
   }
 
 }
 /*--------------------------------------------------------------------------*/
 COMPONENT const* PARAMSET::prepare_dev(CARD const* proto)
-{ untested();
+{
   auto dev = prechecked_cast<COMPONENT const*>(proto);
-  assert(dev);
 
 #if 0
   // this does not work, proto could be a paramset.
@@ -378,47 +388,54 @@ COMPONENT const* PARAMSET::prepare_dev(CARD const* proto)
     dev->set_port_by_index(i, pn);
   }
 #endif
+
+  if(dev){
+  }else if(auto m = dynamic_cast<MODEL_CARD const*>(proto)) {
+    dev = prechecked_cast<COMPONENT const*>(m->component_proto());
+    assert(dev);
+  }
   return dev;
 }
 /*--------------------------------------------------------------------------*/
 void PARAMSET::precalc_first()
-{ untested();
-  assert(scope());
+{
+ // assert(scope());
   trace5("PARAMSET::pf", long_label(), owner(), _dev, _sim->is_first_expand(), !is_device());
   std::string base_name = dev_type();
 
-  if(_dev){ untested();
+  if(_dev){
     // assert(_dev == find_proto(base_name, NULL)); TODO.
-  }else if(!is_device()) { untested();
+  }else{
     CARD const* p = find_proto(base_name, NULL); //what if there are 2?
-    if(!p){ untested();
+    if(!p){
       throw Exception_No_Match(base_name); // cmd.warn(bDANGER, here, "paramset: no match");
-    }else{ untested();
+    }else{
     }
     _dev = prepare_dev(p);
-  }else{ untested();
-    incomplete();
   }
 
   if(!_dev){ untested();
     throw Exception_No_Match(base_name); // cmd.warn(bDANGER, here, "paramset: no match");
-  }else{ untested();
+  }else{
   }
 
-  if(is_device()) { untested();
-    BASE_SUBCKT::precalc_first();
+ // if(!owner()){
+ //   // this does not work.
+ // }else
+  if(_parent && _parent->subckt()) {
+    COMPONENT::precalc_first();
     assert(subckt());
     auto c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     assert(c);
 
-    { untested();
+    {
       PARAM_LIST const* pl = _parent->subckt()->params();
       assert(pl);
       c->_params.set_try_again(const_cast<PARAM_LIST*>(pl));
     }
 
     subckt()->attach_params(&(c->_params), scope());
-    if(_parent){ untested();
+    if(_parent){
       assert(_parent->subckt());
       subckt()->params()->set_try_again(_parent->subckt()->params());
     }else{ untested();
@@ -427,7 +444,7 @@ void PARAMSET::precalc_first()
     }
 
     subckt()->precalc_first();
-  }else{ untested();
+  }else{
     // auto c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
     // assert(c);
     // PARAM_LIST const* pl = subckt()->params();
@@ -442,15 +459,15 @@ void PARAMSET::precalc_first()
 /*--------------------------------------------------------------------------*/
 // THIS IS A HACK. variables with "_." prefix survive e_val. remove prefix.
 static void demangle(std::string& value)
-{ untested();
+{
   assert(value.size());
   std::string::iterator i=value.begin();
   std::string::iterator j=i;
   ++j;
-  for(; j!=value.end(); ){ untested();
-    if(*i!='_'){ untested();
+  for(; j!=value.end(); ){
+    if(*i!='_'){
     }else if(*j!='.'){ untested();
-    }else{ untested();
+    }else{
       // match
       *i = *j = ' ';
       ++j;
@@ -461,12 +478,12 @@ static void demangle(std::string& value)
 }
 /*--------------------------------------------------------------------------*/
 void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
-{ untested();
+{
   assert(t);
   PARAM_LIST& out = *t->params();
 
-  for (PARAM_LIST::const_iterator i = p.begin(); i != p.end(); ++i) { untested();
-    if (i->second.has_hard_value()) { untested();
+  for (PARAM_LIST::const_iterator i = p.begin(); i != p.end(); ++i) {
+    if (i->second.has_hard_value()) {
       CS cmd(CS::_STRING, i->second.string());
       Expression f(cmd);
       CARD_LIST empty;
@@ -475,13 +492,13 @@ void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
       Expression E;
 	
       bool skip1 = false;
-      for(auto ii=e.begin(); ii!=e.end(); ++ii){ untested();
+      for(auto ii=e.begin(); ii!=e.end(); ++ii){
 	trace2("EXP", (*ii)->name(), dynamic_cast<Token_SYMBOL*>(*ii));
 	trace2("EXP", (*ii)->name(), dynamic_cast<Token_CONSTANT*>(*ii));
-	if(dynamic_cast<Token_PARLIST*>(*ii)){ untested();
+	if(dynamic_cast<Token_PARLIST*>(*ii)){
 	  skip1 = true;
 	  E.push_back(*ii);
-	}else if(skip1){ untested();
+	}else if(skip1){
 	  assert(dynamic_cast<Token_SYMBOL*>(*ii));
 	  E.push_back(*ii);
 	  skip1 = false;
@@ -493,16 +510,16 @@ void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
 		unreachable(); // unfixed m_expression_reduce gets us here.
 	  E.push_back(new Token_SYMBOL("_." + (*ii)->name()));
 	  delete(*ii);
-	}else if(dynamic_cast<Token_SYMBOL*>(*ii)) { untested();
+	}else if(dynamic_cast<Token_SYMBOL*>(*ii)) {
 	  assert(!dynamic_cast<const Float*>((*ii)->data()));
 	  assert(!dynamic_cast<const Integer*>((*ii)->data()));
 	  E.push_back(new Token_SYMBOL("_." + (*ii)->name()));
 	  delete(*ii);
-	}else{ untested();
+	}else{
 	  E.push_back(*ii);
 	}
       }
-      while(e.size()){ untested();
+      while(e.size()){
 	e.pop_back();
       }
 
@@ -519,13 +536,8 @@ void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
 // BUG: this needs work
 // - what is resolve_copy?
 CARD* PARAMSET::deflate()
-{ untested();
-  if(!is_device()){ untested();
-    return this;
-  }else{ untested();
-  }
-
-  trace3("PARAMSET::deflate", long_label(), subckt()->size(), is_device());
+{
+  trace2("PARAMSET::deflate", long_label(), subckt()->size());
   assert(is_valid());
   assert(subckt());
   subckt()->set_verilog_math();
@@ -544,13 +556,13 @@ CARD* PARAMSET::deflate()
   subckt()->params()->set_try_again(_parent->subckt()->params());
   trace0("PARAMSET::resolve?");
   resolve_copy(subckt(), c->_params, NULL);
-  for(auto const& x : c->_params){ untested();
+  for(auto const& x : c->_params){
     trace1("debugp", x.first);
   }
 
   trace4("PARAMSET::deflate args fwd", dev->long_label(), dev->dev_type(), long_label(), dev_type());
   trace2("PARAMSET::deflate args fwd", dev->long_label(), my_mfactor());
-  for(auto pi=pc->_params.begin(); pi!=pc->_params.end(); ++pi){ untested();
+  for(auto pi=pc->_params.begin(); pi!=pc->_params.end(); ++pi){
     trace3("PARAMSET::deflate args fwd2", dev->long_label(), pi->first, pi->second.string());
     CS cmd(CS::_STRING, pi->second.string());
     Expression e(cmd);
@@ -574,8 +586,8 @@ CARD* PARAMSET::deflate()
   dev->set_label(short_label());
 
   CARD* deflated = dev->deflate();
-  if(deflated == dev){ untested();
-  }else if(dynamic_cast<PARAMSET const*>(dev)){ untested();
+  if(deflated == dev){
+  }else if(dynamic_cast<PARAMSET const*>(dev)){
     // nested paramsets
     delete (CARD*) dev;
   }else{ untested();
@@ -585,8 +597,8 @@ CARD* PARAMSET::deflate()
   deflated->set_param_by_name("$mfactor", ""); // to string?
   deflated->set_param_by_name("$mfactor", to_string(my_mfactor())); // to string?
   auto dd = prechecked_cast<COMPONENT const*>(deflated);
-  if(dd->common()){ untested();
-  }else{ untested();
+  if(dd->common()){
+  }else{
   }
 
   deflated->precalc_first();
@@ -595,18 +607,18 @@ CARD* PARAMSET::deflate()
 } // PARAMSET::deflate
 /*--------------------------------------------------------------------------*/
 void PARAMSET::expand()
-{ untested();
+{
   if(!is_device()){ untested();
     // not a device, not expandable.
-  }else{ untested();
+  }else{
     BASE_SUBCKT::expand();
     trace2("PARAMSET::expand", long_label(), net_nodes());
     assert(common());
     auto proto = prechecked_cast<COMPONENT const*>(_parent);
+    // assert(proto->owner() == nullptr);
     assert(proto);
     assert(proto->scope());
     assert(proto->subckt());
-    assert(proto->owner() == NULL);
     assert(_parent->_dev);
     // assert(net_nodes() == proto->net_nodes());
     // assert(net_nodes() == _parent->_dev->net_nodes());
@@ -622,15 +634,15 @@ void PARAMSET::expand()
     subckt()->attach_params(&(c->_params), scope());
 
     // renew_subckt(_parent, ... ) dev=sckt()->..?
-    CARD* d = _parent->_dev->clone_instance(); // TODO: just "clone"
+    CARD* d = _parent->_dev->clone_instance();
     assert(d);
     auto dev = prechecked_cast<COMPONENT*>(d);
     assert(dev);
 
 #if 1
     dev->set_owner(this);
-    if(net_nodes() == dev->net_nodes()){ untested();
-    }else if(net_nodes()){ untested();
+    if(net_nodes() == dev->net_nodes()){
+    }else if(net_nodes()){
       static std::string dummy;
       trace2("dummynode", long_label(), net_nodes());
 
@@ -649,15 +661,15 @@ void PARAMSET::expand()
     subckt()->push_back(d);
     assert(dev->owner() == this);
 
-    { untested();
+    {
       auto cp = prechecked_cast<COMMON_PARAMLIST const*>(proto->common());
-      for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){ untested();
+      for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
       }
-      for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){ untested();
+      for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
 	trace2("PARAMSET::expand sp", i->first, i->second.string());
 
 	if(i->first=="$mfactor"){ untested();
-	}else{ untested();
+	}else{
 	  dev->set_param_by_name(i->first, ""); // again? BUG?
 	  dev->set_param_by_name(i->first, i->second.string());
 	}
@@ -668,8 +680,8 @@ void PARAMSET::expand()
     assert(subckt()->size()==1);
 
     subckt()->expand();
-    if(dev->is_valid()){ untested();
-    }else{ untested();
+    if(dev->is_valid()){
+    }else{
       // TODO: seems to be the wrong place. see mg_bug.1.gc
       throw Exception("invalid prototype for " + long_label());
     }
@@ -677,7 +689,7 @@ void PARAMSET::expand()
 } // expand
 /*--------------------------------------------------------------------------*/
 std::string PARAMSET::port_name(int i)const
-{ untested();
+{
   assert(_dev);
   return _dev->port_name(i);
 }

@@ -77,6 +77,7 @@ public:
       if(module_name!=""){
         auto c = device_dispatcher.clone("subckt");
         assert(c);
+        c->set_owner(nullptr);
         owner = prechecked_cast<BASE_SUBCKT*>(c);
         assert(owner);
         owner->set_label(module_name);

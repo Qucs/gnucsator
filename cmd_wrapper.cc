@@ -176,6 +176,7 @@ private:
 			cl->options(cmd);
 			// cl->options(cmd);
 			cl->CARD::set_label(CMD::short_label());
+			cl->set_owner(nullptr);
 			Scope->push_back(cl);
 		}
 	}

@@ -38,7 +38,7 @@ namespace{
 
 class INTERFACE EQN : public COMPONENT {
        node_t* _n{nullptr};
-       node_t& n_(int i)const override { return _n[i]; }
+       node_t& n_(int i)const override { untested(); return _n[i]; }
 public:
   explicit EQN();
   ~EQN() {}
@@ -256,6 +256,7 @@ class CMD_EQN : public CMD {
     auto e = prechecked_cast<EQN*>(c);
     assert(e);
     OPT::language->parse_instance(cmd, e);
+    e->set_owner(nullptr);
     cl->push_back(e);
 
     for(auto x : e->params()){ // TODO: ordinary param_access.

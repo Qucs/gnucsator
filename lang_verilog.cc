@@ -1046,10 +1046,6 @@ static void print_ports_long(OMSTREAM& o, const COMPONENT* x)
     }
     sep = ",";
   }
-  for (int ii = 0;  x->current_port_exists(ii);  ++ii) {untested();
-    o << sep << x->current_port_name(ii) << '(' << x->current_port_value(ii) << ')';
-    sep = ",.";
-  }
   o << ")";
 }
 /*--------------------------------------------------------------------------*/
@@ -1062,10 +1058,6 @@ static void print_ports_short(OMSTREAM& o, const COMPONENT* x)
   std::string sep = "";
   for (int ii = 0;  x->port_exists(ii);  ++ii) {
     o << sep << x->port_value(ii);
-    sep = ",";
-  }
-  for (int ii = 0;  x->current_port_exists(ii);  ++ii) {untested();
-    o << sep << x->current_port_value(ii);
     sep = ",";
   }
   o << ")";
@@ -1126,9 +1118,9 @@ void LANG_VERILOG::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 void LANG_VERILOG::print_command(OMSTREAM& o, const DEV_DOT* x)
 {untested();
   assert(x);
-  if(x->s().size()){
+  if(x->s().size()){ untested();
     o << x->s() << '\n';
-  }else{
+  }else{ untested();
   }
 }
 /*--------------------------------------------------------------------------*/
@@ -1181,7 +1173,8 @@ class CMD_MODULE : public CMD {
   void do_it(CS& cmd, CARD_LIST* Scope)override {
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("module"));
     assert(new_module);
-    assert(!new_module->owner());
+    // assert(!new_module->owner());
+    new_module->set_owner(nullptr);
     assert(new_module->subckt());
     assert(new_module->subckt()->is_empty());
     assert(!new_module->is_device());
