@@ -224,7 +224,7 @@ bool COMMON_TRANSLINE::operator==(const COMMON_COMPONENT& x)const
 /*--------------------------------------------------------------------------*/
 void COMMON_TRANSLINE::set_param_by_index(int I, std::string& Value, int Offset)
 {
-  trace2("spbn", I, Value);
+  trace3("spbn", I, Value, COMMON_TRANSLINE::param_count() - 1 - I);
   switch (COMMON_TRANSLINE::param_count() - 1 - I) {
   case 0:  len = Value; break;
   case 1:  R = Value; break;

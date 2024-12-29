@@ -58,7 +58,7 @@ endmodule
 // is it lumped?
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
 //                                           is ignored  ^^
-module TLIN (a, b)
+module TLIN (t1, t2)
   parameter Z=50.;
   parameter L=100m;
   parameter Alpha=0.;
@@ -66,10 +66,10 @@ module TLIN (a, b)
 
 // local??
   parameter c0=299792458.0;
-  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t(a , \0 , b , \0 );
+  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t2(.t1(t1) , .b1(\0 ) , .t2(t2) , .b2(\0 ) );
 endmodule
 
-module TLIN4P (a, b, c, d)
+module TLIN4P (t1, t2, b1, b2)
   parameter Z=50;
   parameter L=100m;
   parameter Alpha=0;
@@ -77,7 +77,7 @@ module TLIN4P (a, b, c, d)
 
 // local??
   parameter c0=299792458.0;
-  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t(a c b d);
+  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t4(.t1(t1), .t2(t2), .b1(b1), .b2(b2));
 endmodule
 
 module Tr (outp inp inn outn);
