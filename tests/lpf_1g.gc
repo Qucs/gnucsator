@@ -18,6 +18,7 @@ load d_trln.so
 `include ../include/lumped.v
 hidemodule *
 
+options trace
 verilog
 
 // todo: module
@@ -43,5 +44,6 @@ TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line3 (.t1(_net7),.t2(_net
 TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line2 (.t1(_net14),.t2(_net15),.b1(_net9),.b2(_net6));
 // todo: endmodule
 
+list
 dc
 sp port P* 10e6 10e9 * {6.41044426993407607079/5} basic

@@ -69,7 +69,7 @@ module TLIN (t1, t2)
   tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t2(.t1(t1) , .b1(\0 ) , .t2(t2) , .b2(\0 ) );
 endmodule
 
-module TLIN4P (t1, t2, b1, b2)
+module TLIN4P (t1, t2, b2, b1)
   parameter Z=50;
   parameter L=100m;
   parameter Alpha=0;

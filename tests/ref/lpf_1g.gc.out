@@ -40,6 +40,7 @@
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 
 //* MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9" 
 //* TODO: check port order 
+// todo: module 
 L #(.L(5.228n)) L2 (.p(\0 ),.n(_net0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(_net0));
 C #(.C(4.182p)) C3 (.p(\0 ),.n(_net1));
@@ -57,9 +58,10 @@ TLIN #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(32.85)) Line5 (.t1(_net7),.t2(\0 ))
 TLIN #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(38.05)) Line6 (.t1(_net5),.t2(_net8));
 Pac #(.Num(3),.P(1 ),.Temp(26.85),.Z(50),.f(1e6)) P3 (.\1 (_net9),.\2 (\0 ));
 Pac #(.Num(4),.P(1 ),.Temp(26.85),.Z(50),.f(1e6)) P4 (.\1 (_net10),.\2 (\0 ));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(65.7)) Line1 (.t1(_net10),.t2(_net9),.b1(_net11),.b2(_net11));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line3 (.t1(_net7),.t2(_net10),.b1(_net12),.b2(_net13));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line2 (.t1(_net14),.t2(_net15),.b1(_net9),.b2(_net6));
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(65.7)) Line1 (.t1(_net10),.t2(_net9),.b2(_net11),.b1(_net11));
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line3 (.t1(_net7),.t2(_net10),.b2(_net13),.b1(_net12));
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line2 (.t1(_net14),.t2(_net15),.b2(_net6),.b1(_net9));
+// todo: endmodule 
 >>>>>dc 
 L.dev: inductor from device_dispatcher
 L.dev: 1 candidate found for inductor
