@@ -105,5 +105,5 @@ QUCSATOR_OBJS = \
 	qucsator/real.o \
 	qucsator/vector.o
 
-CLEANFILES = $(QUCS_PLUGINS) *.o *~ gnucsator
+CLEANFILES = $(QUCS_PLUGINS) ${PLUGIN_VAMS:%.vams=%.cc} *.o *~ gnucsator
 DISTCLEANFILES = Make.override Makefile
