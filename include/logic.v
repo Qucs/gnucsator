@@ -38,72 +38,63 @@ simulator lang=spice
 .options noinsensitive
 
 ******************************************************************************
-* kludge: global logic model. WIP
-.model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
+* problem: no disciplines yet.
+* kludge: global logic model, treat them all the same.
+* this defines a default discipline and default PWL connect modules
+* the "delay" here is the time unit, as in "`timescale unit/dtmin"
+* (to be continued)
+.model qucs_logic logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
 + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=1  vmin= 0. )
 ******************************************************************************
-.subckt AND(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-.model andmos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-+ thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos and
-.ends
-******************************************************************************
-.subckt NAND(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos nand
-.ends
-******************************************************************************
-.subckt NOR(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos nor
-.ends
-******************************************************************************
-.subckt XOR(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos xor
-.ends
-******************************************************************************
-.subckt XNOR(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos xnor
-.ends
-******************************************************************************
-.subckt OR(y a b);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a b mos or
-.ends
-******************************************************************************
-.subckt Inv(y a);
-.parameter V=1
-.parameter TR=1
-VV1 dd 0 V
-* .model mos logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
-* + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=V  vmin= 0. )
-U7 y 0 dd dd a mos inv
-.ends
-******************************************************************************
-.simulator lang=verilog
+.list
+.verilog
+module AND(y, a, b);
+	parameter V=1;
+	parameter TR=1;
+	parameter t=0;
+	and #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module NAND(y, a, b);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=0;
+	nand #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module NOR(y, a, b);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=0;
+	nor #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module XOR(y, a, b);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=0;
+	xor #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module XNOR(y, a, b);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=0;
+	xnor #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module OR(y, a, b);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=0;
+	or #(.delay(t), .model(qucs_logic)) g1(y, a, b);
+endmodule
+// ***************************************************************************
+module Inv(y, a);
+	parameter v=1;
+	parameter tr=1;
+	parameter t=1;
+	inv #(.delay(t), .model(qucs_logic)) g1(y, a);
+endmodule
+// ***************************************************************************
 simulator lang=acs

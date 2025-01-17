@@ -165,13 +165,13 @@ COMPONENTS (table ripped from [1])
 │ noise vs        │  Vnoise         │  V             │ ET   │ need modelgen  │
 │ noise cs        │  Inoise         │  V             │ ET   │ need modelgen  │
 │ digital source  │                 │ (L)            │      │                │
-│ logical OR      │  OR             │  W             │      │ preliminary    │
-│ logical NOR     │  NOR            │  W             │      │ preliminary    │
-│ logical NAND    │  NAND           │  W             │ EI   │ preliminary    │
-│ logical AND     │  AND            │  W             │ EI   │ preliminary    │
-│ logical XOR     │  XOR            │  W             │      │ preliminary    │
-│ logical XNOR    │  XNOR           │  W             │      │ preliminary    │
-│ inverter        │  Inv            │  W             │ EI   │ preliminary    │
+│ logical OR      │  OR             │  W             │      │fixed discipline│
+│ logical NOR     │  NOR            │  W             │      │fixed discipline│
+│ logical NAND    │  NAND           │  W             │ EI   │fixed discipline│
+│ logical AND     │  AND            │  W             │ EI   │fixed discipline│
+│ logical XOR     │  XOR            │  W             │      │fixed discipline│
+│ logical XNOR    │  XNOR           │  W             │      │fixed discipline│
+│ inverter        │  Inv            │  W             │ EI   │fixed discipline│
 │ buffer          │                 │                │      │                │
 │ D-flipflop      │                 │                │      │                │
 │ RS-flipflop     │                 │                │      │                │
