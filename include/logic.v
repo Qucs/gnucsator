@@ -96,4 +96,10 @@ module Inv(y, a);
 	inv #(.delay(t), .model(qucs_logic)) g1(y, a);
 endmodule
 // ***************************************************************************
+module mux4to1(en, s1, s0, d3, d2, d1, d0, y);
+	parameter Delay=1;
+	parameter TR=6;
+	mux4to1_ #(.delay(Delay), .model(qucs_logic)) g1(y, en, s1, s0, d3, d2, d1, d0);
+endmodule
+// ***************************************************************************
 simulator lang=acs

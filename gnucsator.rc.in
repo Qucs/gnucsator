@@ -58,6 +58,7 @@ load qucs/d_probe.so
 load qucs/d_dcblock.so
 load qucs/d_noise.so
 load qucs/Vrect.so
+load qucs/mux4to1.so
 *load d_qucs_opamp.so
 load qucs/lang_qucs.so
 load public qucs/lang_verilog.so

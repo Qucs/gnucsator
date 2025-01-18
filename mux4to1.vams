@@ -1,0 +1,21 @@
+// (c) Felix Salfelder 2025
+// GPLv3+
+`include "disciplines.vams"
+`include "constants.vams"
+
+
+primitive mux4to1_ (out, nen, s1, s0, d3, d2, d1, d0);
+output mux;
+input nen, s1, s0, d3, d2, d1, d0;
+table // control0 control1
+	1 ? ? ? ? ? ? : x;
+	0 0 0 ? ? ? 1 : 1;
+	0 0 0 ? ? ? 0 : 0;
+	0 0 1 ? ? 1 ? : 1;
+	0 0 1 ? ? 0 ? : 0;
+	0 1 0 ? 1 ? ? : 1;
+	0 1 0 ? 0 ? ? : 0;
+	0 1 1 1 ? ? ? : 1;
+	0 1 1 0 ? ? ? : 0;
+endtable
+endprimitive

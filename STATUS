@@ -188,7 +188,7 @@ COMPONENTS (table ripped from [1])
 │ d/a lvl shift   │                 │                │      │                │
 │ a/d lvl shift   │                 │                │      │                │
 │ 2to1 mux        │ mux2to2         │  V*            │      │                │
-│ 4to1 mux        │ mux4to2         │  V*            │      │                │
+│ 4to1 mux        │ mux4to1         │  V* V          │      │  UDP model     │
 │ 8to1 mux        │ mux8to2         │  V*            │      │                │
 │ 2to4 mux        │ mux2to4         │  V*            │      │                │
 │ 3to8 mux        │ mux8to8         │  V*            │      │                │
