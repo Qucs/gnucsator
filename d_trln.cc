@@ -224,8 +224,7 @@ bool COMMON_TRANSLINE::operator==(const COMMON_COMPONENT& x)const
 /*--------------------------------------------------------------------------*/
 void COMMON_TRANSLINE::set_param_by_index(int I, std::string& Value, int Offset)
 {
-  trace3("spbn", I, Value, COMMON_TRANSLINE::param_count() - 1 - I);
-  switch (COMMON_TRANSLINE::param_count() - 1 - I) {
+  switch (I) {
   case 0:  len = Value; break;
   case 1:  R = Value; break;
   case 2:  L = Value; break;
@@ -236,14 +235,14 @@ void COMMON_TRANSLINE::set_param_by_index(int I, std::string& Value, int Offset)
   case 7:  f = Value; break;
   case 8:  nl = Value; break;
   case 9:  alpha = Value; break;
-  default: COMMON_COMPONENT::set_param_by_index(I, Value, Offset); break;
+  default: COMMON_COMPONENT::set_param_by_index(I-10, Value, Offset+10); break;
   }
   //BUG// does not print IC
 }
 /*--------------------------------------------------------------------------*/
 bool COMMON_TRANSLINE::param_is_printable(int I)const
 { untested();
-  switch (COMMON_TRANSLINE::param_count() - 1 - I) {
+  switch (I) {
   case 0:  return len.has_hard_value();
   case 1:  return R.has_hard_value();
   case 2:  return L.has_hard_value();
@@ -254,7 +253,7 @@ bool COMMON_TRANSLINE::param_is_printable(int I)const
   case 7:  return f.has_hard_value();
   case 8:  return nl.has_hard_value();
   case 9:  return alpha.has_hard_value();
-  default: return COMMON_COMPONENT::param_is_printable(I);
+  default: return COMMON_COMPONENT::param_is_printable(I-10);
   }
   //BUG// does not print IC
 #if 0
@@ -270,7 +269,7 @@ bool COMMON_TRANSLINE::param_is_printable(int I)const
 /*--------------------------------------------------------------------------*/
 std::string COMMON_TRANSLINE::param_name(int I)const
 {
-  switch (COMMON_TRANSLINE::param_count() - 1 - I) {
+  switch (I) {
   case 0:  return "len";
   case 1:  return "r";
   case 2:  return "l";
@@ -281,7 +280,7 @@ std::string COMMON_TRANSLINE::param_name(int I)const
   case 7:  return "f";
   case 8:  return "nl";
   case 9:  return "alpha";
-  default: return COMMON_COMPONENT::param_name(I);
+  default: return COMMON_COMPONENT::param_name(I-10);
   }
   //BUG// does not print IC
 }
@@ -290,8 +289,8 @@ std::string COMMON_TRANSLINE::param_name(int I, int j)const
 {
   if (j == 0) {
     return param_name(I);
-  }else if (I >= COMMON_COMPONENT::param_count()) {
-    switch (COMMON_TRANSLINE::param_count() - 1 - I) {
+  }else if (I < 10) {
+    switch (I) {
     case 5:  return (j==1) ? "z" : (j==2) ? "zo" : "";
     case 6:  return (j==1) ? "d" : (j==2) ? "delay" : "";
     case 7:  return (j==1) ? "freq" : "";
@@ -299,14 +298,14 @@ std::string COMMON_TRANSLINE::param_name(int I, int j)const
     default: return "";
     }
   }else{ untested();
-    return COMMON_COMPONENT::param_name(I, j);
+    return COMMON_COMPONENT::param_name(I-10, j);
   }
   //BUG// does not print IC
 }
 /*--------------------------------------------------------------------------*/
 std::string COMMON_TRANSLINE::param_value(int I)const
 { untested();
-  switch (COMMON_TRANSLINE::param_count() - 1 - I) {
+  switch (I) {
   case 0:  return len.string();
   case 1:  return R.string();
   case 2:  return L.string();
@@ -317,7 +316,7 @@ std::string COMMON_TRANSLINE::param_value(int I)const
   case 7:  return f.string();
   case 8:  return nl.string();
   case 9:  return alpha.string();
-  default: return COMMON_COMPONENT::param_value(I);
+  default: return COMMON_COMPONENT::param_value(I-10);
   }
   //BUG// does not print IC
 }

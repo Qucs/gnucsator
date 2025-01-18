@@ -84,13 +84,15 @@ public: // override virtual, called by commands
   COMPONENT*	parse_instance(CS&, COMPONENT*)override;
   std::string	find_type_in_string(CS&)override;
 private: // local
+  void print_attributes(OMSTREAM&, tag_t);
   void skip_attributes(CS& cmd);
   std::string  parse_attributes(CS& cmd);
   void parse_type(CS& cmd, CARD* x);
+  void parse_args_paramset(CS& cmd, MODEL_CARD* x);
+  void parse_args_instance(CS& cmd, CARD* x);
   void store_attributes(std::string attrib_string, tag_t x);
   void parse_attributes(CS& cmd, tag_t x);
-//  void parse_args_paramset(CS& cmd, MODEL_CARD* x);
-  void parse_args_paramset(CS& cmd, /* MODEL_*/ CARD* x);
+  void parse_args_paramset_(CS& cmd, CARD* x);
 //  void parse_args_instance(CS& cmd, CARD* x); 
 //  void parse_label(CS& cmd, CARD* x);
   void parse_ports(CS& cmd, COMPONENT* x, bool all_new);
@@ -158,7 +160,7 @@ void LANG_VERILOG::parse_type(CS& cmd, CARD* x)
   x->set_dev_type(new_type);
 }
 /*--------------------------------------------------------------------------*/
-void LANG_VERILOG::parse_args_paramset(CS& cmd, CARD* x)
+void LANG_VERILOG::parse_args_paramset_(CS& cmd, CARD* x)
 { untested();
   assert(x);
 
@@ -174,38 +176,70 @@ void LANG_VERILOG::parse_args_paramset(CS& cmd, CARD* x)
   }
 }
 /*--------------------------------------------------------------------------*/
-static void parse_args_instance(CS& cmd, CARD* x)
+void LANG_VERILOG::parse_args_paramset(CS& cmd, MODEL_CARD* x)
+{ untested();
+  assert(x);
+
+  while (cmd >> '.') { untested();
+    size_t here = cmd.cursor();
+    std::string Name, value;
+    try{ untested();
+      cmd >> Name >> '=' >> value >> ';';
+      x->set_param_by_name(Name, value);
+    }catch (Exception_No_Match&) {untested();
+      cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + Name + " ignored");
+    }
+  }
+}
+/*--------------------------------------------------------------------------*/
+void LANG_VERILOG::parse_args_instance(CS& cmd, CARD* x)
 {
   assert(x);
 
   if (cmd >> "#(") {
+    std::string attribs = parse_attributes(cmd);
+    size_t here = cmd.cursor();
+    
     if (cmd.match1('.')) {
       // by name
       while (cmd >> '.') {
-	size_t here = cmd.cursor();
-	std::string name  = cmd.ctos("(", "", "");
+	std::string Name  = cmd.ctos("(", "", "");
 	std::string value = cmd.ctos(",)", "(", ")");
 	cmd >> ',';
 	try{
-	  x->set_param_by_name(name, value);
+	  int Index = x->set_param_by_name(Name, value);
+	  trace3("pai", Index, Name, value);
+	  store_attributes(attribs,  x->param_id_tag(Index));
 	}catch (Exception_No_Match&) {
-	  cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + name + " ignored");
+	  cmd.warn(bDANGER, here, x->long_label() + ": bad parameter " + Name + " ignored");
+	}catch (Exception_Clash&) {
+	  cmd.warn(bDANGER, here, x->long_label() + ": already set " + Name + ", ignored");
 	}
+	attribs = parse_attributes(cmd);
+	here = cmd.cursor();
       }
-    }else{ untested();
+    }else{
       // by order
-      int index = 1;
-      while (cmd.is_alnum() || cmd.match1("+-.")) { untested();
-	size_t here = cmd.cursor();
-	try{ untested();
+      for (int Index = 0;  cmd.is_alnum() || cmd.match1("+-.");  ++Index) {
+	try{
 	  std::string value = cmd.ctos(",)", "", "");
-	  x->set_param_by_index(x->param_count() - index++, value, 0/*offset*/);
+	  x->set_param_by_index(Index, value, 0/*offset*/);
+	  store_attributes(attribs,  x->param_id_tag(Index));
 	}catch (Exception_Too_Many& e) {untested();
 	  cmd.warn(bDANGER, here, e.message());
+	}catch (Exception_Clash&) {untested();
+	  unreachable();
+	  cmd.warn(bDANGER, here, x->long_label() + ": already set, ignored");
 	}
+	attribs = parse_attributes(cmd);
+	here = cmd.cursor();
       }
     }
     cmd >> ')';
+  }else if (cmd >> "#") {
+    std::string arg;
+    cmd >> arg;
+    x->set_param_by_index(0, arg, 0);
   }else{
     // no args
   }
@@ -871,7 +905,7 @@ COMPONENT* LANG_VERILOG::parse_paramset_(CS& cmd, BASE_SUBCKT* x)
   }
 
   for (;;) { untested();
-    parse_args_paramset(cmd, x);
+    parse_args_paramset_(cmd, x);
     size_t here = cmd.cursor();
     if (cmd >> "endparamset ") { untested();
       break;
@@ -981,17 +1015,31 @@ void LANG_VERILOG::parse_top_item(CS& cmd, CARD_LIST* Scope)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+void LANG_VERILOG::print_attributes(OMSTREAM& o, tag_t x)
+{
+  assert(x);
+
+  if (has_attributes(x)) {
+    std::string s = attributes(x)->string(x);
+    if(s.size()) {
+      o << "(* " << s << " *) ";
+    }else{
+    }
+  }else{
+  }
+}
+/*--------------------------------------------------------------------------*/
 void LANG_VERILOG::print_args(OMSTREAM& o, const MODEL_CARD* x)
 {
   assert(x);
   if (x->use_obsolete_callback_print()) { untested();
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
   }else{
-    for (int ii = x->param_count() - 1;  ii >= 0;  --ii) {
+    for (int ii = 0; ii < x->param_count(); ++ii) {
       if (x->param_is_printable(ii)) {
-	std::string arg = " ." + x->param_name(ii) + "=" + x->param_value(ii) + ";";
+	std::string arg = " ." + x->param_name(ii) + '=' + x->param_value(ii) + ';';
 	o << arg;
-      }else{ untested();
+      }else{
       }
     }
   }
@@ -1001,22 +1049,26 @@ void LANG_VERILOG::print_args(OMSTREAM& o, const COMPONENT* x)
 {
   assert(x);
   o << " #(";
-  if (x->use_obsolete_callback_print()) { untested();
+  if (x->use_obsolete_callback_print()) {
     arg_count = 0;
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
     arg_count = INACTIVE;
   }else{
-    std::string sep = ".";
-    for (int ii = x->param_count() - 1;  ii >= 0;  --ii) {
+    std::string sep = "";
+    //for (int ii = x->param_count() - 1;  ii >= 0;  --ii)
+    for (int ii = 0; ii < x->param_count(); ++ii) {
       if (x->param_is_printable(ii)) {
-	o << sep << x->param_name(ii) << "(" << x->param_value(ii) << ")";
-	sep = ",.";
+	o << sep;
+	print_attributes(o, x->param_id_tag(ii));
+	o << '.' << x->param_name(ii) << '(' << x->param_value(ii) << ')';
+	sep = ',';
       }else{
       }
     }
   }
   o << ") ";
 }
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 static void print_type(OMSTREAM& o, const COMPONENT* x)
 {

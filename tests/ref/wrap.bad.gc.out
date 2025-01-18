@@ -1,7 +1,7 @@
 Vdc #(.X(u)) foo1(\1 , \0 ); 
-       ^ ? Vdc: bad parameter X ignored
+      ^ ? Vdc: bad parameter X ignored
 Vdc #(.X(2)) foo2(\2 , \0 ); 
-       ^ ? Vdc: bad parameter X ignored
+      ^ ? Vdc: bad parameter X ignored
 // This File is part of gnucap-qucs 
 // (C) 2018 Felix Salfelder 
 // GPLv3+ 

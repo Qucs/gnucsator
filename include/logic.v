@@ -46,7 +46,6 @@ simulator lang=spice
 .model qucs_logic logic ( delay= 1n  rise= 1n  fall= 1n  rs= 100.  rw= 1.G
 + thh= 0.9  thl= 0.1  mr= 5.  mf= 5.  over=10k vmax=1  vmin= 0. )
 ******************************************************************************
-.list
 .verilog
 module AND(y, a, b);
 	parameter V=1;

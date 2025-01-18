@@ -109,7 +109,7 @@ public: // override virtual
   CARD_LIST*	   scope()override		{return subckt();}
   const CARD_LIST* scope()const override	{return subckt();}
 private: // no-ops for prototype
-  void precalc_first()override;
+  void precalc_first()override {}
   void expand()override {}
   void precalc_last()override {}
   void map_nodes()override {}
@@ -134,6 +134,7 @@ private: // no-ops for prototype
 } pp;
 DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "X|subckt", &pp);
 /*--------------------------------------------------------------------------*/
+#if 0
 void DEV_SUBCKT_PROTO::precalc_first()
 {
   BASE_SUBCKT::precalc_first();
@@ -155,6 +156,7 @@ void DEV_SUBCKT_PROTO::precalc_first()
     }
   }
 }
+#endif
 /*--------------------------------------------------------------------------*/
 DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)
   :DEV_SUBCKT(p)

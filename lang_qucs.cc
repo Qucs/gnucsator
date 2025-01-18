@@ -848,7 +848,7 @@ void LANG_QUCSATOR::print_command(OMSTREAM& o, const DEV_DOT* x)
 void LANG_QUCSATOR::print_args(OMSTREAM& o, const MODEL_CARD* x)
 {
 	assert(x);
-	for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
+	for (int ii = 0; ii < x->param_count(); ++ii) {
 		if (x->param_is_printable(ii)) {
 			o << " " << x->param_name(ii) <<"=\""<<x->param_value(ii);
 			o << "\"";
@@ -867,7 +867,7 @@ void LANG_QUCSATOR::print_args(OMSTREAM& o, const COMPONENT* x)
 {
 	assert(x);
 	o << ' ';
-		for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
+		for (int ii = 0; ii < x->param_count(); ++ii) {
 			if (x->param_is_printable(ii)) {
 				if ((ii != x->param_count() - 1) || (x->param_name(ii) != x->value_name())) {
 					// skip name if plain value

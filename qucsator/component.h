@@ -360,7 +360,7 @@ private: // COMPONENT
 #endif
 	void set_param_by_index(int i, std::string& b, int j) override{ untested();
 		trace3("circuit::set_param_by_index", i, b, j);
-		int s = circuit::param_count() - 1 - i;
+		int s = i; // circuit::param_count() - 1 - i;
 		if(s < _num_param){ untested();
 			incomplete();
 			// *_p[s] = b;

@@ -16,7 +16,7 @@ MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(
 Pac #(.Num(2),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P2 (.\1 (_net18),.\2 (\0 ));
 Pac #(.Num(1),.P(0 ),.Temp(26.85),.Z(50),.f(10G)) P1 (.\1 (_net0),.\2 (\0 ));
 paramset Subst1 SUBST;\
- .er=2.56; .h=0.76m; .t=18u; .tand=3e-3; .rho=0.022e-6; .D=100; .tnom=tnom;\
+ .er=2.56; .h=0.76m; .t=18u; .tand=3e-3; .rho=0.022e-6; .D=100;\
 endparmset
 
 MOPEN #(.MSDispModel(Kirschning),.MSModel(Hammerstad),.Model(Kirschning),.Subst(Subst1),.W(384u)) MS11 (.p0(_net3));

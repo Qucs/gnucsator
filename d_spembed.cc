@@ -261,7 +261,7 @@ bool COMMON_SPEMBED::operator==(const COMMON_COMPONENT& x)const
 void COMMON_SPEMBED::set_param_by_index(int I, std::string& Value, int Offset)
 { untested();
 	incomplete();
-  switch (COMMON_SPEMBED::param_count() - 1 - I) {
+  switch (I) {
   default: COMMON_COMPONENT::set_param_by_index(I, Value, Offset);
   }
 }
@@ -284,21 +284,19 @@ int COMMON_SPEMBED::set_param_by_name(std::string Name, std::string Value)
   return 0; // incomplete();
 }
 /*--------------------------------------------------------------------------*/
-bool COMMON_SPEMBED::param_is_printable(int i)const
+bool COMMON_SPEMBED::param_is_printable(int I)const
 {
-  size_t idx = COMMON_SPEMBED::param_count() - 1 - i;
-  if(idx == 0){
+  if(I == 0){
     return true;
   }else{
     incomplete();
-    return COMMON_COMPONENT::param_is_printable(i);
+    return COMMON_COMPONENT::param_is_printable(I-1);
   }
 }
 /*--------------------------------------------------------------------------*/
-std::string COMMON_SPEMBED::param_name(int i)const
+std::string COMMON_SPEMBED::param_name(int I)const
 {
-  size_t idx = COMMON_SPEMBED::param_count() - 1 - i;
-  switch(idx){
+  switch(I){
   case 0:
     return "File";
   case 1:
@@ -310,7 +308,7 @@ std::string COMMON_SPEMBED::param_name(int i)const
   case 4:
     return "duringDC";
   }
-  return COMMON_COMPONENT::param_name(i);
+  return COMMON_COMPONENT::param_name(I-5);
 }
 /*--------------------------------------------------------------------------*/
 std::string COMMON_SPEMBED::param_name(int i, int j)const
@@ -322,10 +320,9 @@ std::string COMMON_SPEMBED::param_name(int i, int j)const
   }
 }
 /*--------------------------------------------------------------------------*/
-std::string COMMON_SPEMBED::param_value(int i)const
+std::string COMMON_SPEMBED::param_value(int I)const
 {
-  size_t idx = COMMON_SPEMBED::param_count() - 1 - i;
-  switch(idx){
+  switch(I){
   case 0:
     return "File";
   case 1:
@@ -337,7 +334,7 @@ std::string COMMON_SPEMBED::param_value(int i)const
   case 4:
     return "duringDC";
   }
-  return COMMON_COMPONENT::param_value(i);
+  return COMMON_COMPONENT::param_value(I-5);
 }
 /*--------------------------------------------------------------------------*/
 void skipcom(CS& f)

@@ -42,31 +42,27 @@ struct object : public MODEL_CARD{
 		return 0; // TODO
 	}
 	std::string param_name(int i)const override{
-		int s = object::param_count() - 1 - i;
-		if(s < int(_p.size())){
-			assert(s<int(_pnames.size()));
-			return *_pnames[s];
+		if(i < int(_p.size())){
+			assert(i<int(_pnames.size()));
+			return *_pnames[i];
 		}else{
-			return MODEL_CARD::param_name(i);
+			return MODEL_CARD::param_name(i - _pnames.size());
 		}
 	}
 	std::string param_name(int i, int)const override{ untested();
 		return param_name(i);
 	}
 	std::string param_value(int i)const override{
-		int s = object::param_count() - 1 - i;
-		if(s >= int(_p.size())){
-			return MODEL_CARD::param_name(i);
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[s])){
-			assert(s<int(_p.size()));
+		if(i >= int(_p.size())) { untested();
+			return MODEL_CARD::param_name(i - _p.size());
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[i])) { untested();
 			return ps->string();
 		}else{ untested();
 			return "unreachable";
 		}
 	}
    bool param_is_printable(int i)const override{
-		int s = object::param_count() - 1 - i;
-		if(s < int(_p.size())){
+		if(i < int(_p.size())){
 			return true;
 		}else{
 			return MODEL_CARD::param_is_printable(i);

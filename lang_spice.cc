@@ -821,16 +821,16 @@ void LANG_SPICE_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void LANG_SPICE_BASE::print_args(OMSTREAM& o, const MODEL_CARD* x)
-{ untested();
+{
   assert(x);
-  if (x->use_obsolete_callback_print()) { untested();
+  if (x->use_obsolete_callback_print()) {
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
-  }else{ untested();
-    for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) { untested();
-      if (x->param_is_printable(ii)) { untested();
+  }else{
+    for (int ii = 0;  ii < x->param_count()-x->param_count_dont_print();  ++ii) {
+      if (x->param_is_printable(ii)) {
 	std::string arg = " " + x->param_name(ii) + "=" + x->param_value(ii);
 	o << arg;
-      }else{ untested();
+      }else{
       }
     }
   }
@@ -857,12 +857,12 @@ void LANG_SPICE_BASE::print_args(OMSTREAM& o, const COMPONENT* x)
 {
   assert(x);
   o << ' ';
-  if (x->use_obsolete_callback_print()) { untested();
+  if (x->use_obsolete_callback_print()) {
     x->print_args_obsolete_callback(o, this);  //BUG//callback//
   }else{
-    for (int ii = x->param_count() - 1;  ii >= x->param_count_dont_print();  --ii) {
+    for (int ii = 0;  ii < x->param_count()-x->param_count_dont_print();  ++ii) {
       if (x->param_is_printable(ii)) {
-	if ((ii != x->param_count() - 1) || (x->param_name(ii) != x->value_name())) { untested();
+	if ((ii != 0) || (x->param_name(ii) != x->value_name())) {
 	  // skip name if plain value
 	  o << " " << x->param_name(ii) << "=";
 	}else{

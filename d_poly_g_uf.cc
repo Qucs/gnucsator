@@ -109,16 +109,15 @@ public:
     return 0; // TODO
   }
   std::string param_name(int i, int j)const override{ untested();return j?"":param_name(i); }
-  std::string param_name(int i)const override
+  std::string param_name(int I)const override
   { untested();
-    switch (COMMON_G_POLY_K::param_count() - 1 - i) {
+    switch (I) {
       case 0: return "coeffs";
-      default: return EVAL_BM_ACTION_BASE::param_name(i);
+      default: return EVAL_BM_ACTION_BASE::param_name(I-1);
     }
   }
 
   void set_param_by_index(int i, std::string& s, int)override { untested();
-//    unsigned i = COMMON_G_POLY_K::param_count() - 1 - I;
     if(i < int(_coeff.size())) { untested();
       //ok.
     }else{ untested();
@@ -126,17 +125,17 @@ public:
     }
     _coeff[i] = s;
   }
-  bool param_is_printable(int i)const override { untested();
-    switch (COMMON_G_POLY_K::param_count() - 1 - i) {
+  bool param_is_printable(int I)const override { untested();
+    switch (I) {
       case 0: return true;
-      default: return EVAL_BM_ACTION_BASE::param_is_printable(i);
+      default: return EVAL_BM_ACTION_BASE::param_is_printable(I-1);
     }
   }
 
-  std::string param_value(int i)const override { untested();
-    switch (COMMON_G_POLY_K::param_count() - 1 - i) {
+  std::string param_value(int I)const override { untested();
+    switch (I) {
       case 0: return _coeffs.string();
-      default: return EVAL_BM_ACTION_BASE::param_value(i);
+      default: return EVAL_BM_ACTION_BASE::param_value(I-1);
     }
   }
 
@@ -289,14 +288,14 @@ public:
 //   std::string param_name(int i, int)const{ untested(); return param_name(i); }
 //   std::string param_name(int i)const
 //   { untested();
-//     switch (DEV_CPOLY_G::param_count() - 1 - i) {
+//     switch (i) {
 // //      case 0: return "coeffs";
 //       default: return ELEMENT::param_name(i);
 //     }
 //   }
 //  bool param_is_printable(int i)const
 //  { untested();
-//    switch (DEV_CPOLY_G::param_count() - 1 - i) {
+//    switch (i) {
 //      case 0: return true;
 //      default: return ELEMENT::param_is_printable(i);
 //    }
