@@ -83,7 +83,7 @@ endmodule
 module Tr (outp inp inn outn);
 parameter T=1.;
 CCCS #(.gain(T)) v(outp_ inp inn outp);
-vcvs #(.gain(T) e(outp_ outn inp inn);
+vcvs #(.gain(T)) e(outp_ outn inp inn);
 endmodule
 
 * sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1"
@@ -92,10 +92,10 @@ module sTr (outp inp inn, \4 , \5 , outn);
 parameter T1=1.;
 parameter T2=1.;
 CCCS #(.gain(T1)) v(outp_ inp inn outp);
-vcvs #(.gain(T1) e(outp_ outn inp inn);
+vcvs #(.gain(T1)) e(outp_ outn inp inn);
 
 CCCS #(.gain(T2)) v(\5_ , inp, inn, \5 );
-vcvs #(.gain(T2) e(\5_ , \4 , inp, inn);
+vcvs #(.gain(T2)) e(\5_ , \4 , inp, inn);
 endmodule
 
 module BiasT(\1 , \2 , \3 )
