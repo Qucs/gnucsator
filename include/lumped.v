@@ -82,7 +82,7 @@ endmodule
 
 module Tr (outp inp inn outn);
 parameter T=1.;
-CCCS #(.gain(T)) v(outp_ inp inn outp);
+CCCS #(.G(T)) v(outp_ inp inn outp);
 vcvs #(.gain(T)) e(outp_ outn inp inn);
 endmodule
 
@@ -91,10 +91,10 @@ endmodule
 module sTr (outp inp inn, \4 , \5 , outn);
 parameter T1=1.;
 parameter T2=1.;
-CCCS #(.gain(T1)) v(outp_ inp inn outp);
+CCCS #(.G(T1)) v(outp_ inp inn outp);
 vcvs #(.gain(T1)) e(outp_ outn inp inn);
 
-CCCS #(.gain(T2)) v(\5_ , inp, inn, \5 );
+CCCS #(.G(T2)) v(\5_ , inp, inn, \5 );
 vcvs #(.gain(T2)) e(\5_ , \4 , inp, inn);
 endmodule
 

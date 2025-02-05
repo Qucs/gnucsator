@@ -13,7 +13,7 @@ verilog
 
 module main (\1 , \2 , \3 );
   // TODO: ground //
-  Vac #(.ampl(1)) v(\1 , \1a )
+  Vac #(.U(1.)) v(\1 , \1a )
   Vdc #(.U(1.)) v(\1a , \0 )
   DCBlock #() d(\1 , \2 )
   resistor #(.r(1)) r(\2 , \0 )
