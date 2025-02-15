@@ -175,7 +175,15 @@ protected: // qucsator globals
 			incomplete();
 			return NULL;
 		}else{
-			return strdup(pp->second.string().c_str());
+			std::string input = pp->second.string();
+			size_t last = input.size()-1;
+			if(!input.size()){
+			}else if(input[0] == '"' && input[last] == '"') {
+				input = input.substr(1, last-1);
+			}else{
+			}
+			trace2("getPropertyString", s, input);
+			return strdup(input.c_str());
 		}
 	}
 	void setCharacteristic (std::string const&, double const&){ untested();
@@ -268,6 +276,7 @@ private: // COMPONENT
 
 		// this only makes sense for MS stuff.
 		std::string s = getPropertyString("Subst");
+		trace1("qucs::expand", s);
 		_substrate = dynamic_cast<substrate*>(find_in_my_scope(s));
 		assert(_substrate || s==""); // for now.. TODO
 	}

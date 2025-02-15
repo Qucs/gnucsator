@@ -10,64 +10,24 @@ default plugins: ignored
 ^ ? # R: no match
 # .AC:SPTC1 Type="lin" Start="1e10" Stop="1e12" Points="10" 
 ^ ? # .AC: no match
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
-parameter Kirschning not specified, using default
-parameter Kirschning value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
 Gnucap   System status
