@@ -1,13 +1,13 @@
 <Qucs Dataset>
 default plugins: ignored
 Gnucap   System status
-iterations: op=0, dc=0, tran=83, fourier=0, total=93
-transient timesteps: accepted=10, rejected=0, total=10
+iterations: op=0, dc=0, tran=120, fourier=0, total=131
+transient timesteps: accepted=11, rejected=1, total=12
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=5, subckt=0, model=0, total=5
 dctran density=68.0%, ac density=68.0%
 
-<indep time 10>
+<indep time 11>
  0.
  2.1E-6
  4.2E-6
@@ -16,7 +16,8 @@ dctran density=68.0%, ac density=68.0%
  110.E-6
  135.E-6
  172.5E-6
- 191.25E-6
+ 181.875E-6
+ 195.9375E-6
  210.E-6
 </indep>
 <dep Input.Vt time>
@@ -28,7 +29,8 @@ dctran density=68.0%, ac density=68.0%
  5.
  2.5
 -1.25
--3.125
+-2.1875
+-3.59375
 -5.
 </dep>
 <dep Output.Vt time>
@@ -40,8 +42,9 @@ dctran density=68.0%, ac density=68.0%
  4.617223
  4.616164
  4.616519
- 0.03708901
- 0.03692731
+ 4.615587
+ 0.03706004
+ 0.03691997
 </dep>
 <dep _net0.Vt time>
  0.8071334
@@ -49,13 +52,15 @@ dctran density=68.0%, ac density=68.0%
  0.8071651
  0.8072414
  0.05887702
- 0.05886135
+ 0.05886134
  0.0664411
  0.09614632
- 0.8072629
- 0.8071419
+ 0.1263787
+ 0.8072201
+ 0.80715
 </dep>
 <dep _net1.Vt time>
+ 5.
  5.
  5.
  5.
@@ -76,6 +81,7 @@ dctran density=68.0%, ac density=68.0%
  0.785027
  0.7822218
  0.7772607
--1.538056
--2.48602
+ 0.7757423
+-1.768218
+-2.490239
 </dep>

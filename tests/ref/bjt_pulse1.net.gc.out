@@ -1,7 +1,7 @@
 <Qucs Dataset>
 default plugins: ignored
 Gnucap   System status
-iterations: op=0, dc=0, tran=158, fourier=0, total=193
+iterations: op=0, dc=0, tran=161, fourier=0, total=196
 transient timesteps: accepted=21, rejected=14, total=35
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=3, subckt=0, model=1, total=4
@@ -95,7 +95,7 @@ dctran density=100.0%, ac density=100.0%
 -7.906564E-6
  7.837234E-6
 -7.766161E-6
- 7.655142E-6
--7.543371E-6
+ 7.655141E-6
+-7.543373E-6
  7.544531E-6
 </dep>
