@@ -1,8 +1,9 @@
 
 module main ();
+ground gnd;
 //# trln 
-Vac #(.Phase(0),.Theta(0),.U(1),.f(1G)) V1 (.\1 (_net0),.\2 (\0 ));
-TLIN4P #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.t1(_net0),.t2(_net1),.b2(\0 ),.b1(\0 ));
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(\0 ));
+Vac #(.Phase(0),.Theta(0),.U(1),.f(1G)) V1 (.\1 (_net0),.\2 (gnd));
+TLIN4P #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.t1(_net0),.t2(_net1),.b2(gnd),.b1(gnd));
+R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(gnd));
 endmodule // main
 

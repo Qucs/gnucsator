@@ -1,7 +1,8 @@
 
 module main ();
+ground gnd;
 //# Qucs 0.0.19  /home/felix/extern/gnucap-plugins/tests/simple.sch 
-VProbe #() Pr1 (.p(_net1),.n(\0 ));
-Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1n),.Tr(1n),.U(1)) V1 (.p(_net1),.n(\0 ));
+VProbe #() Pr1 (.p(_net1),.n(gnd));
+Vrect #(.TH(1m),.TL(1m),.Td(0n),.Tf(1n),.Tr(1n),.U(1)) V1 (.p(_net1),.n(gnd));
 endmodule // main
 

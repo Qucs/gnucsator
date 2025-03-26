@@ -30,6 +30,8 @@ namespace{
 // components with one node are unlikely.
 const int node_capacity_floor = 2;
 /*--------------------------------------------------------------------------*/
+static const std::string IS_VALID = "_..is_valid";
+/*--------------------------------------------------------------------------*/
 static COMMON_PARAMLIST Default_PARAMSET(CC_STATIC);
 /*--------------------------------------------------------------------------*/
 // from u_lang.cc, cut down a bit.
@@ -79,6 +81,7 @@ private:
 
   std::string value_name()const override{ untested();unreachable(); return "";}
   std::string port_name(int)const override;
+  int ext_nodes()const override {return net_nodes();}
   node_t& n_(int i)const override {
     assert(_n); assert(i>=0); assert(i<_node_capacity); return _n[i];
   }
@@ -86,13 +89,31 @@ private:
 #ifndef NDEBUG
   int set_port_by_name(std::string& name, std::string& value)override{
     assert(_dev);
-    trace4("PARAMSET::spbn", long_label(), name, value, max_nodes());
+    trace4("PARAMSET::spbn", short_label(), name, value, max_nodes());
     return BASE_SUBCKT::set_port_by_name(name, value);
   }
 #endif
   void set_port_by_index(int Index, std::string& Value)override{
     grow_nodes(Index);
     BASE_SUBCKT::set_port_by_index(Index, Value);
+  }
+
+ // bool param_is_printable(int i)const override {
+ //   return true;
+ // }
+  int param_count()const override {
+      return BASE_SUBCKT::param_count();
+    if(_parent && _parent->subckt()){
+      trace2("PARAMSET::param_count0", short_label(), BASE_SUBCKT::param_count());
+      return(_parent->param_count());
+    }else if(subckt()){
+      trace3("PARAMSET::param_count1", short_label(), BASE_SUBCKT::param_count(), subckt()->params()->size());
+      return BASE_SUBCKT::param_count();
+      return subckt()->params()->size() + BASE_SUBCKT::param_count();
+    }else{
+      trace2("PARAMSET::param_count2", short_label(), BASE_SUBCKT::param_count());
+      return BASE_SUBCKT::param_count();
+    }
   }
 
 private:
@@ -281,8 +302,19 @@ CARD* PARAMSET::clone_instance() const
   auto c = prechecked_cast<COMMON_PARAMLIST*>(common()->clone());
   assert(c);
   c->_params = PARAM_LIST();
-  n->attach_common(c);
   n->_parent = this;
+  if(subckt() && subckt()->params()){
+    for(auto& p : *subckt()->params()){
+      trace2("PS::clone_inst", p.first, p.second);
+      if(p.first!=IS_VALID){
+	c->_params.set(p.first, p.second);
+      }else{
+      }
+    }
+  }else{
+  }
+  n->attach_common(c);
+  trace1("PS::clone_inst", n->param_count());
   return n;
 }
 /*--------------------------------------------------------------------------*/
@@ -351,13 +383,13 @@ void PARAMSET::grow_nodes(int Index)
 int PARAMSET::set_param_by_name(std::string Name, std::string Value)
 {
 //  assert(_parent);
+  trace4("PARAMSET::set_param_by_name", short_label(), Name, Value, param_count());
 
   if(Name=="$mfactor"){
     return BASE_SUBCKT::set_param_by_name(Name, Value);
   }else if(Name==""){ untested();
     throw Exception_No_Match("invalid parameter: " + Name);
   }else if(_parent && _parent->subckt()){
-    trace2("PARAMSET::spbn2", long_label(), _parent->long_label());
     PARAM_LIST const* p = _parent->subckt()->params();
 
     if(p->find(Name) == p->end()){ untested();
@@ -679,7 +711,9 @@ void PARAMSET::expand()
 
     assert(subckt()->size()==1);
 
-    subckt()->expand();
+    {untested();
+      subckt()->expand();
+    }
     if(dev->is_valid()){
     }else{
       // TODO: seems to be the wrong place. see mg_bug.1.gc

@@ -1,14 +1,14 @@
 <Qucs Dataset>
 default plugins: ignored
-T3.n.mynmos: rsh - rs - rd conflict: using rsh
-T3.n.mynmos: is - js conflict
-T3.n.mynmos: nsub < ni, treating as if not input
-T1.n.mynmos: rsh - rs - rd conflict: using rsh
-T1.n.mynmos: is - js conflict
-T1.n.mynmos: nsub < ni, treating as if not input
 T2.n.mynmos: rsh - rs - rd conflict: using rsh
 T2.n.mynmos: is - js conflict
 T2.n.mynmos: nsub < ni, treating as if not input
+T1.n.mynmos: rsh - rs - rd conflict: using rsh
+T1.n.mynmos: is - js conflict
+T1.n.mynmos: nsub < ni, treating as if not input
+T3.n.mynmos: rsh - rs - rd conflict: using rsh
+T3.n.mynmos: is - js conflict
+T3.n.mynmos: nsub < ni, treating as if not input
 parameter pos.Vt-neg.Vt not specified, using default
 parameter pos.Vt-neg.Vt value is "NOT_INPUT"
 parameter pos.Vt-neg.Vt not specified, using default

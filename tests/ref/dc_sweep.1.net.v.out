@@ -4,9 +4,10 @@ parameter I1=1;
 parameter R1=1;
 parameter __omit_DC1=1;
 parameter __omit_SW1=1;
+ground gnd;
 Eqn #() Eqn1 ();
 Eqn #() Eqn2 ();
-Idc #(.I(I1)) I1 (.\1 (_net0),.\2 (\0 ));
-R #(.R(R1)) R1 (.p(_net0),.n(\0 ));
+Idc #(.I(I1)) I1 (.\1 (_net0),.\2 (gnd));
+R #(.R(R1)) R1 (.p(_net0),.n(gnd));
 endmodule // main
 

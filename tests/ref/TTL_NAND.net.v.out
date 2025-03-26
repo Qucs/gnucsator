@@ -1,5 +1,6 @@
 
 module main ();
+ground gnd;
 //# Qucs 0.0.19  /home/qucs/prjs/TTL_NAND_prj/TTL_NAND_spice.sch 
 module NAND_GATE_cir (_netA,_netVCC,_netB,_netY,_ref);
 module NAND (_ref,_netA,_netB,_netY,_netVCC);
@@ -21,10 +22,10 @@ endmodule // NAND
 NAND #(.Type(NAND)) X1 (._ref(_ref),._netA(_netA),._netB(_netB),._netY(_netY),._netVCC(_netVCC));
 endmodule // NAND_GATE_cir
 
-NAND_GATE_cir #(.Type(NAND_GATE_cir)) X1 (._netA(A),._netVCC(_net0),._netB(B),._netY(out),._ref(\0 ));
-C #(.C(5p)) C1 (.p(\0 ),.n(out));
-Vrect #(.TH(1m),.TL(1m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA (.p(A),.n(\0 ));
-Vrect #(.TH(1.3m),.TL(1.3m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA1 (.p(B),.n(\0 ));
-Vdc #(.U(5)) V1 (.p(_net0),.n(\0 ));
+NAND_GATE_cir #(.Type(NAND_GATE_cir)) X1 (._netA(A),._netVCC(_net0),._netB(B),._netY(out),._ref(gnd));
+C #(.C(5p)) C1 (.p(gnd),.n(out));
+Vrect #(.TH(1m),.TL(1m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA (.p(A),.n(gnd));
+Vrect #(.TH(1.3m),.TL(1.3m),.Td(1m),.Tf(10n),.Tr(10n),.U(5)) VA1 (.p(B),.n(gnd));
+Vdc #(.U(5)) V1 (.p(_net0),.n(gnd));
 endmodule // main
 

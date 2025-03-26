@@ -18,6 +18,14 @@ parameter Z_Diodes_1N4728A not specified, using default
 parameter Z_Diodes_1N4728A value is "NOT_INPUT"
 parameter Z_Diodes_1N4728A not specified, using default
 parameter Z_Diodes_1N4728A value is "NOT_INPUT"
+parameter Z_Diodes_1N4728A not specified, using default
+parameter Z_Diodes_1N4728A value is "NOT_INPUT"
+parameter Z_Diodes_1N4728A not specified, using default
+parameter Z_Diodes_1N4728A value is "NOT_INPUT"
+parameter Z_Diodes_1N4728A not specified, using default
+parameter Z_Diodes_1N4728A value is "NOT_INPUT"
+parameter Z_Diodes_1N4728A not specified, using default
+parameter Z_Diodes_1N4728A value is "NOT_INPUT"
 open circuit: internal node 9
 Gnucap   System status
 iterations: op=0, dc=0, tran=1717, fourier=0, total=1869

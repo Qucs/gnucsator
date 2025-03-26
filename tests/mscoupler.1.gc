@@ -17,6 +17,7 @@ load microstrip_wrap.so
 hidemodule *
 
 qucs
+ground gnd;
 Pac:P1 _net13 gnd Num="1" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
 Pac:P2 _net6 gnd Num="2" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"
 Pac:P3 _net2 gnd Num="3" Z="50 Ohm" P="0 dBm" f="1 GHz" Temp="26.85"

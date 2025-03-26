@@ -42,7 +42,12 @@ static void print_item(OMSTREAM out, CARD const* c)
 /*--------------------------------------------------------------------------*/
 void list_save(CS& cmd, OMSTREAM out, CARD_LIST* scope)
 {
-  CARD_LIST::card_list.precalc_first();
+  assert(scope);
+  if (scope == &CARD_LIST::card_list) {
+  }else{untested();
+  }
+  scope->precalc_first();
+
 
   //out.setfloatwidth(7);
   switch (ENV::run_mode) {

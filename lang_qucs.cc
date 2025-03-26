@@ -25,6 +25,8 @@
 #include <e_paramlist.h>
 #include <e_subckt.h>
 #include <globals.h>
+#include <u_node.h>
+#include <u_nodemap.h>
 
 // header hack
 // #include "d_logic.h"
@@ -50,7 +52,7 @@ using std::string;
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
-static /*const*/  std::string ground_name="0";
+static /*const*/  std::string ground_name="gnd";
 /*--------------------------------------------------------------------------*/
 struct subckt_alias{
 	subckt_alias(){
@@ -287,8 +289,6 @@ void LANG_QUCSATOR::parse_ports(CS& cmd, COMPONENT* x, int minnodes,
 				if (cmd.stuck(&here)) {itested();
 					// didn't move, probably a terminator.
 					throw Exception("bad node name");
-				}else if(node_name=="gnd"){
-					x->set_port_by_index(ii, ground_name);
 				}else{
 					// legal node name, store it.
 					x->set_port_by_index(ii, node_name);
@@ -355,7 +355,7 @@ void LANG_QUCSATOR::parse_type(CS& cmd, CARD* x)
 void LANG_QUCSATOR::parse_args(CS& cmd, CARD* x)
 {
 	assert(x);
-	trace2("LANG_QUCSATOR::parse_args (card)", cmd.tail(), x->long_label());
+	trace2("LANG_QUCSATOR::parse_args (card)", cmd.tail(), x->short_label());
 	COMPONENT* xx = dynamic_cast<COMPONENT*>(x);
 	if (xx) {
 		COMMON_COMPONENT* cc = xx->mutable_common(); // probably bug. clone and reattach
@@ -501,7 +501,12 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 {
 	assert(x);
 	x->set(cmd.fullstring());
-	CARD_LIST* scope = (x->owner()) ? x->owner()->scope() : &CARD_LIST::card_list;
+	CARD_LIST* scope;
+	if(x->owner()){
+		scope = x->owner()->scope();
+	}else{
+		scope = &CARD_LIST::card_list;
+	}
 	trace3("LANG_QUCSATOR::parse_command", cmd.fullstring(), x->owner(), scope);
 
 	cmd.reset().umatch(QUCS_ANTI_COMMENT);
@@ -530,7 +535,7 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 	cmdproc(cmd, scope);
 
 	delete x;
-	return NULL;
+	return nullptr;
 }
 /*--------------------------------------------------------------------------*/
 MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)
@@ -569,7 +574,7 @@ BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, true/*all new*/);
 	}
-	x->subckt()->params()->obsolete_parse(cmd);
+	x->subckt()->params()->parse(cmd);
 
 	// body
 	parse_module_body(cmd, x, x->subckt(), name() + "-subckt>", NO_EXIT_ON_BLANK, ".Def:End ");
@@ -580,6 +585,19 @@ BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 void LANG_QUCSATOR::parse_module_body(CS& cmd, BASE_SUBCKT* x, CARD_LIST* Scope,
 		const std::string& prompt, EOB exit_on_blank, const std::string& exit_key)
 {
+  if (!x) { untested();
+#if 1
+    assert(x->scope()==x->subckt());
+    assert(x->scope()==Scope);
+    NODE* gnd = Scope->nodes()->new_node(ground_name);
+    USER_NODE* g = prechecked_cast<USER_NODE*>(gnd);
+    assert(g);
+    g->set_to_ground();
+#else
+#endif
+	  CMD::command("ground " +ground_name+";", Scope);
+  }else{
+  }
 	try {
 		for (;;) {
 			cmd.get_line(prompt);
@@ -611,7 +629,7 @@ COMPONENT* LANG_QUCSATOR::parse_instance(CS& cmd, COMPONENT* x)
 	string id_string = cmd.get_to(":");
 	trace1("got type", id_string);
 
-	COMMON_COMPONENT * c = NULL;
+	COMMON_COMPONENT * c = nullptr;
 
 	parse_label(cmd, x);
 
@@ -692,6 +710,13 @@ std::string LANG_QUCSATOR::find_type_in_string(CS& cmd) GCUF_CONST
 		}
 		trace1("LANG_QUCSATOR::find_type_in_string found command", id_string);
 		return id_string;
+	//}else if (cmd.skip1('`')) { untested();
+	}else if (first_letter=='`') {
+		cmd >> id_string;
+		if(id_string=="`ground"){ untested();
+			id_string="ground";
+		}else{
+		}
 	}else if (!cmd.scan(":")){
 		cmd >> id_string;
 	}else{
@@ -705,7 +730,7 @@ std::string LANG_QUCSATOR::find_type_in_string(CS& cmd) GCUF_CONST
 		}else{
 		}
 	}
-	trace2("LANG_QUCSATOR::find_type_in_string", cmd.fullstring(), id_string);
+	trace2("LANG_QUCSATOR::find_type_in_string3", cmd.fullstring(), id_string);
 	return id_string;
 }
 /*--------------------------------------------------------------------------*/
@@ -748,19 +773,23 @@ void LANG_QUCSATOR::cmdproc(CS& cmd, CARD_LIST* scope)
 		unreachable();
 	}else if (id_string != "") {
 		CMD* c = command_dispatcher[id_string];
+		if(!c && id_string[0]=='`'){ untested();
+			c = command_dispatcher[id_string.substr(0)];
+		}else{
+		}
 		if (c) {
 			c->set_label(cmdname);
 
 			c->do_it(cmd, scope);
 			trace1("LANG_QUCSATOR::cmdproc",c->short_label());
 			didsomething = true;
-		}else{itested();
+		}else{untested();
 			cmd.warn(bWARNING, here, "cmd: what's this?");
 		}
-	}else if (!didsomething) {itested();
+	}else if (!didsomething) {untested();
 		cmd.check(bWARNING, "bad command");
 		didsomething = false;
-	}else{itested();
+	}else{untested();
 	}
 
 	if (OPT::acct  &&  didsomething) { untested();
@@ -787,7 +816,8 @@ void LANG_QUCS::parse_top_item(CS& cmd, CARD_LIST* Scope)
 		IO::mstdout << head << '\n';
 	}else{
 		cmd.get_line("gnucap-qucs>");
-		new__instance(cmd, NULL, Scope);
+		trace1("qucs top", cmd.fullstring());
+		new__instance(cmd, nullptr, Scope);
 	}
 }
 /*--------------------------------------------------------------------------*/
@@ -839,7 +869,7 @@ void LANG_QUCSATOR::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_QUCSATOR::print_command(OMSTREAM& o, const DEV_DOT* x)
-{ untested();
+{
 	assert(x);
 	o << x->s() << '\n';
 }
@@ -852,7 +882,7 @@ void LANG_QUCSATOR::print_args(OMSTREAM& o, const MODEL_CARD* x)
 		if (x->param_is_printable(ii)) {
 			o << " " << x->param_name(ii) <<"=\""<<x->param_value(ii);
 			o << "\"";
-		}else{ untested();
+		}else{
 		}
 	}
 }
@@ -895,11 +925,7 @@ void LANG_QUCSATOR::print_ports(OMSTREAM& o, const COMPONENT* x)
 	std::string sep = "";
 	for (unsigned ii = 0;  x->port_exists(ii);  ++ii) {
 		o << sep;
-		if(x->port_value(ii) == "0"){
-			o << "gnd";
-		}else{
-		   o << x->port_value(ii);
-		}
+		o << x->port_value(ii);
 		sep = " ";
 	}
 	o << " ";
@@ -954,14 +980,14 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 	}
 	if (section_name == "") { untested();
 		trace0("spice?");
-		lang_qucs.parse_module_body(file, NULL, Scope, ">>>>", lang_qucs.NO_EXIT_ON_BLANK, ".end ");
+		lang_qucs.parse_module_body(file, nullptr, Scope, ">>>>", lang_qucs.NO_EXIT_ON_BLANK, ".end ");
 		trace0("done spice?");
 	}else{ untested();
 		try { untested();
 			for (;;) { untested();
 				file.get_line("lib " + section_name + '>');
 				if (file.umatch(".lib " + section_name + ' ')) { untested();
-					lang_qucs.parse_module_body(file, NULL, Scope, section_name,
+					lang_qucs.parse_module_body(file, nullptr, Scope, section_name,
 							lang_qucs.NO_EXIT_ON_BLANK, ".endl {" + section_name + "}");
 				}else{ untested();
 					// skip it

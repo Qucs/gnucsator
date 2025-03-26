@@ -438,14 +438,15 @@ private: // COMPONENT
 //	void set_port_by_index(int a, std::string& b) override { incomplete();}
 //	bool node_is_connected(int a) const override { incomplete(); return false; }
 	std::string dev_type()const override {return cd()->type;}
-	const std::string port_value(int i)const 
-	{
+#if 0
+	const std::string port_value(int i)const {
 		/// ????
 		assert(_n);
 		assert(i >= 0);
 		assert(i < net_nodes());
 		return _n[i].short_label();
 	}
+#endif
 
 	int max_nodes()const override{
 		return getSize();

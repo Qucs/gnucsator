@@ -12,11 +12,11 @@ load mgsim/d_vapot_br.so
 verilog
 
 module main (\1 , \2 , \3 );
-  // TODO: ground //
+  ground gnd;
   Vac #(.U(1.)) v(\1 , \1a )
-  Vdc #(.U(1.)) v(\1a , \0 )
+  Vdc #(.U(1.)) v(\1a , gnd )
   DCBlock #() d(\1 , \2 )
-  resistor #(.r(1)) r(\2 , \0 )
+  resistor #(.r(1)) r(\2 , gnd )
 endmodule // main
 
 main #() m(\1 , \2 , \3 )

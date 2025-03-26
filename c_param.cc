@@ -36,7 +36,7 @@ public:
     return PARAMETER<double>::operator=(s);
   }
 public:
-  void obsolete_parse(CS& cmd)override {
+  void parse(CS& cmd)override {
   double new_val;
   cmd >> new_val;
   if (cmd) {
@@ -89,8 +89,8 @@ public:
       PARAM_PARSE Value;
       std::string range_type;
       cmd >> Name;
-      if(cmd >> "="){
-	Value.obsolete_parse(cmd);
+      if(cmd >> "="){ untested();
+	cmd >> Value;
       }else{
       }
 

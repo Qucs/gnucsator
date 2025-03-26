@@ -288,17 +288,17 @@ void SPARAM::setup(CS& Cmd)
   size_t here = Cmd.cursor();
   do{
     if (Cmd.match1("'\"({") || Cmd.is_float()) {
-      _start.obsolete_parse(Cmd);
+      Cmd >> _start;
       trace1("SPARAM got start", _start);
       if (Cmd.match1("'\"({") || Cmd.is_float()) {
-        _stop.obsolete_parse(Cmd);
+        Cmd >> _stop;
       }else{ untested();
         _stop = _start;
         trace1("SPARAM got stop", _stop);
       }
       if (Cmd.match1("'\"({") || Cmd.is_float()) { untested();
         _stepmode = LIN_STEP;
-        _step_in.obsolete_parse(Cmd);
+        Cmd >> _step_in;
         trace1("SPARAM got step", _step);
       }else{
       }

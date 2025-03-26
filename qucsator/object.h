@@ -55,7 +55,7 @@ struct object : public MODEL_CARD{
 	std::string param_value(int i)const override{
 		if(i >= int(_p.size())) { untested();
 			return MODEL_CARD::param_name(i - _p.size());
-		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[i])) { untested();
+		}else if(auto ps = dynamic_cast<PARAMETER<double> const*>(_p[i])) {
 			return ps->string();
 		}else{ untested();
 			return "unreachable";

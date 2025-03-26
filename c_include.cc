@@ -58,7 +58,10 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "add_includepath", &p1);
 class CMD_INCLUDE : public CMD {
 public:
   void do_it(CS& cmd, CARD_LIST* Scope)override {
-    trace0("CMD_INCLUDE::do_it");
+    trace1("CMD_INCLUDE::do_it", Scope);
+    if(Scope == &CARD_LIST::card_list){
+    }else{ untested();
+    }
     size_t here = cmd.cursor();
     char* dirtmp=NULL;
     char* basetmp=NULL;
@@ -84,6 +87,7 @@ public:
         ((COMPONENT*)owner)->precalc_first(); // init mfactor=1
         Scope->push_back(owner);
         Scope = owner->scope();
+        CMD::command("ground gnd;",Scope);
       }else{
       }
 #endif
@@ -148,7 +152,7 @@ public:
     chdir(cwd);
   }
 } p0;
-DISPATCHER<CMD>::INSTALL d0(&command_dispatcher, "`include", &p0);
+DISPATCHER<CMD>::INSTALL d0(&command_dispatcher, "`include|`load_net", &p0);
 /*--------------------------------------------------------------------------*/
 }
 // vim:ts=8:sw=2:et

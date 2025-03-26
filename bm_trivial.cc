@@ -96,7 +96,7 @@ bool EVAL_BM_TRIVIAL::parse_numlist(CS& cmd)
 { untested();
   size_t here = cmd.cursor();
   PARAMETER<double> new_value(NOT_VALID);
-  new_value.obsolete_parse(cmd);
+  cmd >> new_value;
   if (cmd.gotit(here)) { untested();
     _value = new_value;
     return true;

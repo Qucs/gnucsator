@@ -1,13 +1,14 @@
 
 module main ();
+ground gnd;
 //# Qucs 0.0.19  /tmp/neur.sch 
 module TESTSUB (_net0,_net1);
 R #(.R(1)) a (.p(_net0),.n(_net1));
 VProbe #() Pr2 (.p(_net0),.n(_net1));
 endmodule // TESTSUB
 
-TESTSUB #(.Type(TESTSUB)) T1 (._net0(_net1),._net1(\0 ));
-Idc #(.I(3)) V1 (.\1 (_net1),.\2 (\0 ));
-VProbe #() Pr2 (.p(\0 ),.n(_net1));
+TESTSUB #(.Type(TESTSUB)) T1 (._net0(_net1),._net1(gnd));
+Idc #(.I(3)) V1 (.\1 (_net1),.\2 (gnd));
+VProbe #() Pr2 (.p(gnd),.n(_net1));
 endmodule // main
 

@@ -14,8 +14,9 @@ parameter U=1;
 parameter f=1;
 parameter Phase=0;
 parameter m=1;
+ground gnd;
 Vac #(.U(U) .f(f) .Phase(Phase)) V1(\1 , \2i );
-g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , \0 );
+g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , gnd );
 CCVS h(\2j , \1 , \2 , \1 );
 endmodule;
 // -------------------------------------------------------------------- //

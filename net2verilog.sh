@@ -29,7 +29,7 @@ fi
 $GNUCSATOR <<EOF
 qucs
 
-\`include $1 main
+\`load_net $1 main
 
 .verilog
 $save main

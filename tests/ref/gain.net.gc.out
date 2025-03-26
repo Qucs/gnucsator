@@ -10,30 +10,38 @@ parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
 parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
-OPV1.T3.n.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T3.n.mynmos: is - js conflict
-OPV1.T3.n.mynmos: nsub < ni, treating as if not input
-OPV1.T4.n.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T4.n.mynmos: is - js conflict
-OPV1.T4.n.mynmos: nsub < ni, treating as if not input
-OPV1.T6.n.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T6.n.mynmos: is - js conflict
-OPV1.T6.n.mynmos: nsub < ni, treating as if not input
-OPV1.T5.n.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T5.n.mynmos: is - js conflict
-OPV1.T5.n.mynmos: nsub < ni, treating as if not input
-OPV1.T8.n.mynmos: rsh - rs - rd conflict: using rsh
-OPV1.T8.n.mynmos: is - js conflict
-OPV1.T8.n.mynmos: nsub < ni, treating as if not input
-OPV1.T1.n.mypmos: rsh - rs - rd conflict: using rsh
-OPV1.T1.n.mypmos: is - js conflict
-OPV1.T1.n.mypmos: nsub < ni, treating as if not input
-OPV1.T2.n.mypmos: rsh - rs - rd conflict: using rsh
-OPV1.T2.n.mypmos: is - js conflict
-OPV1.T2.n.mypmos: nsub < ni, treating as if not input
 OPV1.T7.n.mypmos: rsh - rs - rd conflict: using rsh
 OPV1.T7.n.mypmos: is - js conflict
 OPV1.T7.n.mypmos: nsub < ni, treating as if not input
+OPV1.T2.n.mypmos: rsh - rs - rd conflict: using rsh
+OPV1.T2.n.mypmos: is - js conflict
+OPV1.T2.n.mypmos: nsub < ni, treating as if not input
+OPV1.T1.n.mypmos: rsh - rs - rd conflict: using rsh
+OPV1.T1.n.mypmos: is - js conflict
+OPV1.T1.n.mypmos: nsub < ni, treating as if not input
+OPV1.T8.n.mynmos: rsh - rs - rd conflict: using rsh
+OPV1.T8.n.mynmos: is - js conflict
+OPV1.T8.n.mynmos: nsub < ni, treating as if not input
+OPV1.T5.n.mynmos: rsh - rs - rd conflict: using rsh
+OPV1.T5.n.mynmos: is - js conflict
+OPV1.T5.n.mynmos: nsub < ni, treating as if not input
+OPV1.T6.n.mynmos: rsh - rs - rd conflict: using rsh
+OPV1.T6.n.mynmos: is - js conflict
+OPV1.T6.n.mynmos: nsub < ni, treating as if not input
+OPV1.T4.n.mynmos: rsh - rs - rd conflict: using rsh
+OPV1.T4.n.mynmos: is - js conflict
+OPV1.T4.n.mynmos: nsub < ni, treating as if not input
+OPV1.T3.n.mynmos: rsh - rs - rd conflict: using rsh
+OPV1.T3.n.mynmos: is - js conflict
+OPV1.T3.n.mynmos: nsub < ni, treating as if not input
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
+parameter singleOPV not specified, using default
+parameter singleOPV value is "NOT_INPUT"
 parameter singleOPV not specified, using default
 parameter singleOPV value is "NOT_INPUT"
 parameter singleOPV not specified, using default

@@ -75,7 +75,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     size_t size()const{return _v.size();}
 
     bool has_good_value()const override{incomplete(); return false;}
-    void obsolete_parse(CS&)override {incomplete();}
+    void parse(CS&)override {incomplete();}
 }; // PARAMETER<std::vector<PARAMETER<T> > >
 /*--------------------------------------------------------------------------*/
 template <class T>

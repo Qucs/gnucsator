@@ -337,8 +337,10 @@ int MAIN::operator()(int argc, char *const* argv)
         if (!sigsetjmp(env.p, true)) {
           try {
             if (OPT::language) {
+              trace1("parse_top_item0", cmd.fullstring());
               OPT::language->parse_top_item(cmd, _root_scope);
             }else{untested();
+              trace1("parse_top_item1", cmd.fullstring());
               CMD::cmdproc(cmd.get_line(I_PROMPT), _root_scope);
             }
           }catch (Exception_End_Of_Input& e) {

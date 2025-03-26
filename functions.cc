@@ -42,7 +42,7 @@ class FUNC_##name : public FUNCTION { \
   public: \
     fun_t eval(CS& Cmd, const CARD_LIST* Scope)const override { \
       PARAMETER<double> x; \
-      x.obsolete_parse(Cmd); \
+      x.parse(Cmd); \
       x.e_val(NOT_INPUT, Scope); \
       return to_fun_t(expr); \
     } \

@@ -127,7 +127,7 @@ private:
   std::string port_name(int i)const override;
   int set_param_by_name(std::string Name, std::string Value)override;
 } p1;
-DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
+// DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "module", &p1);
 /*--------------------------------------------------------------------------*/
 void DEV_MODULE::set_port_by_index(int Index, std::string& Value)
 {

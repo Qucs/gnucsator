@@ -603,7 +603,7 @@ public:
     return ret;
   }
 
-  void obsolete_parse(CS&) override { untested(); unreachable(); }
+  void parse(CS&) override { untested(); unreachable(); }
   PARA_BASE& operator=(const std::string&s) override{ _s = s; return *this;}
   PARA_BASE& operator=(Base const* v)override {
     delete _value;
@@ -957,6 +957,9 @@ BASE_SUBCKT* LANG_VERILOG::parse_module(CS& cmd, BASE_SUBCKT* x)
     }else if (cmd >> "//") {
       cmd.reset();
       new__instance(cmd, x, x->subckt());
+    }else if (cmd >> "ground ") {
+      cmd.reset();
+      new__instance(cmd, x, x->subckt());
     }else if (cmd >> "paramset ") { untested();
       cmd.reset();
       cmd.check(bDANGER, "ERROR: This will not work. Need top level.");
@@ -1168,9 +1171,9 @@ void LANG_VERILOG::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 }
 /*--------------------------------------------------------------------------*/
 void LANG_VERILOG::print_command(OMSTREAM& o, const DEV_DOT* x)
-{untested();
+{
   assert(x);
-  if(x->s().size()){ untested();
+  if(x->s().size()){
     o << x->s() << '\n';
   }else{ untested();
   }

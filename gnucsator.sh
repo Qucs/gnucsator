@@ -47,6 +47,7 @@ rm -f $out.ac
 
 $GNUCSATOR $ARGS <<EOF
 qucs
+ground gnd
 include $infile
 go ${out}
 status notime

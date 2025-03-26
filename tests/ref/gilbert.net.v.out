@@ -1,5 +1,6 @@
 
 module main ();
+ground gnd;
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/TR_gilbert_prj/gilbert.sch 
 //# .options trtol=1 
 //# .options abstol=1e-12 
@@ -15,15 +16,15 @@ R #(.R(100),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net4),.n(_net
 R #(.R(100),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(_net6));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(_net7),.n(_net8));
 Vac #(.Phase(0),.Theta(0),.U(0.1m),.f(100k)) RF (.\1 (_net7),.\2 (_net9));
-Vac #(.Phase(0),.Theta(0),.U(0.1m),.f(100k)) DBG1 (.\1 (dbgg),.\2 (\0 ));
+Vac #(.Phase(0),.Theta(0),.U(0.1m),.f(100k)) DBG1 (.\1 (dbgg),.\2 (gnd));
 C #(.C(1u)) C3 (.p(_net10),.n(_net8));
-Idc #(.I(8m)) I1 (.\1 (\0 ),.\2 (_net11));
+Idc #(.I(8m)) I1 (.\1 (gnd),.\2 (_net11));
 R #(.R(100k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R6 (.p(_net3),.n(_net6));
 R #(.R(100k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R7 (.p(_net0),.n(_net6));
-Vdc #(.U(10)) V1 (.p(_net6),.n(\0 ));
-Vdc #(.U(10)) V2 (.p(_net12),.n(\0 ));
-Tr #(.T(1)) Tr1 (.outp(Output),.inp(_net1),.inn(_net4),.outn(\0 ));
-R #(.R(200),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R5 (.p(\0 ),.n(Output));
+Vdc #(.U(10)) V1 (.p(_net6),.n(gnd));
+Vdc #(.U(10)) V2 (.p(_net12),.n(gnd));
+Tr #(.T(1)) Tr1 (.outp(Output),.inp(_net1),.inn(_net4),.outn(gnd));
+R #(.R(200),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R5 (.p(gnd),.n(Output));
 R #(.R(200k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R8 (.p(_net12),.n(_net10));
 R #(.R(200k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R9 (.p(_net12),.n(_net9));
 endmodule // main

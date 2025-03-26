@@ -50,9 +50,10 @@ module Amp(\1 , \2 );
 	parameter Z2=50;
 	parameter NF=1;
 
+	ground gnd;
 	// almost?
 	resistor #(.r(Z1)) r(\2i , \2 );
-	vcvs #(.gain(G)) vs1(\2i , \0 , \1 , \0 );
+	vcvs #(.gain(G)) vs1(\2i , gnd, \1 , gnd);
 endmodule
 
 // is it lumped?
@@ -66,7 +67,8 @@ module TLIN (t1, t2)
 
 // local??
   parameter c0=299792458.0;
-  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t2(.t1(t1) , .b1(\0 ) , .t2(t2) , .b2(\0 ) );
+  ground gnd;
+  tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t2(.t1(t1) , .b1(gnd) , .t2(t2) , .b2(gnd) );
 endmodule
 
 module TLIN4P (t1, t2, b2, b1)
