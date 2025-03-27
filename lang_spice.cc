@@ -758,12 +758,12 @@ void LANG_SPICE_BASE::print_instance_caneda(OMSTREAM& o, const COMPONENT* x,
 	o << x->short_label() << " ";
       }else if(cmd >> "port"){
 	std::string name;
-	cmd >> name;
-	o << " " << port_value(name, x) << " ";
+	cmd >> name ;
+	o << port_value(name, x) << " ";
       }else if(cmd >> "property"){
 	std::string name;
 	cmd >> name;
-	o << " " << param_value(name, x) << " ";
+	o << param_value(name, x) << " ";
       }else{ untested();
 	o << "??";
       }
