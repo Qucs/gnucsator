@@ -816,7 +816,11 @@ void LANG_SPICE_BASE::print_comment(OMSTREAM& o, const DEV_COMMENT* x)
 void LANG_SPICE_BASE::print_command(OMSTREAM& o, const DEV_DOT* x)
 {itested();
   assert(x);
-  o << x->s() << '\n';
+  if(x->s()[0] == '.') {
+    o << x->s() << '\n';
+  }else{
+    // not originating from spice. probably won't work anyway
+  }
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -943,7 +947,6 @@ class CMD_SUBCKT : public CMD {
   void do_it(CS& cmd, CARD_LIST* Scope)override { untested();
     BASE_SUBCKT* new_module = dynamic_cast<BASE_SUBCKT*>(device_dispatcher.clone("subckt"));
     assert(new_module);
-    assert(!new_module->owner());
     new_module->set_owner(nullptr);
     assert(new_module->subckt());
     assert(new_module->subckt()->is_empty());
