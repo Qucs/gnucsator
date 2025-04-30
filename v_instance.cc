@@ -245,9 +245,31 @@ public:
     BASE_SUBCKT::set_port_by_index(Index, Value);
   }
 
-  int set_port_by_name(std::string&, std::string&)override { untested();
-    unreachable();
-    return 0.;
+  int set_port_by_name(std::string&name, std::string&ext_name)override { untested();
+    trace3("BUG?", long_label(), name, ext_name);
+    // return INSTANCE::set_port_by_name(name, value);
+    int i = net_nodes();
+    _port_names.push_back(name);
+
+    if(subckt()){ untested();
+    }else{
+    }
+    assert(scope());
+
+
+    if(_proto){
+      { // INSTANCE::set_port_by_index(i, ext_name);
+	grow_nodes(i, _n, _node_capacity, node_capacity_floor);
+	BASE_SUBCKT::set_port_by_index(i, ext_name);
+      }
+      _proto->set_port_by_index(i, name);
+      assert(scope()!=subckt());
+    }else{
+      trace4("INSTANCE::pbn proto", long_label(), net_nodes(), name, ext_name);
+      set_port_by_index(i, ext_name);
+    }
+
+    return i; // TODO: test.
   }
 //  int		max_nodes()const	{ untested(); return int(_nodes.size());}
 
@@ -309,19 +331,32 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
 
   try {
     trace3("DEV_INSTANCE_PROTO::po, set port in proto", Proto->short_label(), Proto->net_nodes(), Proto->max_nodes());
-    trace1("DEV_INSTANCE_PROTO::po, set port in proto", net_nodes());
+    trace2("DEV_INSTANCE_PROTO::po, set port in proto", net_nodes(), Proto->subckt()->nodes()->size());
     for(int i=0; i<Proto->net_nodes(); ++i){
+      std::string nn = Proto->port_name(i);
       std::string v = Proto->port_value(i);
-      trace3("DEV_INSTANCE_PROTO::po, set port in proto", Proto->short_label(), i, v);
-      trace2("DEV_INSTANCE_PROTO::po, set port in proto", c->net_nodes(), c->max_nodes());
 
-      if(v[0] == '*'){
+      if(nn[0] == '*'){
+	trace4("DEV_INSTANCE_PROTO::po by idx", c->long_label(), i, v, nn);
 	c->set_port_by_index(i, v);
       }else{
+	trace2("DEV_INSTANCE_PROTO::po by name", v, v);
 	c->set_port_by_name(v, v);
       }
+
+      if(i<c->net_nodes()){
+	// OK
+      }else if(i<c->net_nodes()+c->num_current_ports()){ untested();
+	trace2("DEV_INSTANCE_PROTO::po current port?", i, v);
+	std::string branch_name = Proto->port_value(i); // v.substr(1);
+	trace1("DEV_INSTANCE_PROTO::po current port?", branch_name);
+	c->set_port_by_index(i, branch_name);
+	// assert(0); // later
+      }else{ untested();
+	trace2("DEV_INSTANCE_PROTO::po sth wrong", i, v);
+      }
     }
-    if(Proto->net_nodes() < c->min_nodes()){
+    if(Proto->net_nodes() < c->min_nodes()){ untested();
       throw Exception("not enough nodes, have "
 	    + std::to_string(Proto->net_nodes()) + " need "
 	    + std::to_string(c->min_nodes()) +"\n");
@@ -442,6 +477,7 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
 CARD* INSTANCE::deflate()
 {
 //  return this; // keep it all. for debugging
+  trace1("INSTANCE::deflate", long_label());
   CARD_LIST* s = subckt();
   assert(s);
   assert(_parent);
@@ -480,16 +516,28 @@ CARD* INSTANCE::deflate()
     COMPONENT* c = prechecked_cast<COMPONENT*>(r);
     assert(c);
     int h = _parent->subckt()->nodes()->how_many();
-    trace2("rewire", long_label(), h);
+    for(int a = 0; a < _parent->net_nodes(); ++a) {
+      trace3("rewire p", a, _parent->port_name(a), _parent->port_value(a));
+    }
+    trace3("rewire", long_label(), h, net_nodes());
 #if 0
-    for(int ii=0; ii<net_nodes(); ++ii){
+    for(int ii=0; ii<net_nodes(); ++ii){ untested();
       std::string nn = _n[ii].n_()->short_label();
       trace4("rewire", long_label(), ii, nn, c->n_(ii).n_()->short_label());
       trace4("rewire", long_label(), ii, c->n_(ii).e_(), n_(ii).e_());
     }
 #endif
     for(int ii=0; ii<net_nodes(); ++ii){
-      c->n_(ii) = n_(c->n_(ii).e_());
+      if(ii < c->net_nodes()) {
+	trace3("rewire do", ii, c->n_(ii).e_(), _parent->port_name(ii));
+	if( _parent->port_name(ii)[0] == '*'){
+	  c->n_(ii) = n_(ii); // why?
+	}else{
+	  c->n_(ii) = n_(c->n_(ii).e_());
+	}
+      }else if(ii < c->net_nodes()+c->num_current_ports()){ untested();
+      }else{ untested();
+      }
     }
 
     assert(r->dev_type()!="");
@@ -597,7 +645,7 @@ void INSTANCE::expand()
   trace3("INSTANCE::expand", long_label(), _parent->net_nodes(),  _parent->subckt()->nodes()->how_many());
   if(_parent->net_nodes() <= _parent->subckt()->nodes()->how_many()){
     // module
-  }else{ untested();
+  }else{
     // modelgen
   }
   assert(_parent->subckt()->params());
@@ -678,7 +726,7 @@ void INSTANCE::expand()
       assert(gotit);
       *j = nullptr;
     }else if(d->param_count() > gotit->param_count()){
-      if(desc.size()){
+      if(desc.size()){ untested();
 	error(bTRACE, long_label() + " rejecting candidate, more params"+desc+".\n");
       }else{
 	error(bDEBUG, long_label() + " tie break: " + to_string(gotit->param_count()) + " vs. " +
@@ -695,7 +743,7 @@ void INSTANCE::expand()
       gotit = prechecked_cast<COMPONENT*>(*j);
       assert(gotit);
       *j = nullptr;
-    }else if(d->max_nodes() > gotit->max_nodes()){
+    }else if(d->max_nodes() > gotit->max_nodes()){ untested();
       error(bDEBUG, long_label() + " port tie break: " + to_string(gotit->max_nodes()) + " vs. " +
 	  to_string(d->max_nodes()) + "\n");
     }else if(d->max_nodes() < gotit->max_nodes()){
@@ -730,19 +778,24 @@ void INSTANCE::expand()
   }
 
   trace2("INSTANCE::expand, pre expand sckt", long_label(), dev_type());
-  subckt()->expand(); // here? duplicate precalc_first...
 
-  for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
-    CARD* s = *i;
-    assert(s->owner()==owner());
-    CARD* d = s->deflate();
-
-    if(d == s){
+  COMPONENT* dev = dynamic_cast<COMPONENT*>(*subckt()->begin());
+  if(0){
+    // cannot expand_last
+    subckt()->expand();
+  }else{
+    dev->precalc_first();
+    dev->expand_first();
+    dev->expand();
+    if(0){
     }else{
-      assert(d->owner() == owner());
-      *i = d;
-      delete s;
-    //  d->precalc_last(); // needed?
+      COMPONENT* ddd = dynamic_cast<COMPONENT*>(dev->deflate());
+      if(ddd!=dev){
+	*subckt()->begin() = ddd;
+	delete (CARD*)dev;
+	dev = ddd;
+      }else{
+      }
     }
   }
 }
@@ -818,8 +871,8 @@ void INSTANCE::set_port_by_index(int Index, std::string& Value)
     assert(_proto);
 
     std::string n = "*unnamed_port_" + std::to_string(Index);
-    _proto->set_port_by_index(Index, n);
-    trace2("proto fwd", long_label(), net_nodes());
+    trace3("proto fwd", long_label(), n, Value);
+    _proto->set_port_by_name(n, Value);
   }else{ untested();
     incomplete();
   }
@@ -827,7 +880,6 @@ void INSTANCE::set_port_by_index(int Index, std::string& Value)
 /*--------------------------------------------------------------------------*/
 int INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
 {
-  trace3("INSTANCE::pbn", long_label(), name, ext_name);
 
   int i = net_nodes();
   _port_names.resize(net_nodes()+1);
@@ -843,10 +895,14 @@ int INSTANCE::set_port_by_name(std::string& name, std::string& ext_name)
     BASE_SUBCKT::set_port_by_index(i, ext_name);
   }
 
-  assert(_proto);
-  _proto->set_port_by_index(i, name);
+  if(_proto){
+    _proto->set_port_by_index(i, name);
+    assert(scope()!=subckt());
+  }else{
+    trace4("INSTANCE::pbn proto", long_label(), net_nodes(), name, ext_name);
+    set_port_by_index(i, ext_name);
+  }
 
-  assert(scope()!=subckt());
   return i; // TODO: test.
 }
 /*--------------------------------------------------------------------------*/
