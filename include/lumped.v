@@ -32,14 +32,23 @@ endmodule // R
 
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
 // Zref is some sparam hack.. ignore for now
+
 module Gyrator(\1 , \2 , \3 , \4 );
+  parameter R=1;
+  vccs #(1/R) cs1(\2 , \3 , \4 , \1 );
+  vccs #(1/R) cs2(\1 , \4 , \2 , \3 );
+endmodule
+
+// old gyrator, seems numerically unstable
+// use with caution.
+module Gyrator1(\1 , \2 , \3 , \4 );
 parameter R=50;
 
-ccvs #(.gain(R)) vs1(\2 , \3i , vp2);
-vsource #(.dc(0)) vp1(\3i , \3 );
+ccvs #(.gain(R)) vs1(\3i , \2 , vp2);
+vsource #(.dc(0)) vp1(\3 , \3i );
 
-ccvs #(.gain(R)) vs2(\4i , \1 , vp1);
-vsource #(.dc(0)) vp2(\4i , \4 );
+ccvs #(.gain(R)) vs2(\1 ,\4i , vp1);
+vsource #(.dc(0)) vp2(\4 , \4i );
 endmodule
 
 

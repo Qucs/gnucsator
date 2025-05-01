@@ -32,6 +32,8 @@
 // "lumped components" section 
 // Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm" 
 // Zref is some sparam hack.. ignore for now 
+// old gyrator, seems numerically unstable 
+// use with caution. 
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB" 
 // is it lumped? 
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85" 

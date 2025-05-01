@@ -1,12 +1,12 @@
 (* spice_caneda="V%label %port{p} %port{n} DC %property{Va} AC %property{Va} 0 SIN( %property{Voff} %property{Va} %property{freq} %property{td} %property{theta} )" *) module vsine (.p(p),.n(n));
-// behavioural model could go here. 
-// analog begin 
-//   if($analysis("ac")) 
-//     V(p,n)<+ac_stim(...); 
-//   else 
-//     V(p,n)<+ sin(...) 
-//   endif 
-// end 
+// behavioural model could go here.
+// analog begin
+//   if($analysis("ac"))
+//     V(p,n)<+ac_stim(...);
+//   else
+//     V(p,n)<+ sin(...)
+//   endif
+// end
 endmodule // vsine
 
 module my_schematic ();
@@ -18,7 +18,7 @@ endmodule // my_schematic
 #          
  27.       
 .subckt my_schematic (  )
-Vv  a  b DC  5. AC  5. 0 SIN(  0.  5.  3  0.  0. )
+Vv a b DC 5. AC 5. 0 SIN( 0. 5. 3 0. 0. )
 r1 ( a b ) 4k
 Voverride somethingelse x y
 .ends my_schematic
