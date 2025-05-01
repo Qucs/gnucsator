@@ -1,0 +1,93 @@
+<Qucs Dataset>
+default plugins: ignored
+.SP:SP1 Type="l ... 30 GHz" Points="15" Noise="no" NoiseIP="1" NoiseOP="2" s
+                                        ^ ? what's this (incomplete)?
+C:C_CND1 gnd _net6 C="C_CND1" V="" 
+                              ^ ? C_CND1: V has no value?
+C:C_RS1 gnd _net1 C="C_RS1" V="" 
+                            ^ ? C_RS1: V has no value?
+C:C_ki1 gnd _net5 C="C_ki1" V="" 
+                            ^ ? C_ki1: V has no value?
+dB(S[1,1])
+      ^ ? missing ]?
+phase(S[1,1])
+         ^ ? missing ]?
+dB(S[1,1])
+      ^ ? missing ]?
+phase(S[1,1])
+         ^ ? missing ]?
+dB(S[1,1])
+      ^ ? missing ]?
+phase(S[1,1])
+         ^ ? missing ]?
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+open circuit: internal node 2
+open circuit: internal node 6
+Gnucap   System status
+iterations: op=3, dc=0, tran=0, fourier=0, total=18
+transient timesteps: accepted=0, rejected=0, total=0
+transient timesteps: accepted=0, rejected=0, total=0
+nodes: user=8, subckt=1, model=0, total=9
+dctran density=48.1%, ac density=48.1%
+
+<indep frequency 15>
+ 1.E+9
+ 3.071429E+9
+ 5.142857E+9
+ 7.214286E+9
+ 9.285714E+9
+ 11.35714E+9
+ 13.42857E+9
+ 15.5E+9
+ 17.57143E+9
+ 19.64286E+9
+ 21.71429E+9
+ 23.78571E+9
+ 25.85714E+9
+ 27.92857E+9
+ 30.E+9
+</indep>
+<dep S[1,1] frequency>
+ 0.04330157-j0.00257203844
+ 0.04142358-j0.007802577082
+ 0.03763589-j0.01273632174
+ 0.0320014-j0.01717123573
+ 0.02452218-j0.0209064408
+ 0.01525581-j0.02373935297
+ 0.004329062-j0.02546395541
+-0.008202731-j0.02587880697
+-0.02223314-j0.02478278668
+-0.03758981-j0.02197628552
+-0.05414796-j0.0172694448
+-0.07165505-j0.01047864316
+-0.08996276-j0.001438499592
+-0.108759+j0.009999646726
+-0.127816+j0.0239587237
+</dep>

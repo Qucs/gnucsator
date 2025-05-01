@@ -245,13 +245,13 @@ public:
     BASE_SUBCKT::set_port_by_index(Index, Value);
   }
 
-  int set_port_by_name(std::string&name, std::string&ext_name)override { untested();
+  int set_port_by_name(std::string&name, std::string&ext_name)override {
     trace3("BUG?", long_label(), name, ext_name);
     // return INSTANCE::set_port_by_name(name, value);
     int i = net_nodes();
     _port_names.push_back(name);
 
-    if(subckt()){ untested();
+    if(subckt()){
     }else{
     }
     assert(scope());
