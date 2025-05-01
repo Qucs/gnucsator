@@ -421,8 +421,12 @@ void SPARAM::solve()
 
   ::status.load.start();
   _sim->count_iterations(iTOTAL);
-  CARD_LIST::card_list.do_ac();
-  CARD_LIST::card_list.ac_load();
+  _scope->do_ac();
+  while (!_sim->_late_evalq.empty()) {untested(); //BUG// encapsulation violation
+    _sim->_late_evalq.front()->do_ac_last();
+    _sim->_late_evalq.pop_front();
+  }
+  _scope->ac_load();
   ::status.load.stop();
 
   if (_dump_matrix){ untested();
