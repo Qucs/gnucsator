@@ -7,6 +7,7 @@
 #include "microstrip/msline.h"
 #include "microstrip/mscoupled.h"
 #include "microstrip/mslange.h"
+#include "microstrip/msmbend.h"
 #include "microstrip/msopen.h"
 #include "microstrip/msstep.h"
 // #include "microstrip/mstee.h"
@@ -36,6 +37,9 @@ msline c12;
 DISPATCHER<CARD>::INSTALL d12(&device_dispatcher, msline::cirdef.type, &c12);
 
 // CIR_MSMBEND = 0;
+msmbend c_open;
+DISPATCHER<CARD>::INSTALL d_open(&device_dispatcher, msmbend::cirdef.type, &c_open);
+// CIR_MOPEN = 0;
 msopen c14;
 DISPATCHER<CARD>::INSTALL d14(&device_dispatcher, msopen::cirdef.type, &c14);
 // CIR_MSRSTUB = 0;	

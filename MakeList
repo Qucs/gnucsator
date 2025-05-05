@@ -94,6 +94,7 @@ MICROSTRIP_OBJS = \
 	qucsator/mscoupled.o \
 	qucsator/mslange.o \
 	qucsator/msopen.o \
+	qucsator/msmbend.o \
 	qucsator/msstep.o \
 	qucsator/msline.o
 
@@ -108,3 +109,6 @@ QUCSATOR_OBJS = \
 
 CLEANFILES = $(QUCS_PLUGINS) ${PLUGIN_VAMS:%.vams=%.cc} *.o *~ gnucsator
 DISTCLEANFILES = Make.override Makefile
+
+# BUG generate
+lang_qucs.so: ${srcdir}/l_qucs.h

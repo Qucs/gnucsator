@@ -70,12 +70,16 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
 }
 
 bool QucsGuessParam(std::string& s)
-{
+{ untested();
   char const* p = s.c_str();
   std::string temp;
 
   // yikes. some variables seem to be strings.
+  // BUG: some refer to other instances
   if(s == "Aluminia"){
+    s = '"' + s + '"';
+    return true;
+  }else if(s == "Subst1"){ untested();
     s = '"' + s + '"';
     return true;
   }else if(s == "Kirschning"){

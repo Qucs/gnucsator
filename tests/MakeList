@@ -34,6 +34,7 @@ COMMON_TESTS = \
 	lang_qucs.2.net \
 	lang_qucs.3.net \
 	mixer.net \
+	miter.0.net \
 	mscoupler.1.net \
 	mline.0.net \
 	MUT.net \

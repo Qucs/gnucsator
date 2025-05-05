@@ -635,7 +635,8 @@ COMPONENT* LANG_QUCSATOR::parse_instance(CS& cmd, COMPONENT* x)
 
 	{
 		size_t here = cmd.cursor();
-		int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), 0, 0);
+		int max_nodes = x->max_nodes();
+		int num_nodes = count_ports(cmd, max_nodes, x->min_nodes(), 0, 0);
 		//int num_nodes = count_ports(cmd, x->max_nodes(), x->min_nodes(), x->tail_size(), 0);
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, false);

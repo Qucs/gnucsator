@@ -448,7 +448,7 @@ private: // COMPONENT
 	}
 #endif
 
-	int max_nodes()const override{
+	int max_nodes()const override{ untested();
 		return getSize();
 	}
 	int net_nodes()const override{

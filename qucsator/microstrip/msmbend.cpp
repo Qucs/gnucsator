@@ -27,7 +27,7 @@
 # include <config.h>
 #endif
 
-#include "component.h"
+#include "../component.h"
 #include "substrate.h"
 #include "msmbend.h"
 
@@ -94,12 +94,13 @@ void msmbend::initDC (void) {
   voltageSource (VSRC_1, NODE_1, NODE_2);
 }
 
-void msmbend::initAC (void) {
+void msmbend::initAC (void) { untested();
+	incomplete(); //does not work.
   setVoltageSources (0);
   allocMatrixMNA ();
 }
 
-void msmbend::calcAC (nr_double_t frequency) {
+void msmbend::calcAC (nr_double_t frequency) { untested();
   setMatrixY (ztoy (calcMatrixZ (frequency)));
 }
 
