@@ -12,10 +12,11 @@ common features and compare the performances between *csators.
 
 == Schematic format
 
-Once Qucs has moved on to a suitable schematic format there will be no more
-need for Qucsator style intermediate netlists with partial data. The idea here
-is to pass circuit models from one tool to another wihout losing information,
-following an established standard [1]. See Qucs/ROADMAP for details.
+Qucs has moved on to a suitable schematic format and there is no more need for
+Qucsator style intermediate netlists with partial data. The idea here is to
+store the circuit in a comprehensible format, and keep it intact when passing
+it to another tool (or newer versions of the same tool). The new format follows
+an established standard [1]. See Qucs/ROADMAP [2] for details.
 
 == User supplied component models
 
@@ -26,3 +27,4 @@ Verilog-95. Gnucsator inherits language compliance from Gnucap, which is
 currently moving towards Verilog-AMS.
 
 [1] http://gnucap.org/dokuwiki/doku.php/gnucap:user:netlist_import_and_export
+[2] https://codeberg.org/qucs/gui/src/branch/develop/ROADMAP
