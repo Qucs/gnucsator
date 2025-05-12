@@ -5,5 +5,6 @@ INSTALL_FILES = \
 	logic.v \
 	lumped.v \
 	nonlinear.v \
-   sources.v \
+	sources.v \
+	suppl.v \
 	vadev.v

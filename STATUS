@@ -19,18 +19,20 @@ SIMULATION COMMANDS
 │ operating point │  DC             │   M            │ TEI  │                │
 │ transient       │  TR             │   UO           │ TEI  │ mixed signal   │
 │ s-parameter     │  SP             │   C            │ TEI  │ uses ac matrix │
-│ ac analysis     │  AC             │   M            │ TEI  │ needs output   │
+│ ac analysis     │  AC             │   M            │ TEI  │ plain output   │
 │ sweep           │  SW             │   C            │ TEI  │ DC parameters  │
 │ pz              │  ?              │   C            │      │ gnucap-python  │
 │ sensitivity     │  ?              │                │      │ gnucap-uf..    │
-│ noise           │  ?              │                │      │ gnucap-uf..    │
-│ harmonic balance│                 │                │      │ WIP            │
+│ noise           │  ?              │ ac + probes    │ TE   │ probes not set │
+│ harmonic balance│                 │                │      │ later          │
 └─────────────────┴─────────────────┴────────────────┴──────┴────────────────┘
 
 COMPONENTS (table ripped from [1])
 
 - implementation column
     N  native gnucap plugin
+    Q  native qucsator, wrapped
+   (Q) needs work
     S  sckt based ("macro") model
     W  sckt wrapper, bultin component
     B  built in component + wrapper
@@ -56,14 +58,15 @@ COMPONENTS (table ripped from [1])
    (T) have a test, doesn't work
 
 ┌─────────────────┬─────────────────┬────────────────┬──────┬────────────────┐
-│    component    │  qucsator name  │ implementation │ test │    comment     │
+│    component    │  qucs name      │ implementation │ test │    comment     │
 ├─────────────────┼─────────────────┼────────────────┼──────┼────────────────┤
 │ subckt          │   Sub           │ N, d_subckt    │ TE   │                │
 │                 │                 │                │      │                │
 │ resistor        │   R             │  E  [V]        │ T    │                │
 │ capacitor       │   C             │  E  [V]        │ T    │                │
 │ inductor        │   L             │ (E) [V]        │      │                │
-│ ground          │   -             │                │      │ BUG, hidden    │
+│ ground          │   GND           │  V             │      │ schematic only │
+│ net             │   net           │  V             │      │ schematic only │
 │ DC block        │   DCBlock       │  V             │ T    │ no ac_eval yet |
 │ DC feed         │                 │                │      │                │
 │ bias T          │   BiasT         │  S             │      │                │
@@ -84,21 +87,21 @@ COMPONENTS (table ripped from [1])
 │ rect waveguide  │                 │                │      │                │
 │ microstrip line │ MLIN            │  Q             │ TE   │                │
 │ microstrip open │ MOPEN           │  Q             │ TE   │                │
-│ mstrip cross    │                 │  Q             │      │                │
-│ mstrip mit bend │                 │  Q             │      │                │
+│ mstrip cross    │                 │ (Q)            │      │                │
+│ mstrip mit bend │ MMBEND          │  Q             │ TE   │                │
 │ microstrip step │ MSTEP           │  Q             │ TE   │ bpf test       │
-│ microstrip tee  │                 │  Q             │      │                │
-│ mstrip corner   │                 │  Q             │      │                │
-│ microstrip gap  │                 │  Q             │      │                │
+│ microstrip tee  │                 │ (Q)            │      │                │
+│ mstrip corner   │                 │ (Q)            │      │                │
+│ microstrip gap  │                 │ (Q)            │      │                │
 │ cpld mstrip line│ MCOUPLED        │  Q             │ TE   │ SP working     │
-│ microstrip via  │                 │  Q             │      │                │
-│ mstrip rad stub │                 │  Q             │      │                │
-│ coplanar line   │                 │  Q             │      │                │
-│ coplanar open   │                 │  Q             │      │                │
-│ coplanar short  │                 │  Q             │      │                │
-│ coplanar ser gap│                 │  Q             │      │                │
-│ coplanar step   │                 │  Q             │      │                │
-│ bond wire       │                 │  Q             │      │                │
+│ microstrip via  │                 │ (Q)            │      │                │
+│ mstrip rad stub │                 │ (Q)            │      │                │
+│ coplanar line   │                 │ (Q)            │      │                │
+│ coplanar open   │                 │ (Q)            │      │                │
+│ coplanar short  │                 │ (Q)            │      │                │
+│ coplanar ser gap│                 │ (Q)            │      │                │
+│ coplanar step   │                 │ (Q)            │      │                │
+│ bond wire       │                 │ (Q)            │      │                │
 │ transformer     │ Tr              │      S         │ TE   │ tested T=1     │
 │ symm trafo      │ sTr             │      S         │ TE   │ tested T1=T2=1 │
 │ cccs            │ CCCS            │ (E) [V] S      │ EI   │                │
