@@ -1,5 +1,6 @@
 #include "netdefs.h"
 #include <e_model.h>
+#include <e_cardlist.h>
 
 namespace qucs{
 
@@ -89,11 +90,12 @@ struct object : public MODEL_CARD{
 private: // MODEL_CARD
 	void precalc_first() override{
 		CARD_LIST* Scope=scope();
+		assert(Scope);
 		MODEL_CARD::precalc_first();
 
 		for(unsigned s=0; s<_p.size(); ++s){
 			if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){
-				ps->e_val(NOT_VALID, Scope);
+				ps->e_val(NOT_VALID, Scope->params());
 				trace3("param", s, ps->string(), *ps);
 			}else{
 			}

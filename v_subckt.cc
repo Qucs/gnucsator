@@ -66,7 +66,7 @@ private: // override virtual
   int		net_nodes()const override	{return _net_nodes;}
   void		precalc_first()override;
   bool		makes_own_scope()const override  {return !_parent;}
-  bool		is_valid() const override;
+  int		is_valid() const override;
   CARD_LIST*	   scope() override;
   const CARD_LIST* scope()const override	{return const_cast<DEV_SUBCKT*>(this)->scope();}
 
@@ -131,7 +131,7 @@ CARD_LIST* DEV_SUBCKT::scope()
   }
 }
 /*--------------------------------------------------------------------------*/
-bool DEV_SUBCKT::is_valid() const
+int DEV_SUBCKT::is_valid() const
 { untested();
   assert(subckt());
   assert(_parent);
@@ -139,7 +139,7 @@ bool DEV_SUBCKT::is_valid() const
   PARAM_LIST const* params = _parent->subckt()->params();
   PARAM_INSTANCE v = params->deep_lookup("_..is_valid");
   trace2("DEV_MODULE::is_valid I", long_label(), v.string());
-  Base const* x = v.e_val(nullptr, subckt());
+  Base const* x = v.e_val(nullptr, subckt()->params());
   Integer c;
   Integer* res = c.assign(x);
   if(!res) { untested();
@@ -292,7 +292,7 @@ void DEV_SUBCKT::expand()
   for(CARD_LIST::iterator i=subckt()->begin(); i!=subckt()->end(); ++i){
     CARD* d = (*i)->deflate();
 
-    if(d == (*i)){ untested();
+    if(d == (*i)){
     }else{
       assert(d->owner() == this);
       delete *i;

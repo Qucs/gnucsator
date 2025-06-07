@@ -57,7 +57,7 @@ private: // override vitrual
   void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const override;
 // not yet  bool use_obsolete_callback_print()const { untested();return false;}
 
-  void		precalc_last(const CARD_LIST*)override;
+  void		precalc_last(const PARAM_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
   std::string	name()const override { untested();return "poly";}
   bool		ac_too()const override {untested();return false;}
@@ -115,7 +115,7 @@ void EVAL_BM_POLY::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE* lang)co
   EVAL_BM_ACTION_BASE::print_common_obsolete_callback(o, lang);
 }
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_POLY::precalc_last(const CARD_LIST* Scope)
+void EVAL_BM_POLY::precalc_last(const PARAM_LIST* Scope)
 { untested();
   assert(Scope);
   EVAL_BM_ACTION_BASE::precalc_last(Scope);

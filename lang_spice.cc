@@ -369,7 +369,7 @@ void LANG_SPICE_BASE::parse_element_using_obsolete_callback(CS& cmd, COMPONENT* 
     assert(dynamic_cast<EVAL_BM_BASE*>(dc));
     // If it is a simple value, don't use a common.
     // Just store the value directly.
-    xx->obsolete_move_parameters_from_common(dc);
+   // xx->obsolete_move_parameters_from_common(dc);
     delete c;
   }else{ untested();
     x->attach_common(dc);

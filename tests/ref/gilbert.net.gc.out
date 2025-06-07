@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 C:C3 _net10 _net8 C="1 uF" V="" 
                            ^ ? C3: V has no value?
 Gnucap   System status

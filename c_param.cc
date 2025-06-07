@@ -20,9 +20,10 @@
  * 02110-1301, USA.
  *------------------------------------------------------------------
  */
+#include "globals.h"
 #include "c_comand.h"
 #include "u_parameter.h"
-#include "globals.h"
+#include "e_cardlist.h"
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
@@ -89,7 +90,7 @@ public:
       PARAM_PARSE Value;
       std::string range_type;
       cmd >> Name;
-      if(cmd >> "="){ untested();
+      if(cmd >> "="){
 	cmd >> Value;
       }else{
       }

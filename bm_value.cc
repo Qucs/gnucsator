@@ -49,7 +49,7 @@ private: // override virtual
   void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const override;
   bool		is_trivial()const override;
 
-  void		precalc_first(const CARD_LIST*)override;
+  void		precalc_first(const PARAM_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
   std::string	name()const override { untested();return "value";}
   bool		ac_too()const override { untested();return false;}
@@ -90,7 +90,7 @@ bool EVAL_BM_VALUE::is_trivial()const
 	    || _temp_c.has_hard_value());
 }
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_VALUE::precalc_first(const CARD_LIST* Scope)
+void EVAL_BM_VALUE::precalc_first(const PARAM_LIST* Scope)
 { untested();
   trace2("QUCS_VALUE, precalc_first", modelname(), _value);
   if (modelname() != "") { untested();

@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 C:C1 pos _net0 C="2p" V="" 
                       ^ ? C1: V has no value?
 C:C2 neg _net0 C="2p" V="" 

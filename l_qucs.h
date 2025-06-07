@@ -70,7 +70,7 @@ inline bool QucsSet(CS& cmd, const std::string& key, T* val, const T x)
 }
 
 bool QucsGuessParam(std::string& s)
-{ untested();
+{
   char const* p = s.c_str();
   std::string temp;
 
@@ -79,7 +79,7 @@ bool QucsGuessParam(std::string& s)
   if(s == "Aluminia"){
     s = '"' + s + '"';
     return true;
-  }else if(s == "Subst1"){ untested();
+  }else if(s == "Subst1"){
     s = '"' + s + '"';
     return true;
   }else if(s == "Kirschning"){

@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 #Pac:P1 _net0 gnd Num="1" Z="50 Ohm" P="0" f="1 GHz" Temp="26.85" 
 ^ ? #Pac: no match
 Gnucap   System status

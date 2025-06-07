@@ -22,13 +22,14 @@
  * qucs Eqn evaluator component
  */
 
-#include <e_compon.h>
+#include <globals.h>
 #include <c_comand.h>
 #include <u_lang.h>
 #include <u_xprobe.h>
-#include <globals.h>
-#include <map>
 #include <e_node.h>
+#include <e_compon.h>
+#include <e_cardlist.h>
+#include <map>
 
 #ifndef HAVE_UINT_T
 typedef int uint_t;
@@ -214,6 +215,7 @@ void EQN::parm_eval()
   assert(subckt());
   trace2("eval", _param_order.size(), _params.size());
   // trace1("eval", _params);
+  assert(scope());
   scope()->params()->set("time", _sim->_time0);
 //  if(_time_p) { untested();
 //    *_time_p = _sim->_time0;
@@ -223,10 +225,9 @@ void EQN::parm_eval()
   }
   for(auto p : _param_order){
     try{
-      assert(scope());
       trace3("parm_eval1", p->first, p->second.string(), scope());
       try{
-	p->second.e_val(nullptr, scope());
+	p->second.e_val(nullptr, scope()->params());
       }catch(Exception_No_Match const&){ untested();
       }catch(Exception const&){
       }

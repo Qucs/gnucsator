@@ -71,7 +71,7 @@ private: // override virtual
   bool has_parse_params_obsolete_callback()const override { untested();return false;}
 
 private:
-  void precalc_last(const CARD_LIST* scope)override { untested();
+  void precalc_last(const PARAM_LIST* scope)override { untested();
     _value.e_val(0, scope);
   }
   void tr_eval(ELEMENT* d)const override { untested();
@@ -293,7 +293,7 @@ void OP::setup(CS& Cmd)
   IO::plotout = (ploton) ? IO::mstdout : OMSTREAM();
   initio(_out);
 
-  _start[0].e_val(OPT::temp_c, _scope);
+  _start[0].e_val(OPT::temp_c, _scope->params());
   fix_args(0);
 }
 /*--------------------------------------------------------------------------*/
@@ -369,7 +369,7 @@ void DC::setup(CS& Cmd)
 
   assert(_n_sweeps > 0);
   for (int ii = 0;  ii < _n_sweeps;  ++ii) {
-    _start[ii].e_val(0., _scope);
+    _start[ii].e_val(0., _scope->params());
     fix_args(ii);
 
     if (_zap[ii]) { // component
@@ -390,8 +390,8 @@ void DC::setup(CS& Cmd)
 /*--------------------------------------------------------------------------*/
 void DCOP::fix_args(int Nest)
 {
-  _stop[Nest].e_val(_start[Nest], _scope);
-  _step_in[Nest].e_val(0., _scope);
+  _stop[Nest].e_val(_start[Nest], _scope->params());
+  _step_in[Nest].e_val(0., _scope->params());
   _step[Nest] = _step_in[Nest];
   
   switch (_stepmode[Nest]) {

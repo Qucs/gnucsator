@@ -39,7 +39,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
 	 PARA_BASE& operator=(Base const*)override {unreachable(); return *this; }
 	// std::string string()const override {unreachable(); return "";}
 
-	 Base const* e_val_(const Base* def, const CARD_LIST* scope, int recursion=0)const override {
+	 Base const* e_val_(const Base* def, const PARAM_LIST* scope, int recursion=0)const override {
 		 unreachable();
 		 return nullptr;
 	 }
@@ -68,7 +68,7 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
 		 return false;
 	 }
     std::vector<PARAMETER<T> >	e_val(const std::vector<PARAMETER<T> >& def,
-        const CARD_LIST* scope)const;
+        const PARAM_LIST* scope)const;
     std::string to_string(std::vector< PARAMETER<T> > n) const;
 
     operator std::string()const;
@@ -111,7 +111,7 @@ inline std::vector<PARAMETER<T> > PARAMETER<std::vector<PARAMETER<T> > >::_NOT_I
 /*--------------------------------------------------------------------------*/
 template <class T>
 inline std::vector<PARAMETER<T> >
-PARAMETER<std::vector<PARAMETER<T> > >::e_val(const std::vector<PARAMETER<T> >& def, const CARD_LIST* scope)const
+PARAMETER<std::vector<PARAMETER<T> > >::e_val(const std::vector<PARAMETER<T> >& def, const PARAM_LIST* scope)const
 {
   trace2("PARAMETER dv::e_val", _s, _v.size());
   trace1("PARAMETER dv::e_val", (std::string)(*this));

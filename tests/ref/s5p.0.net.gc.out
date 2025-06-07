@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 # https://github.com/Qucs/qucsator/issues/42 
 ^ ? # https: no match
 .SP:SP1 Type="l ... "10 GHz" Points="2" Noise="no" NoiseIP="1" NoiseOP="2" s

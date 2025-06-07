@@ -60,8 +60,12 @@ void SIM::setup(CS&){ untested();}
 namespace {
 /*--------------------------------------------------------------------------*/
 class PAC : public ELEMENT {
+private: // BUG; use common
+  PARAMETER<double> _value;
+  PARAMETER<double> _pwr;
+  PARAMETER<int> _num;
 private:
-  explicit PAC(const PAC& p) : ELEMENT(p), _pwr(p._pwr), _num(p._num) {}
+  explicit PAC(const PAC& p) : ELEMENT(p), _value(p._value), _pwr(p._pwr), _num(p._num) {}
 public:
   explicit PAC()		:ELEMENT(), _num(-1u) {}
 private: // override virtual
@@ -89,7 +93,7 @@ private:
   int set_param_by_name(std::string a, std::string b) override{
     trace2("PAC::set_param_by_name", a, b);
     if(a=="Z"){
-      set_value(b);
+      _value = b;
     }else if(a=="P"){
       _pwr = b;
     }else if(a=="Num"){
@@ -109,7 +113,7 @@ public:
   }
 
   void ac_load() override{
-    double Z = value();
+    double Z = _value;
     double g = 1./Z;
     double I = std::sqrt(8. * _pwr / Z);
     trace3("PAC::ac_load", I, g, _pwr);
@@ -126,11 +130,8 @@ public:
   }
   double impedance() const{
     trace1("imped", value());
-    return value();
+    return _value;
   }
-private:
-  PARAMETER<double> _pwr;
-  PARAMETER<int> _num;
 }pp;
 static DISPATCHER<CARD>::INSTALL d(&device_dispatcher, "pac_", &pp);
 /*--------------------------------------------------------------------------*/
@@ -140,15 +141,15 @@ void PAC::precalc_last()
   ELEMENT::precalc_last();
   set_constant(true);
   set_converged();
-  if(value()<=0){ untested();
-    error(bPICKY, long_label()+": setting default impedance, 50Ohm\n");
-    set_value(50);
+  _value.e_val(50, scope()->params());
+  if(_value.has_hard_value()){
+  }else if(_value < 0.){
+    error(bWARNING, long_label()+": bogus impedance, " +_value.string()+"\n");
   }else{
-    trace0("have value");
+    error(bPICKY, long_label()+": setting default impedance, 50Ohm\n");
   }
-  _num.e_val(0., scope());
-  _pwr.e_val(1., scope());
-  trace1("PAC::precalc_last", _pwr);
+  _num.e_val(0., scope()->params());
+  _pwr.e_val(1., scope()->params());
   assert(_num!=-1u);
 }
 /*--------------------------------------------------------------------------*/
@@ -387,10 +388,10 @@ void SPARAM::setup(CS& Cmd)
   _data.resize(0);
   _data.resize(size*size+1);
 
-  _start.e_val(0., _scope);
+  _start.e_val(0., _scope->params());
   trace1("eval start", _start);
-  _stop.e_val(0., _scope);
-  _step_in.e_val(0., _scope);
+  _stop.e_val(0., _scope->params());
+  _step_in.e_val(0., _scope->params());
   _step = _step_in;
 
   if (needslinfix) {untested();		// LIN option is # of points.

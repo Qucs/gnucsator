@@ -40,7 +40,7 @@ typedef std::string fun_t;
 namespace { \
 class FUNC_##name : public FUNCTION { \
   public: \
-    fun_t eval(CS& Cmd, const CARD_LIST* Scope)const override { \
+    fun_t eval(CS& Cmd, const PARAM_LIST* Scope)const override { \
       PARAMETER<double> x; \
       x.parse(Cmd); \
       x.e_val(NOT_INPUT, Scope); \

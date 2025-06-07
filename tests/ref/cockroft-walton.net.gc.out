@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 # Qucs 0.0.19  C:/Users/Andrea/.qucs/multiplier.sch 
 ^ ? # Qucs 0.0.19  C: no match
 C:C5 _net1 gnd C="1 nF" V="" 

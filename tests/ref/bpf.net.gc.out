@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 # Eqn:Eqn1 dB_S21="dB(S[2,1])" dB_S11="dB(S[1,1])" Export="yes" 
 ^ ? # Eqn: no match
 .SP:SP1 Type="l ... 5 GHz" Points="150" Noise="no" NoiseIP="1" NoiseOP="2" s

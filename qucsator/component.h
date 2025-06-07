@@ -13,6 +13,7 @@
 #include <string.h>
 #include "../q_paramlist.h"
 #include <e_paramlist.h> // "../q_paramlist.h"
+#include <e_cardlist.h> // "../q_paramlist.h"
 
 typedef double nr_double_t;
 typedef std::complex<double> nr_complex_t;
@@ -259,8 +260,10 @@ private: // COMPONENT
 		COMPONENT::precalc_first();
 
 		CARD_LIST* Scope=scope();
-		mutable_common()->precalc_first(Scope);
-		mutable_common()->precalc_last(Scope);
+		assert(Scope);
+		PARAM_LIST const* pl = Scope->params();
+		mutable_common()->precalc_first(pl);
+		mutable_common()->precalc_last(pl);
 
 		//for(unsigned s=0; s<_p.size(); ++s){
 		//	if(auto ps = dynamic_cast<PARAMETER<double>*>(_p[s])){
@@ -282,8 +285,8 @@ private: // COMPONENT
 	}
 	void precalc_last() override{
 		COMPONENT::precalc_last();
-		CARD_LIST* Scope=scope();
-		mutable_common()->precalc_last(Scope);
+		assert(scope());
+		mutable_common()->precalc_last(scope()->params()); // needed?
 	}
 	void tr_iwant_matrix() override {tr_iwant_matrix_extended();}
 	void ac_iwant_matrix() override {ac_iwant_matrix_extended();}
@@ -448,7 +451,7 @@ private: // COMPONENT
 	}
 #endif
 
-	int max_nodes()const override{ untested();
+	int max_nodes()const override{
 		return getSize();
 	}
 	int net_nodes()const override{

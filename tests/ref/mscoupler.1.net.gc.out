@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 # .SP:SPTC1 Type="lin" Start="0.2 GHz" Stop="4.2 GHz" Points="101" Noi
 ^ ? # .SP: no match
 .SP:SPTC1 Type= ... p="4e9" Points="10" Noise="no" NoiseIP="1" NoiseOP="2" s

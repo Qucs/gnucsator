@@ -171,9 +171,9 @@ public:
   int param_count()const override {
 	  return 5 + COMMON_COMPONENT::param_count();
   }
-  void precalc_first(const CARD_LIST*)override;
+  void precalc_first(const PARAM_LIST*)override;
   void expand(const COMPONENT*)override;
-  void precalc_last(const CARD_LIST*)override;
+  void precalc_last(const PARAM_LIST*)override;
   void tr_eval_analog(SPEMBED*)const;
   void ac_eval_(SPEMBED*)const;
 //  void precalc_analog(SPEMBED*)const;
@@ -440,7 +440,7 @@ void COMMON_SPEMBED::expand(const COMPONENT* d)
 
 }
 /*--------------------------------------------------------------------------*/
-void COMMON_SPEMBED::precalc_first(const CARD_LIST* par_scope)
+void COMMON_SPEMBED::precalc_first(const PARAM_LIST* par_scope)
 {
   assert(par_scope);
   trace1("cpf", std::string(_filename));
@@ -452,7 +452,7 @@ void COMMON_SPEMBED::precalc_first(const CARD_LIST* par_scope)
   COMMON_COMPONENT::precalc_first(par_scope);
 }
 /*--------------------------------------------------------------------------*/
-void COMMON_SPEMBED::precalc_last(const CARD_LIST* par_scope)
+void COMMON_SPEMBED::precalc_last(const PARAM_LIST* par_scope)
 {
   assert(par_scope);
   COMMON_COMPONENT::precalc_last(par_scope);

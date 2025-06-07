@@ -1,5 +1,9 @@
 <Qucs Dataset>
 default plugins: ignored
+M d g s b mynmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
+M d g s b mypmos l=l w=w m=1 temp=temp 
+                             ^ ? spice_mos.M: bad parameter temp ignored
 C:C1 gnd out C="5 pF" V="" 
                       ^ ? C1: V has no value?
 .TR:TR1 Type="l ... " IntegrationMethod="Gear" Order="2" InitialStep="1 ns" 

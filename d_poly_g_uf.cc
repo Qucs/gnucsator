@@ -147,7 +147,7 @@ public:
     _minnodes = 2*n_ports;
   }
 
-  void precalc_first(const CARD_LIST* scope)override {
+  void precalc_first(const PARAM_LIST* scope)override {
     trace3("COMMON_G_POLY_K::precfirst", _maxnodes, _n_ports, _minnodes);
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     trace2("COMMON_G_POLY_K::precfirst", _coeffs, _n_ports);
@@ -165,7 +165,7 @@ public:
       trace0("COMMON_G_POLY_K::new poly done");
     }
   }
-  void precalc_last(const CARD_LIST* scope)override {
+  void precalc_last(const PARAM_LIST* scope)override {
     _coeffs.e_val(vector<PARAMETER<double> >(), scope);
     if(_poly){ untested();
     }else{

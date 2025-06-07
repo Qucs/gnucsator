@@ -45,7 +45,7 @@ private: // override virtual
   void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const override;
   bool		is_trivial()const override;
 
-  void		precalc_first(const CARD_LIST*)override;
+  void		precalc_first(const PARAM_LIST*)override;
   void		tr_eval(ELEMENT*)const override;
   string	name()const override { untested();return _name;}
   bool		ac_too()const { untested();return false;}
@@ -75,7 +75,7 @@ bool EVAL_BM_TRIVIAL::is_trivial()const
   return true;
 }
 /*--------------------------------------------------------------------------*/
-void EVAL_BM_TRIVIAL::precalc_first(const CARD_LIST* Scope)
+void EVAL_BM_TRIVIAL::precalc_first(const PARAM_LIST* Scope)
 { untested();
   trace2("QUCS_TRIVIAL, precalc_first", modelname(), _value);
   if (modelname() != "") { untested();
