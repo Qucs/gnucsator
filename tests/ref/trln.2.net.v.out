@@ -2,9 +2,9 @@
 module main ();
 ground gnd;
 //# Qucs 
-Pac #(.Num(1),.P(1),.Temp(26.85),.Z(50),.f(1G)) P2 (.\1 (_net0),.\2 (gnd));
-TLIN #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line1 (.t1(_net0),.t2(_net1));
-TLIN #(.Alpha(0),.L(100m),.Temp(26.85),.Z(50)) Line2 (.t1(_net1),.t2(_net2));
+Pac #(.Num(1),.Z(50),.P(1),.f(1G),.Temp(26.85)) P2 (.\1 (_net0),.\2 (gnd));
+TLIN #(.Z(50),.L(100m),.Alpha(0),.Temp(26.85)) Line1 (.t1(_net0),.t2(_net1));
+TLIN #(.Z(50),.L(100m),.Alpha(0),.Temp(26.85)) Line2 (.t1(_net1),.t2(_net2));
 R #(.R(100)) R1 (.p(gnd),.n(_net2));
 R #(.R(100)) R2 (.p(gnd),.n(_net1));
 endmodule // main

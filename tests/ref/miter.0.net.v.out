@@ -2,11 +2,11 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.21-dev  /home/felix/extern/gnucap-qucs/tests/miter0.sch 
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
-R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(gnd),.n(_net2));
-MMBEND #(.Subst("Subst1"),.W(0.2m)) MS1 (.p0(_net1),.p1(_net2));
+R #(.R(50),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
+R #(.R(50),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R2 (.p(gnd),.n(_net2));
+MMBEND #(.W(0.2m),.Subst("Subst1")) MS1 (.p0(_net1),.p1(_net2));
 VProbe #() Pr1 (.p(_net2),.n(gnd));
-Vac #(.Phase(0),.Theta(0),.U(1),.f(1G)) V1 (.\1 (_net0),.\2 (gnd));
+Vac #(.U(1),.f(1G),.Phase(0),.Theta(0)) V1 (.\1 (_net0),.\2 (gnd));
 paramset Subst1 SUBST;\
  .er=10.8; .h=0.5m; .t=18u; .tand=2e-4; .rho=0.022e-6; .D=0.15e-6;\
 endparmset

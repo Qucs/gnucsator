@@ -320,10 +320,6 @@ void DEV_SUBCKT::precalc_first()
     assert(pl);
     c->_params.set_try_again(pl);
 
-    for( auto p: c->_params){
-      trace2("DEV_SUBCKT::precalc_first att", p.first, p.second.string());
-    }
-
     subckt()->attach_params(&(c->_params), scope());
     trace1("DEV_SUBCKT::precalc_first recurse", long_label());
 //  subckt()->precalc_first();

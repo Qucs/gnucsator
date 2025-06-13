@@ -108,37 +108,12 @@ DISPATCHER<CARD>::INSTALL
   d1(&device_dispatcher, "Eqn", &e1);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-static PARAM_LIST::iterator pick(PARAM_LIST& list, const std::string& name)
-{
-#ifdef HAVE_PARAM_PICK
-  incomplete();
-#else
-  //BUG: linear search
-  for(PARAM_LIST::iterator i=list.begin(); i!=list.end(); ++i){
-    if(i->first == name){
-      return i;
-    }else{
-    }
-  }
-#endif
-  unreachable();
-  return list.end();
-}
-/*--------------------------------------------------------------------------*/
 EQN::EQN() : COMPONENT() {}
 /*--------------------------------------------------------------------------*/
 EQN::EQN(const EQN& p):
   COMPONENT(p),
   _params(p._params)
 {
-  assert(!p._param_order.size());
-  //this is a bit of a hack. but i do need params in order...
-  _param_order.resize(p._param_order.size());
-  unsigned cnt = 0;
-  for(auto o : p._param_order){ untested();
-    auto i = pick(_params, o->first);
-    _param_order[cnt++] = i;
-  }
 }
 /*--------------------------------------------------------------------------*/
 int EQN::set_param_by_name(std::string Name, std::string Value)
@@ -154,8 +129,6 @@ int EQN::set_param_by_name(std::string Name, std::string Value)
     CS cs(CS::_STRING, Name+"={"+Value+"}");
     trace2("EQN parse", Name, Value);
     cs >> _params;
-    assert(pick(_params, Name) != _params.end()); // incomplete?
-    _param_order.push_back(pick(_params, Name));
     trace1("EQN parse", _params.size());
   }
   return 0; // TODO
@@ -220,18 +193,13 @@ void EQN::parm_eval()
 //  if(_time_p) { untested();
 //    *_time_p = _sim->_time0;
 //  }
-  for(auto p : _param_order){
-      trace3("parm_eval0", p->first, p->second.string(), double(p->second));
-  }
-  for(auto p : _param_order){
+  for(int i=0; i<_params.size(); ++i) {
     try{
-      trace3("parm_eval1", p->first, p->second.string(), scope());
       try{
-	p->second.e_val(nullptr, scope()->params());
+	_params[i].e_val(nullptr, scope()->params());
       }catch(Exception_No_Match const&){ untested();
       }catch(Exception const&){
       }
-      trace3("parm_eval2", p->first, p->second.string(), double(p->second));
     }catch(Exception_No_Match const&){ untested();
       incomplete();
       trace0("parm_eval incomplete");
@@ -260,10 +228,10 @@ class CMD_EQN : public CMD {
     e->set_owner(nullptr);
     cl->push_back(e);
 
-    for(auto x : e->params()){ // TODO: ordinary param_access.
-      trace2("DBG", x.first, x.second.string());
-      auto Name = x.first;
-      auto Value = x.second.string();
+    PARAM_LIST const& ep = e->params();
+    for(int i=0; i < ep.size(); ++i ) {
+      auto Name = ep.name(i);
+      auto Value = ep[i].string();
       CS cs(CS::_STRING, Name+"={"+Value+"}");
       cs >> pl;
     }

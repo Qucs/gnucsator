@@ -2,12 +2,12 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.19  /home/felix/extern/gnucap-qucs/examples/switch.sch 
-Switch #(.MaxDuration(1e-6),.Roff(1e12),.Ron(0),.Temp(26.85),.Transition(spline),.init(on),.time(.2ms)) S4 (.\1 (_net0),.\2 (_net1));
+Switch #(.init(on),.time(.2ms),.Ron(0),.Roff(1e12),.Temp(26.85),.MaxDuration(1e-6),.Transition(spline)) S4 (.\1 (_net0),.\2 (_net1));
 Vdc #(.U(3.7)) V1 (.p(_net2),.n(gnd));
-R #(.R(12k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(_net1),.n(_net3));
+R #(.R(12k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R2 (.p(_net1),.n(_net3));
 VProbe #() Pr1 (.p(_net3),.n(_net4));
-R #(.R(180),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(gnd),.n(_net4));
-R #(.R(12k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R3 (.p(_net2),.n(_net3));
-Switch #(.MaxDuration(1e-6),.Roff(1e12),.Ron(0),.Temp(26.85),.Transition(spline),.init(off),.time(0.1ms)) S3 (.\1 (gnd),.\2 (_net0));
+R #(.R(180),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(gnd),.n(_net4));
+R #(.R(12k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R3 (.p(_net2),.n(_net3));
+Switch #(.init(off),.time(0.1ms),.Ron(0),.Roff(1e12),.Temp(26.85),.MaxDuration(1e-6),.Transition(spline)) S3 (.\1 (gnd),.\2 (_net0));
 endmodule // main
 

@@ -416,15 +416,9 @@ int DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
     // spice.
     trace2("spice spbn", Name, Value);
     int i = BASE_SUBCKT::set_param_by_name(Name,Value);
-    for(auto p : c->_params){ untested();
-      trace2("spbn param spice", p.first, p.second.string());
-    }
     return i;
   }else{
     trace2("normal spbn", Name, Value);
-    for(auto p : *_parent->subckt()->params()){
-      trace2("normal param", p.first, p.second.string());
-    }
     PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
     if(p != _parent->subckt()->params()->end()){
       return BASE_SUBCKT::set_param_by_name(Name,Value);
@@ -498,9 +492,6 @@ void DEV_SUBCKT::expand()
     PARAM_LIST* pl = const_cast<PARAM_LIST*>(_parent->subckt()->params());
     assert(pl);
     c->_params.set_try_again(pl);
-    for(auto p : c->_params){
-      trace2("expand param", p.first, p.second.string());
-    }
 
     trace3("expand", short_label(), net_nodes(), max_nodes());
     renew_subckt(_parent, &(c->_params));

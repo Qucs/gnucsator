@@ -1133,13 +1133,14 @@ void LANG_VERILOG::print_module(OMSTREAM& o, const BASE_SUBCKT* x)
 {
   assert(x);
   assert(x->subckt());
+  assert(x->subckt()->params());
 
   o << "module " <<  x->short_label();
   print_ports_short(o, x);
   o << ";\n";
-  auto p=x->subckt()->params();
-  for(auto i: *p){
-    o << "parameter " << i.first << "=" << i.second << ";\n";
+  PARAM_LIST const& pl = *x->subckt()->params();
+  for(int i=0; i<pl.size(); ++i){
+    o << "parameter " << pl.name(i) << "=" << pl[i] << ";\n";
   }
 
   for (CARD_LIST::const_iterator 

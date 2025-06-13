@@ -147,8 +147,7 @@ protected: // qucsator globals
 			assert(false);
 			return 0.;
 		}else{
-			trace3("getPropertyDouble", s, pp->second.string(), double(pp->second));
-			return pp->second;
+			return pp.ref();
 		}
 		
 #if 0
@@ -176,7 +175,7 @@ protected: // qucsator globals
 			incomplete();
 			return NULL;
 		}else{
-			std::string input = pp->second.string();
+			std::string input = pp.ref().string();
 			size_t last = input.size()-1;
 			if(!input.size()){
 			}else if(input[0] == '"' && input[last] == '"') {

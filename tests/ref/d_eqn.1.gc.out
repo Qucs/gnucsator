@@ -1,4 +1,4 @@
- a= 3. b=foo+1 bar=foo+a baz=time*time foo=1+2 more=b+baz+bar t=time
+ a= 3. b=foo+1 foo=1+2 bar=foo+a baz=time*time more=b+baz+bar t=time
 #Time       foo(Eq1)   baz(Eq1)   more(Eq1)  t(Eq1)    
  0.         3.         0.         10.        0.        
  0.005      3.         25.u       10.        0.005     

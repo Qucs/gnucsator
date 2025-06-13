@@ -7,7 +7,7 @@ parameter RES=1;
 R #(.R(RES)) a (.p(_net0),.n(_net1));
 endmodule // TESTSUB
 
-TESTSUB #(.RES(2),.Type(TESTSUB)) T1 (._net0(_net1),._net1(gnd));
+TESTSUB #(.Type(TESTSUB),.RES(2)) T1 (._net0(_net1),._net1(gnd));
 Idc #(.I(5)) V1 (.\1 (_net1),.\2 (gnd));
 endmodule // main
 

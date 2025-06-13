@@ -10,7 +10,7 @@
 endmodule // vsine
 
 module my_schematic ();
-vsine #(.Va(5.),.Voff(0.),.freq(3),.td(0.),.theta(0.)) v (.p(a),.n(b));
+vsine #(.Va(5.),.freq(3),.td(0.),.theta(0.),.Voff(0.)) v (.p(a),.n(b));
 resistor #(.r(4k)) r1 (.p(a),.n(b));
 (* spice_caneda="Voverride somethingelse x y" *) vsine #(.Va(5.),.freq(3)) v (.p(a),.n(b));
 endmodule // my_schematic

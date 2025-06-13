@@ -109,7 +109,6 @@ private:
     }else if(subckt()){
       trace3("PARAMSET::param_count1", short_label(), BASE_SUBCKT::param_count(), subckt()->params()->size());
       return BASE_SUBCKT::param_count();
-      return subckt()->params()->size() + BASE_SUBCKT::param_count();
     }else{
       trace2("PARAMSET::param_count2", short_label(), BASE_SUBCKT::param_count());
       return BASE_SUBCKT::param_count();
@@ -304,10 +303,10 @@ CARD* PARAMSET::clone_instance() const
   c->_params = PARAM_LIST();
   n->_parent = this;
   if(subckt() && subckt()->params()){
-    for(auto& p : *subckt()->params()){
-      trace2("PS::clone_inst", p.first, p.second);
-      if(p.first!=IS_VALID){
-	c->_params.set(p.first, p.second);
+    PARAM_LIST const& pl = *subckt()->params();
+    for(int i=0; i<pl.size(); ++i){
+      if(pl.name(i)!=IS_VALID){
+	c->_params.set(pl.name(i), pl[i]);
       }else{
       }
     }
@@ -343,6 +342,7 @@ int PARAMSET::is_valid() const
   if(_parent->subckt()){
     PARAM_LIST const* params = _parent->subckt()->params();
     PARAM_INSTANCE v = params->deep_lookup("_..is_valid");
+    assert(subckt());
     Base const* x = v.e_val(nullptr, subckt()->params());
     Integer c;
     Integer* res = c.assign(x);
@@ -515,8 +515,8 @@ void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
   PARAM_LIST& out = *t->params();
 
   for (PARAM_LIST::const_iterator i = p.begin(); i != p.end(); ++i) {
-    if (i->second.has_hard_value()) {
-      CS cmd(CS::_STRING, i->second.string());
+    if (i.ref().has_hard_value()) {
+      CS cmd(CS::_STRING, i.ref().string());
       Expression f(cmd);
       PARAM_LIST empty;
       empty.set_verilog();
@@ -557,9 +557,7 @@ void resolve_copy(CARD_LIST* t, PARAM_LIST const& p, const CARD_LIST*)
 
       std::stringstream s;
       E.dump(s);
-      out.set(i->first, s.str());
-      trace2("resolve copy1", i->first, s.str());
-
+      out.set(i.name(), s.str());
     }else{ untested();
     }
   }
@@ -574,6 +572,7 @@ CARD* PARAMSET::deflate()
   assert(subckt());
   subckt()->set_verilog_math();
   assert(subckt()->size()==1);
+
   CARD_LIST::iterator i = subckt()->begin();
   assert(*i);
   COMPONENT* dev = prechecked_cast<COMPONENT*>(*i);
@@ -588,15 +587,11 @@ CARD* PARAMSET::deflate()
   subckt()->params()->set_try_again(_parent->subckt()->params());
   trace0("PARAMSET::resolve?");
   resolve_copy(subckt(), c->_params, NULL);
-  for(auto const& x : c->_params){
-    trace1("debugp", x.first);
-  }
 
   trace4("PARAMSET::deflate args fwd", dev->long_label(), dev->dev_type(), long_label(), dev_type());
   trace2("PARAMSET::deflate args fwd", dev->long_label(), my_mfactor());
   for(auto pi=pc->_params.begin(); pi!=pc->_params.end(); ++pi){
-    trace3("PARAMSET::deflate args fwd2", dev->long_label(), pi->first, pi->second.string());
-    CS cmd(CS::_STRING, pi->second.string());
+    CS cmd(CS::_STRING, pi.ref().string());
     Expression e(cmd);
     Expression r(e, subckt()->params());
     std::stringstream s;
@@ -604,12 +599,11 @@ CARD* PARAMSET::deflate()
 
     std::string value = s.str();
     demangle(value);
-    trace3("PARAMSET::deflate args fix", long_label(), pi->first, value);
-    assert(pi->first!="");
-    assert(pi->first!="$mfactor");
+    assert(pi.name()!="");
+    assert(pi.name()!="$mfactor");
     // BUG? already set?
-    dev->set_param_by_name(pi->first, "");
-    dev->set_param_by_name(pi->first, value);
+    dev->set_param_by_name(pi.name(), "");
+    dev->set_param_by_name(pi.name(), value);
   }
 
   *i = NULL;
@@ -698,22 +692,38 @@ void PARAMSET::expand()
       for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
       }
       for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
-	trace2("PARAMSET::expand sp", i->first, i->second.string());
-
-	if(i->first=="$mfactor"){ untested();
+	if(i.name()=="$mfactor"){ untested();
 	}else{
-	  dev->set_param_by_name(i->first, ""); // again? BUG?
-	  dev->set_param_by_name(i->first, i->second.string());
+	  dev->set_param_by_name(i.name(), ""); // again? BUG?
+	  dev->set_param_by_name(i.name(), i.ref().string());
 	}
       }
       dev->precalc_first();
     }
 
     assert(subckt()->size()==1);
+    assert(dev==d);
 
-    {untested();
+    if(0){
+      // cannot deflate yet
       subckt()->expand();
+    }else{
+      dev->precalc_first();
+      dev->expand_first();
+      dev->expand();
+      if(dynamic_cast<PARAMSET*>(dev)){
+      }else{
+	COMPONENT* ddd = dynamic_cast<COMPONENT*>(dev->deflate());
+	if(ddd!=dev){
+	  *subckt()->begin() = ddd;
+	  delete (CARD*)dev;
+	  dev = ddd;
+	}else{
+	}
+      }
+      dev->expand_last();
     }
+
     if(dev->is_valid()){
     }else{
       // TODO: seems to be the wrong place. see mg_bug.1.gc

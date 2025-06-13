@@ -1,17 +1,17 @@
 
 module main ();
-parameter Spectrum=dB(Time2Freq(Vout,time));
 parameter Vout=pos.Vt-neg.Vt;
+parameter Spectrum=dB(Time2Freq(Vout,time));
 ground gnd;
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/TR_single_balanced_prj/single_balanced.sch 
-R #(.R(10k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(pos),.n(_net0));
-R #(.R(10k),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R2 (.p(neg),.n(_net0));
+R #(.R(10k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(pos),.n(_net0));
+R #(.R(10k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R2 (.p(neg),.n(_net0));
 Vdc #(.U(5)) V1 (.p(_net0),.n(gnd));
-Vac #(.Phase(0),.Theta(0),.U(0.2),.f(1M)) RF (.\1 (_net1),.\2 (gnd));
-Vac #(.Phase(0),.Theta(0),.U(3),.f(10M)) LO (.\1 (_net2),.\2 (_net3));
-MOSFET #(.Ad(0.0),.Af(1.0),.As(0.0),.Cbd(0.0),.Cbs(0.0),.Cgbo(0.0),.Cgdo(0.0),.Cgso(0.0),.Cj(0.0),.Cjsw(0.0),.Fc(0.5),.Ffe(1.0),.Gamma(0.0),.Is(1e-14),.Js(0.0),.Kf(0.0),.Kp(2e-5),.L(1u),.Lambda(0.0),.Ld(0.0),.Mj(0.5),.Mjsw(0.33),.N(1.0),.Nrd(1),.Nrs(1),.Nss(0.0),.Nsub(0.0),.Pb(0.8),.Pd(0.0m),.Phi(0.6),.Ps(0.0m),.Rd(0.0),.Rg(0.0),.Rs(0.0),.Rsh(0.0),.Temp(26.85),.Tnom(26.85),.Tox(0.1u),.Tpg(1),.Tt(0.0p),.Type("nfet"),.Uo(600.0),.Vt0(-1.0),.W(1u)) T3 (.g(_net1),.d(_net4),.s(gnd),.b(gnd));
-MOSFET #(.Ad(0.0),.Af(1.0),.As(0.0),.Cbd(0.0),.Cbs(0.0),.Cgbo(0.0),.Cgdo(0.0),.Cgso(0.0),.Cj(0.0),.Cjsw(0.0),.Fc(0.5),.Ffe(1.0),.Gamma(0.0),.Is(1e-14),.Js(0.0),.Kf(0.0),.Kp(2e-5),.L(1u),.Lambda(0.0),.Ld(0.0),.Mj(0.5),.Mjsw(0.33),.N(1.0),.Nrd(1),.Nrs(1),.Nss(0.0),.Nsub(0.0),.Pb(0.8),.Pd(0.0m),.Phi(0.6),.Ps(0.0m),.Rd(0.0),.Rg(0.0),.Rs(0.0),.Rsh(0.0),.Temp(26.85),.Tnom(26.85),.Tox(0.1u),.Tpg(1),.Tt(0.0p),.Type("nfet"),.Uo(600.0),.Vt0(1.0),.W(1u)) T1 (.g(_net2),.d(pos),.s(_net4),.b(_net4));
-MOSFET #(.Ad(0.0),.Af(1.0),.As(0.0),.Cbd(0.0),.Cbs(0.0),.Cgbo(0.0),.Cgdo(0.0),.Cgso(0.0),.Cj(0.0),.Cjsw(0.0),.Fc(0.5),.Ffe(1.0),.Gamma(0.0),.Is(1e-14),.Js(0.0),.Kf(0.0),.Kp(2e-5),.L(1u),.Lambda(0.0),.Ld(0.0),.Mj(0.5),.Mjsw(0.33),.N(1.0),.Nrd(1),.Nrs(1),.Nss(0.0),.Nsub(0.0),.Pb(0.8),.Pd(0.0m),.Phi(0.6),.Ps(0.0m),.Rd(0.0),.Rg(0.0),.Rs(0.0),.Rsh(0.0),.Temp(26.85),.Tnom(26.85),.Tox(0.1u),.Tpg(1),.Tt(0.0p),.Type("nfet"),.Uo(600.0),.Vt0(1.0),.W(1u)) T2 (.g(_net3),.d(neg),.s(_net4),.b(_net4));
+Vac #(.U(0.2),.f(1M),.Phase(0),.Theta(0)) RF (.\1 (_net1),.\2 (gnd));
+Vac #(.U(3),.f(10M),.Phase(0),.Theta(0)) LO (.\1 (_net2),.\2 (_net3));
+MOSFET #(.Type("nfet"),.Vt0(-1.0),.Kp(2e-5),.Gamma(0.0),.Phi(0.6),.Lambda(0.0),.Rd(0.0),.Rs(0.0),.Rg(0.0),.Is(1e-14),.N(1.0),.W(1u),.L(1u),.Ld(0.0),.Tox(0.1u),.Cgso(0.0),.Cgdo(0.0),.Cgbo(0.0),.Cbd(0.0),.Cbs(0.0),.Pb(0.8),.Mj(0.5),.Fc(0.5),.Cjsw(0.0),.Mjsw(0.33),.Tt(0.0p),.Nsub(0.0),.Nss(0.0),.Tpg(1),.Uo(600.0),.Rsh(0.0),.Nrd(1),.Nrs(1),.Cj(0.0),.Js(0.0),.Ad(0.0),.As(0.0),.Pd(0.0m),.Ps(0.0m),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Temp(26.85),.Tnom(26.85)) T3 (.g(_net1),.d(_net4),.s(gnd),.b(gnd));
+MOSFET #(.Type("nfet"),.Vt0(1.0),.Kp(2e-5),.Gamma(0.0),.Phi(0.6),.Lambda(0.0),.Rd(0.0),.Rs(0.0),.Rg(0.0),.Is(1e-14),.N(1.0),.W(1u),.L(1u),.Ld(0.0),.Tox(0.1u),.Cgso(0.0),.Cgdo(0.0),.Cgbo(0.0),.Cbd(0.0),.Cbs(0.0),.Pb(0.8),.Mj(0.5),.Fc(0.5),.Cjsw(0.0),.Mjsw(0.33),.Tt(0.0p),.Nsub(0.0),.Nss(0.0),.Tpg(1),.Uo(600.0),.Rsh(0.0),.Nrd(1),.Nrs(1),.Cj(0.0),.Js(0.0),.Ad(0.0),.As(0.0),.Pd(0.0m),.Ps(0.0m),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Temp(26.85),.Tnom(26.85)) T1 (.g(_net2),.d(pos),.s(_net4),.b(_net4));
+MOSFET #(.Type("nfet"),.Vt0(1.0),.Kp(2e-5),.Gamma(0.0),.Phi(0.6),.Lambda(0.0),.Rd(0.0),.Rs(0.0),.Rg(0.0),.Is(1e-14),.N(1.0),.W(1u),.L(1u),.Ld(0.0),.Tox(0.1u),.Cgso(0.0),.Cgdo(0.0),.Cgbo(0.0),.Cbd(0.0),.Cbs(0.0),.Pb(0.8),.Mj(0.5),.Fc(0.5),.Cjsw(0.0),.Mjsw(0.33),.Tt(0.0p),.Nsub(0.0),.Nss(0.0),.Tpg(1),.Uo(600.0),.Rsh(0.0),.Nrd(1),.Nrs(1),.Cj(0.0),.Js(0.0),.Ad(0.0),.As(0.0),.Pd(0.0m),.Ps(0.0m),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Temp(26.85),.Tnom(26.85)) T2 (.g(_net3),.d(neg),.s(_net4),.b(_net4));
 Vdc #(.U(5)) V4 (.p(_net3),.n(gnd));
 Eqn #() Eqn1 ();
 endmodule // main
