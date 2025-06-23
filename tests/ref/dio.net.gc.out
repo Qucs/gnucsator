@@ -5,7 +5,7 @@ M d g s b mynmos l=l w=w m=1 temp=temp
 M d g s b mypmos l=l w=w m=1 temp=temp 
                              ^ ? spice_mos.M: bad parameter temp ignored
 Gnucap   System status
-iterations: op=14, dc=14, tran=0, fourier=0, total=28
+iterations: op=15, dc=14, tran=0, fourier=0, total=29
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=2, subckt=0, model=0, total=2

@@ -13,7 +13,7 @@ C:C2 gnd _net1 C="100n" V=""
 .AC:AC1 Type="l ... 0 kHz" Points="100" Noise="no" 
                                         ^ ? what's this (incomplete)?
 Gnucap   System status
-iterations: op=9, dc=9, tran=0, fourier=0, total=118
+iterations: op=7, dc=9, tran=0, fourier=0, total=116
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=5, subckt=0, model=1, total=6
