@@ -18,12 +18,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
+#include <globals.h>
+#include <u_lang.h>
 #include <e_model.h>
 #include <e_subckt.h>
 #include <e_node.h>
 #include <e_paramlist.h>
-#include <globals.h>
-#include <u_lang.h>
+#include <e_hsparam.h>
 /*--------------------------------------------------------------------------*/
 namespace{
 /*--------------------------------------------------------------------------*/
@@ -310,7 +311,7 @@ CARD* PARAMSET::clone_instance() const
       }else{
       }
     }
-  }else{
+  }else{ untested();
   }
   n->attach_common(c);
   trace1("PS::clone_inst", n->param_count());
@@ -385,7 +386,7 @@ int PARAMSET::set_param_by_name(std::string Name, std::string Value)
 //  assert(_parent);
   trace4("PARAMSET::set_param_by_name", short_label(), Name, Value, param_count());
 
-  if(Name=="$mfactor"){
+  if(Name[0] == '$') {
     return BASE_SUBCKT::set_param_by_name(Name, Value);
   }else if(Name==""){ untested();
     throw Exception_No_Match("invalid parameter: " + Name);
@@ -484,7 +485,7 @@ void PARAMSET::precalc_first()
     // c->_params.set_try_again(pl);
   }
 
-  trace3("PARAMSET::pf done", long_label(), is_valid(), my_mfactor());
+  trace3("PARAMSET::pf done", long_label(), is_valid(), mfactor());
 
   assert(!is_constant()); /* because I have more work to do */
 } // precalc_first
@@ -589,7 +590,7 @@ CARD* PARAMSET::deflate()
   resolve_copy(subckt(), c->_params, NULL);
 
   trace4("PARAMSET::deflate args fwd", dev->long_label(), dev->dev_type(), long_label(), dev_type());
-  trace2("PARAMSET::deflate args fwd", dev->long_label(), my_mfactor());
+  trace2("PARAMSET::deflate args fwd", dev->long_label(), mfactor());
   for(auto pi=pc->_params.begin(); pi!=pc->_params.end(); ++pi){
     CS cmd(CS::_STRING, pi.ref().string());
     Expression e(cmd);
@@ -604,6 +605,18 @@ CARD* PARAMSET::deflate()
     // BUG? already set?
     dev->set_param_by_name(pi.name(), "");
     dev->set_param_by_name(pi.name(), value);
+  }
+  COMMON_COMPONENT const* cc = c;
+  if(auto h = cc->hsparam()){
+    for(int j=0; j<h->param_count(); ++j) {
+      if(h->param_is_printable(j)){
+	// BUG. pass on hsp unmangled.
+	trace3("PARAMSET::expand deflate hlist", j, h->param_name(j), h->param_value(j));
+	dev->set_param_by_name(h->param_name(j), ""); // again? BUG?
+	dev->set_param_by_name(h->param_name(j), h->param_value(j));
+      }else{
+      }
+    }
   }
 
   *i = NULL;
@@ -620,8 +633,10 @@ CARD* PARAMSET::deflate()
     // what is it?
   }
 
+#if 0
   deflated->set_param_by_name("$mfactor", ""); // to string?
-  deflated->set_param_by_name("$mfactor", to_string(my_mfactor())); // to string?
+  deflated->set_param_by_name("$mfactor", to_string(mfactor())); // to string?
+#endif
   auto dd = prechecked_cast<COMPONENT const*>(deflated);
   if(dd->common()){
   }else{
@@ -649,7 +664,11 @@ void PARAMSET::expand()
     // assert(net_nodes() == proto->net_nodes());
     // assert(net_nodes() == _parent->_dev->net_nodes());
     assert(subckt());
-    assert(scope()==owner()->subckt());
+    if(owner()){
+      assert(scope()==owner()->subckt());
+    }else{
+      assert(scope()==&CARD_LIST::card_list);
+    }
 
     auto c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
 
@@ -689,10 +708,27 @@ void PARAMSET::expand()
 
     {
       auto cp = prechecked_cast<COMMON_PARAMLIST const*>(proto->common());
-      for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
+      if(auto h = hsparam()){
+	for(int i=0; i<h->param_count(); ++i) {
+	  if(h->param_is_printable(i)){
+	    // BUG. pass on hsp unmangled.
+	    trace3("PARAMSET::expand hlist", i, h->param_name(i), h->param_value(i));
+	    dev->set_param_by_name(h->param_name(i), ""); // again? BUG?
+	    dev->set_param_by_name(h->param_name(i), h->param_value(i));
+	  }else{
+	  }
+	}
+      }
+      for(int i=0; i<param_count(); ++i) {
+	if(param_is_printable(i)){
+	  trace3("PARAMSET::expand list", i, param_name(i), param_value(i));
+	}else{
+	}
       }
       for(auto i=cp->_params.begin(); i!=cp->_params.end(); ++i){
+	trace2("PARAMSET::expand sp1", i.name(), i.ref().string());
 	if(i.name()=="$mfactor"){ untested();
+	  incomplete();
 	}else{
 	  dev->set_param_by_name(i.name(), ""); // again? BUG?
 	  dev->set_param_by_name(i.name(), i.ref().string());
