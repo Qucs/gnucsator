@@ -27,6 +27,7 @@
 #include "u_cardst.h"
 #include "e_elemnt.h"
 #include "s__.h"
+#include "constant.h"
 /*--------------------------------------------------------------------------*/
 // gnucsator
 #include "s_dc_out.cc"
@@ -301,7 +302,9 @@ void OP::setup(CS& Cmd)
 /*--------------------------------------------------------------------------*/
 void DC::setup(CS& Cmd)
 {
-  _sim->_temp_k = OPT::temp_k;
+  assert(_scope);
+  assert(_scope->params());
+  _temp_c = OPT::temp_k - P_CELSIUS0;
   _cont = false;
   _trace = tNONE;
   _out = IO::mstdout;
@@ -387,6 +390,13 @@ void DC::setup(CS& Cmd)
     }
   }
   _sim->_freq = 0;
+
+  if(_temp_c == NOT_INPUT) {
+    _scope->params()->set_temperature(OPT::temp_k);
+  }else{
+  }
+
+  trace1("dcopt", _temp_c);
 }
 /*--------------------------------------------------------------------------*/
 void DCOP::fix_args(int Nest)
@@ -441,6 +451,9 @@ void DCOP::fix_args(int Nest)
 /*--------------------------------------------------------------------------*/
 void DCOP::options(CS& Cmd, int Nest)
 {
+  double temp_k = OPT::temp_k;
+  bool temp_given = false;
+
   _sim->_uic = _loop[Nest] = _reverse_in[Nest] = false;
   size_t here = Cmd.cursor();
   do{
@@ -456,11 +469,11 @@ void DCOP::options(CS& Cmd, int Nest)
       || (Get(Cmd, "lin",	  &_step_in[Nest]) && (_stepmode[Nest] = LIN_PTS))
       || (Get(Cmd, "o{ctave}",	  &_step_in[Nest]) && (_stepmode[Nest] = OCTAVE))
       || Get(Cmd, "c{ontinue}",   &_cont)
-      || Get(Cmd, "dt{emp}",	  &_sim->_temp_k, mOFFSET, OPT::temp_k)
+      || (Get(Cmd, "dt{emp}",	  &temp_k, mOFFSET, OPT::temp_k) && (temp_given=true))
       || Get(Cmd, "lo{op}", 	  &_loop[Nest])
       || Get(Cmd, "re{verse}",	  &_reverse_in[Nest])
-      || Get(Cmd, "te{mperature}",&_sim->_temp_k, mOFFSET, P_CELSIUS0)
-      || Get(Cmd, "$temperature", &_sim->_temp_k)
+      || (Get(Cmd, "te{mperature}",&temp_k, mOFFSET, P_CELSIUS0) && (temp_given=true))
+      || (Get(Cmd, "$temperature", &temp_k) && (temp_given=true))
       || (Cmd.umatch("tr{ace} {=}") &&
 	  (ONE_OF
 	   || Set(Cmd, "n{one}",      &_trace, tNONE)
@@ -475,6 +488,13 @@ void DCOP::options(CS& Cmd, int Nest)
       || outset(Cmd,&_out)
       ;
   }while (Cmd.more() && !Cmd.stuck(&here));
+
+  if(temp_given) {
+    _temp_c = temp_k - P_CELSIUS0;
+  }else{
+    _temp_c = NOT_INPUT;
+  }
+  trace2("options", temp_given, _temp_c);
 }
 /*--------------------------------------------------------------------------*/
 void DCOP::sweep()

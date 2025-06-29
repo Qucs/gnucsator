@@ -76,6 +76,10 @@ parameter SubstTC1 value is "NOT_INPUT"
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"
 #           v(_net13)  v(_net2)   v(_net6)   v(_net8)   v(gnd)    
+parameter SubstTC1 not specified, using default
+parameter SubstTC1 value is "NOT_INPUT"
+parameter SubstTC1 not specified, using default
+parameter SubstTC1 value is "NOT_INPUT"
  0.         0.         0.         0.         0.         0.        
 parameter SubstTC1 not specified, using default
 parameter SubstTC1 value is "NOT_INPUT"

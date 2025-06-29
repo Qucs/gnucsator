@@ -84,10 +84,7 @@ bool EVAL_BM_VALUE::is_trivial()const
 	    || _scale.has_hard_value()
 	    || _tc1.has_hard_value()
 	    || _tc2.has_hard_value()
-	    || _ic.has_hard_value()
-	    || _tnom_c.has_hard_value()
-	    || _dtemp.has_hard_value()
-	    || _temp_c.has_hard_value());
+	    || _ic.has_hard_value());
 }
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_VALUE::precalc_first(const PARAM_LIST* Scope)

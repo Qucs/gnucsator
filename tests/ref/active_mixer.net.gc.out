@@ -145,7 +145,7 @@ dctran density=56.0%, ac density=56.0%
  10.
 </indep>
 <indep _net5.V 1>
--2.E-15
+ 0.
 </indep>
 <indep _net6.V 1>
  0.
@@ -505,7 +505,7 @@ dctran density=56.0%, ac density=56.0%
  10.
 </dep>
 <dep _net5.Vt time>
--2.E-15
+ 0.
  0.2937385
  0.4752865
  0.3306874
@@ -560,7 +560,7 @@ dctran density=56.0%, ac density=56.0%
  0.2509713
 -0.3206231
 -0.469779
- 0.
+-2.E-15
 </dep>
 <dep _net6.Vt time>
  0.
