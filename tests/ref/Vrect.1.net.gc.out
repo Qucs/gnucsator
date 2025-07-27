@@ -9,7 +9,7 @@ iterations: op=0, dc=0, tran=232, fourier=0, total=325
 transient timesteps: accepted=61, rejected=32, total=93
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=2, subckt=0, model=2, total=4
-dctran density=50.0%, ac density=50.0%
+dctran density=43.8%, ac density=43.8%
 
 <indep time 61>
  0.

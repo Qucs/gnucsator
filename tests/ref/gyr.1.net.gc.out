@@ -2028,7 +2028,7 @@ iterations: op=3, dc=0, tran=0, fourier=0, total=2004
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=10, subckt=17, model=0, total=27
-dctran density=49.0%, ac density=49.0%
+dctran density=47.9%, ac density=47.9%
 
 <indep frequency 2001>
  1.E+9

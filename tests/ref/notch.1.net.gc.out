@@ -19,7 +19,7 @@ iterations: op=3, dc=3, tran=0, fourier=0, total=16
 transient timesteps: accepted=0, rejected=0, total=0
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=7, subckt=0, model=0, total=7
-dctran density=87.8%, ac density=87.8%
+dctran density=59.2%, ac density=59.2%
 
 <indep In.V 1>
  0.
