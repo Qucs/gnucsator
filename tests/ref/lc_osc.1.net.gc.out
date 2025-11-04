@@ -18,17 +18,17 @@ L:L1 _net1 _net0 L="3n" I=""
 ^ ? # Eqn: no match
 parameter mynpn not specified, using default
 parameter mynpn value is "NOT_INPUT"
-T3.n.mynmos: rsh - rs - rd conflict: using rsh
-T3.n.mynmos: is - js conflict
-T3.n.mynmos: nsub < ni, treating as if not input
-T2.n.mynmos: rsh - rs - rd conflict: using rsh
-T2.n.mynmos: is - js conflict
-T2.n.mynmos: nsub < ni, treating as if not input
 parameter mynpn not specified, using default
 parameter mynpn value is "NOT_INPUT"
 T1.T1.n.mynmos: rsh - rs - rd conflict: using rsh
 T1.T1.n.mynmos: is - js conflict
 T1.T1.n.mynmos: nsub < ni, treating as if not input
+T2.n.mynmos: rsh - rs - rd conflict: using rsh
+T2.n.mynmos: is - js conflict
+T2.n.mynmos: nsub < ni, treating as if not input
+T3.n.mynmos: rsh - rs - rd conflict: using rsh
+T3.n.mynmos: is - js conflict
+T3.n.mynmos: nsub < ni, treating as if not input
 parameter mynpn not specified, using default
 parameter mynpn value is "NOT_INPUT"
 parameter mynpn not specified, using default

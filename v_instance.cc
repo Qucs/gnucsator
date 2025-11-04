@@ -21,13 +21,14 @@
  *------------------------------------------------------------------
  * module stuff
  */
+#include <globals.h>
+#include <io_trace.h>
 #include <u_nodemap.h>
 #include <e_node.h>
-#include <globals.h>
 #include <e_paramlist.h>
 #include <e_subckt.h>
-#include <io_trace.h>
 #include <e_model.h>
+#include <e_hsparam.h>
 #include <c_comand.h>
 #include <set>
 /*--------------------------------------------------------------------------*/
@@ -85,7 +86,7 @@ protected:
 public:
   explicit	INSTANCE();
 		~INSTANCE();
-  CARD*		clone_instance()const override { untested();
+  CARD*		clone_instance()const override {
     // incomplete();
     return clone();
   }
@@ -346,7 +347,7 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
 
       if(i<c->net_nodes()){
 	// OK
-      }else if(i<c->net_nodes()+c->num_current_ports()){ untested();
+      }else if(i<c->net_nodes()+c->num_current_ports()){
 	trace2("DEV_INSTANCE_PROTO::po current port?", i, v);
 	std::string branch_name = Proto->port_value(i); // v.substr(1);
 	trace1("DEV_INSTANCE_PROTO::po current port?", branch_name);
@@ -367,20 +368,22 @@ void INSTANCE::prepare_overload(CARD* model, std::string modelname, DEV_INSTANCE
 //    assert(cp);
     for(int i=0; i<int(_params.size()); ++i){
       trace4("stub param fwd1", c->short_label(), i, _params[i].first, _params[i].second);
+      std::string name = _params[i].first;
       std::string value = _params[i].second;
-      if(_params[i].first == ""){
+      if(name == ""){
 	c->set_param_by_index(i, value, 0);
-      }else if(_params[i].first == "$mfactor"){
-	// needed?
-	c->set_param_by_name(_params[i].first, value);
       }else{
-	trace2("stub param fwd2", _params[i].first, value);
-	c->set_param_by_name(_params[i].first, value);
+	try{
+	  c->set_param_by_name(name, value);
+	}catch(Exception_Clash const& e){
+	  throw(Exception_Clash("parameter " + name + " already set"));
+	}
       }
     }
     Proto->subckt()->push_back(c);
 //    c->precalc_first(); // latch mfactor.??
   }catch(Exception const& e){
+    trace1("discard", long_label());
     // TODO: include proto name attribute
     error(bLOG, long_label() + " discarded: " + e.message() + "\n");
     delete (CARD*) c;
@@ -405,11 +408,13 @@ void INSTANCE::collect_overloads(DEV_INSTANCE_PROTO* Proto) const
   assert(Proto->scope()==Proto->subckt());
   assert(!Proto->scope()->size());
 
+#ifdef DO_TRACE
   for(auto n : *(Proto->subckt()->nodes())){
     trace1("node", n.first);
   }
+#endif
 
-  if (_parent){ untested();
+  if (_parent){
     // getting here in modelgen...?
   }else if (modelname == "") { untested();
     throw Exception(Proto->long_label() + ": missing args -- need model name");
@@ -527,15 +532,16 @@ CARD* INSTANCE::deflate()
       trace4("rewire", long_label(), ii, c->n_(ii).e_(), n_(ii).e_());
     }
 #endif
-    for(int ii=0; ii<net_nodes(); ++ii){
+    for(int ii=0; ii<c->net_nodes(); ++ii){
       if(ii < c->net_nodes()) {
 	trace3("rewire do", ii, c->n_(ii).e_(), _parent->port_name(ii));
 	if( _parent->port_name(ii)[0] == '*'){
 	  c->n_(ii) = n_(ii); // why?
-	}else{
+	}else if(c->n_(ii).e_() != -1){
 	  c->n_(ii) = n_(c->n_(ii).e_());
+	}else{
 	}
-      }else if(ii < c->net_nodes()+c->num_current_ports()){ untested();
+      }else if(ii < c->net_nodes()+c->num_current_ports()){
       }else{ untested();
       }
     }
@@ -574,6 +580,7 @@ INSTANCE::INSTANCE(const INSTANCE& p)
   ,_cloned_from(&p)
   ,_parent(p._parent)
   ,_proto(nullptr)
+  ,_port_names(p._port_names)
   ,_node_capacity(0)
 {
   trace2("INSTANCE::INSTANCE", p.short_label(), p._net_nodes);
@@ -631,6 +638,19 @@ std::string INSTANCE::port_name(int i)const
   }else{
     return ""; // it has no name.
   }
+}
+/*--------------------------------------------------------------------------*/
+static int eff_param_count(CARD const* x)
+{
+  auto c = prechecked_cast<COMPONENT const*>(x);
+  assert(c);
+  HS_PARAM const* h = c->hsparam();
+  return c->param_count() - (h?h->param_count():0);
+}
+/*--------------------------------------------------------------------------*/
+static std::string param_count_string(CARD const* c)
+{
+  return to_string(eff_param_count(c));
 }
 /*--------------------------------------------------------------------------*/
 void INSTANCE::expand()
@@ -708,7 +728,7 @@ void INSTANCE::expand()
 	  desc = "";
 	}else{
 	  desc = ": " + desc;
-	  error(bTRACE, long_label() + " .. candidate"+desc+", params: "+to_string(s->param_count())+"\n");
+	  error(bTRACE, long_label() + " .. candidate"+desc+", params: "+param_count_string(s)+"\n");
 	}
       }else{ untested();
 	// error(bTRACE, long_label() + " .. anonymous candidate.\n");
@@ -725,19 +745,19 @@ void INSTANCE::expand()
       gotit = prechecked_cast<COMPONENT*>(*j);
       assert(gotit);
       *j = nullptr;
-    }else if(d->param_count() > gotit->param_count()){
+    }else if(eff_param_count(d) > eff_param_count(gotit)){
       if(desc.size()){ untested();
 	error(bTRACE, long_label() + " rejecting candidate, more params"+desc+".\n");
       }else{
-	error(bDEBUG, long_label() + " tie break: " + to_string(gotit->param_count()) + " vs. " +
-	    to_string(d->param_count()) + "\n");
+	error(bDEBUG, long_label() + " tie break: " + param_count_string(gotit) + " vs. " +
+	    param_count_string(d) + "\n");
       }
     }else if(d->param_count() < gotit->param_count()){
       if(desc.size()){
 	error(bTRACE, long_label() + " found fewer params"+desc+".\n");
       }else{
-	error(bDEBUG, long_label() + " tie break: " + to_string(gotit->param_count()) + " vs. " +
-	    to_string(d->param_count()) + "\n");
+	error(bDEBUG, long_label() + " tie break: " + param_count_string(gotit) + " vs. " +
+	    param_count_string(d) + "\n");
       }
       delete (CARD*) gotit;
       gotit = prechecked_cast<COMPONENT*>(*j);
@@ -772,6 +792,7 @@ void INSTANCE::expand()
     assert(d);
     assert(d->is_valid());
     d->set_label(short_label());
+    d->set_dev_type(dev_type()); // make spice happier..
   }else{ untested();
     // TODO: include name attributes, once available
     throw Exception(long_label() + ": ambiguous overload: " + dev_type());
@@ -807,7 +828,7 @@ void INSTANCE::precalc_first()
   trace3("INSTANCE::precalc_first", short_label(), _parent, common()->modelname());
   trace1("INSTANCE::precalc_first", _sim->is_first_expand());
 
-  if(!owner()){ untested();
+  if(!owner()){
     build_proto();
     _parent = _proto; // common->proto?
   }else if(_cloned_from){

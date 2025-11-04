@@ -560,7 +560,7 @@ dctran density=56.0%, ac density=56.0%
  0.2509713
 -0.3206231
 -0.469779
--2.E-15
+ 0.
 </dep>
 <dep _net6.Vt time>
  0.
