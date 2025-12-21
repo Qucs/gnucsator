@@ -1,5 +1,5 @@
-module tst (.(\1 ),.(\2 ));
-resistor #() r (.p(\1 ),.n(\2 ));
+module tst (\1 , \2 );
+  resistor #() r (.p(\1 ),.n(\2 ));
 endmodule // tst
 
 .Def:tst 1 2 

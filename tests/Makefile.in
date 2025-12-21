@@ -5,7 +5,8 @@ GNUCSATOR = ${srcdir}/../gnucsator.sh
 GNUCAP = gnucap$(SUFFIX)
 
 DIFF = diff -w -u
-NUMDIFF = numdiff -r1.e-6 -a1.e-8
+# NUMDIFF = numdiff -r1.e-6 -a1.e-8
+NUMDIFF = diff -rup
 REF = ref
 
 SHELL = /bin/bash
