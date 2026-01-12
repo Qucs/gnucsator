@@ -33,26 +33,26 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
   private:
     mutable std::vector<PARAMETER<T> > _v;
     std::vector<PARAMETER<T> > _NOT_INPUT() const;
-	 PARA_BASE* clone()const override {unreachable(); return nullptr; }
-	 PARA_BASE* pclone(void*)const override {assert(0); unreachable(); return nullptr;}
-	 bool operator==(const PARA_BASE&)const override {unreachable(); return false;}
-	 PARA_BASE& operator=(Base const*)override {unreachable(); return *this; }
-	// std::string string()const override {unreachable(); return "";}
+	 PARA_BASE* clone()const override { untested();unreachable(); return nullptr; }
+	 PARA_BASE* pclone(void*)const override { untested();assert(0); unreachable(); return nullptr;}
+	 bool operator==(const PARA_BASE&)const override { untested();unreachable(); return false;}
+	 PARA_BASE& operator=(Base const*)override { untested();unreachable(); return *this; }
+	// std::string string()const override { untested();unreachable(); return "";}
 
-	 Base const* e_val_(const Base* def, const PARAM_LIST* scope, int recursion=0)const override {
+	 Base const* e_val_(const Base* def, const PARAM_LIST* scope, int recursion=0)const override { untested();
 		 unreachable();
 		 return nullptr;
 	 }
-	 Base const* value()const { unreachable(); return nullptr; }
+	 Base const* value()const { untested(); unreachable(); return nullptr; }
   public:
     operator std::vector<PARAMETER<T> >()const { return _v;}
-    explicit PARAMETER(T v) : PARA_BASE("#"), _v(v) {}
+    explicit PARAMETER(T v) : PARA_BASE("#"), _v(v) { untested();}
     PARAMETER() : PARA_BASE(), _v(std::vector<PARAMETER<T> >()) {}
     PARAMETER(const PARAMETER<std::vector<PARAMETER<T> > >& p) :
       PARA_BASE(p), _v(p._v){ }
 
-    //		void	print(OMSTREAM& o)const		{o << string();}
-    //		void	print(ostream& o)const		{o << string();}
+    //		void	print(OMSTREAM& o)const		{ untested();o << string();}
+    //		void	print(ostream& o)const		{ untested();o << string();}
 
     std::string string()const override;
     //std::vector<PARAMETER<T> >  _NOT_INPUT() const;
@@ -63,39 +63,49 @@ class PARAMETER<std::vector<PARAMETER<T> > > : public PARA_BASE{
     void	operator=(const std::vector<PARAMETER<T> >& v) { untested();
       _v = v; _s = "#";
     }
-    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >&)const {
-		 // incomplete(); yes, but okay
-		 return false;
-	 }
+    bool operator==(const PARAMETER<std::vector<PARAMETER<double> > >& p)const {
+      if(_v.size() != p._v.size()){
+        return false;
+      }else{
+        for(int i=0; i<int(_v.size()); ++i){
+          if(_v[i] == p._v[i]){
+          }else{
+              return false;
+          }
+        }
+      }
+      // incomplete(); yes, but okay
+      return true;
+    }
     std::vector<PARAMETER<T> >	e_val(const std::vector<PARAMETER<T> >& def,
         const PARAM_LIST* scope)const;
     std::string to_string(std::vector< PARAMETER<T> > n) const;
 
     operator std::string()const;
-    size_t size()const{return _v.size();}
+    size_t size()const{ untested();return _v.size();}
 
-    bool has_good_value()const override{incomplete(); return false;}
-    void parse(CS&)override {incomplete();}
+    bool has_good_value()const override{ untested();incomplete(); return false;}
+    void parse(CS&)override { untested();incomplete();}
 }; // PARAMETER<std::vector<PARAMETER<T> > >
 /*--------------------------------------------------------------------------*/
 template <class T>
 PARAMETER<std::vector<PARAMETER<T> > >::operator std::string()const
-{ untested();
+{
   return string();
 }
 /*--------------------------------------------------------------------------*/
 template <class T>
 inline std::string PARAMETER<std::vector<PARAMETER<T> > >::string()const
-{ untested();
+{
   std::string ret("");
-  if (PARAMETER<std::vector<PARAMETER<T> > >::_s == "#") { untested();
+  if (PARAMETER<std::vector<PARAMETER<T> > >::_s == "#") {
     ret+= "(";
   }else if (_s == "") { untested();
     ret+= "NA(";
   }else{ untested();
     return std::string(_s);
   }
-  for(unsigned  i=0; i<_v.size(); i++){ untested();
+  for(unsigned  i=0; i<_v.size(); i++){
     ret+= (i)?",":"";
     ret+= _v[i].string();
   }
@@ -182,7 +192,7 @@ inline S& operator<<( S& o, const std::vector<PARAMETER<double> >  &m)
 
   for ( std::vector<PARAMETER<double> >::const_iterator ci=m.begin();
       ci!=m.end();)
-  { untested();
+  {
     o << " " << *(ci) << " ";
     ++ci;
   }

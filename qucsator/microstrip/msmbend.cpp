@@ -100,7 +100,7 @@ void msmbend::initAC (void) { untested();
   allocMatrixMNA ();
 }
 
-void msmbend::calcAC (nr_double_t frequency) { untested();
+void msmbend::calcAC (nr_double_t frequency) {
   setMatrixY (ztoy (calcMatrixZ (frequency)));
 }
 

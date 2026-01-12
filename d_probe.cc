@@ -71,9 +71,9 @@ protected: // override virtual
   double tr_involts()const override {return tr_outvolts();}
   double tr_involts_limited()const override { untested();return tr_outvolts_limited();}
   void ac_iwant_matrix()override;
-  void ac_begin()override{ untested();incomplete();}
-  void do_ac()override{ untested();incomplete();}
-  void ac_load()override{ untested();incomplete();}
+  void ac_begin()override{incomplete();}
+  void do_ac()override{incomplete();}
+  void ac_load()override{incomplete();}
   string port_name(uint_t i)const override{
     assert(i != INVALID_NODE);
     assert(i < 2);

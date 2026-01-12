@@ -39,6 +39,14 @@ typedef int uint_t;
 namespace {
 /*--------------------------------------------------------------------------*/
 class COMMON_G_POLY_K : public EVAL_BM_ACTION_BASE {
+private:
+  PARAMETER<vector<PARAMETER<double> > > _coeffs;
+  vector<PARAMETER<double> > _coeff; // one by one...
+  MV_POLY<double>* _poly;
+  unsigned _n_ports;
+public: // HACK?
+  unsigned _minnodes;
+  unsigned _maxnodes;
 public:
   explicit COMMON_G_POLY_K(int x) :
     EVAL_BM_ACTION_BASE(x),
@@ -60,11 +68,16 @@ public:
   {
     trace1("copy. coeffs", _coeffs);
     trace3("copy. coeff", _coeff, _maxnodes, _minnodes);
+    assert(*this == p);
+    assert(p == *this);
   }
 
   COMMON_COMPONENT* clone()const override{return new COMMON_G_POLY_K(*this);}
   bool operator==(const COMMON_COMPONENT&x)const override{
     const COMMON_G_POLY_K* p = dynamic_cast<const COMMON_G_POLY_K*>(&x);
+    if(p){
+      trace3("==", _n_ports, p->_n_ports, EVAL_BM_ACTION_BASE::operator==(x));
+    }
     bool rv = p
       && _n_ports == p->_n_ports
       && _coeffs == p->_coeffs
@@ -132,7 +145,7 @@ public:
     }
   }
 
-  std::string param_value(int I)const override { untested();
+  std::string param_value(int I)const override {
     switch (I) {
       case 0: return _coeffs.string();
       default: return EVAL_BM_ACTION_BASE::param_value(I-1);
@@ -174,14 +187,6 @@ public:
     }
   }
   void tr_eval(ELEMENT* e)const override;
-private:
-  PARAMETER<vector<PARAMETER<double> > > _coeffs;
-  vector<PARAMETER<double> > _coeff; // one by one...
-  MV_POLY<double>* _poly;
-  unsigned _n_ports;
-public: // HACK?
-  unsigned _minnodes;
-  unsigned _maxnodes;
 }; // COMMON_G_POLY_K
 /*--------------------------------------------------------------------------*/
 #if 0 // not yet
