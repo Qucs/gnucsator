@@ -5,19 +5,20 @@ M d g s b mynmos l=l w=w m=1 temp=temp
 M d g s b mypmos l=l w=w m=1 temp=temp 
                              ^ ? spice_mos.M: bad parameter temp ignored
 Gnucap   System status
-iterations: op=0, dc=0, tran=232, fourier=0, total=325
-transient timesteps: accepted=61, rejected=32, total=93
+iterations: op=0, dc=0, tran=235, fourier=0, total=329
+transient timesteps: accepted=62, rejected=32, total=94
 transient timesteps: accepted=0, rejected=0, total=0
 nodes: user=2, subckt=0, model=2, total=4
 dctran density=43.8%, ac density=43.8%
 
-<indep time 61>
+<indep time 62>
  0.
- 1.01E-9
- 2.02E-9
- 3.03E-9
- 4.04E-9
- 5.05E-9
+ 1.E-9
+ 2.E-9
+ 3.E-9
+ 4.E-9
+ 5.E-9
+ 10.42163E-6
  0.001000001
  0.001000002
  0.001000004
@@ -76,6 +77,7 @@ dctran density=43.8%, ac density=43.8%
 </indep>
 <dep _net0.Vt time>
  0.
+ 0.4999999
  0.4999999
  0.4999999
  0.4999999
@@ -145,6 +147,7 @@ dctran density=43.8%, ac density=43.8%
  0.9999999
  0.9999999
  0.9999999
+ 0.9999999
  0.
  0.
  0.
@@ -208,7 +211,8 @@ dctran density=43.8%, ac density=43.8%
  0.4999999
  0.4999999
  0.4999999
- 0.
+ 0.4999999
+-72.76E-18
  0.
  0.
  0.
@@ -271,7 +275,8 @@ dctran density=43.8%, ac density=43.8%
  0.9999999
  0.9999999
  0.9999999
- 0.
+ 0.9999999
+-145.519E-18
  0.
  0.
  0.
