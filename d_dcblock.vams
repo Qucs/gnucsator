@@ -9,7 +9,7 @@ module DCBlock(p, n);
 	(*desc=""*) real v;
 	parameter real C=1e-6; // why?
 	analog begin
-		if(analysis("dc"))
+		if(analysis("static"))
 			v = V(p,n);
 		else
 			V(p,n) <+ v;
