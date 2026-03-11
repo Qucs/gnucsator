@@ -123,11 +123,12 @@ void AC_WRAP::options(CS& cmd)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-class DC_WRAP : public CARD, public CMD {
+class DC_WRAP : public CMD {
 public:
 	DC_WRAP(): CMD() {}
 private:
-	DC_WRAP* clone()const override{return new DC_WRAP(*this);}
+	DC_WRAP(DC_WRAP const& x): CMD() {untested();}
+	DC_WRAP* clone()const override{untested(); return new DC_WRAP(*this);}
 	std::string value_name()const override{ untested();unreachable(); return "";}
 public:
 	typedef struct{
@@ -183,7 +184,7 @@ private:
 public: // GO
 	static std::map<string, data_t> _stash;
 } pdc;
-std::map<string, DC_WRAP::data_t> DC_WRAP::_stash;
+std::map<std::string, DC_WRAP::data_t> DC_WRAP::_stash;
 DISPATCHER<CMD>::INSTALL dac(&command_dispatcher, "DC", (CMD*)&pdc);
 /*--------------------------------------------------------------------------*/
 class SP_WRAP : public CMD {

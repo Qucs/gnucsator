@@ -534,8 +534,16 @@ DEV_DOT* LANG_QUCSATOR::parse_command(CS& cmd, DEV_DOT* x)
 	trace2("LANG_QUCSATOR::parse_command cmdproc", cmd.fullstring(), scope);
 	cmdproc(cmd, scope);
 
-	delete x;
-	return nullptr;
+	if(dynamic_cast<CMD const*>(x)){
+		// return x; not yet
+		x->purge();
+		delete x;
+		return nullptr;
+	}else{
+		x->purge();
+		delete x;
+		return nullptr;
+	}
 }
 /*--------------------------------------------------------------------------*/
 MODEL_CARD* LANG_QUCSATOR::parse_paramset(CS& cmd, MODEL_CARD* x)

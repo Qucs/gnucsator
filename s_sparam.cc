@@ -203,6 +203,12 @@ private:
   void outdata(double, int) override;
   void store_results(double x) override;
   void flush();
+  void allocate(){
+    _sim->alloc_vectors();
+    _sim->_acx.reallocate();
+    _sim->_acx.dezero(OPT::gmin);
+    _sim->_acx.set_min_pivot(OPT::pivtol);
+  }
 private:
   OMSTREAM _out; // tmp hack
   std::vector<PAC*> _ports;

@@ -34,19 +34,22 @@ enum typeT{
 	tLog = 1
 };
 /*--------------------------------------------------------------------------*/
-class SW_WRAP : public CARD, public CMD {
-public:
-	SW_WRAP(): CARD(), CMD() {}
-private:
-	CARD* clone()const override {return new SW_WRAP(*this);}
-	std::string value_name()const override { untested();unreachable(); return "";}
-private:
+class SW_WRAP : public CMD {
 	double _start; // PARAMETER?
 	double _stop;
 	unsigned _points = 1;
 	std::string _sim;
 	std::string _param;
 	typeT _type;
+public:
+	SW_WRAP(): CMD() {}
+private:
+	SW_WRAP(SW_WRAP const&x): CMD(x), _start(x._start),
+		_stop(x._stop), _points(x._points), _sim(x._sim),
+		_param(x._param), _type(x._type)	{untested();}
+	CARD* clone()const override {untested(); return new SW_WRAP(*this);}
+	std::string value_name()const override { untested();unreachable(); return "";}
+private:
 
 	void options(CS& cmd){
 		size_t here = cmd.cursor();
@@ -72,8 +75,10 @@ private:
 
 	void do_it(CS& cmd, CARD_LIST* Scope)override {
 		assert(Scope);
+		trace1("SWEEP::do_it", cmd.fullstring());
 		if(cmd >> "go"){
 			error(bTRACE, "sweep " + cmd.fullstring() + "\n");
+			assert(_sim.size());
 			auto it = Scope->find_(_sim);
 			if(it==Scope->end()){ untested();
 				throw Exception_CS("unknown sim " + _sim, cmd);
@@ -88,6 +93,7 @@ private:
 				c->do_it(xx, Scope);
 			}else{ untested();
 				unreachable();
+				assert(0);
 			}
 		}else{
 			options(cmd);
@@ -104,9 +110,10 @@ private:
 #endif
 			pl->set("__omit_"+_sim, "1");
 
-			// BUG: modify clone instead.
 			auto cl = clone();
-			cl->CARD::set_label(CMD::short_label());
+			trace2("SW", short_label(), _sim);
+			assert(short_label().size());
+			assert(cl->short_label() == short_label());
 			Scope->push_back(cl);
 		}
 	}
