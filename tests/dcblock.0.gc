@@ -2,9 +2,7 @@ load c_include.so
 load d_trln.so
 load d_dcblock.so
 load s_sparam.so
-load mgsim/d_va_noise.so
-load mgsim/d_vaflow.so
-load mgsim/d_vapot_br.so
+load mgsim
 
 `include ../include/sources.v
 `include ../include/lumped.v

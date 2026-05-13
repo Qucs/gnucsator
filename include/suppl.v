@@ -1,4 +1,3 @@
-simulator language=verilog
 // This File is part of gnucap-qucs
 // (C) 2025 Felix Salfelder
 // GPLv3+

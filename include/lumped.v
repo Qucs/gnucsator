@@ -1,4 +1,4 @@
-simulator language=verilog
+options noinsensitive
 // This File is part of gnucap-qucs
 // (C) 2018 Felix Salfelder
 // GPLv3+
@@ -7,25 +7,31 @@ simulator language=verilog
 // "lumped components" section
 
 module C(p, n);
-	parameter C;
-	parameter V;
+	electrical p, n;
+	inout p, n;
+	parameter real C = 0.0;
+	parameter real V = 0.0;
+
 	capacitor #(.c(C)) dev(p, n);
 endmodule // C
 
 module L(p, n);
-	parameter L;
+	electrical p, n;
+	inout p, n;
+	parameter real L = 0.0;
+
 	inductor #(.l(L)) dev(p, n);
 endmodule // C
 
 module R(p, n);
-	parameter R;
-	parameter Temp=26.85;
-	parameter Tnom=26.85;
-	parameter Tc1=0;
-	parameter Tc2=0;
-
-	// local?
-	parameter dT=Temp-Tnom;
+	electrical p, n;
+	inout p, n;
+	parameter real R = 1.0;
+	parameter real Temp = 26.85;
+	parameter real Tnom = 26.85;
+	parameter real Tc1 = 0.0;
+	parameter real Tc2 = 0.0;
+	localparam real dT = Temp - Tnom;
 
 	resistor #(.r(R * (1. + dT*(Tc1 + dT*Tc2)))) dev(p, n);
 endmodule // R
@@ -34,8 +40,11 @@ endmodule // R
 // Zref is some sparam hack.. ignore for now
 
 module Gyrator(\1 , \2 , \3 , \4 );
+  electrical \1 , \2 , \3 , \4 ;
+  inout \1 , \2 , \3 , \4 ;
   parameter real R = 1.0;
   parameter real Zref = 50.0;
+
   vccs #(1/R) cs1(\2 , \3 , \4 , \1 );
   vccs #(1/R) cs2(\1 , \4 , \2 , \3 );
 endmodule
@@ -43,25 +52,29 @@ endmodule
 // old gyrator, seems numerically unstable
 // use with caution.
 module Gyrator1(\1 , \2 , \3 , \4 );
+  electrical \1 , \2 , \3 , \4 ;
+  inout \1 , \2 , \3 , \4 ;
   parameter real R = 50.0;
   parameter real Zref R = 50.0;
 
-ccvs #(.gain(R)) vs1(\3i , \2 , vp2);
-vsource #(.dc(0)) vp1(\3 , \3i );
-
-ccvs #(.gain(R)) vs2(\1 ,\4i , vp1);
-vsource #(.dc(0)) vp2(\4 , \4i );
+  ccvs #(.gain(R)) vs1(\3i , \2 , vp2);
+  vsource #(.dc(0)) vp1(\3 , \3i );
+  
+  ccvs #(.gain(R)) vs2(\1 ,\4i , vp1);
+  vsource #(.dc(0)) vp2(\4 , \4i );
 endmodule
 
 
 // Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB"
 module Amp(\1 , \2 );
-	parameter G=10;
-	parameter Z1=50;
-	parameter Z2=50;
-	parameter NF=1;
-
+	electrical \1 , \2 , gnd;
+	inout \1 , \2 ;
 	ground gnd;
+	parameter real G = 10.0;
+	parameter real Z1 = 50.0;
+	parameter real Z2 = 50.0;
+	parameter real NF = 1.0;
+
 	// almost?
 	resistor #(.r(Z1)) r(\2i , \2 );
 	vcvs #(.gain(G)) vs1(\2i , gnd, \1 , gnd);
@@ -71,51 +84,62 @@ endmodule
 // TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
 //                                           is ignored  ^^
 module TLIN (t1, t2)
-  parameter Z=50.;
-  parameter L=100m;
-  parameter Alpha=0.;
-  parameter Temp=26.85;
-
-// local??
-  parameter c0=299792458.0;
+  electrical t1, t2, gnd;
+  inout t1, t2;
   ground gnd;
+  parameter real Z = 50.0;
+  parameter real L = 0.1;
+  parameter real Alpha = 0.0;
+  parameter real Temp = 26.85;
+  localparam real c0 = 299792458.0;
+
   tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t2(.t1(t1) , .b1(gnd) , .t2(t2) , .b2(gnd) );
 endmodule
 
-module TLIN4P (t1, t2, b2, b1)
-  parameter Z=50;
-  parameter L=100m;
-  parameter Alpha=0;
-  parameter Temp=26.85;
+module TLIN4P (t1, t2, b2, b1);
+  electrical t1, t2, b1, b2;
+  inout t1, t2, b1, b2;
+  parameter real Z = 50.0;
+  parameter real L = 0.1;
+  parameter real Alpha = 0.0;
+  parameter real Temp = 26.85;
+  localparam real c0 = 299792458.0;
 
-// local??
-  parameter c0=299792458.0;
   tline #(.z(Z), .td(1./c0), .len(L), .alpha(Alpha)) t4(.t1(t1), .t2(t2), .b1(b1), .b2(b2));
 endmodule
 
-module Tr (outp inp inn outn);
-parameter T=1.;
-CCCS #(.G(T)) v(outp_ inp inn outp);
-vcvs #(.gain(T)) e(outp_ outn inp inn);
+module Tr (outp, inp, inn, outn);
+  electrical outp, inp, inn, outn;
+  inout outp, inp, inn, outn;
+  parameter real T=1.0;
+
+  CCCS #(.G(T)) v(outp_, inp, inn, outp);
+  vcvs #(.gain(T)) e(outp_, outn, inp, inn);
 endmodule
 
 * sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1"
 * sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1"
-module sTr (outp inp inn, \4 , \5 , outn);
-parameter T1=1.;
-parameter T2=1.;
-CCCS #(.G(T1)) v(outp_ inp inn outp);
-vcvs #(.gain(T1)) e(outp_ outn inp inn);
+module sTr (outp, inp, inn, \4 , \5 , outn);
+  electrical outp, inp, inn, \4 , \5 , outn;
+  inout outp, inp, inn, \4 , \5 , outn;
+  parameter real T1 = 1.0;
+  parameter real T2 = 1.0;
 
-CCCS #(.G(T2)) v(\5_ , inp, inn, \5 );
-vcvs #(.gain(T2)) e(\5_ , \4 , inp, inn);
+  CCCS #(.G(T1)) v(outp_ inp inn outp);
+  vcvs #(.gain(T1)) e(outp_ outn inp inn);
+
+  CCCS #(.G(T2)) v(\5_ , inp, inn, \5 );
+  vcvs #(.gain(T2)) e(\5_ , \4 , inp, inn);
 endmodule
 
 module BiasT(\1 , \2 , \3 )
-parameter C=1;
-parameter L=1;
-capacitor #(.c(C)) c1(\1 , \2 );
-inductor #(.l(L)) l1(\3 , \2 );
+  electrical \1 , \2 , \3 ;
+  inout \1 , \2 , \3 ;
+  parameter real C = 1.0;
+  parameter real L = 1.0;
+
+  capacitor #(.c(C)) c1(\1 , \2 );
+  inductor #(.l(L)) l1(\3 , \2 );
 endmodule
 
 simulator lang=spice

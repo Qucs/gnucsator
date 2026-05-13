@@ -1,4 +1,4 @@
-simulator language=verilog
+options noinsensitive
 // This File is part of gnucap-qucs
 // (C) 2018 Felix Salfelder
 // GPLv3+
@@ -10,14 +10,17 @@ simulator language=verilog
 // AM_Mod:V1 _net1 gnd _net2 U="1 V" f="1 Hz" Phase="0" m="1.0"
 // Phase is broken in qucsator?
 module AM_Mod(\1 , \2 , \3 );
-parameter U=1;
-parameter f=1;
-parameter Phase=0;
-parameter m=1;
-ground gnd;
-Vac #(.U(U) .f(f) .Phase(Phase)) V1(\1 , \2i );
-g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , gnd );
-CCVS h(\2j , \1 , \2 , \1 );
+  electrical  \1 , \2 , \3 , \2i , \2j , gnd;
+  inout  \1 , \2 , \3 ;
+  ground gnd;
+  parameter real U = 1.0;
+  parameter real f = 1.0;
+  parameter real Phase = 0.0;
+  parameter real m = 1.0;
+
+  Vac #(.U(U) .f(f) .Phase(Phase)) V1(\1 , \2i );
+  g_poly_2 #(.c(0.,1.,0.,0.,1.)) mul(\1 , \2j , \1 , \2i , \3 , gnd );
+  CCVS h(\2j , \1 , \2 , \1 );
 endmodule;
 // -------------------------------------------------------------------- //
 // OpAmp:OP1 gnd _net0 _net4 G="1e6" Umax="15 V"
@@ -27,8 +30,6 @@ endmodule;
 // 	vcvs #(.gain(1.)) HH(1, 2, p);
 // endmodule;
 // -------------------------------------------------------------------- //
-simulator lang=spice
-.options noinsensitive
 .subckt spice_diode 1 2
  .parameter area=1
  .parameter N cjo
@@ -41,7 +42,7 @@ simulator lang=spice
   D1 1 2 mydiode area=area
 .ends
 
-.verilog
+simulator language=verilog
 
 `if 1
 // TODO: this is actually a paramset
@@ -135,25 +136,26 @@ S1 1 3 2 4 sss
   Q1 (c, b, e, s) mypnp area=area
 .ends
 ******************************************************************************
+* // BJT:BC557B_1 _net4 _net1 _net2 _net1 Type="pnp" Is="3.834e-14" Nf="1.008"
+* // Nr="1.005" Ikf="0.08039" Ikr="0.047" Vaf="21.11" Var="32.02"
+* // Ise="1.219e-14" Ne="1.528" Isc="2.852e-13" Nc="1.28" Bf="344.4" Br="14.84"
+* // Rbm="1" Irb="1e-06" Rc="0.5713" Re="0.6202" Rb="1" Cje="1.23e-11"
+* // Vje="0.6106" Mje="0.378" Cjc="1.084e-11" Vjc="0.1022" Mjc="0.3563"
+* // Xcjc="0.6288" Cjs="0" Vjs="0.75" Mjs="0.333" Fc="0.8027" Tf="5.595e-10"
+* // Xtf="3.414" Vtf="5.23" Itf="0.1483" Tr="1e-32" Temp="26.85" Kf="0" Af="1"
+* // Ffe="1" Kb="0" Ab="1" Fb="1" Ptf="0" Xtb="0" Xti="3" Eg="1.11" Tnom="26.85"
+* // Area="1"
+* // BJT:T1 _net6 _net7 _net8 _net7 Type="pnp" Is="1e-16" Nf="1" Nr="1" Ikf="0"
+* // Ikr="0" Vaf="0" Var="0" Ise="0" Ne="1.5" Isc="0" Nc="2" Bf="100" Br="1"
+* // Rbm="0" Irb="0" Rc="0" Re="0" Rb="0" Cje="0" Vje="0.75" Mje="0.33" Cjc="0"
+* // Vjc="0.75" Mjc="0.33" Xcjc="1.0" Cjs="0" Vjs="0.75" Mjs="0" Fc="0.5"
+* // Tf="0.0" Xtf="0.0" Vtf="0.0" Itf="0.0" Tr="0.0" Temp="26.85" Kf="0.0"
+* // Af="1.0" Ffe="1.0" Kb="0.0" Ab="1.0" Fb="1.0" Ptf="0.0" Xtb="0.0" Xti="3.0"
+* // Eg="1.11" Tnom="26.85" Area="1.0"
 .verilog
-// BJT:BC557B_1 _net4 _net1 _net2 _net1 Type="pnp" Is="3.834e-14" Nf="1.008"
-// Nr="1.005" Ikf="0.08039" Ikr="0.047" Vaf="21.11" Var="32.02"
-// Ise="1.219e-14" Ne="1.528" Isc="2.852e-13" Nc="1.28" Bf="344.4" Br="14.84"
-// Rbm="1" Irb="1e-06" Rc="0.5713" Re="0.6202" Rb="1" Cje="1.23e-11"
-// Vje="0.6106" Mje="0.378" Cjc="1.084e-11" Vjc="0.1022" Mjc="0.3563"
-// Xcjc="0.6288" Cjs="0" Vjs="0.75" Mjs="0.333" Fc="0.8027" Tf="5.595e-10"
-// Xtf="3.414" Vtf="5.23" Itf="0.1483" Tr="1e-32" Temp="26.85" Kf="0" Af="1"
-// Ffe="1" Kb="0" Ab="1" Fb="1" Ptf="0" Xtb="0" Xti="3" Eg="1.11" Tnom="26.85"
-// Area="1"
-// BJT:T1 _net6 _net7 _net8 _net7 Type="pnp" Is="1e-16" Nf="1" Nr="1" Ikf="0"
-// Ikr="0" Vaf="0" Var="0" Ise="0" Ne="1.5" Isc="0" Nc="2" Bf="100" Br="1"
-// Rbm="0" Irb="0" Rc="0" Re="0" Rb="0" Cje="0" Vje="0.75" Mje="0.33" Cjc="0"
-// Vjc="0.75" Mjc="0.33" Xcjc="1.0" Cjs="0" Vjs="0.75" Mjs="0" Fc="0.5"
-// Tf="0.0" Xtf="0.0" Vtf="0.0" Itf="0.0" Tr="0.0" Temp="26.85" Kf="0.0"
-// Af="1.0" Ffe="1.0" Kb="0.0" Ab="1.0" Fb="1.0" Ptf="0.0" Xtb="0.0" Xti="3.0"
-// Eg="1.11" Tnom="26.85" Area="1.0"
-//
 module BJT (b, c, e, s);
+  electrical b, c, e, s;
+  inout b, c, e, s;
   parameter Area=1;
   parameter string Type;
   parameter Temp=26.85, Is=3.834e-14, Nf=1.008, Nr=1.005, Ikf=0.08039, Ikr=0.047, Vaf=21.11, Var=32.02;

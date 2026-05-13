@@ -1,4 +1,4 @@
-simulator language=verilog
+options noinsensitive
 // This File is part of gnucap-qucs
 // (C) 2018 Felix Salfelder
 // GPLv3+
@@ -7,6 +7,7 @@ simulator language=verilog
 // "logic devices" section
 //
 //AND:Y1 _net2 _net1 _net0 V="1 V" t="0" TR="10"
+simulator language=verilog
 `if 0 // not yet
 module proper_AND(a b y);
 parameter V=1
@@ -48,16 +49,20 @@ simulator lang=spice
 ******************************************************************************
 .verilog
 module AND(y, a, b);
-	parameter V=1;
-	parameter TR=1;
-	parameter t=0;
+   output y;
+	input a, b;
+	parameter real V = 1.0;
+	parameter real TR = 1.0;
+	parameter real t = 0.0;
 	and #(.delay(t), .model(qucs_logic)) g1(y, a, b);
 endmodule
 // ***************************************************************************
 module NAND(y, a, b);
-	parameter v=1;
-	parameter tr=1;
-	parameter t=0;
+   output y;
+	input a, b;
+	parameter real v = 1.0;
+	parameter real tr = 1.0;
+	parameter real t = 0.0;
 	nand #(.delay(t), .model(qucs_logic)) g1(y, a, b);
 endmodule
 // ***************************************************************************
