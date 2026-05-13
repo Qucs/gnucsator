@@ -91,6 +91,7 @@ public:
 		}else{ untested();
 			incomplete();
 		}
+		DEV_DOT::set("// " + cmd.fullstring());
 	}
 public:
 	void if0(CS& cmd, CARD_LIST* Scope){
@@ -119,9 +120,9 @@ private:
 
 		BASE_SUBCKT* o=NULL;
 		if(scope!=&CARD_LIST::card_list){ untested();
-			assert(!owner_hack.empty());
+//			assert(!owner_hack.empty());
 			trace1("not toplevel, need owner", scope->parent());
-			o = prechecked_cast<BASE_SUBCKT*>(owner_hack.top());
+			o = prechecked_cast<BASE_SUBCKT*>(owner());
 			assert(o);
 //			o->scope()->params()->set_try_again(scope->params());
 		}else{

@@ -1,3 +1,4 @@
+#if 0 // obsolete
 /*                              -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
  *               2022, 2023 Felix Salfelder
@@ -968,4 +969,5 @@ DISPATCHER<CMD>::INSTALL d3_hack(&command_dispatcher, "detach_all", &p3b);
 /*--------------------------------------------------------------------------*/
 } // namespace
 /*--------------------------------------------------------------------------*/
+#endif
 // vim:ts=8:sw=2:noet:

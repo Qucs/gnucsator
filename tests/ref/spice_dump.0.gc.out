@@ -15,15 +15,11 @@
 endmodule // vsine
 
 module my_schematic ();
-  vsine #(.Va(5.),.freq(3),.td(0.),.theta(0.),.Voff(0.)) v (.p(a),.n(b));
+  vsine #(.Va(5.),.Voff(0.),.td(0.),.theta(0.),.freq(3)) v (.p(a),.n(b));
   resistor #(.r(4k)) r1 (.p(a),.n(b));
   (* spice_caneda="Voverride somethingelse x y" *) vsine #(.Va(5.),.freq(3)) v (.p(a),.n(b));
 endmodule // my_schematic
 
 #          
  27.       
-.subckt my_schematic (  )
-Vv a b DC 5. AC 5. 0 SIN( 0. 5. 3 0. 0. )
-r1 ( a b ) 4k
-Voverride somethingelse x y
-.ends my_schematic
+.model my_schematic  ( tnom=NA( 27.))

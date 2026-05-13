@@ -4,54 +4,18 @@ M d g s b mynmos l=l w=w m=1 temp=temp
                              ^ ? spice_mos.M: bad parameter temp ignored
 M d g s b mypmos l=l w=w m=1 temp=temp 
                              ^ ? spice_mos.M: bad parameter temp ignored
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
-parameter spline not specified, using default
-parameter spline value is "NOT_INPUT"
+Switch:S4 _net0 ... Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Tran
+                                        ^ ? S4: bad parameter Temp ignored
+Switch:S4 _net0 ... "1e12" Temp="26.85" MaxDuration="1e-6" Transition="splin
+                                        ^ ? S4: bad parameter MaxDuration ignored
+Switch:S4 _net0 ...  MaxDuration="1e-6" Transition="spline" 
+                                        ^ ? S4: bad parameter Transition ignored
+Switch:S3 gnd _ ... Ron="0" Roff="1e12" Temp="26.85" MaxDuration="1e-6" Tran
+                                        ^ ? S3: bad parameter Temp ignored
+Switch:S3 gnd _ ... "1e12" Temp="26.85" MaxDuration="1e-6" Transition="splin
+                                        ^ ? S3: bad parameter MaxDuration ignored
+Switch:S3 gnd _ ...  MaxDuration="1e-6" Transition="spline" 
+                                        ^ ? S3: bad parameter Transition ignored
 Gnucap   System status
 iterations: op=0, dc=0, tran=57, fourier=0, total=77
 transient timesteps: accepted=19, rejected=1, total=20

@@ -27,6 +27,7 @@
 #include <u_lang.h>
 #include <u_parameter.h>
 #include <libgen.h> // dirname
+#include <e_model.h>
 #include "e_subckt.h"
 
 std::string gnucap_includepath=".";
@@ -57,7 +58,7 @@ DISPATCHER<CMD>::INSTALL d1(&command_dispatcher, "add_includepath", &p1);
 /*--------------------------------------------------------------------------*/
 class CMD_INCLUDE : public CMD {
 public:
-  void do_it(CS& cmd, CARD_LIST* Scope)override {
+  void do_it(CS& cmd, CARD_LIST* Scope)override { untested();
     trace1("CMD_INCLUDE::do_it", Scope);
     if(Scope == &CARD_LIST::card_list){
     }else{ untested();
@@ -77,7 +78,7 @@ public:
 #if 1
       trace2("include", file_name, module_name);
 
-      if(module_name!=""){
+      if(module_name!=""){ untested();
         auto c = device_dispatcher.clone("subckt");
         assert(c);
         c->set_owner(nullptr);
@@ -85,10 +86,12 @@ public:
         assert(owner);
         owner->set_label(module_name);
         ((COMPONENT*)owner)->precalc_first(); // init mfactor=1
-        Scope->push_back(owner);
+        auto env = new MODEL_SUBCKT(owner);
+        env->set_label(module_name);
+        Scope->push_back(env);
         Scope = owner->scope();
         CMD::command("ground gnd;",Scope);
-      }else{
+      }else{ untested();
       }
 #endif
 
@@ -133,7 +136,7 @@ public:
       chdir(dir);
 
       for (;;) {
-        trace3("q CMD_INCLUDE::do_it >", file_name , (OPT::language), Scope );
+        trace2("q CMD_INCLUDE::do_it >", file_name , file.fullstring() );
         if(owner /*hack*/ ){
           file.get_line("gnucap-qucs>");
           OPT::language->new__instance(file, owner, Scope);

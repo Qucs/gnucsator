@@ -1,3 +1,4 @@
+#if 0 // obsolete
 /*                              -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
  *               2022, 2023, 2025 Felix Salfelder
@@ -218,7 +219,7 @@ private: // no-ops for prototype
   void tr_queue_eval()override {}
   std::string port_name(int i)const override;
 } pp(&Default_SUBCKT);
-DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "X|subckt", &pp);
+DISPATCHER<CARD>::INSTALL d1(&device_dispatcher, "Sub", &pp);
 /*--------------------------------------------------------------------------*/
 DEV_SUBCKT_PROTO::DEV_SUBCKT_PROTO(const DEV_SUBCKT_PROTO& p)
   :DEV_SUBCKT(p)
@@ -407,8 +408,7 @@ DEV_SUBCKT::DEV_SUBCKT(const DEV_SUBCKT& p)
 /*--------------------------------------------------------------------------*/
 int DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
 {
-  assert(_parent);
-  assert(_parent->subckt());
+  assert(!_parent || _parent->subckt());
   COMMON_PARAMLIST* c = prechecked_cast<COMMON_PARAMLIST*>(mutable_common());
   assert(c);
 
@@ -419,15 +419,17 @@ int DEV_SUBCKT::set_param_by_name(std::string Name, std::string Value)
     trace2("spice spbn", Name, Value);
     int i = BASE_SUBCKT::set_param_by_name(Name,Value);
     return i;
-  }else{
-    trace2("normal spbn", Name, Value);
-    PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
-    if(p != _parent->subckt()->params()->end()){
-      return BASE_SUBCKT::set_param_by_name(Name,Value);
-    }else{itested();
-      /*QUCSATOR HACK*/return BASE_SUBCKT::set_param_by_name(Name,Value);
-      throw Exception_No_Match(Name);
-    }
+  }else{ untested();
+    int i = BASE_SUBCKT::set_param_by_name(Name,Value);
+    //trace2("normal spbn", Name, Value);
+    //PARAM_LIST::const_iterator p = _parent->subckt()->params()->find(Name);
+    //if(p != _parent->subckt()->params()->end()){
+    //  return BASE_SUBCKT::set_param_by_name(Name,Value);
+    //}else{itested();
+    //  /*QUCSATOR HACK*/return BASE_SUBCKT::set_param_by_name(Name,Value);
+    //  throw Exception_No_Match(Name);
+    //}
+    return i;
   }
 }
 /*--------------------------------------------------------------------------*/
@@ -573,4 +575,5 @@ double DEV_SUBCKT::tr_probe_num(const std::string& x)const
 }
 } // namespace
 /*--------------------------------------------------------------------------*/
+#endif
 // vim:ts=8:sw=2:noet:

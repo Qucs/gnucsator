@@ -1,7 +1,5 @@
 
 module main ();
-parameter __omit_DC1=1;
-parameter R1=1;
 ground gnd;
 Idc #(.I(.1)) I1 (.\1 (_net0),.\2 (gnd));
 Eqn #() Eqn1 ();

@@ -2,8 +2,8 @@
 module main ();
 ground gnd;
 //# does not work yet... 
-Pac #(.Num(1),.Z(50),.P(0 ),.f(1G),.Temp(26.85)) P1 (.\1 (_net0),.\2 (gnd));
-Pac #(.Num(2),.Z(50),.P(0 ),.f(1G),.Temp(26.85)) P2 (.\1 (_net5),.\2 (gnd));
+Pac #(.Z(50),.P(0 ),.f(1G),.Num(1),.Temp(26.85)) P1 (.\1 (_net0),.\2 (gnd));
+Pac #(.Z(50),.P(0 ),.f(1G),.Num(2),.Temp(26.85)) P2 (.\1 (_net5),.\2 (gnd));
 C #(.C(0.5nF)) C1 (.p(gnd),.n(_net7));
 SPembed #(.File(File)) line (.p0(_net0),.p1(_net5),.p2(_net7));
 endmodule // main

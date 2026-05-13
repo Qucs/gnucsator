@@ -1,9 +1,5 @@
 
 module main ();
-parameter I1=1;
-parameter R1=1;
-parameter __omit_DC1=1;
-parameter __omit_SW1=1;
 ground gnd;
 Eqn #() Eqn1 ();
 Eqn #() Eqn2 ();

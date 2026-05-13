@@ -2,9 +2,9 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_mscoupler_prj/mscoupler.sch 
-Pac #(.Num(1),.Z(50),.P(1),.f(1G),.Temp(26.85)) P1 (.\1 (_net0),.\2 (gnd));
-Pac #(.Num(2),.Z(50),.P(10),.f(1G),.Temp(26.85)) P2 (.\1 (_net1),.\2 (gnd));
-Pac #(.Num(3),.Z(50),.P(100),.f(1G),.Temp(26.85)) P3 (.\1 (_net2),.\2 (gnd));
+Pac #(.Z(50),.P(1),.f(1G),.Num(1),.Temp(26.85)) P1 (.\1 (_net0),.\2 (gnd));
+Pac #(.Z(50),.P(10),.f(1G),.Num(2),.Temp(26.85)) P2 (.\1 (_net1),.\2 (gnd));
+Pac #(.Z(50),.P(100),.f(1G),.Num(3),.Temp(26.85)) P3 (.\1 (_net2),.\2 (gnd));
 R #(.R(100)) R1 (.p(_net0),.n(gnd));
 R #(.R(100)) R2 (.p(_net1),.n(gnd));
 R #(.R(200)) R3 (.p(_net2),.n(gnd));

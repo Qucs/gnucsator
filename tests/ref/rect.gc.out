@@ -21,6 +21,8 @@
 //* .ends 
 //* 
 //* only admit in dc and tr 
+param u=3
+param foo=TH+TL+Tr+Tf
 Vrect #(.TH(1),.TL(2),.Td(1),.Tf(0.1),.Tr(0.1),.U(u)) foo (.p(\1 ),.n(\0 ));
 #Time       v(1)      
  0.         0.        

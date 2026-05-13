@@ -34,7 +34,8 @@ endmodule // R
 // Zref is some sparam hack.. ignore for now
 
 module Gyrator(\1 , \2 , \3 , \4 );
-  parameter R=1;
+  parameter real R = 1.0;
+  parameter real Zref = 50.0;
   vccs #(1/R) cs1(\2 , \3 , \4 , \1 );
   vccs #(1/R) cs2(\1 , \4 , \2 , \3 );
 endmodule
@@ -42,7 +43,8 @@ endmodule
 // old gyrator, seems numerically unstable
 // use with caution.
 module Gyrator1(\1 , \2 , \3 , \4 );
-parameter R=50;
+  parameter real R = 50.0;
+  parameter real Zref R = 50.0;
 
 ccvs #(.gain(R)) vs1(\3i , \2 , vp2);
 vsource #(.dc(0)) vp1(\3 , \3i );

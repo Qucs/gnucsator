@@ -1,4 +1,4 @@
-module a (1,2);
-parameter p1=1;
+module a (.\1 (\1 ),.\2 (\2 ));
+parameter p1=1; 
 endmodule // a
 

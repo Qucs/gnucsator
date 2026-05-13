@@ -1,11 +1,11 @@
->>>>>verilog 
->>>>>ground gnd; 
->>>>>list 
-// This File is part of gnucap-qucs 
-// (C) 2018 Felix Salfelder 
-// GPLv3+ 
-// mapping qucsator names to actual devices 
-// "sources" section 
+>>>>>verilog
+>>>>>ground gnd;
+>>>>>list
+// This File is part of gnucap-qucs
+// (C) 2018 Felix Salfelder
+// GPLv3+
+// mapping qucsator names to actual devices
+// "sources" section
 //* Vexp:V1 _net4 _net5 U1="0 V" U2="1 V" T1="0" T2="1 ms" Tr="1  ms" Tf="1 ms" 
 //* Ipulse:I2 _net2 _net3 I1="0" I2="1 A" T1="0" T2="1 ms" Tr="1 ms" Tf="2 ms" 
 //* Vpulse:V2 _net2 gnd U1="0 V" U2="1 V" T1="5m" T2="10m" Tr="1 ns" Tf="1 ns" 
@@ -24,27 +24,27 @@
 //* .ends 
 //* 
 //* only admit in dc and tr 
-// This File is part of gnucap-qucs 
-// (C) 2018 Felix Salfelder 
-// GPLv3+ 
-// 
-// mapping qucsator names to actual devices 
-// "lumped components" section 
-// Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm" 
-// Zref is some sparam hack.. ignore for now 
-// old gyrator, seems numerically unstable 
-// use with caution. 
-// Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB" 
-// is it lumped? 
-// TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85" 
-//                                           is ignored  ^^ 
-//* sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1" 
-//* sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1" 
+// This File is part of gnucap-qucs
+// (C) 2018 Felix Salfelder
+// GPLv3+
+//
+// mapping qucsator names to actual devices
+// "lumped components" section
+// Gyrator:X1 _net0 _net2 gnd gnd R="50 Ohm" Zref="50 Ohm"
+// Zref is some sparam hack.. ignore for now
+// old gyrator, seems numerically unstable
+// use with caution.
+// Amp:X1 _net0 _net2 G="10" Z1="50 Ohm" Z2="50 Ohm" NF="0 dB"
+// is it lumped?
+// TLIN:Line1 _net0 _net1 Z="50 Ohm" L="100 mm" Alpha="0 dB" Temp="26.85"
+//                                           is ignored  ^^
+//* sTr:Tr2 _net4 _net5 gnd _net6 Output Output T1="1" T2="1"
+//* sTr:Tr1 _net0 _net1 gnd _net2 gnd gnd T1="1" T2="1"
 //* MUT:Tr1 _net0 _net1 gnd gnd L1="1 mH" L2="1 mH" k=".9" 
 //* MUT2:Tr2 _net5 _net6 _net7 _net8 _net9 _net10 L1="1 mH" L2="1 mH" L3="1 mH" k12="0.9" k13="0.9" k23="0.9" 
 //* TODO: check port order 
-ground gnd; 
-// todo: module 
+ground gnd;
+// todo: module
 L #(.L(5.228n)) L2 (.p(gnd),.n(_net0));
 R #(.R(50),.Tc1(0.0),.Tc2(0.0),.Temp(26.85),.Tnom(26.85)) R1 (.p(_net1),.n(_net0));
 C #(.C(4.182p)) C3 (.p(gnd),.n(_net1));
@@ -62,34 +62,102 @@ TLIN #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(32.85)) Line5 (.t1(_net7),.t2(gnd))
 TLIN #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(38.05)) Line6 (.t1(_net5),.t2(_net8));
 Pac #(.Num(3),.P(1 ),.Temp(26.85),.Z(50),.f(1e6)) P3 (.\1 (_net9),.\2 (gnd));
 Pac #(.Num(4),.P(1 ),.Temp(26.85),.Z(50),.f(1e6)) P4 (.\1 (_net10),.\2 (gnd));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(65.7)) Line1 (.t1(_net10),.t2(_net9),.b2(_net11),.b1(_net11));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line3 (.t1(_net7),.t2(_net10),.b2(_net13),.b1(_net12));
-TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line2 (.t1(_net14),.t2(_net15),.b2(_net6),.b1(_net9));
-// todo: endmodule 
->>>>>dc 
-L.dev: inductor from device_dispatcher
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(65.7)) Line1 (.t1(_net10),.t2(_net9),.b1(_net11),.b2(_net11));
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line3 (.t1(_net7),.t2(_net10),.b1(_net12),.b2(_net13));
+TLIN4P #(.Alpha(1.),.L(74.95m),.Temp(26.85),.Z(76.1)) Line2 (.t1(_net14),.t2(_net15),.b1(_net9),.b2(_net6));
+// todo: endmodule
+>>>>>dc
+L2 discarded (params): no match: L
+L2: 1 candidate found for L
+R1 discarded (params): no match: R
+R1: 1 candidate found for R
+C3 discarded (params): no match: C
+C3: 1 candidate found for C
+C1 discarded (params): no match: C
+C1: 1 candidate found for C
+C2 discarded (params): no match: C
+C2: 1 candidate found for C
+L3 discarded (params): no match: L
+L3: 1 candidate found for L
+R2 discarded (params): no match: R
+R2: 1 candidate found for R
+P2: 1 candidate found for Pac
+P1: 1 candidate found for Pac
+L1 discarded (params): no match: L
+L1: 1 candidate found for L
+R3 discarded (params): no match: R
+R3: 1 candidate found for R
+R4 discarded (params): no match: R
+R4: 1 candidate found for R
+Line4: 1 candidate found for TLIN
+Line5: 1 candidate found for TLIN
+Line6: 1 candidate found for TLIN
+P3: 1 candidate found for Pac
+P4: 1 candidate found for Pac
+Line1: 1 candidate found for TLIN4P
+Line3: 1 candidate found for TLIN4P
+Line2: 1 candidate found for TLIN4P
+L2 is "L from device_dispatcher"
 L.dev: 1 candidate found for inductor
-R.dev: resistor from device_dispatcher
+L2.dev is "inductor from device_dispatcher"
+R1 is "R from device_dispatcher"
 R.dev: 1 candidate found for resistor
-C.dev: capacitor from device_dispatcher
+R1.dev is "resistor from device_dispatcher"
+C3 is "C from device_dispatcher"
 C.dev: 1 candidate found for capacitor
-Pac.sine: Vac from device_dispatcher
+C3.dev is "capacitor from device_dispatcher"
+C1 is "C from device_dispatcher"
+C1.dev is "capacitor from device_dispatcher"
+C2 is "C from device_dispatcher"
+C2.dev is "capacitor from device_dispatcher"
+L3 is "L from device_dispatcher"
+L3.dev is "inductor from device_dispatcher"
+R2 is "R from device_dispatcher"
+R2.dev is "resistor from device_dispatcher"
+P2 is "Pac from device_dispatcher"
 Pac.sine: 1 candidate found for Vac
-Pac.Y1: y_dctr from device_dispatcher
 Pac.Y1: 1 candidate found for y_dctr
-Pac.sp: pac_ from device_dispatcher
 Pac.sp: 1 candidate found for pac_
-TLIN.t2: tline from device_dispatcher
-TLIN.t2: tline:0 from device_dispatcher
-TLIN.t2 discarded: no match: alpha
+P2.sine is "Vac from device_dispatcher"
+P2.Y1 is "y_dctr from device_dispatcher"
+P2.sp is "pac_ from device_dispatcher"
+P1 is "Pac from device_dispatcher"
+P1.sine is "Vac from device_dispatcher"
+P1.Y1 is "y_dctr from device_dispatcher"
+P1.sp is "pac_ from device_dispatcher"
+L1 is "L from device_dispatcher"
+L1.dev is "inductor from device_dispatcher"
+R3 is "R from device_dispatcher"
+R3.dev is "resistor from device_dispatcher"
+R4 is "R from device_dispatcher"
+R4.dev is "resistor from device_dispatcher"
+Line4 is "TLIN from device_dispatcher"
+TLIN.t2 discarded (params): no match: alpha
 TLIN.t2: 1 candidate found for tline
-TLIN4P.t4: tline from device_dispatcher
-TLIN4P.t4: tline:0 from device_dispatcher
-TLIN4P.t4 discarded: no match: alpha
+Line4.t2 is "tline from device_dispatcher"
+Line5 is "TLIN from device_dispatcher"
+Line5.t2 is "tline from device_dispatcher"
+Line6 is "TLIN from device_dispatcher"
+Line6.t2 is "tline from device_dispatcher"
+P3 is "Pac from device_dispatcher"
+P3.sine is "Vac from device_dispatcher"
+P3.Y1 is "y_dctr from device_dispatcher"
+P3.sp is "pac_ from device_dispatcher"
+P4 is "Pac from device_dispatcher"
+P4.sine is "Vac from device_dispatcher"
+P4.Y1 is "y_dctr from device_dispatcher"
+P4.sp is "pac_ from device_dispatcher"
+Line1 is "TLIN4P from device_dispatcher"
+TLIN4P.t4 discarded (params): no match: alpha
 TLIN4P.t4: 1 candidate found for tline
+Line1.t4 is "tline from device_dispatcher"
+Line3 is "TLIN4P from device_dispatcher"
+Line3.t4 is "tline from device_dispatcher"
+Line2 is "TLIN4P from device_dispatcher"
+Line2.t4 is "tline from device_dispatcher"
 #          
  0.        
->>>>>sp port P* 10e6 10e9 * {6.41044426993407607079/5} basic 
+>>>>>sp port P* 10e6 10e9 * {6.41044426993407607079/5} basic
 open circuit: internal node 11
 open circuit: internal node 11
 open circuit: internal node 11

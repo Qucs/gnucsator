@@ -1,3 +1,4 @@
+#if 0
 /*$Id: d_subckt.cc  2016/09/17  $ -*- C++ -*-
  * Copyright (C) 2001 Albert Davis
  *               2022 Felix Salfelder
@@ -396,3 +397,4 @@ double DEV_SUBCKT::tr_probe_num(const std::string& x)const
 } // namespace
 /*--------------------------------------------------------------------------*/
 // vim:ts=8:sw=2:noet:
+#endif

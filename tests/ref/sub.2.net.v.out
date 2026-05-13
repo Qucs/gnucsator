@@ -2,10 +2,9 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.19  /tmp/neur.sch 
-module TESTSUB (_net0,_net1);
-parameter RES=1;
+module TESTSUB (._net0(_net0),._net1(_net1));
 R #(.R(RES)) a (.p(_net0),.n(_net1));
-endmodule // TESTSUB
+  endmodule // TESTSUB
 
 TESTSUB #(.Type(TESTSUB),.RES(2)) T1 (._net0(_net1),._net1(gnd));
 Idc #(.I(5)) V1 (.\1 (_net1),.\2 (gnd));

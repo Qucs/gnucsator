@@ -1,14 +1,14 @@
 
 module main ();
 ground gnd;
-Pac #(.Num(2),.Z(50),.P(1),.f(1G),.Temp(26.85)) P2 (.\1 (_net0),.\2 (gnd));
-Pac #(.Num(1),.Z(50),.P(100),.f(1G),.Temp(26.85)) P1 (.\1 (_net2),.\2 (gnd));
-R #(.R(1),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R3 (.p(_net1),.n(_net0));
+Pac #(.Z(50),.P(1),.f(1G),.Num(2),.Temp(26.85)) P2 (.\1 (_net0),.\2 (gnd));
+Pac #(.Z(50),.P(100),.f(1G),.Num(1),.Temp(26.85)) P1 (.\1 (_net2),.\2 (gnd));
+R #(.R(1),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R3 (.p(_net1),.n(_net0));
 C #(.C(.01)) C1 (.p(_net1),.n(_net0));
-R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) RR (.p(gnd),.n(_net1));
-R #(.R(1),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R2 (.p(_net2),.n(_net1));
+R #(.R(1),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) RR (.p(gnd),.n(_net1));
+R #(.R(1),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R2 (.p(_net2),.n(_net1));
 C #(.C(.1)) C2 (.p(_net1),.n(_net2));
 VCVS #(.G(1),.T(0)) SRC1 (.\1 (_net2),.\2 (_net3),.\3 (gnd),.\4 (gnd));
-R #(.R(1),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) RR1 (.p(_net0),.n(_net3));
+R #(.R(1),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) RR1 (.p(_net0),.n(_net3));
 endmodule // main
 

@@ -25,7 +25,7 @@
 #include <e_paramlist.h>
 #include <e_subckt.h>
 #include <globals.h>
-#include <u_node.h>
+#include <e_usernode.h>
 #include <u_nodemap.h>
 
 // header hack
@@ -54,16 +54,19 @@ namespace {
 /*--------------------------------------------------------------------------*/
 static /*const*/  std::string ground_name="gnd";
 /*--------------------------------------------------------------------------*/
-struct subckt_alias{
+class subckt_alias{
+	CARD* _x{nullptr};
+	DISPATCHER<CARD>::INSTALL* _d;
+public:
 	subckt_alias(){
-		CARD* x=device_dispatcher["subckt"]; // module
-		assert(x);
-		_d = new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", x);
+		_x = device_dispatcher["subckt"];
+		assert(_x);
+		_d = new DISPATCHER<CARD>::INSTALL(&device_dispatcher, "Sub", _x);
 	}
 	~subckt_alias(){
 		delete _d;
+//		delete _x;
 	}
-	DISPATCHER<CARD>::INSTALL* _d;
 }a;
 /*--------------------------------------------------------------------------*/
 class LANG_QUCSATOR : public LANGUAGE {
@@ -131,9 +134,11 @@ class CMD_SUBCKT : public CMD {
     new_module->set_owner(nullptr);
     assert(new_module->subckt());
     assert(new_module->subckt()->is_empty());
-    assert(!new_module->is_device());
     lang_qucs.parse_module(cmd, new_module);
-    Scope->push_back(new_module);
+	 auto p = new MODEL_SUBCKT(new_module);
+	 p->set_owner(owner());
+	 p->set_label(new_module->short_label());
+	 Scope->push_back(p);
   }
 } p2;
 DISPATCHER<CMD>::INSTALL d2(&command_dispatcher, "Def", &p2);
@@ -582,7 +587,17 @@ BASE_SUBCKT* LANG_QUCSATOR::parse_module(CS& cmd, BASE_SUBCKT* x)
 		cmd.reset(here);
 		parse_ports(cmd, x, x->min_nodes(), 0/*start*/, num_nodes, true/*all new*/);
 	}
-	x->subckt()->params()->parse(cmd);
+	PARAM_LIST& par = *x->subckt()->params();
+	PARAM_LIST const& cpar = *x->subckt()->params();
+	par.parse(cmd);
+ 	x->set_param_by_name("Type", "");
+	for( auto i = cpar.begin(); i != cpar.end(); ++i) {
+		if(i.name()!="Type") {
+			x->set_param_by_name(i.name(), "");
+		}else{
+		}
+	}
+
 
 	// body
 	parse_module_body(cmd, x, x->subckt(), name() + "-subckt>", NO_EXIT_ON_BLANK, ".Def:End ");

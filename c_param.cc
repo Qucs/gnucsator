@@ -27,7 +27,7 @@
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
-static const std::string IS_VALID = "_..is_valid";
+static const std::string IS_VALID = "__is_valid";
 /*--------------------------------------------------------------------------*/
 class PARAM_PARSE : public PARAMETER<double> {
 public:
@@ -64,6 +64,11 @@ public:
 };
 /*--------------------------------------------------------------------------*/
 class CMD_PARAM : public CMD {
+public:
+  explicit CMD_PARAM() : CMD() {}
+private:
+  explicit CMD_PARAM(CMD_PARAM const& p) : CMD(p) {}
+  CMD* clone()const override { return new CMD_PARAM(*this); }
 public:
   void do_it(CS& cmd, CARD_LIST* Scope) override {
     PARAM_LIST* pl = Scope->params();
@@ -153,6 +158,10 @@ public:
       trace4("set", pl, Name, Value, range_expr);
       _range = range_expr;
       pl->set(Name, Value.string());
+      if(!owner()){
+      }else{ untested();
+	owner()->set_param_by_name(Name, "");
+      }
 
       PARAM_INSTANCE const& v = pl->deep_lookup(IS_VALID);
       if(v.has_hard_value()){
@@ -163,7 +172,7 @@ public:
       }
       trace3("IS_VALID?", Name, Value, range_expr);
     }
-    cmd.check(bDANGER, "syntax error");
+    cmd.check(bDANGER, "sYntax error");
   }
   std::string const& range() const { untested();return _range;}
 private:

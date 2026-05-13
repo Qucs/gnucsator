@@ -2,8 +2,8 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.19 
-R #(.R(50),.Temp(30),.Tc1(1.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
-R #(.R(50),.Temp(8.5),.Tc1(1.0),.Tc2(.05),.Tnom(26.85)) R2 (.p(_net0),.n(_net2));
+R #(.R(50),.Temp(30),.Tnom(26.85),.Tc1(1.0),.Tc2(0.0)) R1 (.p(_net0),.n(_net1));
+R #(.R(50),.Temp(8.5),.Tnom(26.85),.Tc1(1.0),.Tc2(.05)) R2 (.p(_net0),.n(_net2));
 VProbe #() Pr1 (.p(_net0),.n(gnd));
 Vdc #(.U(1)) V1 (.p(_net0),.n(gnd));
 R #(.R(100)) R3 (.p(_net1),.n(gnd));

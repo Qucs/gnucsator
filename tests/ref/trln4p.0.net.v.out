@@ -4,6 +4,6 @@ ground gnd;
 //# trln 
 Vac #(.U(1),.f(1G),.Phase(0),.Theta(0)) V1 (.\1 (_net0),.\2 (gnd));
 TLIN4P #(.Z(50),.L(100m),.Alpha(0),.Temp(26.85)) Line1 (.t1(_net0),.t2(_net1),.b2(gnd),.b1(gnd));
-R #(.R(50),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(_net1),.n(gnd));
+R #(.R(50),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R1 (.p(_net1),.n(gnd));
 endmodule // main
 

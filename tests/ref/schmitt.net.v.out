@@ -2,13 +2,13 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/TR_schmitt_prj/schmitt.sch 
-R #(.R(4.7k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R1 (.p(_net0),.n(_net1));
-R #(.R(4.7k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R2 (.p(_net1),.n(Output));
-R #(.R(47k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R3 (.p(_net2),.n(Output));
-R #(.R(47k),.Temp(26.85),.Tc1(0.0),.Tc2(0.0),.Tnom(26.85)) R4 (.p(Input),.n(_net2));
-Vpulse #(.U1(-5),.U2(+5),.T1(0),.T2(210u),.Tr(100u),.Tf(100u)) Ve (.\1 (Input),.\2 (gnd));
-BJT #(.Type("npn"),.Is(1e-16),.Nf(1),.Nr(1),.Ikf(0),.Ikr(0),.Vaf(0),.Var(0),.Ise(0),.Ne(1.5),.Isc(0),.Nc(2),.Bf(100),.Br(1),.Rbm(0),.Irb(0),.Rc(0),.Re(0),.Rb(0),.Cje(0),.Vje(0.75),.Mje(0.33),.Cjc(1p),.Vjc(0.75),.Mjc(0.33),.Xcjc(1.0),.Cjs(0),.Vjs(0.75),.Mjs(0),.Fc(0.5),.Tf(0.1n),.Xtf(0.0),.Vtf(0.0),.Itf(0.0),.Tr(0.0),.Temp(26.85),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Kb(0.0),.Ab(1.0),.Fb(1.0),.Ptf(0.0),.Xtb(0.0),.Xti(3.0),.Eg(1.11),.Tnom(26.85),.Area(1.0)) T2 (.b(_net2),.c(_net0),.e(gnd),.s(_net0));
-BJT #(.Type("npn"),.Is(1e-16),.Nf(1),.Nr(1),.Ikf(0),.Ikr(0),.Vaf(0),.Var(0),.Ise(0),.Ne(1.5),.Isc(0),.Nc(2),.Bf(100),.Br(1),.Rbm(0),.Irb(0),.Rc(0),.Re(0),.Rb(0),.Cje(0),.Vje(0.75),.Mje(0.33),.Cjc(1p),.Vjc(0.75),.Mjc(0.33),.Xcjc(1.0),.Cjs(0),.Vjs(0.75),.Mjs(0),.Fc(0.5),.Tf(0.1n),.Xtf(0.0),.Vtf(0.0),.Itf(0.0),.Tr(0.0),.Temp(26.85),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Kb(0.0),.Ab(1.0),.Fb(1.0),.Ptf(0.0),.Xtb(0.0),.Xti(3.0),.Eg(1.11),.Tnom(26.85),.Area(1.0)) T3 (.b(_net0),.c(Output),.e(gnd),.s(Output));
+R #(.R(4.7k),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R1 (.p(_net0),.n(_net1));
+R #(.R(4.7k),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R2 (.p(_net1),.n(Output));
+R #(.R(47k),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R3 (.p(_net2),.n(Output));
+R #(.R(47k),.Temp(26.85),.Tnom(26.85),.Tc1(0.0),.Tc2(0.0)) R4 (.p(Input),.n(_net2));
+Vpulse #(.U1(-5),.U2(+5),.T2(210u),.Tr(100u),.Tf(100u),.T1(0)) Ve (.\1 (Input),.\2 (gnd));
+BJT #(.Area(1.0),.Type("npn"),.Temp(26.85),.Is(1e-16),.Nf(1),.Nr(1),.Ikf(0),.Ikr(0),.Vaf(0),.Var(0),.Ise(0),.Ne(1.5),.Isc(0),.Nc(2),.Bf(100),.Br(1),.Rbm(0),.Irb(0),.Rc(0),.Re(0),.Rb(0),.Cje(0),.Vje(0.75),.Mje(0.33),.Cjc(1p),.Vjc(0.75),.Mjc(0.33),.Xcjc(1.0),.Cjs(0),.Vjs(0.75),.Mjs(0),.Fc(0.5),.Tf(0.1n),.Xtf(0.0),.Vtf(0.0),.Itf(0.0),.Tr(0.0),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Kb(0.0),.Ab(1.0),.Fb(1.0),.Ptf(0.0),.Xtb(0.0),.Xti(3.0),.Eg(1.11),.Tnom(26.85)) T2 (.b(_net2),.c(_net0),.e(gnd),.s(_net0));
+BJT #(.Area(1.0),.Type("npn"),.Temp(26.85),.Is(1e-16),.Nf(1),.Nr(1),.Ikf(0),.Ikr(0),.Vaf(0),.Var(0),.Ise(0),.Ne(1.5),.Isc(0),.Nc(2),.Bf(100),.Br(1),.Rbm(0),.Irb(0),.Rc(0),.Re(0),.Rb(0),.Cje(0),.Vje(0.75),.Mje(0.33),.Cjc(1p),.Vjc(0.75),.Mjc(0.33),.Xcjc(1.0),.Cjs(0),.Vjs(0.75),.Mjs(0),.Fc(0.5),.Tf(0.1n),.Xtf(0.0),.Vtf(0.0),.Itf(0.0),.Tr(0.0),.Kf(0.0),.Af(1.0),.Ffe(1.0),.Kb(0.0),.Ab(1.0),.Fb(1.0),.Ptf(0.0),.Xtb(0.0),.Xti(3.0),.Eg(1.11),.Tnom(26.85)) T3 (.b(_net0),.c(Output),.e(gnd),.s(Output));
 Vdc #(.U(5)) Vdd (.p(_net1),.n(gnd));
 endmodule // main
 

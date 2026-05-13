@@ -43,8 +43,6 @@ unload qucs/c_uninst.so
 * todo: use upstream infrastructure.
 load qucs/d_subckt.so
 load qucs/v_module.so
-load qucs/v_instance.so
-load qucs/v_paramset.so
 
 options numdgt 40
 load qucs/bm_value.so
@@ -82,6 +80,8 @@ load mgsim/d_vaflow.so
 load mgsim/d_vapot.so
 load mgsim/d_vapot_br.so
 load mgsim/d_va_absdelay.so
+load mgsim/v_instance.so
+load mgsim/v_paramset.so
 
 acs
 

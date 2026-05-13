@@ -2,15 +2,15 @@
 module main ();
 ground gnd;
 //# Qucs 0.0.18  /Users/guilherme/git/qucs-test/testsuite/SP_microstrip_prj/microstrip.sch 
-Pac #(.Num(3),.Z(50),.P(0 ),.f(1G),.Temp(26.85)) P3 (.\1 (_net0),.\2 (gnd));
-Pac #(.Num(2),.Z(50),.P(0 ),.f(1G),.Temp(26.85)) P2 (.\1 (_net1),.\2 (gnd));
-Pac #(.Num(1),.Z(50),.P(0 ),.f(1G),.Temp(26.85)) P1 (.\1 (_net2),.\2 (gnd));
+Pac #(.Z(50),.P(0 ),.f(1G),.Num(3),.Temp(26.85)) P3 (.\1 (_net0),.\2 (gnd));
+Pac #(.Z(50),.P(0 ),.f(1G),.Num(2),.Temp(26.85)) P2 (.\1 (_net1),.\2 (gnd));
+Pac #(.Z(50),.P(0 ),.f(1G),.Num(1),.Temp(26.85)) P1 (.\1 (_net2),.\2 (gnd));
 C #(.C(30p)) C1 (.p(gnd),.n(_net0));
 MLIN #(.W(1m),.L(10m),.Subst("Aluminia"),.DispModel("Kirschning"),.Model("Hammerstad"),.Temp(26.85)) MS1 (.p0(_net2),.p1(_net4));
 MLIN #(.W(1m),.L(10m),.Subst("Aluminia"),.DispModel("Kirschning"),.Model("Hammerstad"),.Temp(26.85)) MS2 (.p0(_net4),.p1(_net1));
-paramset Aluminia SUBST;\
- .er=9.8; .h=1m; .t=35u; .tand=1e-3; .rho=0.022e-6; .D=0.15e-6;\
-endparmset
+paramset Aluminia SUBST;
+ .er=9.8; .h=1m; .t=35u; .tand=1e-3; .rho=0.022e-6; .D=0.15e-6;
+endparamset
 
 MLIN #(.W(0.5m),.L(10m),.Subst("Aluminia"),.DispModel("Kirschning"),.Model("Hammerstad"),.Temp(26.85)) Stub (.p0(_net0),.p1(_net4));
 endmodule // main
